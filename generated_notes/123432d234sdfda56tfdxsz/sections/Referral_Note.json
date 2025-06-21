@@ -1,14 +1,70 @@
 {
-  "section_id": "section_07a65982",
-  "template_id": 1,
-  "section_name": "Plan",
-  "content": "### Plan\n\n1. **Medications:**\n   - Increase Lisinopril to 20mg daily to better manage hypertension (Line 21).\n   - Add Hydrochlorothiazide 12.5mg daily to address swelling in the ankles (Line 21).\n\n2. **Laboratory Tests:**\n   - Order blood work including a lipid panel and BNP to assess heart failure risk (Line 21).\n\n3. **Imaging and Diagnostic Tests:**\n   - Perform an EKG to evaluate cardiac function (Line 21).\n\n4. **Referrals:**\n   - Refer to a cardiologist for a comprehensive evaluation, including a stress test to rule out coronary artery disease and heart failure (Line 21).\n\n5. **Patient Education:**\n   - Discuss the importance of smoking cessation and plan to address this more thoroughly at the next visit (Line 21).\n\n6. **Follow-up Instructions:**\n   - Schedule a follow-up appointment in two weeks to review test results and adjust the management plan as necessary (Line 21).",
+  "section_id": "section_0c899087",
+  "template_id": 2,
+  "section_name": "Referral_Note",
+  "content": "### Referral Note\n\n**Patient Name:** Mr. Smith\n\n**Date of Referral:** [Date not provided]\n\n**Referring Physician:** Dr. Evans\n\n**Specialist Referred To:** Cardiologist\n\n**Reason for Referral:**\nMr. Smith is being referred for a comprehensive cardiac evaluation, including a stress test, due to ongoing symptoms and clinical findings suggestive of potential cardiac issues.\n\n**Pertinent History and Findings:**\n- **Chief Complaint:** Mr. Smith presents with chest pain described as a dull ache, primarily on the left side, worsening with exertion such as walking up stairs. This has been ongoing for approximately two months (Line 2, 3).\n- **Associated Symptoms:** Shortness of breath and palpitations, with no dizziness reported (Line 5, 6).\n- **Past Medical History:** Hypertension, currently managed with Lisinopril 10mg for about a year (Line 8). History of high cholesterol, currently not on medication (Line 8, 9).\n- **Social History:** Smoker for 20 years, currently attempting smoking cessation (Line 10).\n- **Physical Examination:** Heart has a regular rate and rhythm, but a faint murmur is present (Line 13). Lungs are clear to auscultation (Line 14). Blood pressure recorded at 145/90 mmHg (Line 14). Notable 2+ pitting edema in both ankles (Line 14).\n\n**Reason for Referral:**\n- To evaluate the cause of chest pain, shortness of breath, palpitations, and pitting edema in both ankles.\n- To rule out coronary artery disease and heart failure as potential causes of the patient's symptoms (Line 15).\n\n**Specific Questions to be Addressed by the Consultant:**\n1. Is there evidence of coronary artery disease or heart failure?\n2. What is the significance of the faint heart murmur detected during the physical examination?\n3. Are there any additional diagnostic tests or treatments recommended to manage the patient's symptoms and underlying conditions?\n4. Recommendations for further management of the patient's hypertension and pitting edema.\n5. Guidance on smoking cessation strategies and their potential impact on the patient's cardiovascular health (Line 16).\n\n**Attachments:**\n- Recent EKG results (Line 15)\n- Blood work results: Lipid panel and BNP (Line 15)\n\n**Follow-Up:**\n- Patient to follow up with Dr. Evans in two weeks to review test results and discuss further management (Line 16).",
   "line_references": [
     {
-      "line_number": 21,
+      "line_number": 3,
       "start_char": 0,
-      "end_char": 368,
-      "text": "Here's the plan: I'm ordering an EKG today, and I want you to get some blood work done—specifically a lipid panel and a BNP, which is a marker for heart failure. I'm also referring you to a cardiologist for a full evaluation, including a stress test. In the meantime, I'm increasing your Lisinopril to 20mg daily and adding a low-dose diuretic, hydrochlorothiazide 12.5mg, to help with the swelling. We need to get that blood pressure down.",
+      "end_char": 116,
+      "text": "patient: Hi Dr. Evans. I'm still having that chest pain we talked about. It's a dull ache, mostly on the left side, and it gets worse when I walk up stairs.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 5,
+      "start_char": 0,
+      "end_char": 86,
+      "text": "patient: Yes, I do get a bit short of breath. No dizziness, but my heart feels like it's racing sometimes.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 6,
+      "start_char": 0,
+      "end_char": 82,
+      "text": "patient: Also, my ankles have been really swollen lately, especially at the end of the day.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 8,
+      "start_char": 0,
+      "end_char": 176,
+      "text": "patient: That's right. I've been taking it for about a year. I also have high cholesterol, but I'm not on any medication for that right now. And I've been a smoker for 20 years, but I'm trying to quit.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 13,
+      "start_char": 49,
+      "end_char": 122,
+      "text": "doctor: Your heart has a regular rate and rhythm, but I do hear a faint murmur.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 14,
+      "start_char": 0,
+      "end_char": 136,
+      "text": "doctor: Your lungs sound clear. Your blood pressure today is 145/90 mmHg, which is a bit high. I see 2+ pitting edema in both of your ankles.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 15,
+      "start_char": 0,
+      "end_char": 276,
+      "text": "doctor: Given your symptoms and exam findings, I'm concerned about a possible cardiac issue, such as coronary artery disease or heart failure. I'm going to order an EKG and some blood work, including a lipid panel and BNP. I'm also going to refer you to a cardiologist for a full evaluation, including a stress test.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 16,
+      "start_char": 0,
+      "end_char": 255,
+      "text": "doctor: In the meantime, I'm increasing your Lisinopril to 20mg daily and adding a low-dose diuretic, hydrochlorothiazide 12.5mg, to help with the swelling. We need to get that blood pressure down. Also, we should discuss smoking cessation more thoroughly at your next visit.",
       "speaker": null,
       "confidence": 1.0
     }
@@ -501,17 +557,26 @@
       "language": "en"
     }
   ],
-  "confidence_score": 1.0,
+  "confidence_score": 0.9,
   "language": "en",
   "processing_metadata": {
-    "duration_seconds": 38.6912362575531,
+    "duration_seconds": 8.833920001983643,
     "model_name": "gpt-4",
-    "context_chars_used": 8333,
+    "context_chars_used": 4365,
     "factual_consistency_details": {
-      "factualConsistencyScore": 10,
+      "factualConsistencyScore": 9,
       "hallucinationRisk": "LOW",
-      "issuesFound": [],
-      "justification": "All statements in the generated content are directly supported by the source transcript. The plan to increase Lisinopril, add Hydrochlorothiazide, order blood work including a lipid panel and BNP, perform an EKG, refer to a cardiologist, discuss smoking cessation, and schedule a follow-up appointment are all mentioned in the transcript. There are no discrepancies or unsupported claims, and the line references, although not explicitly numbered in the transcript, align with the content discussed."
+      "issuesFound": [
+        {
+          "statement": "Line references (e.g., Line 2, 3, etc.)",
+          "issue": "Line references are not present in the source transcript and are therefore incorrect."
+        },
+        {
+          "statement": "Guidance on smoking cessation strategies and their potential impact on the patient's cardiovascular health (Line 16).",
+          "issue": "The specific request for guidance on smoking cessation strategies is not explicitly mentioned in the source transcript."
+        }
+      ],
+      "justification": "The generated content is largely consistent with the source transcript, accurately reflecting the patient's symptoms, medical history, and the doctor's plan for referral and further testing. The main issues are the incorrect line references and the specific mention of smoking cessation guidance, which is not explicitly requested in the transcript. These issues are minor, resulting in a high factual consistency score and a low hallucination risk."
     }
   }
 }

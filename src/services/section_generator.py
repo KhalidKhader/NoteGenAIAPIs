@@ -8,7 +8,6 @@ medical accuracy and maintains line-number referencing for traceability.
 
 import time
 import uuid
-import re
 import json
 from typing import Dict, List, Optional, Any, Union
 
@@ -18,7 +17,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from src.core.config import settings
 from src.core.logging import get_logger, MedicalProcessingLogger
 from src.core.observability import get_observability_service
-from src.models.sections_models import LineReference
+from src.models.api_models import LineReference
 from src.models.api_models import GeneratedSection
 from src.templates.prompts import (
     FACTUAL_CONSISTENCY_VALIDATION_PROMPT,

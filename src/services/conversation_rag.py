@@ -9,8 +9,6 @@ Features:
 - Medical compliance (HIPAA/PIPEDA)
 - Canadian data residency with AWS OpenSearch
 """
-import re
-import json
 from datetime import datetime
 from typing import Dict, List, Optional, Any
 
@@ -41,7 +39,6 @@ class ConversationRAGService:
         self.vector_store: Optional[OpenSearchVectorSearch] = None
         self.embeddings: Optional[AzureOpenAIEmbeddings] = None
         self._initialized = False
-        self._conversations: Dict[str, Dict[str, Any]] = {}
     
     async def initialize(self) -> None:
         """Initialize the medical conversation RAG service with AWS OpenSearch."""
@@ -439,7 +436,6 @@ class ConversationRAGService:
                 "status": "healthy" if is_healthy else "unhealthy",
                 "opensearch_connected": opensearch_connected,
                 "opensearch_status": opensearch_status,
-                "total_conversations": len(self._conversations),
                 "embeddings_initialized": self.embeddings is not None,
                 "vector_store_initialized": self.vector_store is not None
             }
@@ -450,7 +446,6 @@ class ConversationRAGService:
                 "status": "unhealthy",
                 "error": str(e),
                 "opensearch_connected": False,
-                "total_conversations": 0,
                 "embeddings_initialized": False,
                 "vector_store_initialized": False
             }

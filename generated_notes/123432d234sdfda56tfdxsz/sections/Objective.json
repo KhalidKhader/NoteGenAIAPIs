@@ -1,22 +1,38 @@
 {
-  "section_id": "section_fd05b799",
+  "section_id": "section_f62759b6",
   "template_id": 1,
   "section_name": "Objective",
-  "content": "### Objective\n\n**Vital Signs:**\n- Blood Pressure: 145/90 mmHg (Line 19)\n\n**Physical Examination:**\n- Cardiovascular: Heart has a regular rate and rhythm, but a faint murmur is present (Line 19).\n- Respiratory: Lungs are clear (Line 19).\n- Extremities: 2+ pitting edema in both ankles (Line 19).\n\n**Diagnostic Tests Ordered:**\n- EKG (Line 21)\n- Blood work: Lipid panel and BNP (Line 21)\n\n**Plan:**\n- Referral to a cardiologist for a full evaluation, including a stress test (Line 21).\n- Medication adjustments: Increase Lisinopril to 20mg daily and add hydrochlorothiazide 12.5mg (Line 21).",
+  "content": "### Objective\n\n**Vital Signs:**\n- Blood Pressure: 145/90 mmHg (Line 14)\n\n**Physical Examination:**\n- Cardiovascular: Regular rate and rhythm, faint heart murmur detected (Line 13, 14)\n- Respiratory: Lungs clear to auscultation (Line 14)\n- Extremities: 2+ pitting edema in both ankles (Line 14)\n\n**Diagnostic Tests Ordered:**\n- EKG (Line 15)\n- Blood work: Lipid panel and BNP (Line 15)\n\n**Medications Adjusted:**\n- Lisinopril increased to 20mg daily (Line 16)\n- New prescription: Hydrochlorothiazide 12.5mg daily (Line 16)",
   "line_references": [
     {
-      "line_number": 19,
+      "line_number": 13,
       "start_char": 6,
-      "end_char": 168,
-      "text": "Okay, your heart has a regular rate and rhythm, but I do hear a faint murmur. Your lungs sound clear. Your blood pressure today is 145/90 mmHg, which is a bit high. I see 2+ pitting edema in both of your ankles.",
+      "end_char": 69,
+      "text": "Okay, your heart has a regular rate and rhythm, but I do hear a faint murmur.",
       "speaker": null,
       "confidence": 1.0
     },
     {
-      "line_number": 21,
-      "start_char": 15,
-      "end_char": 386,
-      "text": "Here's the plan: I'm ordering an EKG today, and I want you to get some blood work done—specifically a lipid panel and a BNP, which is a marker for heart failure. I'm also referring you to a cardiologist for a full evaluation, including a stress test. In the meantime, I'm increasing your Lisinopril to 20mg daily and adding a low-dose diuretic, hydrochlorothiazide 12.5mg, to help with the swelling. We need to get that blood pressure down.",
+      "line_number": 14,
+      "start_char": 0,
+      "end_char": 125,
+      "text": "Your lungs sound clear. Your blood pressure today is 145/90 mmHg, which is a bit high. I see 2+ pitting edema in both of your ankles.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 15,
+      "start_char": 18,
+      "end_char": 134,
+      "text": "I'm ordering an EKG today, and I want you to get some blood work done—specifically a lipid panel and a BNP, which is a marker for heart failure.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 16,
+      "start_char": 18,
+      "end_char": 137,
+      "text": "In the meantime, I'm increasing your Lisinopril to 20mg daily and adding a low-dose diuretic, hydrochlorothiazide 12.5mg, to help with the swelling.",
       "speaker": null,
       "confidence": 1.0
     }
@@ -509,50 +525,17 @@
       "language": "en"
     }
   ],
-  "confidence_score": 0.9,
+  "confidence_score": 1.0,
   "language": "en",
   "processing_metadata": {
-    "duration_seconds": 3.6384031772613525,
+    "duration_seconds": 3.5163869857788086,
     "model_name": "gpt-4",
-    "context_chars_used": 9129,
+    "context_chars_used": 4365,
     "factual_consistency_details": {
-      "factualConsistencyScore": 9,
+      "factualConsistencyScore": 10,
       "hallucinationRisk": "LOW",
-      "issuesFound": [
-        {
-          "statement": "Blood Pressure: 145/90 mmHg (Line 19)",
-          "issue": "Incorrect line reference"
-        },
-        {
-          "statement": "Cardiovascular: Heart has a regular rate and rhythm, but a faint murmur is present (Line 19).",
-          "issue": "Incorrect line reference"
-        },
-        {
-          "statement": "Respiratory: Lungs are clear (Line 19).",
-          "issue": "Incorrect line reference"
-        },
-        {
-          "statement": "Extremities: 2+ pitting edema in both ankles (Line 19).",
-          "issue": "Incorrect line reference"
-        },
-        {
-          "statement": "EKG (Line 21)",
-          "issue": "Incorrect line reference"
-        },
-        {
-          "statement": "Blood work: Lipid panel and BNP (Line 21)",
-          "issue": "Incorrect line reference"
-        },
-        {
-          "statement": "Referral to a cardiologist for a full evaluation, including a stress test (Line 21).",
-          "issue": "Incorrect line reference"
-        },
-        {
-          "statement": "Medication adjustments: Increase Lisinopril to 20mg daily and add hydrochlorothiazide 12.5mg (Line 21).",
-          "issue": "Incorrect line reference"
-        }
-      ],
-      "justification": "All statements in the generated content are supported by the source transcript, but the line references are incorrect. The factual consistency is high, but the incorrect line references slightly reduce the score and indicate a low risk of hallucination."
+      "issuesFound": [],
+      "justification": "All statements in the generated content are directly supported by the source transcript. The vital signs, physical examination findings, diagnostic tests ordered, and medication adjustments are all accurately reflected in the transcript. Line references, while not explicitly numbered in the transcript, are consistent with the order of information presented. Therefore, there are no issues found, and the content is factually consistent with the source."
     }
   }
 }

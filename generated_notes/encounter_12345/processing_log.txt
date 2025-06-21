@@ -1,0 +1,114 @@
+🏥 MEDICAL AI PROCESSING LOG - Encounter encounter_12345
+================================================================================
+Started at: 2025-06-21T14:36:13.613475Z
+Output folder: generated_notes/encounter_12345
+
+[2025-06-21T14:36:13.614041] ✅ [INFO] 🚀 Starting processing pipeline for job job_encounter_12345_1a301540
+   Details: {
+  "trace_id": "N/A"
+}
+[2025-06-21T14:36:13.614926] ✅ [INFO] Storing and chunking conversation.
+[2025-06-21T14:36:13.615550] ✅ [INFO] Storing conversation encounter_12345 for doctor string in en.
+   Details: {
+  "turn_count": 2
+}
+[2025-06-21T14:36:13.616457] 🐞 [DEBUG] Grouped transcript into 2 speaker blocks.
+[2025-06-21T14:36:13.617229] ✅ [INFO] Completed speaker-aware chunking. Total chunks: 1
+[2025-06-21T14:36:15.060958] 🐞 [DEBUG] Stored chunk 1/1 with doc_id d9572be4-e55d-41b1-9139-3d1160be3ba3
+[2025-06-21T14:36:15.873415] ✅ [INFO] Stored full conversation document.
+[2025-06-21T14:36:15.875362] ✅ [INFO] Extracting all medical terms from full transcript for SNOMED mapping.
+[2025-06-21T14:36:15.876609] 🔄 LLM_TERM_EXTRACTION_START
+   📋 Starting medical term extraction from text (length: 91)
+   📊 Data: {
+  "text_length": 91,
+  "language": "en"
+}
+
+[2025-06-21T14:36:17.003825] 🔄 LLM_TERM_EXTRACTION_COMPLETED
+   📋 Extracted 1 medical terms using LLM.
+   📊 Data: {
+  "terms_extracted": 1,
+  "sample_terms": [
+    "chest pain"
+  ]
+}
+
+[2025-06-21T14:36:17.004559] 🔄 NEO4J_SNOMED_MAPPING_START
+   📋 Starting SNOMED mapping for 1 medical terms
+   📊 Data: {
+  "medical_terms": [
+    "chest pain"
+  ],
+  "language": "en",
+  "database": "NEO4J_SNOMED_CANADIAN_EDITION",
+  "query_strategy": "EXACT_MATCH_THEN_CONTAINS_THEN_SEMANTIC"
+}
+
+[2025-06-21T14:36:17.005015] 🔄 NEO4J_TERM_QUERY_START
+   📋 Querying Neo4j for term 'chest pain' (1/1)
+   📊 Data: {
+  "term": "chest pain",
+  "term_index": 1,
+  "total_terms": 1,
+  "language": "en"
+}
+
+[2025-06-21T14:36:17.005229] 🔄 NEO4J_EXACT_MATCH_QUERY
+   📋 Trying exact match for term 'chest pain' in Neo4j SNOMED
+   📊 Data: {
+  "term": "chest pain",
+  "query_type": "EXACT_MATCH"
+}
+
+[2025-06-21T14:36:17.561632] 🔄 NEO4J_EXACT_MATCH_SUCCESS
+   📋 Found 1 exact matches for 'chest pain'
+   📊 Data: {
+  "term": "chest pain",
+  "matches_found": 1,
+  "match_type": "EXACT"
+}
+
+[2025-06-21T14:36:17.562052] 🔄 NEO4J_SNOMED_MAPPING
+   📋 Mapped 'chest pain' → 'Chest pain' (SNOMED: 29857009)
+   📊 Data: {
+  "original_term": "chest pain",
+  "snomed_concept_id": "29857009",
+  "preferred_term": "Chest pain",
+  "match_type": "exact",
+  "confidence": 0.95,
+  "language": "en",
+  "timestamp": "2025-06-21T14:36:17.562049"
+}
+
+[2025-06-21T14:36:17.563127] 🔄 NEO4J_SNOMED_MAPPING_COMPLETED
+   📋 SNOMED mapping completed: 1 mappings found
+   📊 Data: {
+  "total_mappings_found": 1,
+  "terms_processed": 1,
+  "success_rate": 1.0,
+  "database": "NEO4J_SNOMED_CANADIAN_EDITION"
+}
+
+[2025-06-21T14:36:17.563877] ✅ [INFO] Retrieved 1 SNOMED codes for the entire encounter.
+[2025-06-21T14:36:17.564438] ✅ [INFO] Found 1 preferences for doctor string.
+   Details: {
+  "Hypertension": "HTN"
+}
+[2025-06-21T14:36:17.565009] ✅ [INFO] Starting generation for section 1/1: 'Subjective'
+[2025-06-21T14:36:17.822108] 🐞 [DEBUG] Attempt 1: Retrieved 5 chunks for 'Subjective'.
+[2025-06-21T14:36:21.501201] 🔄 SECTION_GENERATION_COMPLETED
+   📋 Generated Subjective section (ID: section_a50e26de) - 577 chars, 4 line refs
+   📊 Data: {
+  "section_id": "section_a50e26de",
+  "section_type": "Subjective",
+  "content_length": 577,
+  "line_references_found": 4,
+  "snomed_mappings_applied": 1,
+  "confidence_score": 1.0,
+  "processing_duration": 0,
+  "status": "COMPLETED",
+  "timestamp": "2025-06-21T14:36:21.501184"
+}
+
+[2025-06-21T14:36:21.503372] ✅ [INFO] ✅ Successfully generated and saved section 'Subjective' on attempt 1.
+[2025-06-21T14:36:21.504578] ✅ [INFO] ✅ Encounter processing pipeline completed successfully.

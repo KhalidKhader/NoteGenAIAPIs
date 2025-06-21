@@ -41,11 +41,8 @@ class MedicalObservabilityService:
             "total_runs": 0,
             "successful_runs": 0,
             "failed_runs": 0,
-            "total_sections_generated": 0,
             "llm_token_usage": {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0},
             "estimated_cost_usd": 0.0,
-            "hallucination_score_avg": 0.0,
-            "total_hallucination_checks": 0
         }
     
     async def initialize(self) -> None:
@@ -134,12 +131,6 @@ class MedicalObservabilityService:
                 value=value,
                 comment=comment
             )
-            # Update hallucination score average
-            if name == "hallucination-confidence":
-                current_total_score = self.metrics["hallucination_score_avg"] * self.metrics["total_hallucination_checks"]
-                self.metrics["total_hallucination_checks"] += 1
-                self.metrics["hallucination_score_avg"] = (current_total_score + value) / self.metrics["total_hallucination_checks"]
-
             logger.debug(f"Logged score '{name}' with value {value} to trace {trace_id}")
             return score
         except Exception as e:
@@ -219,28 +210,6 @@ class MedicalObservabilityService:
                 logger.info("🔍 Medical Observability service closed")
             except Exception as e:
                 logger.error(f"Error shutting down observability service: {str(e)}")
-
-    def update_generation(self, generation_id: str, completion: str, usage: Dict[str, int], metadata: Dict[str, Any]):
-        """Updates a generation in Langfuse."""
-        if not self._enabled or not self._initialized:
-            return
-        
-        try:
-            logger.info(
-                f"Langfuse: Updating generation {generation_id}",
-                extra={"generation_id": generation_id, "usage": usage},
-            )
-            self.langfuse.generation.update(
-                generation_id=generation_id,
-                completion=completion,
-                usage=usage,
-                metadata=metadata,
-            )
-            logger.info(
-                f"Langfuse: Generation {generation_id} updated successfully",
-            )
-        except Exception as e:
-            logger.error(f"Failed to update generation {generation_id}: {str(e)}")
 
 # Global observability service instance
 _observability_service: Optional[MedicalObservabilityService] = None

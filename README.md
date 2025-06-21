@@ -131,6 +131,78 @@ Processes conversation from NestJS and generates SOAP sections.
   "created_at": "2024-01-15T10:30:00Z"
 }
 ```
+```mermaid
+flowchart TD
+    A["Frontend"] -- "POST /api/encounters/ID/generate-notes<br>Body: templateGroupId" --> B["NestJS Backend"]
+    B --> C["Get Encounter Transcription<br>&amp; Template Sections"]
+    C --> D["Cancel Existing Generations<br>GENERATING → CANCELLED"]
+    D --> E["Create New Generation<br>Status: GENERATING"]
+    E --> F@{ label: "Backend: Send Cancel Request<br style=\"--tw-scale-x:\">POST to AI API with jobId" }
+    F --> G["POST to AI API<br>notegen.model.api/internal/generate-notes<br>Body: encounterId, transcription,<br>systemPrompt, sections[{id, prompt}]"]
+    G --> H["Python AI API"]
+    H --> I["Process Each Section<br>in Parallel"]
+    I --> J{"Section Generation<br>Successful?"}
+    J -- Success --> K["POST to Backend<br>demp.notegen.ai/internal/generated-section<br>Body: sectionId, generatedNotes"]
+    J -- Failure --> L{"Retry Count &lt; 3?"}
+    L -- Yes --> M["Retry Section<br>Generation"]
+    M --> J
+    L -- No --> N["POST to Backend<br>demp.notegen.ai/internal/generated-section<br>Body: sectionId, error"]
+    K --> O["Backend: Store Generated Notes<br>in Database"]
+    N --> P["Backend: Store Error Message<br>Update Status to FAILED"]
+    O --> Q["Send Notes to Frontend<br>via API Gateway"] & Z["Background Process:<br>Monitor Generation Status"]
+    P --> R["Send Error to Frontend<br>via API Gateway"] & Z
+    Q --> S["Frontend: Render<br>Generated Notes in UI"]
+    R --> T["Frontend: Display<br>Error Message"]
+    U["User Requests New Generation<br>with Different Group ID"] --> V["Backend: Send Cancel Request<br>POST to AI API with jobId"]
+    V --> W["Python AI: Stop Previous<br>Generation Tasks"]
+    W --> X["Backend: Update Previous<br>Generation Status to CANCELLED"]
+    X --> Y["Start New Generation<br>Process with New Group ID"]
+    Y --> G
+    Z --> AA{"All Sections<br>Completed?"}
+    AA -- All Success --> BB["Update Generation<br>Status to COMPLETED"]
+    AA -- Some Failed --> CC["Update Generation<br>Status to PARTIALLY_FAILED"]
+    AA -- All Failed --> DD["Update Generation<br>Status to FAILED"]
+
+    F@{ shape: rect}
+     A:::frontend
+     B:::backend
+     C:::process
+     D:::backend
+     E:::backend
+     F:::backend
+     G:::process
+     H:::aiapi
+     I:::aiapi
+     J:::aiapi
+     K:::process
+     L:::error
+     M:::aiapi
+     N:::error
+     O:::backend
+     P:::backend
+     P:::error
+     Q:::backend
+     Z:::backend
+     R:::backend
+     R:::error
+     S:::frontend
+     T:::frontend
+     T:::error
+     U:::process
+     V:::backend
+     W:::aiapi
+     X:::backend
+     Y:::backend
+     AA:::process
+     BB:::backend
+     CC:::backend
+     DD:::backend
+    classDef frontend fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef backend fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef aiapi fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+    classDef error fill:#ffebee,stroke:#c62828,stroke-width:2px
+    classDef process fill:#fff3e0,stroke:#e65100,stroke-width:2px
+```
 
 ### Additional Endpoints
 

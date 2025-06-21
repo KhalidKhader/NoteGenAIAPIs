@@ -1,12 +1,12 @@
 {
-  "encounter_id": "1234sdfda56tfdxsz",
-  "processing_started_at": "2025-06-20T23:32:47.002917",
-  "output_folder": "generated_notes/1234sdfda56tfdxsz",
+  "encounter_id": "123432d234sdfda56tfdxsz",
+  "processing_started_at": "2025-06-21T14:28:47.395812",
+  "output_folder": "generated_notes/123432d234sdfda56tfdxsz",
   "processing_steps": [
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:32:47.003123",
-      "details": "🚀 Starting processing pipeline for job job_1234sdfda56tfdxsz_b0afc524",
+      "timestamp": "2025-06-21T14:28:47.396037",
+      "details": "🚀 Starting processing pipeline for job job_123432d234sdfda56tfdxsz_69e4f238",
       "level": "INFO",
       "data": {
         "trace_id": "N/A"
@@ -14,15 +14,15 @@
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:32:54.244321",
+      "timestamp": "2025-06-21T14:28:53.719448",
       "details": "Storing and chunking conversation.",
       "level": "INFO",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:32:54.244764",
-      "details": "Storing conversation 1234sdfda56tfdxsz for doctor doc_123 in en.",
+      "timestamp": "2025-06-21T14:28:53.720257",
+      "details": "Storing conversation 123432d234sdfda56tfdxsz for doctor doc_123 in en.",
       "level": "INFO",
       "data": {
         "turn_count": 13
@@ -30,49 +30,49 @@
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:32:54.245056",
+      "timestamp": "2025-06-21T14:28:53.720629",
       "details": "Grouped transcript into 10 speaker blocks.",
       "level": "DEBUG",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:32:54.245288",
+      "timestamp": "2025-06-21T14:28:53.720920",
       "details": "Completed speaker-aware chunking. Total chunks: 2",
       "level": "INFO",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:32:56.218026",
-      "details": "Stored chunk 1/2 with doc_id a4d5575a-8ac1-45b6-ac65-79a1c9933a5d",
+      "timestamp": "2025-06-21T14:28:56.121633",
+      "details": "Stored chunk 1/2 with doc_id 1213bec4-e62b-461c-87c6-81a2f2a78e97",
       "level": "DEBUG",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:32:56.954313",
-      "details": "Stored chunk 2/2 with doc_id 0bfa5475-b4ad-4786-999e-1e88400d68b3",
+      "timestamp": "2025-06-21T14:28:56.990766",
+      "details": "Stored chunk 2/2 with doc_id b4811251-2d74-4a98-af92-a90d0d8a573b",
       "level": "DEBUG",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:32:57.699340",
+      "timestamp": "2025-06-21T14:28:57.825201",
       "details": "Stored full conversation document.",
       "level": "INFO",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:32:57.701162",
+      "timestamp": "2025-06-21T14:28:57.826521",
       "details": "Extracting all medical terms from full transcript for SNOMED mapping.",
       "level": "INFO",
       "data": {}
     },
     {
       "step": "LLM_TERM_EXTRACTION_START",
-      "timestamp": "2025-06-20T23:32:57.702897",
+      "timestamp": "2025-06-21T14:28:57.827237",
       "details": "Starting medical term extraction from text (length: 2565)",
       "data": {
         "text_length": 2565,
@@ -81,7 +81,7 @@
     },
     {
       "step": "LLM_TERM_EXTRACTION_COMPLETED",
-      "timestamp": "2025-06-20T23:32:59.092121",
+      "timestamp": "2025-06-21T14:28:59.276758",
       "details": "Extracted 26 medical terms using LLM.",
       "data": {
         "terms_extracted": 26,
@@ -101,7 +101,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING_START",
-      "timestamp": "2025-06-20T23:32:59.093879",
+      "timestamp": "2025-06-21T14:28:59.279020",
       "details": "Starting SNOMED mapping for 26 medical terms",
       "data": {
         "medical_terms": [
@@ -139,7 +139,7 @@
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:32:59.094902",
+      "timestamp": "2025-06-21T14:28:59.280374",
       "details": "Querying Neo4j for term 'chest pain' (1/26)",
       "data": {
         "term": "chest pain",
@@ -150,7 +150,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:32:59.095646",
+      "timestamp": "2025-06-21T14:28:59.281459",
       "details": "Trying exact match for term 'chest pain' in Neo4j SNOMED",
       "data": {
         "term": "chest pain",
@@ -159,7 +159,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_SUCCESS",
-      "timestamp": "2025-06-20T23:32:59.634584",
+      "timestamp": "2025-06-21T14:28:59.749985",
       "details": "Found 1 exact matches for 'chest pain'",
       "data": {
         "term": "chest pain",
@@ -169,7 +169,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:32:59.635051",
+      "timestamp": "2025-06-21T14:28:59.751702",
       "details": "Mapped 'chest pain' → 'Chest pain' (SNOMED: 29857009)",
       "data": {
         "original_term": "chest pain",
@@ -178,12 +178,12 @@
         "match_type": "exact",
         "confidence": 0.95,
         "language": "en",
-        "timestamp": "2025-06-20T23:32:59.635045"
+        "timestamp": "2025-06-21T14:28:59.751692"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:32:59.635448",
+      "timestamp": "2025-06-21T14:28:59.752620",
       "details": "Querying Neo4j for term 'dull ache' (2/26)",
       "data": {
         "term": "dull ache",
@@ -194,7 +194,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:32:59.635666",
+      "timestamp": "2025-06-21T14:28:59.753104",
       "details": "Trying exact match for term 'dull ache' in Neo4j SNOMED",
       "data": {
         "term": "dull ache",
@@ -203,7 +203,7 @@
     },
     {
       "step": "NEO4J_CONTAINS_SEARCH_QUERY",
-      "timestamp": "2025-06-20T23:33:01.531672",
+      "timestamp": "2025-06-21T14:29:01.580410",
       "details": "No exact match found, trying contains search for 'dull ache'",
       "data": {
         "term": "dull ache",
@@ -213,7 +213,7 @@
     },
     {
       "step": "NEO4J_SEMANTIC_SEARCH_QUERY",
-      "timestamp": "2025-06-20T23:33:03.258550",
+      "timestamp": "2025-06-21T14:29:03.316768",
       "details": "No contains match found, trying semantic search for 'dull ache'",
       "data": {
         "term": "dull ache",
@@ -222,7 +222,7 @@
     },
     {
       "step": "NEO4J_SEMANTIC_SEARCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:05.223728",
+      "timestamp": "2025-06-21T14:29:05.199663",
       "details": "Found 5 semantic matches for 'dull ache'",
       "data": {
         "term": "dull ache",
@@ -232,7 +232,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:05.226461",
+      "timestamp": "2025-06-21T14:29:05.202242",
       "details": "Mapped 'dull ache' → 'Dull' (SNOMED: 263744001)",
       "data": {
         "original_term": "dull ache",
@@ -241,12 +241,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:05.226443"
+        "timestamp": "2025-06-21T14:29:05.202225"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:05.229667",
+      "timestamp": "2025-06-21T14:29:05.204203",
       "details": "Mapped 'dull ache' → 'Sachet' (SNOMED: 426148002)",
       "data": {
         "original_term": "dull ache",
@@ -255,12 +255,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:05.229656"
+        "timestamp": "2025-06-21T14:29:05.204195"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:05.232210",
+      "timestamp": "2025-06-21T14:29:05.206408",
       "details": "Mapped 'dull ache' → 'Cachet' (SNOMED: 385048003)",
       "data": {
         "original_term": "dull ache",
@@ -269,12 +269,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:05.232201"
+        "timestamp": "2025-06-21T14:29:05.206402"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:05.233062",
+      "timestamp": "2025-06-21T14:29:05.207854",
       "details": "Mapped 'dull ache' → 'cachet' (SNOMED: 385048003)",
       "data": {
         "original_term": "dull ache",
@@ -283,12 +283,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "fr",
-        "timestamp": "2025-06-20T23:33:05.233060"
+        "timestamp": "2025-06-21T14:29:05.207851"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:05.234373",
+      "timestamp": "2025-06-21T14:29:05.209232",
       "details": "Mapped 'dull ache' → 'cachet' (SNOMED: 732987003)",
       "data": {
         "original_term": "dull ache",
@@ -297,12 +297,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "fr",
-        "timestamp": "2025-06-20T23:33:05.234367"
+        "timestamp": "2025-06-21T14:29:05.209226"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:05.236203",
+      "timestamp": "2025-06-21T14:29:05.210795",
       "details": "Querying Neo4j for term 'shortness of breath' (3/26)",
       "data": {
         "term": "shortness of breath",
@@ -313,7 +313,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:05.237039",
+      "timestamp": "2025-06-21T14:29:05.211280",
       "details": "Trying exact match for term 'shortness of breath' in Neo4j SNOMED",
       "data": {
         "term": "shortness of breath",
@@ -322,7 +322,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:06.066620",
+      "timestamp": "2025-06-21T14:29:05.996495",
       "details": "Found 1 exact matches for 'shortness of breath'",
       "data": {
         "term": "shortness of breath",
@@ -332,7 +332,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:06.070369",
+      "timestamp": "2025-06-21T14:29:05.997217",
       "details": "Mapped 'shortness of breath' → 'Shortness of breath' (SNOMED: 267036007)",
       "data": {
         "original_term": "shortness of breath",
@@ -341,12 +341,12 @@
         "match_type": "exact",
         "confidence": 0.95,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:06.070349"
+        "timestamp": "2025-06-21T14:29:05.997210"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:06.072647",
+      "timestamp": "2025-06-21T14:29:05.998335",
       "details": "Querying Neo4j for term 'dizziness' (4/26)",
       "data": {
         "term": "dizziness",
@@ -357,7 +357,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:06.073614",
+      "timestamp": "2025-06-21T14:29:05.999413",
       "details": "Trying exact match for term 'dizziness' in Neo4j SNOMED",
       "data": {
         "term": "dizziness",
@@ -366,7 +366,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:07.149865",
+      "timestamp": "2025-06-21T14:29:07.090072",
       "details": "Found 1 exact matches for 'dizziness'",
       "data": {
         "term": "dizziness",
@@ -376,7 +376,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:07.153063",
+      "timestamp": "2025-06-21T14:29:07.093076",
       "details": "Mapped 'dizziness' → 'Dizziness' (SNOMED: 404640003)",
       "data": {
         "original_term": "dizziness",
@@ -385,12 +385,12 @@
         "match_type": "exact",
         "confidence": 0.95,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:07.153049"
+        "timestamp": "2025-06-21T14:29:07.093063"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:07.155630",
+      "timestamp": "2025-06-21T14:29:07.095258",
       "details": "Querying Neo4j for term 'palpitations' (5/26)",
       "data": {
         "term": "palpitations",
@@ -401,7 +401,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:07.156581",
+      "timestamp": "2025-06-21T14:29:07.096104",
       "details": "Trying exact match for term 'palpitations' in Neo4j SNOMED",
       "data": {
         "term": "palpitations",
@@ -410,7 +410,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:07.529835",
+      "timestamp": "2025-06-21T14:29:07.457313",
       "details": "Found 1 exact matches for 'palpitations'",
       "data": {
         "term": "palpitations",
@@ -420,7 +420,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:07.530504",
+      "timestamp": "2025-06-21T14:29:07.458150",
       "details": "Mapped 'palpitations' → 'palpitations' (SNOMED: 80313002)",
       "data": {
         "original_term": "palpitations",
@@ -429,12 +429,12 @@
         "match_type": "exact",
         "confidence": 0.95,
         "language": "fr",
-        "timestamp": "2025-06-20T23:33:07.530500"
+        "timestamp": "2025-06-21T14:29:07.458144"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:07.531191",
+      "timestamp": "2025-06-21T14:29:07.459203",
       "details": "Querying Neo4j for term 'swollen ankles' (6/26)",
       "data": {
         "term": "swollen ankles",
@@ -445,7 +445,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:07.531516",
+      "timestamp": "2025-06-21T14:29:07.459736",
       "details": "Trying exact match for term 'swollen ankles' in Neo4j SNOMED",
       "data": {
         "term": "swollen ankles",
@@ -454,7 +454,7 @@
     },
     {
       "step": "NEO4J_CONTAINS_SEARCH_QUERY",
-      "timestamp": "2025-06-20T23:33:09.434575",
+      "timestamp": "2025-06-21T14:29:09.057825",
       "details": "No exact match found, trying contains search for 'swollen ankles'",
       "data": {
         "term": "swollen ankles",
@@ -464,7 +464,7 @@
     },
     {
       "step": "NEO4J_SEMANTIC_SEARCH_QUERY",
-      "timestamp": "2025-06-20T23:33:11.141943",
+      "timestamp": "2025-06-21T14:29:10.723713",
       "details": "No contains match found, trying semantic search for 'swollen ankles'",
       "data": {
         "term": "swollen ankles",
@@ -473,7 +473,7 @@
     },
     {
       "step": "NEO4J_SEMANTIC_SEARCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:13.140673",
+      "timestamp": "2025-06-21T14:29:12.744637",
       "details": "Found 5 semantic matches for 'swollen ankles'",
       "data": {
         "term": "swollen ankles",
@@ -483,7 +483,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:13.145486",
+      "timestamp": "2025-06-21T14:29:12.747656",
       "details": "Mapped 'swollen ankles' → 'Not swollen' (SNOMED: 300890009)",
       "data": {
         "original_term": "swollen ankles",
@@ -492,12 +492,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:13.145466"
+        "timestamp": "2025-06-21T14:29:12.747645"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:13.147799",
+      "timestamp": "2025-06-21T14:29:12.750382",
       "details": "Mapped 'swollen ankles' → 'Swollen toe' (SNOMED: 277890004)",
       "data": {
         "original_term": "swollen ankles",
@@ -506,12 +506,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:13.147790"
+        "timestamp": "2025-06-21T14:29:12.750372"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:13.149597",
+      "timestamp": "2025-06-21T14:29:12.752911",
       "details": "Mapped 'swollen ankles' → 'Both ankles' (SNOMED: 69948000)",
       "data": {
         "original_term": "swollen ankles",
@@ -520,12 +520,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:13.149591"
+        "timestamp": "2025-06-21T14:29:12.752903"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:13.151158",
+      "timestamp": "2025-06-21T14:29:12.754919",
       "details": "Mapped 'swollen ankles' → 'Swollen vein' (SNOMED: 248495005)",
       "data": {
         "original_term": "swollen ankles",
@@ -534,12 +534,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:13.151153"
+        "timestamp": "2025-06-21T14:29:12.754913"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:13.153222",
+      "timestamp": "2025-06-21T14:29:12.756547",
       "details": "Mapped 'swollen ankles' → 'Swollen nose' (SNOMED: 162383006)",
       "data": {
         "original_term": "swollen ankles",
@@ -548,12 +548,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:13.153212"
+        "timestamp": "2025-06-21T14:29:12.756545"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:13.154961",
+      "timestamp": "2025-06-21T14:29:12.757786",
       "details": "Querying Neo4j for term 'hypertension' (7/26)",
       "data": {
         "term": "hypertension",
@@ -564,7 +564,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:13.155831",
+      "timestamp": "2025-06-21T14:29:12.758249",
       "details": "Trying exact match for term 'hypertension' in Neo4j SNOMED",
       "data": {
         "term": "hypertension",
@@ -573,7 +573,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:13.374530",
+      "timestamp": "2025-06-21T14:29:12.967185",
       "details": "Found 1 exact matches for 'hypertension'",
       "data": {
         "term": "hypertension",
@@ -583,7 +583,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:13.375244",
+      "timestamp": "2025-06-21T14:29:12.968126",
       "details": "Mapped 'hypertension' → 'Hypertension' (SNOMED: 38341003)",
       "data": {
         "original_term": "hypertension",
@@ -592,12 +592,12 @@
         "match_type": "exact",
         "confidence": 0.95,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:13.375240"
+        "timestamp": "2025-06-21T14:29:12.968120"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:13.376254",
+      "timestamp": "2025-06-21T14:29:12.969235",
       "details": "Querying Neo4j for term 'Lisinopril' (8/26)",
       "data": {
         "term": "Lisinopril",
@@ -608,7 +608,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:13.376777",
+      "timestamp": "2025-06-21T14:29:12.969716",
       "details": "Trying exact match for term 'Lisinopril' in Neo4j SNOMED",
       "data": {
         "term": "Lisinopril",
@@ -617,7 +617,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:14.473910",
+      "timestamp": "2025-06-21T14:29:14.067469",
       "details": "Found 1 exact matches for 'Lisinopril'",
       "data": {
         "term": "Lisinopril",
@@ -627,7 +627,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:14.474811",
+      "timestamp": "2025-06-21T14:29:14.068395",
       "details": "Mapped 'Lisinopril' → 'Lisinopril' (SNOMED: 386873009)",
       "data": {
         "original_term": "Lisinopril",
@@ -636,12 +636,12 @@
         "match_type": "exact",
         "confidence": 0.95,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:14.474806"
+        "timestamp": "2025-06-21T14:29:14.068391"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:14.475781",
+      "timestamp": "2025-06-21T14:29:14.069625",
       "details": "Querying Neo4j for term 'high cholesterol' (9/26)",
       "data": {
         "term": "high cholesterol",
@@ -652,7 +652,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:14.476269",
+      "timestamp": "2025-06-21T14:29:14.070162",
       "details": "Trying exact match for term 'high cholesterol' in Neo4j SNOMED",
       "data": {
         "term": "high cholesterol",
@@ -661,7 +661,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:14.560191",
+      "timestamp": "2025-06-21T14:29:14.154147",
       "details": "Found 1 exact matches for 'high cholesterol'",
       "data": {
         "term": "high cholesterol",
@@ -671,7 +671,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:14.560962",
+      "timestamp": "2025-06-21T14:29:14.155028",
       "details": "Mapped 'high cholesterol' → 'High cholesterol' (SNOMED: 13644009)",
       "data": {
         "original_term": "high cholesterol",
@@ -680,12 +680,12 @@
         "match_type": "exact",
         "confidence": 0.95,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:14.560958"
+        "timestamp": "2025-06-21T14:29:14.155025"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:14.562193",
+      "timestamp": "2025-06-21T14:29:14.156086",
       "details": "Querying Neo4j for term 'smoker' (10/26)",
       "data": {
         "term": "smoker",
@@ -696,7 +696,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:14.562807",
+      "timestamp": "2025-06-21T14:29:14.156619",
       "details": "Trying exact match for term 'smoker' in Neo4j SNOMED",
       "data": {
         "term": "smoker",
@@ -705,7 +705,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:14.905479",
+      "timestamp": "2025-06-21T14:29:14.505209",
       "details": "Found 1 exact matches for 'smoker'",
       "data": {
         "term": "smoker",
@@ -715,7 +715,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:14.906262",
+      "timestamp": "2025-06-21T14:29:14.506231",
       "details": "Mapped 'smoker' → 'Smoker' (SNOMED: 77176002)",
       "data": {
         "original_term": "smoker",
@@ -724,12 +724,12 @@
         "match_type": "exact",
         "confidence": 0.95,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:14.906259"
+        "timestamp": "2025-06-21T14:29:14.506226"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:14.907240",
+      "timestamp": "2025-06-21T14:29:14.507460",
       "details": "Querying Neo4j for term 'heart murmur' (11/26)",
       "data": {
         "term": "heart murmur",
@@ -740,7 +740,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:14.907891",
+      "timestamp": "2025-06-21T14:29:14.508052",
       "details": "Trying exact match for term 'heart murmur' in Neo4j SNOMED",
       "data": {
         "term": "heart murmur",
@@ -749,7 +749,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:15.292846",
+      "timestamp": "2025-06-21T14:29:14.892023",
       "details": "Found 1 exact matches for 'heart murmur'",
       "data": {
         "term": "heart murmur",
@@ -759,7 +759,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:15.294139",
+      "timestamp": "2025-06-21T14:29:14.893236",
       "details": "Mapped 'heart murmur' → 'Heart murmur' (SNOMED: 88610006)",
       "data": {
         "original_term": "heart murmur",
@@ -768,12 +768,12 @@
         "match_type": "exact",
         "confidence": 0.95,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:15.294132"
+        "timestamp": "2025-06-21T14:29:14.893229"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:15.295732",
+      "timestamp": "2025-06-21T14:29:14.895422",
       "details": "Querying Neo4j for term 'blood pressure' (12/26)",
       "data": {
         "term": "blood pressure",
@@ -784,7 +784,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:15.296672",
+      "timestamp": "2025-06-21T14:29:14.896365",
       "details": "Trying exact match for term 'blood pressure' in Neo4j SNOMED",
       "data": {
         "term": "blood pressure",
@@ -793,7 +793,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:15.619606",
+      "timestamp": "2025-06-21T14:29:15.210743",
       "details": "Found 1 exact matches for 'blood pressure'",
       "data": {
         "term": "blood pressure",
@@ -803,7 +803,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:15.620424",
+      "timestamp": "2025-06-21T14:29:15.212170",
       "details": "Mapped 'blood pressure' → 'Blood pressure' (SNOMED: 75367002)",
       "data": {
         "original_term": "blood pressure",
@@ -812,12 +812,12 @@
         "match_type": "exact",
         "confidence": 0.95,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:15.620421"
+        "timestamp": "2025-06-21T14:29:15.212164"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:15.622779",
+      "timestamp": "2025-06-21T14:29:15.213771",
       "details": "Querying Neo4j for term '145/90 mmHg' (13/26)",
       "data": {
         "term": "145/90 mmHg",
@@ -828,7 +828,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:15.623984",
+      "timestamp": "2025-06-21T14:29:15.214630",
       "details": "Trying exact match for term '145/90 mmHg' in Neo4j SNOMED",
       "data": {
         "term": "145/90 mmHg",
@@ -837,7 +837,7 @@
     },
     {
       "step": "NEO4J_CONTAINS_SEARCH_QUERY",
-      "timestamp": "2025-06-20T23:33:17.368148",
+      "timestamp": "2025-06-21T14:29:16.848038",
       "details": "No exact match found, trying contains search for '145/90 mmHg'",
       "data": {
         "term": "145/90 mmHg",
@@ -847,7 +847,7 @@
     },
     {
       "step": "NEO4J_SEMANTIC_SEARCH_QUERY",
-      "timestamp": "2025-06-20T23:33:19.186099",
+      "timestamp": "2025-06-21T14:29:18.479150",
       "details": "No contains match found, trying semantic search for '145/90 mmHg'",
       "data": {
         "term": "145/90 mmHg",
@@ -856,7 +856,7 @@
     },
     {
       "step": "NEO4J_SEMANTIC_SEARCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:21.151933",
+      "timestamp": "2025-06-21T14:29:20.267344",
       "details": "Found 5 semantic matches for '145/90 mmHg'",
       "data": {
         "term": "145/90 mmHg",
@@ -866,7 +866,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:21.155165",
+      "timestamp": "2025-06-21T14:29:20.271984",
       "details": "Mapped '145/90 mmHg' → 'mmHg' (SNOMED: 259018001)",
       "data": {
         "original_term": "145/90 mmHg",
@@ -875,12 +875,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:21.155148"
+        "timestamp": "2025-06-21T14:29:20.271971"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:21.158744",
+      "timestamp": "2025-06-21T14:29:20.276061",
       "details": "Mapped '145/90 mmHg' → 'mmHg/L/s' (SNOMED: 259076006)",
       "data": {
         "original_term": "145/90 mmHg",
@@ -889,12 +889,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:21.158737"
+        "timestamp": "2025-06-21T14:29:20.276054"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:21.160956",
+      "timestamp": "2025-06-21T14:29:20.277262",
       "details": "Mapped '145/90 mmHg' → 'mmHg/mL/s' (SNOMED: 259077002)",
       "data": {
         "original_term": "145/90 mmHg",
@@ -903,12 +903,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:21.160953"
+        "timestamp": "2025-06-21T14:29:20.277259"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:21.162408",
+      "timestamp": "2025-06-21T14:29:20.278430",
       "details": "Mapped '145/90 mmHg' → 'mmHg/sq. m' (SNOMED: 259078007)",
       "data": {
         "original_term": "145/90 mmHg",
@@ -917,12 +917,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:21.162403"
+        "timestamp": "2025-06-21T14:29:20.278424"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:21.163964",
+      "timestamp": "2025-06-21T14:29:20.281240",
       "details": "Mapped '145/90 mmHg' → 'mmHg.mL.beats/min' (SNOMED: 264864008)",
       "data": {
         "original_term": "145/90 mmHg",
@@ -931,12 +931,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:21.163959"
+        "timestamp": "2025-06-21T14:29:20.281236"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:21.165370",
+      "timestamp": "2025-06-21T14:29:20.283922",
       "details": "Querying Neo4j for term 'pitting edema' (14/26)",
       "data": {
         "term": "pitting edema",
@@ -947,7 +947,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:21.166159",
+      "timestamp": "2025-06-21T14:29:20.285302",
       "details": "Trying exact match for term 'pitting edema' in Neo4j SNOMED",
       "data": {
         "term": "pitting edema",
@@ -956,7 +956,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:21.204134",
+      "timestamp": "2025-06-21T14:29:20.326037",
       "details": "Found 1 exact matches for 'pitting edema'",
       "data": {
         "term": "pitting edema",
@@ -966,7 +966,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:21.205627",
+      "timestamp": "2025-06-21T14:29:20.326930",
       "details": "Mapped 'pitting edema' → 'Pitting edema' (SNOMED: 5008001)",
       "data": {
         "original_term": "pitting edema",
@@ -975,12 +975,12 @@
         "match_type": "exact",
         "confidence": 0.95,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:21.205620"
+        "timestamp": "2025-06-21T14:29:20.326926"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:21.208443",
+      "timestamp": "2025-06-21T14:29:20.328137",
       "details": "Querying Neo4j for term 'cardiac issue' (15/26)",
       "data": {
         "term": "cardiac issue",
@@ -991,7 +991,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:21.209186",
+      "timestamp": "2025-06-21T14:29:20.328739",
       "details": "Trying exact match for term 'cardiac issue' in Neo4j SNOMED",
       "data": {
         "term": "cardiac issue",
@@ -1000,7 +1000,7 @@
     },
     {
       "step": "NEO4J_CONTAINS_SEARCH_QUERY",
-      "timestamp": "2025-06-20T23:33:22.899226",
+      "timestamp": "2025-06-21T14:29:21.988612",
       "details": "No exact match found, trying contains search for 'cardiac issue'",
       "data": {
         "term": "cardiac issue",
@@ -1010,7 +1010,7 @@
     },
     {
       "step": "NEO4J_SEMANTIC_SEARCH_QUERY",
-      "timestamp": "2025-06-20T23:33:24.897587",
+      "timestamp": "2025-06-21T14:29:23.670189",
       "details": "No contains match found, trying semantic search for 'cardiac issue'",
       "data": {
         "term": "cardiac issue",
@@ -1019,7 +1019,7 @@
     },
     {
       "step": "NEO4J_SEMANTIC_SEARCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:26.912248",
+      "timestamp": "2025-06-21T14:29:25.521084",
       "details": "Found 5 semantic matches for 'cardiac issue'",
       "data": {
         "term": "cardiac issue",
@@ -1029,7 +1029,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:26.916914",
+      "timestamp": "2025-06-21T14:29:25.527252",
       "details": "Mapped 'cardiac issue' → 'Tissue' (SNOMED: 85756007)",
       "data": {
         "original_term": "cardiac issue",
@@ -1038,12 +1038,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:26.916898"
+        "timestamp": "2025-06-21T14:29:25.527237"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:26.921047",
+      "timestamp": "2025-06-21T14:29:25.531724",
       "details": "Mapped 'cardiac issue' → 'Cardiac CT' (SNOMED: 241547009)",
       "data": {
         "original_term": "cardiac issue",
@@ -1052,12 +1052,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:26.921036"
+        "timestamp": "2025-06-21T14:29:25.531712"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:26.923286",
+      "timestamp": "2025-06-21T14:29:25.536641",
       "details": "Mapped 'cardiac issue' → 'Acardiacus' (SNOMED: 84648007)",
       "data": {
         "original_term": "cardiac issue",
@@ -1066,12 +1066,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:26.923281"
+        "timestamp": "2025-06-21T14:29:25.536627"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:26.925580",
+      "timestamp": "2025-06-21T14:29:25.540270",
       "details": "Mapped 'cardiac issue' → 'Scar tissue' (SNOMED: 12402003)",
       "data": {
         "original_term": "cardiac issue",
@@ -1080,12 +1080,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:26.925578"
+        "timestamp": "2025-06-21T14:29:25.540264"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:26.927075",
+      "timestamp": "2025-06-21T14:29:25.542779",
       "details": "Mapped 'cardiac issue' → 'Bony tissue' (SNOMED: 3138006)",
       "data": {
         "original_term": "cardiac issue",
@@ -1094,12 +1094,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:26.927073"
+        "timestamp": "2025-06-21T14:29:25.542774"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:26.928578",
+      "timestamp": "2025-06-21T14:29:25.545986",
       "details": "Querying Neo4j for term 'coronary artery disease' (16/26)",
       "data": {
         "term": "coronary artery disease",
@@ -1110,7 +1110,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:26.929325",
+      "timestamp": "2025-06-21T14:29:25.547774",
       "details": "Trying exact match for term 'coronary artery disease' in Neo4j SNOMED",
       "data": {
         "term": "coronary artery disease",
@@ -1119,7 +1119,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:27.206312",
+      "timestamp": "2025-06-21T14:29:25.793952",
       "details": "Found 1 exact matches for 'coronary artery disease'",
       "data": {
         "term": "coronary artery disease",
@@ -1129,7 +1129,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:27.208051",
+      "timestamp": "2025-06-21T14:29:25.798596",
       "details": "Mapped 'coronary artery disease' → 'Coronary artery disease' (SNOMED: 53741008)",
       "data": {
         "original_term": "coronary artery disease",
@@ -1138,12 +1138,12 @@
         "match_type": "exact",
         "confidence": 0.95,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:27.208048"
+        "timestamp": "2025-06-21T14:29:25.798583"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:27.210648",
+      "timestamp": "2025-06-21T14:29:25.803199",
       "details": "Querying Neo4j for term 'heart failure' (17/26)",
       "data": {
         "term": "heart failure",
@@ -1154,7 +1154,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:27.211812",
+      "timestamp": "2025-06-21T14:29:25.805377",
       "details": "Trying exact match for term 'heart failure' in Neo4j SNOMED",
       "data": {
         "term": "heart failure",
@@ -1163,7 +1163,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:27.545685",
+      "timestamp": "2025-06-21T14:29:26.126023",
       "details": "Found 1 exact matches for 'heart failure'",
       "data": {
         "term": "heart failure",
@@ -1173,7 +1173,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:27.548156",
+      "timestamp": "2025-06-21T14:29:26.130962",
       "details": "Mapped 'heart failure' → 'Heart failure' (SNOMED: 84114007)",
       "data": {
         "original_term": "heart failure",
@@ -1182,12 +1182,12 @@
         "match_type": "exact",
         "confidence": 0.95,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:27.548142"
+        "timestamp": "2025-06-21T14:29:26.130951"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:27.550690",
+      "timestamp": "2025-06-21T14:29:26.134699",
       "details": "Querying Neo4j for term 'EKG' (18/26)",
       "data": {
         "term": "EKG",
@@ -1198,7 +1198,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:27.552447",
+      "timestamp": "2025-06-21T14:29:26.136328",
       "details": "Trying exact match for term 'EKG' in Neo4j SNOMED",
       "data": {
         "term": "EKG",
@@ -1207,7 +1207,7 @@
     },
     {
       "step": "NEO4J_CONTAINS_SEARCH_QUERY",
-      "timestamp": "2025-06-20T23:33:29.257904",
+      "timestamp": "2025-06-21T14:29:27.718264",
       "details": "No exact match found, trying contains search for 'EKG'",
       "data": {
         "term": "EKG",
@@ -1217,7 +1217,7 @@
     },
     {
       "step": "NEO4J_CONTAINS_SEARCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:31.038283",
+      "timestamp": "2025-06-21T14:29:29.526777",
       "details": "Found 3 contains matches for 'EKG'",
       "data": {
         "term": "EKG",
@@ -1227,7 +1227,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:31.039434",
+      "timestamp": "2025-06-21T14:29:29.528987",
       "details": "Mapped 'EKG' → 'EKG finding' (SNOMED: 301120008)",
       "data": {
         "original_term": "EKG",
@@ -1236,12 +1236,12 @@
         "match_type": "contains",
         "confidence": 0.8,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:31.039428"
+        "timestamp": "2025-06-21T14:29:29.528979"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:31.041711",
+      "timestamp": "2025-06-21T14:29:29.532382",
       "details": "Mapped 'EKG' → 'EKG: asystole' (SNOMED: 427485008)",
       "data": {
         "original_term": "EKG",
@@ -1250,12 +1250,12 @@
         "match_type": "contains",
         "confidence": 0.8,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:31.041708"
+        "timestamp": "2025-06-21T14:29:29.532378"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:31.043631",
+      "timestamp": "2025-06-21T14:29:29.535443",
       "details": "Mapped 'EKG' → 'EKG hypertrophy' (SNOMED: 1155004)",
       "data": {
         "original_term": "EKG",
@@ -1264,12 +1264,12 @@
         "match_type": "contains",
         "confidence": 0.8,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:31.043629"
+        "timestamp": "2025-06-21T14:29:29.535440"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:31.046020",
+      "timestamp": "2025-06-21T14:29:29.538218",
       "details": "Querying Neo4j for term 'blood work' (19/26)",
       "data": {
         "term": "blood work",
@@ -1280,7 +1280,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:31.047223",
+      "timestamp": "2025-06-21T14:29:29.539547",
       "details": "Trying exact match for term 'blood work' in Neo4j SNOMED",
       "data": {
         "term": "blood work",
@@ -1289,7 +1289,7 @@
     },
     {
       "step": "NEO4J_CONTAINS_SEARCH_QUERY",
-      "timestamp": "2025-06-20T23:33:32.861710",
+      "timestamp": "2025-06-21T14:29:31.346076",
       "details": "No exact match found, trying contains search for 'blood work'",
       "data": {
         "term": "blood work",
@@ -1299,7 +1299,7 @@
     },
     {
       "step": "NEO4J_SEMANTIC_SEARCH_QUERY",
-      "timestamp": "2025-06-20T23:33:34.627800",
+      "timestamp": "2025-06-21T14:29:33.090427",
       "details": "No contains match found, trying semantic search for 'blood work'",
       "data": {
         "term": "blood work",
@@ -1308,7 +1308,7 @@
     },
     {
       "step": "NEO4J_SEMANTIC_SEARCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:36.536765",
+      "timestamp": "2025-06-21T14:29:35.084614",
       "details": "Found 5 semantic matches for 'blood work'",
       "data": {
         "term": "blood work",
@@ -1318,7 +1318,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:36.541360",
+      "timestamp": "2025-06-21T14:29:35.089210",
       "details": "Mapped 'blood work' → 'Blood' (SNOMED: 87612001)",
       "data": {
         "original_term": "blood work",
@@ -1327,12 +1327,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:36.541346"
+        "timestamp": "2025-06-21T14:29:35.089196"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:36.546175",
+      "timestamp": "2025-06-21T14:29:35.093509",
       "details": "Mapped 'blood work' → 'Worker' (SNOMED: 106541005)",
       "data": {
         "original_term": "blood work",
@@ -1341,12 +1341,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:36.546171"
+        "timestamp": "2025-06-21T14:29:35.093505"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:36.549171",
+      "timestamp": "2025-06-21T14:29:35.097766",
       "details": "Mapped 'blood work' → 'Working' (SNOMED: 261041009)",
       "data": {
         "original_term": "blood work",
@@ -1355,12 +1355,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:36.549160"
+        "timestamp": "2025-06-21T14:29:35.097760"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:36.553194",
+      "timestamp": "2025-06-21T14:29:35.101689",
       "details": "Mapped 'blood work' → 'In work' (SNOMED: 224363007)",
       "data": {
         "original_term": "blood work",
@@ -1369,12 +1369,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:36.553187"
+        "timestamp": "2025-06-21T14:29:35.101677"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:36.556107",
+      "timestamp": "2025-06-21T14:29:35.106020",
       "details": "Mapped 'blood work' → 'Overwork' (SNOMED: 105490003)",
       "data": {
         "original_term": "blood work",
@@ -1383,12 +1383,12 @@
         "match_type": "semantic",
         "confidence": 0.65,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:36.556101"
+        "timestamp": "2025-06-21T14:29:35.106016"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:36.559607",
+      "timestamp": "2025-06-21T14:29:35.109186",
       "details": "Querying Neo4j for term 'lipid panel' (20/26)",
       "data": {
         "term": "lipid panel",
@@ -1399,7 +1399,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:36.560879",
+      "timestamp": "2025-06-21T14:29:35.111033",
       "details": "Trying exact match for term 'lipid panel' in Neo4j SNOMED",
       "data": {
         "term": "lipid panel",
@@ -1408,7 +1408,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:36.663800",
+      "timestamp": "2025-06-21T14:29:35.215666",
       "details": "Found 1 exact matches for 'lipid panel'",
       "data": {
         "term": "lipid panel",
@@ -1418,7 +1418,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:36.667427",
+      "timestamp": "2025-06-21T14:29:35.218070",
       "details": "Mapped 'lipid panel' → 'Lipid panel' (SNOMED: 16254007)",
       "data": {
         "original_term": "lipid panel",
@@ -1427,12 +1427,12 @@
         "match_type": "exact",
         "confidence": 0.95,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:36.667415"
+        "timestamp": "2025-06-21T14:29:35.218062"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:36.671230",
+      "timestamp": "2025-06-21T14:29:35.220946",
       "details": "Querying Neo4j for term 'BNP' (21/26)",
       "data": {
         "term": "BNP",
@@ -1443,7 +1443,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:36.673463",
+      "timestamp": "2025-06-21T14:29:35.221898",
       "details": "Trying exact match for term 'BNP' in Neo4j SNOMED",
       "data": {
         "term": "BNP",
@@ -1452,7 +1452,7 @@
     },
     {
       "step": "NEO4J_CONTAINS_SEARCH_QUERY",
-      "timestamp": "2025-06-20T23:33:38.432190",
+      "timestamp": "2025-06-21T14:29:36.759982",
       "details": "No exact match found, trying contains search for 'BNP'",
       "data": {
         "term": "BNP",
@@ -1462,7 +1462,7 @@
     },
     {
       "step": "NEO4J_CONTAINS_SEARCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:40.264075",
+      "timestamp": "2025-06-21T14:29:38.396680",
       "details": "Found 3 contains matches for 'BNP'",
       "data": {
         "term": "BNP",
@@ -1472,7 +1472,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:40.265694",
+      "timestamp": "2025-06-21T14:29:38.405963",
       "details": "Mapped 'BNP' → 'proBNP - pro-B-type natriuretic peptide' (SNOMED: 407060002)",
       "data": {
         "original_term": "BNP",
@@ -1481,12 +1481,12 @@
         "match_type": "contains",
         "confidence": 0.8,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:40.265689"
+        "timestamp": "2025-06-21T14:29:38.405945"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:40.267822",
+      "timestamp": "2025-06-21T14:29:38.411930",
       "details": "Mapped 'BNP' → 'N-BNP - N-terminal pro brain natriuretic peptide' (SNOMED: 414798009)",
       "data": {
         "original_term": "BNP",
@@ -1495,12 +1495,12 @@
         "match_type": "contains",
         "confidence": 0.8,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:40.267819"
+        "timestamp": "2025-06-21T14:29:38.411919"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:40.270736",
+      "timestamp": "2025-06-21T14:29:38.415211",
       "details": "Mapped 'BNP' → 'NT-proBNP - N-terminal pro-B-type natriuretic peptide' (SNOMED: 414798009)",
       "data": {
         "original_term": "BNP",
@@ -1509,12 +1509,12 @@
         "match_type": "contains",
         "confidence": 0.8,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:40.270730"
+        "timestamp": "2025-06-21T14:29:38.415209"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:40.273429",
+      "timestamp": "2025-06-21T14:29:38.417231",
       "details": "Querying Neo4j for term 'cardiologist' (22/26)",
       "data": {
         "term": "cardiologist",
@@ -1525,7 +1525,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:40.274514",
+      "timestamp": "2025-06-21T14:29:38.418694",
       "details": "Trying exact match for term 'cardiologist' in Neo4j SNOMED",
       "data": {
         "term": "cardiologist",
@@ -1534,7 +1534,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:40.391284",
+      "timestamp": "2025-06-21T14:29:38.528182",
       "details": "Found 1 exact matches for 'cardiologist'",
       "data": {
         "term": "cardiologist",
@@ -1544,7 +1544,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:40.392746",
+      "timestamp": "2025-06-21T14:29:38.532580",
       "details": "Mapped 'cardiologist' → 'Cardiologist' (SNOMED: 17561000)",
       "data": {
         "original_term": "cardiologist",
@@ -1553,12 +1553,12 @@
         "match_type": "exact",
         "confidence": 0.95,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:40.392741"
+        "timestamp": "2025-06-21T14:29:38.532564"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:40.395268",
+      "timestamp": "2025-06-21T14:29:38.538240",
       "details": "Querying Neo4j for term 'stress test' (23/26)",
       "data": {
         "term": "stress test",
@@ -1569,7 +1569,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:40.396474",
+      "timestamp": "2025-06-21T14:29:38.540559",
       "details": "Trying exact match for term 'stress test' in Neo4j SNOMED",
       "data": {
         "term": "stress test",
@@ -1578,7 +1578,7 @@
     },
     {
       "step": "NEO4J_CONTAINS_SEARCH_QUERY",
-      "timestamp": "2025-06-20T23:33:42.110954",
+      "timestamp": "2025-06-21T14:29:40.089457",
       "details": "No exact match found, trying contains search for 'stress test'",
       "data": {
         "term": "stress test",
@@ -1588,7 +1588,7 @@
     },
     {
       "step": "NEO4J_CONTAINS_SEARCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:43.970463",
+      "timestamp": "2025-06-21T14:29:41.789326",
       "details": "Found 3 contains matches for 'stress test'",
       "data": {
         "term": "stress test",
@@ -1598,7 +1598,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:43.971815",
+      "timestamp": "2025-06-21T14:29:41.790899",
       "details": "Mapped 'stress test' → 'Nonstress test' (SNOMED: 387673001)",
       "data": {
         "original_term": "stress test",
@@ -1607,12 +1607,12 @@
         "match_type": "contains",
         "confidence": 0.8,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:43.971812"
+        "timestamp": "2025-06-21T14:29:41.790895"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:43.973927",
+      "timestamp": "2025-06-21T14:29:41.793166",
       "details": "Mapped 'stress test' → 'Photostress test' (SNOMED: 252813005)",
       "data": {
         "original_term": "stress test",
@@ -1621,12 +1621,12 @@
         "match_type": "contains",
         "confidence": 0.8,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:43.973922"
+        "timestamp": "2025-06-21T14:29:41.793163"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:43.976112",
+      "timestamp": "2025-06-21T14:29:41.795348",
       "details": "Mapped 'stress test' → 'Stress test table' (SNOMED: 465498004)",
       "data": {
         "original_term": "stress test",
@@ -1635,12 +1635,12 @@
         "match_type": "contains",
         "confidence": 0.8,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:43.976109"
+        "timestamp": "2025-06-21T14:29:41.795346"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:43.978406",
+      "timestamp": "2025-06-21T14:29:41.797537",
       "details": "Querying Neo4j for term 'diuretic' (24/26)",
       "data": {
         "term": "diuretic",
@@ -1651,7 +1651,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:43.979477",
+      "timestamp": "2025-06-21T14:29:41.798657",
       "details": "Trying exact match for term 'diuretic' in Neo4j SNOMED",
       "data": {
         "term": "diuretic",
@@ -1660,7 +1660,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:45.030579",
+      "timestamp": "2025-06-21T14:29:42.872764",
       "details": "Found 1 exact matches for 'diuretic'",
       "data": {
         "term": "diuretic",
@@ -1670,7 +1670,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:45.032384",
+      "timestamp": "2025-06-21T14:29:42.878314",
       "details": "Mapped 'diuretic' → 'Diuretic' (SNOMED: 372695000)",
       "data": {
         "original_term": "diuretic",
@@ -1679,12 +1679,12 @@
         "match_type": "exact",
         "confidence": 0.95,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:45.032378"
+        "timestamp": "2025-06-21T14:29:42.878302"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:45.036424",
+      "timestamp": "2025-06-21T14:29:42.884704",
       "details": "Querying Neo4j for term 'hydrochlorothiazide' (25/26)",
       "data": {
         "term": "hydrochlorothiazide",
@@ -1695,7 +1695,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:45.038361",
+      "timestamp": "2025-06-21T14:29:42.887199",
       "details": "Trying exact match for term 'hydrochlorothiazide' in Neo4j SNOMED",
       "data": {
         "term": "hydrochlorothiazide",
@@ -1704,7 +1704,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:46.334361",
+      "timestamp": "2025-06-21T14:29:43.938226",
       "details": "Found 1 exact matches for 'hydrochlorothiazide'",
       "data": {
         "term": "hydrochlorothiazide",
@@ -1714,7 +1714,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:46.339578",
+      "timestamp": "2025-06-21T14:29:43.943936",
       "details": "Mapped 'hydrochlorothiazide' → 'Hydrochlorothiazide' (SNOMED: 387525002)",
       "data": {
         "original_term": "hydrochlorothiazide",
@@ -1723,12 +1723,12 @@
         "match_type": "exact",
         "confidence": 0.95,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:46.339565"
+        "timestamp": "2025-06-21T14:29:43.943919"
       }
     },
     {
       "step": "NEO4J_TERM_QUERY_START",
-      "timestamp": "2025-06-20T23:33:46.345924",
+      "timestamp": "2025-06-21T14:29:43.950273",
       "details": "Querying Neo4j for term 'smoking cessation' (26/26)",
       "data": {
         "term": "smoking cessation",
@@ -1739,7 +1739,7 @@
     },
     {
       "step": "NEO4J_EXACT_MATCH_QUERY",
-      "timestamp": "2025-06-20T23:33:46.347737",
+      "timestamp": "2025-06-21T14:29:43.952878",
       "details": "Trying exact match for term 'smoking cessation' in Neo4j SNOMED",
       "data": {
         "term": "smoking cessation",
@@ -1748,7 +1748,7 @@
     },
     {
       "step": "NEO4J_CONTAINS_SEARCH_QUERY",
-      "timestamp": "2025-06-20T23:33:48.200636",
+      "timestamp": "2025-06-21T14:29:45.840011",
       "details": "No exact match found, trying contains search for 'smoking cessation'",
       "data": {
         "term": "smoking cessation",
@@ -1758,7 +1758,7 @@
     },
     {
       "step": "NEO4J_CONTAINS_SEARCH_SUCCESS",
-      "timestamp": "2025-06-20T23:33:50.033231",
+      "timestamp": "2025-06-21T14:29:47.528158",
       "details": "Found 3 contains matches for 'smoking cessation'",
       "data": {
         "term": "smoking cessation",
@@ -1768,7 +1768,7 @@
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:50.040717",
+      "timestamp": "2025-06-21T14:29:47.533724",
       "details": "Mapped 'smoking cessation' → 'Age at smoking cessation' (SNOMED: 1221000175102)",
       "data": {
         "original_term": "smoking cessation",
@@ -1777,12 +1777,12 @@
         "match_type": "contains",
         "confidence": 0.8,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:50.040699"
+        "timestamp": "2025-06-21T14:29:47.533712"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:50.045127",
+      "timestamp": "2025-06-21T14:29:47.538829",
       "details": "Mapped 'smoking cessation' → 'Smoking cessation advice' (SNOMED: 225323000)",
       "data": {
         "original_term": "smoking cessation",
@@ -1791,12 +1791,12 @@
         "match_type": "contains",
         "confidence": 0.8,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:50.045123"
+        "timestamp": "2025-06-21T14:29:47.538825"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING",
-      "timestamp": "2025-06-20T23:33:50.049875",
+      "timestamp": "2025-06-21T14:29:47.542809",
       "details": "Mapped 'smoking cessation' → 'Smoking cessation therapy' (SNOMED: 710081004)",
       "data": {
         "original_term": "smoking cessation",
@@ -1805,12 +1805,12 @@
         "match_type": "contains",
         "confidence": 0.8,
         "language": "en",
-        "timestamp": "2025-06-20T23:33:50.049870"
+        "timestamp": "2025-06-21T14:29:47.542804"
       }
     },
     {
       "step": "NEO4J_SNOMED_MAPPING_COMPLETED",
-      "timestamp": "2025-06-20T23:33:50.054249",
+      "timestamp": "2025-06-21T14:29:47.546945",
       "details": "SNOMED mapping completed: 54 mappings found",
       "data": {
         "total_mappings_found": 54,
@@ -1821,312 +1821,280 @@
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:33:50.056814",
+      "timestamp": "2025-06-21T14:29:47.549314",
       "details": "Retrieved 54 SNOMED codes for the entire encounter.",
       "level": "INFO",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:33:50.058987",
+      "timestamp": "2025-06-21T14:29:47.551266",
       "details": "No specific preferences found for doctor doc_123.",
       "level": "INFO",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:33:50.061006",
+      "timestamp": "2025-06-21T14:29:47.553287",
       "details": "Starting generation for section 1/7: 'Subjective'",
       "level": "INFO",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:33:50.958375",
-      "details": "Attempt 1: Retrieved 5 chunks for 'Subjective'.",
+      "timestamp": "2025-06-21T14:29:48.282955",
+      "details": "Attempt 1: Retrieved 1 chunks for 'Subjective'.",
       "level": "DEBUG",
       "data": {}
     },
     {
       "step": "SECTION_GENERATION_COMPLETED",
-      "timestamp": "2025-06-20T23:33:59.328256",
-      "details": "Generated Subjective section (ID: section_86d1bec2) - 1181 chars, 5 line refs",
+      "timestamp": "2025-06-21T14:29:57.996851",
+      "details": "Generated Subjective section (ID: section_bc411656) - 1159 chars, 7 line refs",
       "data": {
-        "section_id": "section_86d1bec2",
+        "section_id": "section_bc411656",
         "section_type": "Subjective",
-        "content_length": 1181,
-        "line_references_found": 5,
+        "content_length": 1159,
+        "line_references_found": 7,
         "snomed_mappings_applied": 54,
         "confidence_score": 0.9,
         "processing_duration": 0,
         "status": "COMPLETED",
-        "timestamp": "2025-06-20T23:33:59.328239"
+        "timestamp": "2025-06-21T14:29:57.996833"
       }
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:33:59.334305",
+      "timestamp": "2025-06-21T14:29:58.006499",
       "details": "✅ Successfully generated and saved section 'Subjective' on attempt 1.",
       "level": "INFO",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:33:59.336046",
+      "timestamp": "2025-06-21T14:29:58.011934",
       "details": "Starting generation for section 2/7: 'Objective'",
       "level": "INFO",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:34:00.078504",
-      "details": "Attempt 1: Retrieved 5 chunks for 'Objective'.",
+      "timestamp": "2025-06-21T14:29:58.806171",
+      "details": "Attempt 1: Retrieved 3 chunks for 'Objective'.",
       "level": "DEBUG",
       "data": {}
     },
     {
       "step": "SECTION_GENERATION_COMPLETED",
-      "timestamp": "2025-06-20T23:34:07.099237",
-      "details": "Generated Objective section (ID: section_fd05b799) - 589 chars, 2 line refs",
+      "timestamp": "2025-06-21T14:30:03.499405",
+      "details": "Generated Objective section (ID: section_f62759b6) - 521 chars, 4 line refs",
       "data": {
-        "section_id": "section_fd05b799",
+        "section_id": "section_f62759b6",
         "section_type": "Objective",
-        "content_length": 589,
-        "line_references_found": 2,
+        "content_length": 521,
+        "line_references_found": 4,
         "snomed_mappings_applied": 54,
-        "confidence_score": 0.9,
+        "confidence_score": 1.0,
         "processing_duration": 0,
         "status": "COMPLETED",
-        "timestamp": "2025-06-20T23:34:07.099215"
+        "timestamp": "2025-06-21T14:30:03.499374"
       }
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:34:07.108090",
+      "timestamp": "2025-06-21T14:30:03.508788",
       "details": "✅ Successfully generated and saved section 'Objective' on attempt 1.",
       "level": "INFO",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:34:07.112420",
+      "timestamp": "2025-06-21T14:30:03.512736",
       "details": "Starting generation for section 3/7: 'Assessment'",
       "level": "INFO",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:34:07.737066",
-      "details": "Attempt 1: Retrieved 5 chunks for 'Assessment'.",
+      "timestamp": "2025-06-21T14:30:04.198596",
+      "details": "Attempt 1: Retrieved 3 chunks for 'Assessment'.",
       "level": "DEBUG",
       "data": {}
     },
     {
       "step": "SECTION_GENERATION_COMPLETED",
-      "timestamp": "2025-06-20T23:34:19.798794",
-      "details": "Generated Assessment section (ID: section_0d7bcf2c) - 1073 chars, 7 line refs",
+      "timestamp": "2025-06-21T14:30:16.927924",
+      "details": "Generated Assessment section (ID: section_a300f62f) - 1269 chars, 11 line refs",
       "data": {
-        "section_id": "section_0d7bcf2c",
+        "section_id": "section_a300f62f",
         "section_type": "Assessment",
-        "content_length": 1073,
-        "line_references_found": 7,
+        "content_length": 1269,
+        "line_references_found": 11,
         "snomed_mappings_applied": 54,
         "confidence_score": 0.8,
         "processing_duration": 0,
         "status": "COMPLETED",
-        "timestamp": "2025-06-20T23:34:19.798770"
+        "timestamp": "2025-06-21T14:30:16.927907"
       }
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:34:19.807338",
+      "timestamp": "2025-06-21T14:30:16.936154",
       "details": "✅ Successfully generated and saved section 'Assessment' on attempt 1.",
       "level": "INFO",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:34:19.811773",
+      "timestamp": "2025-06-21T14:30:16.938884",
       "details": "Starting generation for section 4/7: 'Plan'",
       "level": "INFO",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:34:20.593006",
-      "details": "Attempt 1: Retrieved 5 chunks for 'Plan'.",
+      "timestamp": "2025-06-21T14:30:17.616147",
+      "details": "Attempt 1: Retrieved 3 chunks for 'Plan'.",
       "level": "DEBUG",
       "data": {}
     },
     {
       "step": "SECTION_GENERATION_COMPLETED",
-      "timestamp": "2025-06-20T23:35:01.287792",
-      "details": "Generated Plan section (ID: section_07a65982) - 890 chars, 1 line refs",
+      "timestamp": "2025-06-21T14:30:25.738075",
+      "details": "Generated Plan section (ID: section_cbeae3f6) - 944 chars, 5 line refs",
       "data": {
-        "section_id": "section_07a65982",
+        "section_id": "section_cbeae3f6",
         "section_type": "Plan",
-        "content_length": 890,
-        "line_references_found": 1,
+        "content_length": 944,
+        "line_references_found": 5,
         "snomed_mappings_applied": 54,
-        "confidence_score": 1.0,
+        "confidence_score": 0.9,
         "processing_duration": 0,
         "status": "COMPLETED",
-        "timestamp": "2025-06-20T23:35:01.287773"
+        "timestamp": "2025-06-21T14:30:25.738046"
       }
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:35:01.295243",
+      "timestamp": "2025-06-21T14:30:25.746962",
       "details": "✅ Successfully generated and saved section 'Plan' on attempt 1.",
       "level": "INFO",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:35:01.298270",
+      "timestamp": "2025-06-21T14:30:25.751147",
       "details": "Starting generation for section 5/7: 'Patient_Summary'",
       "level": "INFO",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:35:01.781240",
-      "details": "Attempt 1: Retrieved 5 chunks for 'Patient_Summary'.",
+      "timestamp": "2025-06-21T14:30:26.355948",
+      "details": "Attempt 1: Retrieved 3 chunks for 'Patient_Summary'.",
       "level": "DEBUG",
       "data": {}
     },
     {
       "step": "SECTION_GENERATION_COMPLETED",
-      "timestamp": "2025-06-20T23:35:10.527789",
-      "details": "Generated Patient_Summary section (ID: section_bed31629) - 973 chars, 5 line refs",
+      "timestamp": "2025-06-21T14:31:03.083626",
+      "details": "Generated Patient_Summary section (ID: section_ebaf4f27) - 1471 chars, 11 line refs",
       "data": {
-        "section_id": "section_bed31629",
+        "section_id": "section_ebaf4f27",
         "section_type": "Patient_Summary",
-        "content_length": 973,
-        "line_references_found": 5,
+        "content_length": 1471,
+        "line_references_found": 11,
         "snomed_mappings_applied": 54,
-        "confidence_score": 1.0,
+        "confidence_score": 0.9,
         "processing_duration": 0,
         "status": "COMPLETED",
-        "timestamp": "2025-06-20T23:35:10.527764"
+        "timestamp": "2025-06-21T14:31:03.083609"
       }
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:35:10.535895",
+      "timestamp": "2025-06-21T14:31:03.090685",
       "details": "✅ Successfully generated and saved section 'Patient_Summary' on attempt 1.",
       "level": "INFO",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:35:10.539820",
+      "timestamp": "2025-06-21T14:31:03.093482",
       "details": "Starting generation for section 6/7: 'Referral_Note'",
       "level": "INFO",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:35:11.142046",
-      "details": "Attempt 1: Retrieved 5 chunks for 'Referral_Note'.",
+      "timestamp": "2025-06-21T14:31:03.700770",
+      "details": "Attempt 1: Retrieved 3 chunks for 'Referral_Note'.",
       "level": "DEBUG",
       "data": {}
     },
     {
       "step": "SECTION_GENERATION_COMPLETED",
-      "timestamp": "2025-06-20T23:35:22.130792",
-      "details": "Generated Referral_Note section (ID: section_627b3abb) - 3855 chars, 0 line refs",
+      "timestamp": "2025-06-21T14:31:14.486097",
+      "details": "Generated Referral_Note section (ID: section_0c899087) - 2306 chars, 8 line refs",
       "data": {
-        "section_id": "section_627b3abb",
+        "section_id": "section_0c899087",
         "section_type": "Referral_Note",
-        "content_length": 3855,
-        "line_references_found": 0,
+        "content_length": 2306,
+        "line_references_found": 8,
         "snomed_mappings_applied": 54,
         "confidence_score": 0.9,
         "processing_duration": 0,
         "status": "COMPLETED",
-        "timestamp": "2025-06-20T23:35:22.130769"
+        "timestamp": "2025-06-21T14:31:14.486072"
       }
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:35:22.138355",
-      "details": "❌ Generation resulted in an error for section 'Referral_Note'.",
-      "level": "ERROR",
-      "data": {
-        "error_content": "Error: Failed to parse LLM response. Raw output: {\n  \"noteContent\": \"### Referral Note\\n\\n**Referral To:** Cardiologist\\n\\n**Reason for Referral:**\\nMr. Smith is being referred for a comprehensive cardiac evaluation due to persistent chest pain, shortness of breath, palpitations, and swollen ankles. The chest pain is described as a dull ache on the left side, exacerbated by physical activity, and has been ongoing for approximately two months (Line 2, 3). The patient also reports shortness of breath accompanying the chest pain and palpitations, described as his heart \"racing\" at times (Line 4, 5). Additionally, there is significant swelling in his ankles, particularly noticeable at the end of the day (Line 5).\n\n**Pertinent History and Findings:**\n- **Hypertension:** Managed with Lisinopril 10mg daily for the past year (Line 6).\n- **High Cholesterol:** History of high cholesterol, currently not on medication (Line 6).\n- **Vital Signs:** Blood pressure recorded at 145/90 mmHg (Line 19).\n- **Physical Examination:** Faint heart murmur detected, lungs clear, 2+ pitting edema in both ankles (Line 19).\n\n**Questions for the Consultant:**\n1. Could the patient's symptoms be indicative of coronary artery disease or heart failure? (Line 2, 3, 4, 5, 19)\n2. Is there a need for further cardiac evaluation, including a stress test, to rule out coronary artery disease and heart failure? (Line 21)\n3. What are the potential causes of the patient's palpitations and swollen ankles, and what management strategies would you recommend? (Line 4, 5)\n4. Are there any additional diagnostic tests or treatments you would recommend for this patient, considering his history of hypertension and high cholesterol? (Line 6, 21)\n5. What are the potential implications of the detected heart murmur, and what further investigations or interventions are necessary? (Line 19)\n\n**Follow-up:**\nThe patient has been referred to a cardiologist for a full evaluation, including a stress test, to further investigate the potential cardiac issues (Line 21). A follow-up appointment is scheduled in two weeks to review test results and discuss smoking cessation (Line 21).\n\",\n  \"lineReferences\": [\n    {\n      \"line_number\": 2,\n      \"text\": \"I'm still having that chest pain we talked about. It's a dull ache, mostly on the left side, exacerbated by physical activity such as walking up stairs. The pain has been ongoing for approximately two months.\",\n      \"start_char\": 28,\n      \"end_char\": 143\n    },\n    {\n      \"line_number\": 3,\n      \"text\": \"It's a dull ache, mostly on the left side, exacerbated by physical activity such as walking up stairs. The pain has been ongoing for approximately two months.\",\n      \"start_char\": 0,\n      \"end_char\": 108\n    },\n    {\n      \"line_number\": 4,\n      \"text\": \"Yes, I do get a bit short of breath. No dizziness, but my heart feels like it's racing sometimes.\",\n      \"start_char\": 0,\n      \"end_char\": 93\n    },\n    {\n      \"line_number\": 5,\n      \"text\": \"Also, my ankles have been really swollen, especially at the end of the day.\",\n      \"start_char\": 0,\n      \"end_char\": 66\n    },\n    {\n      \"line_number\": 6,\n      \"text\": \"That's right. I've been taking it for about a year. I also have a history of high cholesterol, but I'm not on any medication for that.\",\n      \"start_char\": 0,\n      \"end_char\": 105\n    },\n    {\n      \"line_number\": 19,\n      \"text\": \"Okay, your heart has a regular rate and rhythm, but I do hear a faint murmur. Your lungs sound clear. I also see 2+ pitting edema in both of your ankles.\",\n      \"start_char\": 0,\n      \"end_char\": 144\n    },\n    {\n      \"line_number\": 21,\n      \"text\": \"I'm also going to refer you to a cardiologist for a full evaluation, including a stress test, to rule out coronary artery disease and heart failure.\",\n      \"start_char\": 0,\n      \"end_char\": 125\n    }\n  ]\n}"
-      }
-    },
-    {
-      "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:35:22.847558",
-      "details": "Attempt 2: Retrieved 5 chunks for 'Referral_Note'.",
-      "level": "DEBUG",
-      "data": {}
-    },
-    {
-      "step": "SECTION_GENERATION_COMPLETED",
-      "timestamp": "2025-06-20T23:36:06.713785",
-      "details": "Generated Referral_Note section (ID: section_4abc50fc) - 1726 chars, 7 line refs",
-      "data": {
-        "section_id": "section_4abc50fc",
-        "section_type": "Referral_Note",
-        "content_length": 1726,
-        "line_references_found": 7,
-        "snomed_mappings_applied": 54,
-        "confidence_score": 0.8,
-        "processing_duration": 0,
-        "status": "COMPLETED",
-        "timestamp": "2025-06-20T23:36:06.713773"
-      }
-    },
-    {
-      "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:36:06.719742",
-      "details": "✅ Successfully generated and saved section 'Referral_Note' on attempt 2.",
+      "timestamp": "2025-06-21T14:31:14.495739",
+      "details": "✅ Successfully generated and saved section 'Referral_Note' on attempt 1.",
       "level": "INFO",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:36:06.723253",
+      "timestamp": "2025-06-21T14:31:14.500066",
       "details": "Starting generation for section 7/7: 'Billing_Codes'",
       "level": "INFO",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:36:07.243896",
-      "details": "Attempt 1: Retrieved 5 chunks for 'Billing_Codes'.",
+      "timestamp": "2025-06-21T14:31:14.945019",
+      "details": "Attempt 1: Retrieved 3 chunks for 'Billing_Codes'.",
       "level": "DEBUG",
       "data": {}
     },
     {
       "step": "SECTION_GENERATION_COMPLETED",
-      "timestamp": "2025-06-20T23:36:23.110480",
-      "details": "Generated Billing_Codes section (ID: section_1f7d6e31) - 751 chars, 8 line refs",
+      "timestamp": "2025-06-21T14:31:31.069755",
+      "details": "Generated Billing_Codes section (ID: section_78ffbb7f) - 684 chars, 12 line refs",
       "data": {
-        "section_id": "section_1f7d6e31",
+        "section_id": "section_78ffbb7f",
         "section_type": "Billing_Codes",
-        "content_length": 751,
-        "line_references_found": 8,
+        "content_length": 684,
+        "line_references_found": 12,
         "snomed_mappings_applied": 54,
-        "confidence_score": 0.9,
+        "confidence_score": 0.8,
         "processing_duration": 0,
         "status": "COMPLETED",
-        "timestamp": "2025-06-20T23:36:23.110465"
+        "timestamp": "2025-06-21T14:31:31.069731"
       }
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:36:23.116602",
+      "timestamp": "2025-06-21T14:31:31.079372",
       "details": "✅ Successfully generated and saved section 'Billing_Codes' on attempt 1.",
       "level": "INFO",
       "data": {}
     },
     {
       "step": "GENERIC_LOG",
-      "timestamp": "2025-06-20T23:36:23.119567",
+      "timestamp": "2025-06-21T14:31:31.083654",
       "details": "✅ Encounter processing pipeline completed successfully.",
       "level": "INFO",
       "data": {}
@@ -2150,7 +2118,7 @@
         "match_type": "exact",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:32:59.635267"
+      "timestamp": "2025-06-21T14:28:59.752240"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2164,7 +2132,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:05.228525"
+      "timestamp": "2025-06-21T14:29:05.203513"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2178,7 +2146,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:05.231202"
+      "timestamp": "2025-06-21T14:29:05.205344"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2192,7 +2160,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:05.232808"
+      "timestamp": "2025-06-21T14:29:05.207515"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2206,7 +2174,7 @@
         "match_type": "semantic",
         "language": "fr"
       },
-      "timestamp": "2025-06-20T23:33:05.233643"
+      "timestamp": "2025-06-21T14:29:05.208448"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2220,7 +2188,7 @@
         "match_type": "semantic",
         "language": "fr"
       },
-      "timestamp": "2025-06-20T23:33:05.235389"
+      "timestamp": "2025-06-21T14:29:05.210088"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2234,7 +2202,7 @@
         "match_type": "exact",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:06.071651"
+      "timestamp": "2025-06-21T14:29:05.997829"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2248,7 +2216,7 @@
         "match_type": "exact",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:07.154703"
+      "timestamp": "2025-06-21T14:29:07.094386"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2262,7 +2230,7 @@
         "match_type": "exact",
         "language": "fr"
       },
-      "timestamp": "2025-06-20T23:33:07.530888"
+      "timestamp": "2025-06-21T14:29:07.458737"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2276,7 +2244,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:13.146918"
+      "timestamp": "2025-06-21T14:29:12.749197"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2290,7 +2258,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:13.148748"
+      "timestamp": "2025-06-21T14:29:12.751880"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2304,7 +2272,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:13.150409"
+      "timestamp": "2025-06-21T14:29:12.754000"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2318,7 +2286,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:13.152316"
+      "timestamp": "2025-06-21T14:29:12.755844"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2332,7 +2300,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:13.154173"
+      "timestamp": "2025-06-21T14:29:12.757047"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2346,7 +2314,7 @@
         "match_type": "exact",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:13.375790"
+      "timestamp": "2025-06-21T14:29:12.968848"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2360,7 +2328,7 @@
         "match_type": "exact",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:14.475335"
+      "timestamp": "2025-06-21T14:29:14.069083"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2374,7 +2342,7 @@
         "match_type": "exact",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:14.561510"
+      "timestamp": "2025-06-21T14:29:14.155588"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2388,7 +2356,7 @@
         "match_type": "exact",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:14.906748"
+      "timestamp": "2025-06-21T14:29:14.506903"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2402,7 +2370,7 @@
         "match_type": "exact",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:15.294978"
+      "timestamp": "2025-06-21T14:29:14.894384"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2416,7 +2384,7 @@
         "match_type": "exact",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:15.621616"
+      "timestamp": "2025-06-21T14:29:15.213056"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2430,7 +2398,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:21.157118"
+      "timestamp": "2025-06-21T14:29:20.274336"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2444,7 +2412,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:21.160064"
+      "timestamp": "2025-06-21T14:29:20.276730"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2458,7 +2426,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:21.161524"
+      "timestamp": "2025-06-21T14:29:20.277816"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2472,7 +2440,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:21.163321"
+      "timestamp": "2025-06-21T14:29:20.279969"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2486,7 +2454,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:21.164652"
+      "timestamp": "2025-06-21T14:29:20.282635"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2500,7 +2468,7 @@
         "match_type": "exact",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:21.207090"
+      "timestamp": "2025-06-21T14:29:20.327565"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2514,7 +2482,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:26.919128"
+      "timestamp": "2025-06-21T14:29:25.529682"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2528,7 +2496,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:26.921944"
+      "timestamp": "2025-06-21T14:29:25.534247"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2542,7 +2510,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:26.924546"
+      "timestamp": "2025-06-21T14:29:25.538643"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2556,7 +2524,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:26.926353"
+      "timestamp": "2025-06-21T14:29:25.541833"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2570,7 +2538,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:26.927855"
+      "timestamp": "2025-06-21T14:29:25.544549"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2584,7 +2552,7 @@
         "match_type": "exact",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:27.209230"
+      "timestamp": "2025-06-21T14:29:25.800891"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2598,7 +2566,7 @@
         "match_type": "exact",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:27.549108"
+      "timestamp": "2025-06-21T14:29:26.133532"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2612,7 +2580,7 @@
         "match_type": "contains",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:31.040615"
+      "timestamp": "2025-06-21T14:29:29.530877"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2626,7 +2594,7 @@
         "match_type": "contains",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:31.042857"
+      "timestamp": "2025-06-21T14:29:29.533932"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2640,7 +2608,7 @@
         "match_type": "contains",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:31.044853"
+      "timestamp": "2025-06-21T14:29:29.537121"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2654,7 +2622,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:36.544044"
+      "timestamp": "2025-06-21T14:29:35.091675"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2668,7 +2636,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:36.547104"
+      "timestamp": "2025-06-21T14:29:35.095854"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2682,7 +2650,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:36.551280"
+      "timestamp": "2025-06-21T14:29:35.099794"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2696,7 +2664,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:36.554967"
+      "timestamp": "2025-06-21T14:29:35.104090"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2710,7 +2678,7 @@
         "match_type": "semantic",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:36.558013"
+      "timestamp": "2025-06-21T14:29:35.107345"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2724,7 +2692,7 @@
         "match_type": "exact",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:36.669543"
+      "timestamp": "2025-06-21T14:29:35.220020"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2738,7 +2706,7 @@
         "match_type": "contains",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:40.266833"
+      "timestamp": "2025-06-21T14:29:38.409089"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2752,7 +2720,7 @@
         "match_type": "contains",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:40.269219"
+      "timestamp": "2025-06-21T14:29:38.414235"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2766,7 +2734,7 @@
         "match_type": "contains",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:40.271880"
+      "timestamp": "2025-06-21T14:29:38.416206"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2780,7 +2748,7 @@
         "match_type": "exact",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:40.394035"
+      "timestamp": "2025-06-21T14:29:38.535809"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2794,7 +2762,7 @@
         "match_type": "contains",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:43.972845"
+      "timestamp": "2025-06-21T14:29:41.792082"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2808,7 +2776,7 @@
         "match_type": "contains",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:43.975057"
+      "timestamp": "2025-06-21T14:29:41.794288"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2822,7 +2790,7 @@
         "match_type": "contains",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:43.977370"
+      "timestamp": "2025-06-21T14:29:41.796464"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2836,7 +2804,7 @@
         "match_type": "exact",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:45.034616"
+      "timestamp": "2025-06-21T14:29:42.881964"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2850,7 +2818,7 @@
         "match_type": "exact",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:46.342757"
+      "timestamp": "2025-06-21T14:29:43.947634"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2864,7 +2832,7 @@
         "match_type": "contains",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:50.043900"
+      "timestamp": "2025-06-21T14:29:47.537367"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2878,7 +2846,7 @@
         "match_type": "contains",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:50.047383"
+      "timestamp": "2025-06-21T14:29:47.541472"
     },
     {
       "query_type": "SNOMED_MAPPING",
@@ -2892,98 +2860,87 @@
         "match_type": "contains",
         "language": "en"
       },
-      "timestamp": "2025-06-20T23:33:50.052521"
+      "timestamp": "2025-06-21T14:29:47.544796"
     }
   ],
   "conversation_storage": {},
   "section_generations": [
     {
-      "section_id": "section_86d1bec2",
+      "section_id": "section_bc411656",
       "section_type": "Subjective",
-      "content_length": 1181,
-      "line_references_found": 5,
+      "content_length": 1159,
+      "line_references_found": 7,
       "snomed_mappings_applied": 54,
       "confidence_score": 0.9,
       "processing_duration": 0,
       "status": "COMPLETED",
-      "timestamp": "2025-06-20T23:33:59.328239"
+      "timestamp": "2025-06-21T14:29:57.996833"
     },
     {
-      "section_id": "section_fd05b799",
+      "section_id": "section_f62759b6",
       "section_type": "Objective",
-      "content_length": 589,
-      "line_references_found": 2,
-      "snomed_mappings_applied": 54,
-      "confidence_score": 0.9,
-      "processing_duration": 0,
-      "status": "COMPLETED",
-      "timestamp": "2025-06-20T23:34:07.099215"
-    },
-    {
-      "section_id": "section_0d7bcf2c",
-      "section_type": "Assessment",
-      "content_length": 1073,
-      "line_references_found": 7,
-      "snomed_mappings_applied": 54,
-      "confidence_score": 0.8,
-      "processing_duration": 0,
-      "status": "COMPLETED",
-      "timestamp": "2025-06-20T23:34:19.798770"
-    },
-    {
-      "section_id": "section_07a65982",
-      "section_type": "Plan",
-      "content_length": 890,
-      "line_references_found": 1,
+      "content_length": 521,
+      "line_references_found": 4,
       "snomed_mappings_applied": 54,
       "confidence_score": 1.0,
       "processing_duration": 0,
       "status": "COMPLETED",
-      "timestamp": "2025-06-20T23:35:01.287773"
+      "timestamp": "2025-06-21T14:30:03.499374"
     },
     {
-      "section_id": "section_bed31629",
-      "section_type": "Patient_Summary",
-      "content_length": 973,
+      "section_id": "section_a300f62f",
+      "section_type": "Assessment",
+      "content_length": 1269,
+      "line_references_found": 11,
+      "snomed_mappings_applied": 54,
+      "confidence_score": 0.8,
+      "processing_duration": 0,
+      "status": "COMPLETED",
+      "timestamp": "2025-06-21T14:30:16.927907"
+    },
+    {
+      "section_id": "section_cbeae3f6",
+      "section_type": "Plan",
+      "content_length": 944,
       "line_references_found": 5,
       "snomed_mappings_applied": 54,
-      "confidence_score": 1.0,
+      "confidence_score": 0.9,
       "processing_duration": 0,
       "status": "COMPLETED",
-      "timestamp": "2025-06-20T23:35:10.527764"
+      "timestamp": "2025-06-21T14:30:25.738046"
     },
     {
-      "section_id": "section_627b3abb",
-      "section_type": "Referral_Note",
-      "content_length": 3855,
-      "line_references_found": 0,
+      "section_id": "section_ebaf4f27",
+      "section_type": "Patient_Summary",
+      "content_length": 1471,
+      "line_references_found": 11,
       "snomed_mappings_applied": 54,
       "confidence_score": 0.9,
       "processing_duration": 0,
       "status": "COMPLETED",
-      "timestamp": "2025-06-20T23:35:22.130769"
+      "timestamp": "2025-06-21T14:31:03.083609"
     },
     {
-      "section_id": "section_4abc50fc",
+      "section_id": "section_0c899087",
       "section_type": "Referral_Note",
-      "content_length": 1726,
-      "line_references_found": 7,
-      "snomed_mappings_applied": 54,
-      "confidence_score": 0.8,
-      "processing_duration": 0,
-      "status": "COMPLETED",
-      "timestamp": "2025-06-20T23:36:06.713773"
-    },
-    {
-      "section_id": "section_1f7d6e31",
-      "section_type": "Billing_Codes",
-      "content_length": 751,
+      "content_length": 2306,
       "line_references_found": 8,
       "snomed_mappings_applied": 54,
       "confidence_score": 0.9,
       "processing_duration": 0,
       "status": "COMPLETED",
-      "timestamp": "2025-06-20T23:36:23.110465"
+      "timestamp": "2025-06-21T14:31:14.486072"
+    },
+    {
+      "section_id": "section_78ffbb7f",
+      "section_type": "Billing_Codes",
+      "content_length": 684,
+      "line_references_found": 12,
+      "snomed_mappings_applied": 54,
+      "confidence_score": 0.8,
+      "processing_duration": 0,
+      "status": "COMPLETED",
+      "timestamp": "2025-06-21T14:31:31.069731"
     }
   ]
 }

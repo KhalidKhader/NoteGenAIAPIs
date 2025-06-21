@@ -13,7 +13,6 @@ import asyncio
 from typing import Dict, List, Optional, Any
 
 from neo4j import AsyncGraphDatabase, AsyncDriver
-from langchain_openai import AzureChatOpenAI
 
 from src.core.config import settings
 from src.core.logging import get_logger, MedicalProcessingLogger

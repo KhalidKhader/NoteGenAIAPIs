@@ -58,7 +58,6 @@ class Settings(BaseSettings):
     # =============================================================================
     neo4j_uri: str = Field(default="bolt://localhost:7687", description="Neo4j URI")
     neo4j_user: str = Field(default="neo4j", description="Neo4j user")
-    neo4j_username: str = Field(default="neo4j", description="Neo4j username (alias)")
     neo4j_password: str = Field(description="Neo4j password - REQUIRED")
     neo4j_database: str = Field(default="neo4j", description="Neo4j database")
     neo4j_max_connection_lifetime: int = Field(default=30, description="Neo4j max connection lifetime in seconds")
@@ -104,10 +103,8 @@ class Settings(BaseSettings):
     # =============================================================================
     # RAG Configuration
     # =============================================================================
-    snomed_query_limit: int = Field(default=10, description="SNOMED query limit per term")
     retrieval_k_value: int = Field(default=5, description="Number of chunks to retrieve for RAG")
     chunk_size: int = Field(default=1500, description="Chunk size for conversation splitting")
-    chunk_overlap: int = Field(default=100, description="Chunk overlap for conversation splitting")
     store_full_conversation: bool = Field(default=True, description="Store full conversation text in RAG")
 
     # =============================================================================
@@ -121,19 +118,6 @@ class Settings(BaseSettings):
         if v.upper() not in allowed_levels:
             raise ValueError(f"log_level must be one of {allowed_levels}")
         return v.upper()
-
-    # =============================================================================
-    # Properties
-    # =============================================================================
-    @property
-    def is_development(self) -> bool:
-        """Check if running in development environment."""
-        return self.environment.lower() == "development"
-
-    @property
-    def is_production(self) -> bool:
-        """Check if running in production environment."""
-        return self.environment.lower() == "production"
 
     model_config = ConfigDict(
         env_file=".env",

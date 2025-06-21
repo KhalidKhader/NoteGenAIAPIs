@@ -1,46 +1,62 @@
 {
-  "section_id": "section_bed31629",
-  "template_id": 2,
-  "section_name": "Patient_Summary",
-  "content": "### Patient Summary\n\n**Main Reason for Visit:**\nMr. Smith visited for a follow-up due to persistent chest pain, described as a dull ache on the left side, worsening with physical activity, ongoing for two months (Line 2).\n\n**Key Findings:**\n- **Symptoms:** Shortness of breath, palpitations, and swollen ankles, particularly at the end of the day (Line 4, 5).\n- **Physical Exam:** Blood pressure was 145/90 mmHg, a faint heart murmur was detected, and 2+ pitting edema was observed in both ankles (Line 19).\n\n**Important Follow-up Actions:**\n- **Tests Ordered:** EKG, blood work including a lipid panel and BNP (Line 21).\n- **Referrals:** Referred to a cardiologist for a full evaluation, including a stress test (Line 21).\n- **Medication Adjustments:** Lisinopril increased to 20mg daily, and hydrochlorothiazide 12.5mg added to manage swelling (Line 21).\n- **Next Steps:** Follow-up appointment in two weeks to review test results and discuss smoking cessation (Line 21).",
+  "section_id": "section_bc411656",
+  "template_id": 1,
+  "section_name": "Subjective",
+  "content": "### Subjective\n\n**Chief Complaint:**\n- Chest pain described as a dull ache, primarily on the left side, worsening with exertion such as walking up stairs.\n\n**History of Present Illness (HPI):**\n- The patient, Mr. Smith, reports experiencing chest pain for approximately two months. The pain is described as a dull ache located mostly on the left side and exacerbates with physical activity, particularly when climbing stairs (Line 3, 4).\n- Associated symptoms include shortness of breath and palpitations, but no dizziness is reported (Line 5, 6).\n- The patient also notes significant swelling in the ankles, particularly noticeable at the end of the day (Line 6).\n\n**Review of Systems (ROS):**\n- Cardiovascular: Reports chest pain, shortness of breath, palpitations, and swollen ankles (Line 4, 5, 6).\n- Respiratory: Shortness of breath noted (Line 5).\n- No dizziness reported (Line 5).\n\n**Past Medical History:**\n- Hypertension, currently managed with Lisinopril 10mg for about a year (Line 8).\n- History of high cholesterol, currently not on medication (Line 9).\n\n**Social History:**\n- Smoker for 20 years, currently attempting smoking cessation (Line 10).",
   "line_references": [
     {
-      "line_number": 2,
-      "start_char": 24,
-      "end_char": 164,
-      "text": "I'm still having that chest pain we talked about. It's a dull ache, mostly on the left side, and it seems to get worse when I walk up stairs. It's been happening for about two months now.",
+      "line_number": 3,
+      "start_char": 0,
+      "end_char": 47,
+      "text": "I'm still having that chest pain we talked about.",
       "speaker": null,
       "confidence": 1.0
     },
     {
       "line_number": 4,
       "start_char": 0,
-      "end_char": 172,
-      "text": "Yes, I do get a bit short of breath. No dizziness, but my heart feels like it's racing sometimes. Also, my ankles have been really swollen lately, especially at the end of the day.",
+      "end_char": 82,
+      "text": "It's a dull ache, mostly on the left side, and it seems to get worse when I walk up stairs.",
       "speaker": null,
       "confidence": 1.0
     },
     {
       "line_number": 5,
-      "start_char": 0,
-      "end_char": 95,
-      "text": "Okay. Let's review your history. You have hypertension, correct? And you're taking Lisinopril 10mg?",
+      "start_char": 4,
+      "end_char": 66,
+      "text": "Any shortness of breath, dizziness, or palpitations with the pain?",
       "speaker": null,
       "confidence": 1.0
     },
     {
-      "line_number": 19,
+      "line_number": 6,
       "start_char": 0,
-      "end_char": 210,
-      "text": "Okay, your heart has a regular rate and rhythm, but I do hear a faint murmur. Your lungs sound clear. Your blood pressure today is 145/90 mmHg, which is a bit high. I see 2+ pitting edema in both of your ankles.",
+      "end_char": 166,
+      "text": "Yes, I do get a bit short of breath. No dizziness, but my heart feels like it's racing sometimes. Also, my ankles have been really swollen lately, especially at the end of the day.",
       "speaker": null,
       "confidence": 1.0
     },
     {
-      "line_number": 21,
+      "line_number": 8,
+      "start_char": 4,
+      "end_char": 69,
+      "text": "You have hypertension, correct? And you're taking Lisinopril 10mg?",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 9,
       "start_char": 0,
-      "end_char": 451,
-      "text": "Here's the plan: I'm ordering an EKG today, and I want you to get some blood work done—specifically a lipid panel and a BNP, which is a marker for heart failure. I'm also referring you to a cardiologist for a full evaluation, including a stress test. In the meantime, I'm increasing your Lisinopril to 20mg daily and adding a low-dose diuretic, hydrochlorothiazide 12.5mg, to help with the swelling. We need to get that blood pressure down.",
+      "end_char": 84,
+      "text": "I also have a history of high cholesterol, but I'm not on anything for that right now.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 10,
+      "start_char": 0,
+      "end_char": 49,
+      "text": "And I've been a smoker for 20 years, trying to quit.",
       "speaker": null,
       "confidence": 1.0
     }
@@ -533,17 +549,22 @@
       "language": "en"
     }
   ],
-  "confidence_score": 1.0,
+  "confidence_score": 0.9,
   "language": "en",
   "processing_metadata": {
-    "duration_seconds": 7.335852146148682,
+    "duration_seconds": 7.758116006851196,
     "model_name": "gpt-4",
-    "context_chars_used": 9129,
+    "context_chars_used": 891,
     "factual_consistency_details": {
-      "factualConsistencyScore": 10,
+      "factualConsistencyScore": 9,
       "hallucinationRisk": "LOW",
-      "issuesFound": [],
-      "justification": "All statements in the generated content are directly supported by the source transcript. The line references are accurate, and there are no unsupported or contradictory claims. The generated content accurately reflects the information provided in the transcript, including symptoms, physical exam findings, tests ordered, referrals, medication adjustments, and follow-up actions."
+      "issuesFound": [
+        {
+          "statement": "Line references (e.g., Line 3, 4, 5, 6, 8, 9, 10)",
+          "issue": "Line references are not present in the source transcript."
+        }
+      ],
+      "justification": "The generated content is highly consistent with the source transcript. All the medical details such as the chief complaint, history of present illness, review of systems, past medical history, and social history are accurately reflected from the transcript. The only issue is the inclusion of line references, which do not exist in the provided source transcript. This does not affect the factual accuracy of the medical information but is a formatting error."
     }
   }
 }

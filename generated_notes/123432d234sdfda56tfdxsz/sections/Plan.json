@@ -1,62 +1,46 @@
 {
-  "section_id": "section_4abc50fc",
-  "template_id": 2,
-  "section_name": "Referral_Note",
-  "content": "### Referral Note\n\n**Patient Name:** Mr. Smith\n\n**Reason for Referral:**\nMr. Smith is being referred to a cardiologist for further evaluation of persistent chest pain, shortness of breath, palpitations, and swollen ankles. There is a concern for possible coronary artery disease and heart failure.\n\n**Pertinent History and Findings:**\n- **Symptoms:** Mr. Smith reports a dull ache in the chest, primarily on the left side, exacerbated by physical activity such as walking up stairs, ongoing for approximately two months (Line 2, 3). He experiences shortness of breath and palpitations, described as his heart \"racing\" at times (Line 4). Additionally, he reports significant swelling in his ankles, particularly noticeable at the end of the day (Line 5).\n- **Medical History:** Hypertension managed with Lisinopril 10mg daily for the past year, history of high cholesterol currently not on medication, and a 20-year history of smoking, currently attempting cessation (Line 6).\n- **Physical Examination:** Blood pressure recorded at 145/90 mmHg, regular heart rate and rhythm with a faint murmur, clear lungs, and 2+ pitting edema in both ankles (Line 19).\n\n**Tests Ordered:**\n- EKG\n- Blood work including a lipid panel and BNP (Line 21)\n\n**Specific Questions to be Addressed:**\n1. Is there evidence of coronary artery disease or heart failure?\n2. What is the significance of the faint heart murmur?\n3. Recommendations for managing Mr. Smith's hypertension and edema.\n4. Evaluation of the impact of smoking on Mr. Smith's cardiovascular health.\n\n**Follow-up:**\nMr. Smith will return for a follow-up appointment in two weeks to review test results and discuss further management, including smoking cessation strategies (Line 21).",
+  "section_id": "section_cbeae3f6",
+  "template_id": 1,
+  "section_name": "Plan",
+  "content": "### Plan\n\n1. **Medications:**\n   - Increase Lisinopril to 20mg daily to better manage hypertension (Line 16).\n   - Initiate Hydrochlorothiazide 12.5mg daily to address pitting edema and assist in lowering blood pressure (Line 16).\n\n2. **Laboratory Tests:**\n   - Order blood work including a lipid panel and BNP to assess cardiac function and risk factors (Line 15).\n\n3. **Imaging and Diagnostic Tests:**\n   - Perform an EKG today to evaluate cardiac electrical activity (Line 15).\n\n4. **Referrals:**\n   - Refer to a cardiologist for a comprehensive evaluation, including a stress test, to rule out coronary artery disease and heart failure (Line 15).\n\n5. **Patient Education:**\n   - Discuss the importance of smoking cessation and plan to address this more thoroughly at the next visit (Line 16).\n\n6. **Follow-Up:**\n   - Schedule a follow-up appointment in two weeks to review test results and adjust the management plan as necessary (Line 16).",
   "line_references": [
     {
-      "line_number": 2,
+      "line_number": 16,
       "start_char": 0,
-      "end_char": 183,
-      "text": "patient: Hi Dr. Evans. I'm still having that chest pain we talked about. It's a dull ache, mostly on the left side, and it seems to get worse when I walk up stairs. It's been happening for about two months now.",
+      "end_char": 122,
+      "text": "I'm increasing your Lisinopril to 20mg daily and adding a low-dose diuretic, hydrochlorothiazide 12.5mg, to help with the swelling.",
       "speaker": null,
       "confidence": 1.0
     },
     {
-      "line_number": 3,
+      "line_number": 15,
       "start_char": 0,
-      "end_char": 76,
-      "text": "doctor: I see. Any shortness of breath, dizziness, or palpitations with the pain?",
+      "end_char": 136,
+      "text": "I'm ordering an EKG today, and I want you to get some blood work done—specifically a lipid panel and a BNP, which is a marker for heart failure.",
       "speaker": null,
       "confidence": 1.0
     },
     {
-      "line_number": 4,
-      "start_char": 0,
-      "end_char": 176,
-      "text": "patient: Yes, I do get a bit short of breath. No dizziness, but my heart feels like it's racing sometimes. Also, my ankles have been really swollen lately, especially at the end of the day.",
+      "line_number": 15,
+      "start_char": 137,
+      "end_char": 206,
+      "text": "I'm also referring you to a cardiologist for a full evaluation, including a stress test.",
       "speaker": null,
       "confidence": 1.0
     },
     {
-      "line_number": 5,
-      "start_char": 0,
-      "end_char": 95,
-      "text": "doctor: Okay. Let's review your history. You have hypertension, correct? And you're taking Lisinopril 10mg?",
+      "line_number": 16,
+      "start_char": 207,
+      "end_char": 272,
+      "text": "And please, let's talk more seriously about smoking cessation at our next visit.",
       "speaker": null,
       "confidence": 1.0
     },
     {
-      "line_number": 6,
-      "start_char": 0,
-      "end_char": 179,
-      "text": "patient: That's right. I've been taking it for about a year. I also have a history of high cholesterol, but I'm not on anything for that right now. And I've been a smoker for 20 years, trying to quit.",
-      "speaker": null,
-      "confidence": 1.0
-    },
-    {
-      "line_number": 19,
-      "start_char": 0,
-      "end_char": 207,
-      "text": "doctor: Okay, your heart has a regular rate and rhythm, but I do hear a faint murmur. Your lungs sound clear. Your blood pressure today is 145/90 mmHg, which is a bit high. I see 2+ pitting edema in both of your ankles.",
-      "speaker": null,
-      "confidence": 1.0
-    },
-    {
-      "line_number": 21,
-      "start_char": 0,
-      "end_char": 409,
-      "text": "doctor: Here's the plan: I'm ordering an EKG today, and I want you to get some blood work done—specifically a lipid panel and a BNP, which is a marker for heart failure. I'm also referring you to a cardiologist for a full evaluation, including a stress test. In the meantime, I'm increasing your Lisinopril to 20mg daily and adding a low-dose diuretic, hydrochlorothiazide 12.5mg, to help with the swelling. We need to get that blood pressure down.",
+      "line_number": 16,
+      "start_char": 273,
+      "end_char": 336,
+      "text": "Please make an appointment to see me in two weeks to review the results.",
       "speaker": null,
       "confidence": 1.0
     }
@@ -549,30 +533,26 @@
       "language": "en"
     }
   ],
-  "confidence_score": 0.8,
+  "confidence_score": 0.9,
   "language": "en",
   "processing_metadata": {
-    "duration_seconds": 40.47623014450073,
+    "duration_seconds": 6.3064351081848145,
     "model_name": "gpt-4",
-    "context_chars_used": 8333,
+    "context_chars_used": 4365,
     "factual_consistency_details": {
-      "factualConsistencyScore": 8,
+      "factualConsistencyScore": 9,
       "hallucinationRisk": "LOW",
       "issuesFound": [
         {
-          "statement": "There is a concern for possible coronary artery disease and heart failure.",
-          "issue": "Not explicitly stated in the transcript, though implied by the tests ordered."
+          "statement": "Line 16",
+          "issue": "Incorrect line reference for medications and follow-up."
         },
         {
-          "statement": "Recommendations for managing Mr. Smith's hypertension and edema.",
-          "issue": "Specific recommendations are not detailed in the generated content, though changes in medication are mentioned in the transcript."
-        },
-        {
-          "statement": "Follow-up appointment in two weeks to review test results and discuss further management, including smoking cessation strategies.",
-          "issue": "The transcript mentions discussing smoking cessation more seriously at the next visit, but not specifically as part of the follow-up appointment."
+          "statement": "Line 15",
+          "issue": "Incorrect line reference for laboratory tests, imaging, and referrals."
         }
       ],
-      "justification": "The generated content is largely consistent with the source transcript. Most of the patient's symptoms, medical history, and examination findings are accurately reflected. However, some statements are not explicitly supported by the transcript, such as the explicit concern for coronary artery disease and heart failure, which is implied but not directly stated. Additionally, while the transcript mentions medication adjustments, specific recommendations for managing hypertension and edema are not detailed in the generated content. The follow-up appointment details are mostly accurate, but the inclusion of smoking cessation strategies is not explicitly tied to the follow-up in the transcript. Overall, the factual consistency is high, with minor discrepancies leading to a low hallucination risk."
+      "justification": "The generated content is largely consistent with the source transcript. All medical actions and recommendations are supported by the transcript. However, the line references provided in the generated content do not match the actual lines in the source transcript, which is a minor issue. The factual consistency score is high due to the overall accuracy of the medical plan, with a low hallucination risk as the content is well-supported by the transcript."
     }
   }
 }

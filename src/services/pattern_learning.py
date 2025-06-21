@@ -55,23 +55,6 @@ class PatternLearningService:
         
         return {}
     
-    def _save_patterns_to_file(self) -> None:
-        """Save patterns to JSON file."""
-        try:
-            with open(self.patterns_file, 'w', encoding='utf-8') as f:
-                json.dump(self.doctor_patterns, f, indent=2, ensure_ascii=False)
-            logger.info(f"Saved {len(self.doctor_patterns)} doctor patterns to file")
-        except Exception as e:
-            logger.error(f"Failed to save patterns to file: {str(e)}")
-    
-    def _initialize_doctor_patterns(self, doctor_id: str) -> None:
-        """Initialize patterns structure for a new doctor."""
-        self.doctor_patterns[doctor_id] = {
-            "terminology_preferences": {},
-            "modification_count": 0,
-            "last_updated": datetime.utcnow().isoformat()
-        }
-    
     async def get_doctor_preferences(
         self, 
         doctor_id: str

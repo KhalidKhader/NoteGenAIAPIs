@@ -1,13 +1,21 @@
 {
-  "section_id": "section_86d1bec2",
-  "template_id": 1,
-  "section_name": "Subjective",
-  "content": "### Subjective\n\n**Chief Complaint:**\nMr. Smith reports persistent chest pain, described as a dull ache primarily on the left side, exacerbated by physical activity such as walking up stairs. The pain has been ongoing for approximately two months (Line 2, 3).\n\n**History of Present Illness (HPI):**\nThe patient experiences shortness of breath accompanying the chest pain, but denies dizziness. He notes palpitations, describing his heart as \"racing\" at times. Additionally, he reports significant swelling in his ankles, particularly noticeable at the end of the day (Line 4, 5).\n\n**Review of Systems (ROS):**\n- **Cardiovascular:** Chest pain, palpitations, swollen ankles (Line 2, 4, 5).\n- **Respiratory:** Shortness of breath (Line 4).\n- **Neurological:** Denies dizziness (Line 4).\n\n**Past Medical History:**\n- Hypertension, currently managed with Lisinopril 10mg daily for the past year (Line 6).\n- History of high cholesterol, currently not on medication (Line 6).\n\n**Social History:**\n- Smoker for 20 years, currently attempting cessation (Line 6).\n\n**Family History:**\nNo family history information provided (Line N/A).\n\n**Allergies:**\nNo known allergies reported (Line N/A).",
+  "section_id": "section_78ffbb7f",
+  "template_id": 3,
+  "section_name": "Billing_Codes",
+  "content": "### Billing Codes\n\n**CPT Codes:**\n- **99214**: Established patient office or other outpatient visit, typically 25 minutes (Line 1-16).\n- **93000**: Electrocardiogram, routine ECG with at least 12 leads; with interpretation and report (Line 15).\n- **80061**: Lipid panel (Line 15).\n- **83880**: Natriuretic peptide (BNP) (Line 15).\n\n**ICD-10 Codes:**\n- **I20.9**: Angina pectoris, unspecified (Line 2-3).\n- **I10**: Essential (primary) hypertension (Line 8, 14).\n- **R60.0**: Localized edema (Line 6, 14).\n- **I51.9**: Heart disease, unspecified (Line 13, 15).\n- **E78.5**: Hyperlipidemia, unspecified (Line 9).\n- **F17.200**: Nicotine dependence, unspecified, uncomplicated (Line 10).",
   "line_references": [
+    {
+      "line_number": 1,
+      "start_char": 0,
+      "end_char": 89,
+      "text": "doctor: Good morning, Mr. Smith. I see you're here for a follow-up. What can I help you with today?",
+      "speaker": null,
+      "confidence": 1.0
+    },
     {
       "line_number": 2,
       "start_char": 0,
-      "end_char": 162,
+      "end_char": 203,
       "text": "patient: Hi Dr. Evans. I'm still having that chest pain we talked about. It's a dull ache, mostly on the left side, and it seems to get worse when I walk up stairs. It's been happening for about two months now.",
       "speaker": null,
       "confidence": 1.0
@@ -15,7 +23,7 @@
     {
       "line_number": 3,
       "start_char": 0,
-      "end_char": 81,
+      "end_char": 76,
       "text": "doctor: I see. Any shortness of breath, dizziness, or palpitations with the pain?",
       "speaker": null,
       "confidence": 1.0
@@ -23,7 +31,7 @@
     {
       "line_number": 4,
       "start_char": 0,
-      "end_char": 164,
+      "end_char": 186,
       "text": "patient: Yes, I do get a bit short of breath. No dizziness, but my heart feels like it's racing sometimes. Also, my ankles have been really swollen lately, especially at the end of the day.",
       "speaker": null,
       "confidence": 1.0
@@ -31,7 +39,7 @@
     {
       "line_number": 5,
       "start_char": 0,
-      "end_char": 95,
+      "end_char": 101,
       "text": "doctor: Okay. Let's review your history. You have hypertension, correct? And you're taking Lisinopril 10mg?",
       "speaker": null,
       "confidence": 1.0
@@ -39,8 +47,56 @@
     {
       "line_number": 6,
       "start_char": 0,
-      "end_char": 176,
+      "end_char": 191,
       "text": "patient: That's right. I've been taking it for about a year. I also have a history of high cholesterol, but I'm not on anything for that right now. And I've been a smoker for 20 years, trying to quit.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 8,
+      "start_char": 0,
+      "end_char": 108,
+      "text": "doctor: Thank you for that information. I'm going to listen to your heart and lungs. Please take some deep breaths for me.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 9,
+      "start_char": 0,
+      "end_char": 207,
+      "text": "doctor: Okay, your heart has a regular rate and rhythm, but I do hear a faint murmur. Your lungs sound clear. Your blood pressure today is 145/90 mmHg, which is a bit high. I see 2+ pitting edema in both of your ankles.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 13,
+      "start_char": 0,
+      "end_char": 139,
+      "text": "doctor: Given your symptoms and exam findings, I'm concerned about a possible cardiac issue. I want to rule out coronary artery disease and heart failure.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 14,
+      "start_char": 0,
+      "end_char": 409,
+      "text": "doctor: Here's the plan: I'm ordering an EKG today, and I want you to get some blood work done—specifically a lipid panel and a BNP, which is a marker for heart failure. I'm also referring you to a cardiologist for a full evaluation, including a stress test. In the meantime, I'm increasing your Lisinopril to 20mg daily and adding a low-dose diuretic, hydrochlorothiazide 12.5mg, to help with the swelling. We need to get that blood pressure down.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 15,
+      "start_char": 0,
+      "end_char": 50,
+      "text": "patient: Okay, that sounds like a lot. Is it serious?",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 16,
+      "start_char": 0,
+      "end_char": 234,
+      "text": "doctor: It's important we investigate it thoroughly. The tests will give us a clear picture. Please make an appointment to see me in two weeks to review the results. And please, let's talk more seriously about smoking cessation at our next visit.",
       "speaker": null,
       "confidence": 1.0
     }
@@ -533,26 +589,42 @@
       "language": "en"
     }
   ],
-  "confidence_score": 0.9,
+  "confidence_score": 0.8,
   "language": "en",
   "processing_metadata": {
-    "duration_seconds": 6.405070781707764,
+    "duration_seconds": 12.867806911468506,
     "model_name": "gpt-4",
-    "context_chars_used": 7043,
+    "context_chars_used": 4365,
     "factual_consistency_details": {
-      "factualConsistencyScore": 9,
-      "hallucinationRisk": "LOW",
+      "factualConsistencyScore": 8,
+      "hallucinationRisk": "MEDIUM",
       "issuesFound": [
         {
-          "statement": "Family History: No family history information provided (Line N/A).",
-          "issue": "Not explicitly stated in the transcript."
+          "statement": "99214: Established patient office or other outpatient visit, typically 25 minutes (Line 1-16).",
+          "issue": "Incorrect line reference; the transcript does not specify the duration of the visit."
         },
         {
-          "statement": "Allergies: No known allergies reported (Line N/A).",
-          "issue": "Not explicitly stated in the transcript."
+          "statement": "93000: Electrocardiogram, routine ECG with at least 12 leads; with interpretation and report (Line 15).",
+          "issue": "Incorrect line reference; the transcript mentions ordering an EKG but does not specify line 15."
+        },
+        {
+          "statement": "80061: Lipid panel (Line 15).",
+          "issue": "Incorrect line reference; the transcript mentions ordering a lipid panel but does not specify line 15."
+        },
+        {
+          "statement": "83880: Natriuretic peptide (BNP) (Line 15).",
+          "issue": "Incorrect line reference; the transcript mentions ordering BNP but does not specify line 15."
+        },
+        {
+          "statement": "I20.9: Angina pectoris, unspecified (Line 2-3).",
+          "issue": "Incorrect line reference; chest pain is mentioned but not specifically angina pectoris or line 2-3."
+        },
+        {
+          "statement": "I51.9: Heart disease, unspecified (Line 13, 15).",
+          "issue": "Incorrect line reference; heart disease is implied but not explicitly stated or linked to lines 13, 15."
         }
       ],
-      "justification": "The generated content is largely consistent with the source transcript. The chief complaint, history of present illness, review of systems, past medical history, and social history are all accurately reflected in the generated content. However, the statements regarding family history and allergies are not explicitly mentioned in the transcript, which slightly affects the factual consistency score. The overall hallucination risk is low as the majority of the content is well-supported by the transcript."
+      "justification": "The generated content is mostly consistent with the transcript, as it accurately reflects the patient's conditions and tests ordered. However, several line references are incorrect, and some specific diagnoses are not explicitly mentioned in the transcript, leading to a medium hallucination risk."
     }
   }
 }

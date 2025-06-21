@@ -1,0 +1,504 @@
+{
+  "section_id": "section_146a1163",
+  "template_id": 1,
+  "section_name": "Subjective",
+  "content": "The patient reports experiencing a sore throat and mild fever for the past three days. Additionally, the patient has a dry cough and trouble swallowing. No swollen glands or neck pain have been noted. The patient denies any recent weight loss or changes in appetite.",
+  "line_references": [
+    {
+      "line_number": 3,
+      "start_char": 10,
+      "end_char": 54,
+      "text": "I've had a sore throat and mild fever for the past three days.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 5,
+      "start_char": 13,
+      "end_char": 56,
+      "text": "There's also a dry cough and trouble swallowing.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 7,
+      "start_char": 3,
+      "end_char": 33,
+      "text": "No swollen glands or neck pain.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 9,
+      "start_char": 3,
+      "end_char": 58,
+      "text": "I haven't noticed any weight loss or changes in appetite.",
+      "speaker": null,
+      "confidence": 1.0
+    }
+  ],
+  "snomed_mappings": [
+    {
+      "concept_id": "267102003",
+      "preferred_term": "Sore throat",
+      "description": "Sore throat",
+      "original_term": "sore throat",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "386661006",
+      "preferred_term": "Fever",
+      "description": "Fever",
+      "original_term": "fever",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "49727002",
+      "preferred_term": "Cough",
+      "description": "Cough",
+      "original_term": "cough",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "255604002",
+      "preferred_term": "Mild",
+      "description": "Mild",
+      "original_term": "mild fever",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "386661006",
+      "preferred_term": "Fever",
+      "description": "Fever",
+      "original_term": "mild fever",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "16373008",
+      "preferred_term": "Mildew",
+      "description": "Mildew",
+      "original_term": "mild fever",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "186788009",
+      "preferred_term": "Q fever",
+      "description": "Q fever",
+      "original_term": "mild fever",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "21719001",
+      "preferred_term": "Hayfever",
+      "description": "Hayfever",
+      "original_term": "mild fever",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "11833005",
+      "preferred_term": "Dry cough",
+      "description": "Dry cough",
+      "original_term": "dry cough",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "263906002",
+      "preferred_term": "trouble",
+      "description": "trouble",
+      "original_term": "trouble swallowing",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "54731003",
+      "preferred_term": "Swallowing",
+      "description": "Swallowing",
+      "original_term": "trouble swallowing",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "70591005",
+      "preferred_term": "trouble fœtal",
+      "description": "trouble fœtal",
+      "original_term": "trouble swallowing",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "40950007",
+      "preferred_term": "zar (trouble)",
+      "description": "zar (trouble)",
+      "original_term": "trouble swallowing",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "7766007",
+      "preferred_term": "urine trouble",
+      "description": "urine trouble",
+      "original_term": "trouble swallowing",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "274621000",
+      "preferred_term": "No swollen glands",
+      "description": "No swollen glands",
+      "original_term": "swollen glands",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "420974001",
+      "preferred_term": "When",
+      "description": "When",
+      "original_term": "pain when swallowing",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "22253000",
+      "preferred_term": "Pain",
+      "description": "Pain",
+      "original_term": "pain when swallowing",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "226559002",
+      "preferred_term": "pain",
+      "description": "pain",
+      "original_term": "pain when swallowing",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "223680008",
+      "preferred_term": "Spain",
+      "description": "Spain",
+      "original_term": "pain when swallowing",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "36864000",
+      "preferred_term": "Paint",
+      "description": "Paint",
+      "original_term": "pain when swallowing",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "45048000",
+      "preferred_term": "Neck",
+      "description": "Neck",
+      "original_term": "swollen neck",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "25235000",
+      "preferred_term": "Necking",
+      "description": "Necking",
+      "original_term": "swollen neck",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "70070008",
+      "preferred_term": "Wry neck",
+      "description": "Wry neck",
+      "original_term": "swollen neck",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "424683001",
+      "preferred_term": "Wrynecks",
+      "description": "Wrynecks",
+      "original_term": "swollen neck",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "81680005",
+      "preferred_term": "Neck pain",
+      "description": "Neck pain",
+      "original_term": "swollen neck",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "82272006",
+      "preferred_term": "Cold",
+      "description": "Cold",
+      "original_term": "cold",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "246508008",
+      "preferred_term": "Temperature",
+      "description": "Temperature",
+      "original_term": "temperature",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "126662008",
+      "preferred_term": "Red throat",
+      "description": "Red throat",
+      "original_term": "red throat",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "18720000",
+      "preferred_term": "Of",
+      "description": "Of",
+      "original_term": "swelling of the tonsils",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "258712004",
+      "preferred_term": "oF",
+      "description": "oF",
+      "original_term": "swelling of the tonsils",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "420680007",
+      "preferred_term": "Off",
+      "description": "Off",
+      "original_term": "swelling of the tonsils",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "227365007",
+      "preferred_term": "tofu",
+      "description": "tofu",
+      "original_term": "swelling of the tonsils",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "37378003",
+      "preferred_term": "Soft",
+      "description": "Soft",
+      "original_term": "swelling of the tonsils",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "1532007",
+      "preferred_term": "Viral pharyngitis",
+      "description": "Viral pharyngitis",
+      "original_term": "viral pharyngitis",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "258157001",
+      "preferred_term": "Rest",
+      "description": "Rest",
+      "original_term": "rest",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "25670009",
+      "preferred_term": "Fetal fluids",
+      "description": "Fetal fluids",
+      "original_term": "fluids",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "17173007",
+      "preferred_term": "Keen for fluids",
+      "description": "Keen for fluids",
+      "original_term": "fluids",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "789022006",
+      "preferred_term": "Refusing fluids",
+      "description": "Refusing fluids",
+      "original_term": "fluids",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "22253000",
+      "preferred_term": "Pain",
+      "description": "Pain",
+      "original_term": "over-the-counter pain relievers",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "226559002",
+      "preferred_term": "pain",
+      "description": "pain",
+      "original_term": "over-the-counter pain relievers",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "36864000",
+      "preferred_term": "Paint",
+      "description": "Paint",
+      "original_term": "over-the-counter pain relievers",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "223680008",
+      "preferred_term": "Spain",
+      "description": "Spain",
+      "original_term": "over-the-counter pain relievers",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "5007006",
+      "preferred_term": "Papain",
+      "description": "Papain",
+      "original_term": "over-the-counter pain relievers",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "272393004",
+      "preferred_term": "Tests",
+      "description": "Tests",
+      "original_term": "strep test",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "272393004",
+      "preferred_term": "tests",
+      "description": "tests",
+      "original_term": "strep test",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "40689003",
+      "preferred_term": "Testis",
+      "description": "Testis",
+      "original_term": "strep test",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "40689003",
+      "preferred_term": "testis",
+      "description": "testis",
+      "original_term": "strep test",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "87717000",
+      "preferred_term": "Tester",
+      "description": "Tester",
+      "original_term": "strep test",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    }
+  ],
+  "confidence_score": 0.1,
+  "language": "en",
+  "processing_metadata": {
+    "duration_seconds": 3.5714950561523438,
+    "model_name": "gpt-4",
+    "context_chars_used": 0,
+    "factual_consistency_details": {
+      "factualConsistencyScore": 1,
+      "hallucinationRisk": "HIGH",
+      "issuesFound": [
+        {
+          "statement": "The patient reports experiencing a sore throat and mild fever for the past three days.",
+          "issue": "Not supported by transcript"
+        },
+        {
+          "statement": "Additionally, the patient has a dry cough and trouble swallowing.",
+          "issue": "Not supported by transcript"
+        },
+        {
+          "statement": "No swollen glands or neck pain have been noted.",
+          "issue": "Not supported by transcript"
+        },
+        {
+          "statement": "The patient denies any recent weight loss or changes in appetite.",
+          "issue": "Not supported by transcript"
+        }
+      ],
+      "justification": "The generated content contains multiple statements about the patient's symptoms and history that cannot be verified against the source transcript, which is missing. Without any source information, all claims in the generated content are considered unsupported, leading to a low factual consistency score and a high hallucination risk."
+    }
+  }
+}

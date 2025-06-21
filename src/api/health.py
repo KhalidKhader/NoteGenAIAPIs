@@ -101,25 +101,11 @@ async def detailed_health_check() -> HealthCheckResponse:
             line_referencing=True,
             doctor_preferences=True
         )
-        
-        observability_info = {"langfuse_enabled": False}
-        if observability and observability.is_enabled():
-            try:
-                metrics = observability.get_medical_metrics()
-                observability_info = {
-                    "langfuse_enabled": True,
-                    "medical_metrics": metrics.get("metrics", {}),
-                    "active_traces": metrics.get("active_traces", 0),
-                }
-            except Exception as e:
-                 logger.warning(f"Failed to get observability metrics: {str(e)}")
-                 observability_info = {"langfuse_enabled": True, "error": "Failed to retrieve metrics"}
 
         return HealthCheckResponse(
             status=overall_status,
             services=services,
             medical_compliance=medical_compliance,
-            observability=observability_info,
             timestamp=datetime.utcnow().isoformat()
         )
         

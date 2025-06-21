@@ -1,31 +1,31 @@
-🏥 MEDICAL AI PROCESSING LOG - Encounter 1234sdfda56tfdxsz
+🏥 MEDICAL AI PROCESSING LOG - Encounter 123432d234sdfda56tfdxsz
 ================================================================================
-Started at: 2025-06-20T23:32:47.002774Z
-Output folder: generated_notes/1234sdfda56tfdxsz
+Started at: 2025-06-21T14:28:47.395699Z
+Output folder: generated_notes/123432d234sdfda56tfdxsz
 
-[2025-06-20T23:32:47.003123] ✅ [INFO] 🚀 Starting processing pipeline for job job_1234sdfda56tfdxsz_b0afc524
+[2025-06-21T14:28:47.396037] ✅ [INFO] 🚀 Starting processing pipeline for job job_123432d234sdfda56tfdxsz_69e4f238
    Details: {
   "trace_id": "N/A"
 }
-[2025-06-20T23:32:54.244321] ✅ [INFO] Storing and chunking conversation.
-[2025-06-20T23:32:54.244764] ✅ [INFO] Storing conversation 1234sdfda56tfdxsz for doctor doc_123 in en.
+[2025-06-21T14:28:53.719448] ✅ [INFO] Storing and chunking conversation.
+[2025-06-21T14:28:53.720257] ✅ [INFO] Storing conversation 123432d234sdfda56tfdxsz for doctor doc_123 in en.
    Details: {
   "turn_count": 13
 }
-[2025-06-20T23:32:54.245056] 🐞 [DEBUG] Grouped transcript into 10 speaker blocks.
-[2025-06-20T23:32:54.245288] ✅ [INFO] Completed speaker-aware chunking. Total chunks: 2
-[2025-06-20T23:32:56.218026] 🐞 [DEBUG] Stored chunk 1/2 with doc_id a4d5575a-8ac1-45b6-ac65-79a1c9933a5d
-[2025-06-20T23:32:56.954313] 🐞 [DEBUG] Stored chunk 2/2 with doc_id 0bfa5475-b4ad-4786-999e-1e88400d68b3
-[2025-06-20T23:32:57.699340] ✅ [INFO] Stored full conversation document.
-[2025-06-20T23:32:57.701162] ✅ [INFO] Extracting all medical terms from full transcript for SNOMED mapping.
-[2025-06-20T23:32:57.702897] 🔄 LLM_TERM_EXTRACTION_START
+[2025-06-21T14:28:53.720629] 🐞 [DEBUG] Grouped transcript into 10 speaker blocks.
+[2025-06-21T14:28:53.720920] ✅ [INFO] Completed speaker-aware chunking. Total chunks: 2
+[2025-06-21T14:28:56.121633] 🐞 [DEBUG] Stored chunk 1/2 with doc_id 1213bec4-e62b-461c-87c6-81a2f2a78e97
+[2025-06-21T14:28:56.990766] 🐞 [DEBUG] Stored chunk 2/2 with doc_id b4811251-2d74-4a98-af92-a90d0d8a573b
+[2025-06-21T14:28:57.825201] ✅ [INFO] Stored full conversation document.
+[2025-06-21T14:28:57.826521] ✅ [INFO] Extracting all medical terms from full transcript for SNOMED mapping.
+[2025-06-21T14:28:57.827237] 🔄 LLM_TERM_EXTRACTION_START
    📋 Starting medical term extraction from text (length: 2565)
    📊 Data: {
   "text_length": 2565,
   "language": "en"
 }
 
-[2025-06-20T23:32:59.092121] 🔄 LLM_TERM_EXTRACTION_COMPLETED
+[2025-06-21T14:28:59.276758] 🔄 LLM_TERM_EXTRACTION_COMPLETED
    📋 Extracted 26 medical terms using LLM.
    📊 Data: {
   "terms_extracted": 26,
@@ -43,7 +43,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   ]
 }
 
-[2025-06-20T23:32:59.093879] 🔄 NEO4J_SNOMED_MAPPING_START
+[2025-06-21T14:28:59.279020] 🔄 NEO4J_SNOMED_MAPPING_START
    📋 Starting SNOMED mapping for 26 medical terms
    📊 Data: {
   "medical_terms": [
@@ -79,7 +79,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "query_strategy": "EXACT_MATCH_THEN_CONTAINS_THEN_SEMANTIC"
 }
 
-[2025-06-20T23:32:59.094902] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:28:59.280374] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'chest pain' (1/26)
    📊 Data: {
   "term": "chest pain",
@@ -88,14 +88,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:32:59.095646] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:28:59.281459] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'chest pain' in Neo4j SNOMED
    📊 Data: {
   "term": "chest pain",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:32:59.634584] 🔄 NEO4J_EXACT_MATCH_SUCCESS
+[2025-06-21T14:28:59.749985] 🔄 NEO4J_EXACT_MATCH_SUCCESS
    📋 Found 1 exact matches for 'chest pain'
    📊 Data: {
   "term": "chest pain",
@@ -103,7 +103,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "EXACT"
 }
 
-[2025-06-20T23:32:59.635051] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:28:59.751702] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'chest pain' → 'Chest pain' (SNOMED: 29857009)
    📊 Data: {
   "original_term": "chest pain",
@@ -112,10 +112,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "exact",
   "confidence": 0.95,
   "language": "en",
-  "timestamp": "2025-06-20T23:32:59.635045"
+  "timestamp": "2025-06-21T14:28:59.751692"
 }
 
-[2025-06-20T23:32:59.635448] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:28:59.752620] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'dull ache' (2/26)
    📊 Data: {
   "term": "dull ache",
@@ -124,14 +124,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:32:59.635666] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:28:59.753104] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'dull ache' in Neo4j SNOMED
    📊 Data: {
   "term": "dull ache",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:01.531672] 🔄 NEO4J_CONTAINS_SEARCH_QUERY
+[2025-06-21T14:29:01.580410] 🔄 NEO4J_CONTAINS_SEARCH_QUERY
    📋 No exact match found, trying contains search for 'dull ache'
    📊 Data: {
   "term": "dull ache",
@@ -139,14 +139,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:03.258550] 🔄 NEO4J_SEMANTIC_SEARCH_QUERY
+[2025-06-21T14:29:03.316768] 🔄 NEO4J_SEMANTIC_SEARCH_QUERY
    📋 No contains match found, trying semantic search for 'dull ache'
    📊 Data: {
   "term": "dull ache",
   "query_type": "SEMANTIC"
 }
 
-[2025-06-20T23:33:05.223728] 🔄 NEO4J_SEMANTIC_SEARCH_SUCCESS
+[2025-06-21T14:29:05.199663] 🔄 NEO4J_SEMANTIC_SEARCH_SUCCESS
    📋 Found 5 semantic matches for 'dull ache'
    📊 Data: {
   "term": "dull ache",
@@ -154,7 +154,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "SEMANTIC"
 }
 
-[2025-06-20T23:33:05.226461] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:05.202242] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'dull ache' → 'Dull' (SNOMED: 263744001)
    📊 Data: {
   "original_term": "dull ache",
@@ -163,10 +163,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:05.226443"
+  "timestamp": "2025-06-21T14:29:05.202225"
 }
 
-[2025-06-20T23:33:05.229667] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:05.204203] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'dull ache' → 'Sachet' (SNOMED: 426148002)
    📊 Data: {
   "original_term": "dull ache",
@@ -175,10 +175,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:05.229656"
+  "timestamp": "2025-06-21T14:29:05.204195"
 }
 
-[2025-06-20T23:33:05.232210] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:05.206408] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'dull ache' → 'Cachet' (SNOMED: 385048003)
    📊 Data: {
   "original_term": "dull ache",
@@ -187,10 +187,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:05.232201"
+  "timestamp": "2025-06-21T14:29:05.206402"
 }
 
-[2025-06-20T23:33:05.233062] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:05.207854] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'dull ache' → 'cachet' (SNOMED: 385048003)
    📊 Data: {
   "original_term": "dull ache",
@@ -199,10 +199,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "fr",
-  "timestamp": "2025-06-20T23:33:05.233060"
+  "timestamp": "2025-06-21T14:29:05.207851"
 }
 
-[2025-06-20T23:33:05.234373] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:05.209232] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'dull ache' → 'cachet' (SNOMED: 732987003)
    📊 Data: {
   "original_term": "dull ache",
@@ -211,10 +211,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "fr",
-  "timestamp": "2025-06-20T23:33:05.234367"
+  "timestamp": "2025-06-21T14:29:05.209226"
 }
 
-[2025-06-20T23:33:05.236203] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:05.210795] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'shortness of breath' (3/26)
    📊 Data: {
   "term": "shortness of breath",
@@ -223,14 +223,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:05.237039] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:05.211280] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'shortness of breath' in Neo4j SNOMED
    📊 Data: {
   "term": "shortness of breath",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:06.066620] 🔄 NEO4J_EXACT_MATCH_SUCCESS
+[2025-06-21T14:29:05.996495] 🔄 NEO4J_EXACT_MATCH_SUCCESS
    📋 Found 1 exact matches for 'shortness of breath'
    📊 Data: {
   "term": "shortness of breath",
@@ -238,7 +238,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "EXACT"
 }
 
-[2025-06-20T23:33:06.070369] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:05.997217] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'shortness of breath' → 'Shortness of breath' (SNOMED: 267036007)
    📊 Data: {
   "original_term": "shortness of breath",
@@ -247,10 +247,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "exact",
   "confidence": 0.95,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:06.070349"
+  "timestamp": "2025-06-21T14:29:05.997210"
 }
 
-[2025-06-20T23:33:06.072647] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:05.998335] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'dizziness' (4/26)
    📊 Data: {
   "term": "dizziness",
@@ -259,14 +259,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:06.073614] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:05.999413] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'dizziness' in Neo4j SNOMED
    📊 Data: {
   "term": "dizziness",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:07.149865] 🔄 NEO4J_EXACT_MATCH_SUCCESS
+[2025-06-21T14:29:07.090072] 🔄 NEO4J_EXACT_MATCH_SUCCESS
    📋 Found 1 exact matches for 'dizziness'
    📊 Data: {
   "term": "dizziness",
@@ -274,7 +274,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "EXACT"
 }
 
-[2025-06-20T23:33:07.153063] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:07.093076] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'dizziness' → 'Dizziness' (SNOMED: 404640003)
    📊 Data: {
   "original_term": "dizziness",
@@ -283,10 +283,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "exact",
   "confidence": 0.95,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:07.153049"
+  "timestamp": "2025-06-21T14:29:07.093063"
 }
 
-[2025-06-20T23:33:07.155630] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:07.095258] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'palpitations' (5/26)
    📊 Data: {
   "term": "palpitations",
@@ -295,14 +295,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:07.156581] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:07.096104] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'palpitations' in Neo4j SNOMED
    📊 Data: {
   "term": "palpitations",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:07.529835] 🔄 NEO4J_EXACT_MATCH_SUCCESS
+[2025-06-21T14:29:07.457313] 🔄 NEO4J_EXACT_MATCH_SUCCESS
    📋 Found 1 exact matches for 'palpitations'
    📊 Data: {
   "term": "palpitations",
@@ -310,7 +310,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "EXACT"
 }
 
-[2025-06-20T23:33:07.530504] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:07.458150] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'palpitations' → 'palpitations' (SNOMED: 80313002)
    📊 Data: {
   "original_term": "palpitations",
@@ -319,10 +319,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "exact",
   "confidence": 0.95,
   "language": "fr",
-  "timestamp": "2025-06-20T23:33:07.530500"
+  "timestamp": "2025-06-21T14:29:07.458144"
 }
 
-[2025-06-20T23:33:07.531191] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:07.459203] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'swollen ankles' (6/26)
    📊 Data: {
   "term": "swollen ankles",
@@ -331,14 +331,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:07.531516] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:07.459736] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'swollen ankles' in Neo4j SNOMED
    📊 Data: {
   "term": "swollen ankles",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:09.434575] 🔄 NEO4J_CONTAINS_SEARCH_QUERY
+[2025-06-21T14:29:09.057825] 🔄 NEO4J_CONTAINS_SEARCH_QUERY
    📋 No exact match found, trying contains search for 'swollen ankles'
    📊 Data: {
   "term": "swollen ankles",
@@ -346,14 +346,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:11.141943] 🔄 NEO4J_SEMANTIC_SEARCH_QUERY
+[2025-06-21T14:29:10.723713] 🔄 NEO4J_SEMANTIC_SEARCH_QUERY
    📋 No contains match found, trying semantic search for 'swollen ankles'
    📊 Data: {
   "term": "swollen ankles",
   "query_type": "SEMANTIC"
 }
 
-[2025-06-20T23:33:13.140673] 🔄 NEO4J_SEMANTIC_SEARCH_SUCCESS
+[2025-06-21T14:29:12.744637] 🔄 NEO4J_SEMANTIC_SEARCH_SUCCESS
    📋 Found 5 semantic matches for 'swollen ankles'
    📊 Data: {
   "term": "swollen ankles",
@@ -361,7 +361,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "SEMANTIC"
 }
 
-[2025-06-20T23:33:13.145486] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:12.747656] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'swollen ankles' → 'Not swollen' (SNOMED: 300890009)
    📊 Data: {
   "original_term": "swollen ankles",
@@ -370,10 +370,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:13.145466"
+  "timestamp": "2025-06-21T14:29:12.747645"
 }
 
-[2025-06-20T23:33:13.147799] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:12.750382] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'swollen ankles' → 'Swollen toe' (SNOMED: 277890004)
    📊 Data: {
   "original_term": "swollen ankles",
@@ -382,10 +382,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:13.147790"
+  "timestamp": "2025-06-21T14:29:12.750372"
 }
 
-[2025-06-20T23:33:13.149597] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:12.752911] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'swollen ankles' → 'Both ankles' (SNOMED: 69948000)
    📊 Data: {
   "original_term": "swollen ankles",
@@ -394,10 +394,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:13.149591"
+  "timestamp": "2025-06-21T14:29:12.752903"
 }
 
-[2025-06-20T23:33:13.151158] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:12.754919] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'swollen ankles' → 'Swollen vein' (SNOMED: 248495005)
    📊 Data: {
   "original_term": "swollen ankles",
@@ -406,10 +406,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:13.151153"
+  "timestamp": "2025-06-21T14:29:12.754913"
 }
 
-[2025-06-20T23:33:13.153222] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:12.756547] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'swollen ankles' → 'Swollen nose' (SNOMED: 162383006)
    📊 Data: {
   "original_term": "swollen ankles",
@@ -418,10 +418,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:13.153212"
+  "timestamp": "2025-06-21T14:29:12.756545"
 }
 
-[2025-06-20T23:33:13.154961] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:12.757786] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'hypertension' (7/26)
    📊 Data: {
   "term": "hypertension",
@@ -430,14 +430,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:13.155831] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:12.758249] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'hypertension' in Neo4j SNOMED
    📊 Data: {
   "term": "hypertension",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:13.374530] 🔄 NEO4J_EXACT_MATCH_SUCCESS
+[2025-06-21T14:29:12.967185] 🔄 NEO4J_EXACT_MATCH_SUCCESS
    📋 Found 1 exact matches for 'hypertension'
    📊 Data: {
   "term": "hypertension",
@@ -445,7 +445,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "EXACT"
 }
 
-[2025-06-20T23:33:13.375244] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:12.968126] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'hypertension' → 'Hypertension' (SNOMED: 38341003)
    📊 Data: {
   "original_term": "hypertension",
@@ -454,10 +454,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "exact",
   "confidence": 0.95,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:13.375240"
+  "timestamp": "2025-06-21T14:29:12.968120"
 }
 
-[2025-06-20T23:33:13.376254] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:12.969235] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'Lisinopril' (8/26)
    📊 Data: {
   "term": "Lisinopril",
@@ -466,14 +466,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:13.376777] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:12.969716] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'Lisinopril' in Neo4j SNOMED
    📊 Data: {
   "term": "Lisinopril",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:14.473910] 🔄 NEO4J_EXACT_MATCH_SUCCESS
+[2025-06-21T14:29:14.067469] 🔄 NEO4J_EXACT_MATCH_SUCCESS
    📋 Found 1 exact matches for 'Lisinopril'
    📊 Data: {
   "term": "Lisinopril",
@@ -481,7 +481,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "EXACT"
 }
 
-[2025-06-20T23:33:14.474811] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:14.068395] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'Lisinopril' → 'Lisinopril' (SNOMED: 386873009)
    📊 Data: {
   "original_term": "Lisinopril",
@@ -490,10 +490,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "exact",
   "confidence": 0.95,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:14.474806"
+  "timestamp": "2025-06-21T14:29:14.068391"
 }
 
-[2025-06-20T23:33:14.475781] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:14.069625] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'high cholesterol' (9/26)
    📊 Data: {
   "term": "high cholesterol",
@@ -502,14 +502,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:14.476269] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:14.070162] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'high cholesterol' in Neo4j SNOMED
    📊 Data: {
   "term": "high cholesterol",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:14.560191] 🔄 NEO4J_EXACT_MATCH_SUCCESS
+[2025-06-21T14:29:14.154147] 🔄 NEO4J_EXACT_MATCH_SUCCESS
    📋 Found 1 exact matches for 'high cholesterol'
    📊 Data: {
   "term": "high cholesterol",
@@ -517,7 +517,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "EXACT"
 }
 
-[2025-06-20T23:33:14.560962] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:14.155028] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'high cholesterol' → 'High cholesterol' (SNOMED: 13644009)
    📊 Data: {
   "original_term": "high cholesterol",
@@ -526,10 +526,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "exact",
   "confidence": 0.95,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:14.560958"
+  "timestamp": "2025-06-21T14:29:14.155025"
 }
 
-[2025-06-20T23:33:14.562193] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:14.156086] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'smoker' (10/26)
    📊 Data: {
   "term": "smoker",
@@ -538,14 +538,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:14.562807] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:14.156619] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'smoker' in Neo4j SNOMED
    📊 Data: {
   "term": "smoker",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:14.905479] 🔄 NEO4J_EXACT_MATCH_SUCCESS
+[2025-06-21T14:29:14.505209] 🔄 NEO4J_EXACT_MATCH_SUCCESS
    📋 Found 1 exact matches for 'smoker'
    📊 Data: {
   "term": "smoker",
@@ -553,7 +553,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "EXACT"
 }
 
-[2025-06-20T23:33:14.906262] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:14.506231] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'smoker' → 'Smoker' (SNOMED: 77176002)
    📊 Data: {
   "original_term": "smoker",
@@ -562,10 +562,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "exact",
   "confidence": 0.95,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:14.906259"
+  "timestamp": "2025-06-21T14:29:14.506226"
 }
 
-[2025-06-20T23:33:14.907240] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:14.507460] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'heart murmur' (11/26)
    📊 Data: {
   "term": "heart murmur",
@@ -574,14 +574,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:14.907891] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:14.508052] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'heart murmur' in Neo4j SNOMED
    📊 Data: {
   "term": "heart murmur",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:15.292846] 🔄 NEO4J_EXACT_MATCH_SUCCESS
+[2025-06-21T14:29:14.892023] 🔄 NEO4J_EXACT_MATCH_SUCCESS
    📋 Found 1 exact matches for 'heart murmur'
    📊 Data: {
   "term": "heart murmur",
@@ -589,7 +589,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "EXACT"
 }
 
-[2025-06-20T23:33:15.294139] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:14.893236] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'heart murmur' → 'Heart murmur' (SNOMED: 88610006)
    📊 Data: {
   "original_term": "heart murmur",
@@ -598,10 +598,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "exact",
   "confidence": 0.95,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:15.294132"
+  "timestamp": "2025-06-21T14:29:14.893229"
 }
 
-[2025-06-20T23:33:15.295732] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:14.895422] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'blood pressure' (12/26)
    📊 Data: {
   "term": "blood pressure",
@@ -610,14 +610,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:15.296672] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:14.896365] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'blood pressure' in Neo4j SNOMED
    📊 Data: {
   "term": "blood pressure",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:15.619606] 🔄 NEO4J_EXACT_MATCH_SUCCESS
+[2025-06-21T14:29:15.210743] 🔄 NEO4J_EXACT_MATCH_SUCCESS
    📋 Found 1 exact matches for 'blood pressure'
    📊 Data: {
   "term": "blood pressure",
@@ -625,7 +625,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "EXACT"
 }
 
-[2025-06-20T23:33:15.620424] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:15.212170] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'blood pressure' → 'Blood pressure' (SNOMED: 75367002)
    📊 Data: {
   "original_term": "blood pressure",
@@ -634,10 +634,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "exact",
   "confidence": 0.95,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:15.620421"
+  "timestamp": "2025-06-21T14:29:15.212164"
 }
 
-[2025-06-20T23:33:15.622779] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:15.213771] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term '145/90 mmHg' (13/26)
    📊 Data: {
   "term": "145/90 mmHg",
@@ -646,14 +646,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:15.623984] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:15.214630] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term '145/90 mmHg' in Neo4j SNOMED
    📊 Data: {
   "term": "145/90 mmHg",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:17.368148] 🔄 NEO4J_CONTAINS_SEARCH_QUERY
+[2025-06-21T14:29:16.848038] 🔄 NEO4J_CONTAINS_SEARCH_QUERY
    📋 No exact match found, trying contains search for '145/90 mmHg'
    📊 Data: {
   "term": "145/90 mmHg",
@@ -661,14 +661,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:19.186099] 🔄 NEO4J_SEMANTIC_SEARCH_QUERY
+[2025-06-21T14:29:18.479150] 🔄 NEO4J_SEMANTIC_SEARCH_QUERY
    📋 No contains match found, trying semantic search for '145/90 mmHg'
    📊 Data: {
   "term": "145/90 mmHg",
   "query_type": "SEMANTIC"
 }
 
-[2025-06-20T23:33:21.151933] 🔄 NEO4J_SEMANTIC_SEARCH_SUCCESS
+[2025-06-21T14:29:20.267344] 🔄 NEO4J_SEMANTIC_SEARCH_SUCCESS
    📋 Found 5 semantic matches for '145/90 mmHg'
    📊 Data: {
   "term": "145/90 mmHg",
@@ -676,7 +676,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "SEMANTIC"
 }
 
-[2025-06-20T23:33:21.155165] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:20.271984] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped '145/90 mmHg' → 'mmHg' (SNOMED: 259018001)
    📊 Data: {
   "original_term": "145/90 mmHg",
@@ -685,10 +685,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:21.155148"
+  "timestamp": "2025-06-21T14:29:20.271971"
 }
 
-[2025-06-20T23:33:21.158744] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:20.276061] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped '145/90 mmHg' → 'mmHg/L/s' (SNOMED: 259076006)
    📊 Data: {
   "original_term": "145/90 mmHg",
@@ -697,10 +697,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:21.158737"
+  "timestamp": "2025-06-21T14:29:20.276054"
 }
 
-[2025-06-20T23:33:21.160956] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:20.277262] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped '145/90 mmHg' → 'mmHg/mL/s' (SNOMED: 259077002)
    📊 Data: {
   "original_term": "145/90 mmHg",
@@ -709,10 +709,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:21.160953"
+  "timestamp": "2025-06-21T14:29:20.277259"
 }
 
-[2025-06-20T23:33:21.162408] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:20.278430] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped '145/90 mmHg' → 'mmHg/sq. m' (SNOMED: 259078007)
    📊 Data: {
   "original_term": "145/90 mmHg",
@@ -721,10 +721,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:21.162403"
+  "timestamp": "2025-06-21T14:29:20.278424"
 }
 
-[2025-06-20T23:33:21.163964] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:20.281240] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped '145/90 mmHg' → 'mmHg.mL.beats/min' (SNOMED: 264864008)
    📊 Data: {
   "original_term": "145/90 mmHg",
@@ -733,10 +733,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:21.163959"
+  "timestamp": "2025-06-21T14:29:20.281236"
 }
 
-[2025-06-20T23:33:21.165370] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:20.283922] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'pitting edema' (14/26)
    📊 Data: {
   "term": "pitting edema",
@@ -745,14 +745,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:21.166159] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:20.285302] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'pitting edema' in Neo4j SNOMED
    📊 Data: {
   "term": "pitting edema",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:21.204134] 🔄 NEO4J_EXACT_MATCH_SUCCESS
+[2025-06-21T14:29:20.326037] 🔄 NEO4J_EXACT_MATCH_SUCCESS
    📋 Found 1 exact matches for 'pitting edema'
    📊 Data: {
   "term": "pitting edema",
@@ -760,7 +760,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "EXACT"
 }
 
-[2025-06-20T23:33:21.205627] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:20.326930] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'pitting edema' → 'Pitting edema' (SNOMED: 5008001)
    📊 Data: {
   "original_term": "pitting edema",
@@ -769,10 +769,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "exact",
   "confidence": 0.95,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:21.205620"
+  "timestamp": "2025-06-21T14:29:20.326926"
 }
 
-[2025-06-20T23:33:21.208443] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:20.328137] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'cardiac issue' (15/26)
    📊 Data: {
   "term": "cardiac issue",
@@ -781,14 +781,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:21.209186] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:20.328739] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'cardiac issue' in Neo4j SNOMED
    📊 Data: {
   "term": "cardiac issue",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:22.899226] 🔄 NEO4J_CONTAINS_SEARCH_QUERY
+[2025-06-21T14:29:21.988612] 🔄 NEO4J_CONTAINS_SEARCH_QUERY
    📋 No exact match found, trying contains search for 'cardiac issue'
    📊 Data: {
   "term": "cardiac issue",
@@ -796,14 +796,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:24.897587] 🔄 NEO4J_SEMANTIC_SEARCH_QUERY
+[2025-06-21T14:29:23.670189] 🔄 NEO4J_SEMANTIC_SEARCH_QUERY
    📋 No contains match found, trying semantic search for 'cardiac issue'
    📊 Data: {
   "term": "cardiac issue",
   "query_type": "SEMANTIC"
 }
 
-[2025-06-20T23:33:26.912248] 🔄 NEO4J_SEMANTIC_SEARCH_SUCCESS
+[2025-06-21T14:29:25.521084] 🔄 NEO4J_SEMANTIC_SEARCH_SUCCESS
    📋 Found 5 semantic matches for 'cardiac issue'
    📊 Data: {
   "term": "cardiac issue",
@@ -811,7 +811,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "SEMANTIC"
 }
 
-[2025-06-20T23:33:26.916914] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:25.527252] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'cardiac issue' → 'Tissue' (SNOMED: 85756007)
    📊 Data: {
   "original_term": "cardiac issue",
@@ -820,10 +820,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:26.916898"
+  "timestamp": "2025-06-21T14:29:25.527237"
 }
 
-[2025-06-20T23:33:26.921047] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:25.531724] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'cardiac issue' → 'Cardiac CT' (SNOMED: 241547009)
    📊 Data: {
   "original_term": "cardiac issue",
@@ -832,10 +832,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:26.921036"
+  "timestamp": "2025-06-21T14:29:25.531712"
 }
 
-[2025-06-20T23:33:26.923286] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:25.536641] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'cardiac issue' → 'Acardiacus' (SNOMED: 84648007)
    📊 Data: {
   "original_term": "cardiac issue",
@@ -844,10 +844,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:26.923281"
+  "timestamp": "2025-06-21T14:29:25.536627"
 }
 
-[2025-06-20T23:33:26.925580] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:25.540270] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'cardiac issue' → 'Scar tissue' (SNOMED: 12402003)
    📊 Data: {
   "original_term": "cardiac issue",
@@ -856,10 +856,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:26.925578"
+  "timestamp": "2025-06-21T14:29:25.540264"
 }
 
-[2025-06-20T23:33:26.927075] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:25.542779] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'cardiac issue' → 'Bony tissue' (SNOMED: 3138006)
    📊 Data: {
   "original_term": "cardiac issue",
@@ -868,10 +868,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:26.927073"
+  "timestamp": "2025-06-21T14:29:25.542774"
 }
 
-[2025-06-20T23:33:26.928578] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:25.545986] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'coronary artery disease' (16/26)
    📊 Data: {
   "term": "coronary artery disease",
@@ -880,14 +880,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:26.929325] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:25.547774] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'coronary artery disease' in Neo4j SNOMED
    📊 Data: {
   "term": "coronary artery disease",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:27.206312] 🔄 NEO4J_EXACT_MATCH_SUCCESS
+[2025-06-21T14:29:25.793952] 🔄 NEO4J_EXACT_MATCH_SUCCESS
    📋 Found 1 exact matches for 'coronary artery disease'
    📊 Data: {
   "term": "coronary artery disease",
@@ -895,7 +895,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "EXACT"
 }
 
-[2025-06-20T23:33:27.208051] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:25.798596] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'coronary artery disease' → 'Coronary artery disease' (SNOMED: 53741008)
    📊 Data: {
   "original_term": "coronary artery disease",
@@ -904,10 +904,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "exact",
   "confidence": 0.95,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:27.208048"
+  "timestamp": "2025-06-21T14:29:25.798583"
 }
 
-[2025-06-20T23:33:27.210648] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:25.803199] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'heart failure' (17/26)
    📊 Data: {
   "term": "heart failure",
@@ -916,14 +916,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:27.211812] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:25.805377] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'heart failure' in Neo4j SNOMED
    📊 Data: {
   "term": "heart failure",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:27.545685] 🔄 NEO4J_EXACT_MATCH_SUCCESS
+[2025-06-21T14:29:26.126023] 🔄 NEO4J_EXACT_MATCH_SUCCESS
    📋 Found 1 exact matches for 'heart failure'
    📊 Data: {
   "term": "heart failure",
@@ -931,7 +931,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "EXACT"
 }
 
-[2025-06-20T23:33:27.548156] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:26.130962] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'heart failure' → 'Heart failure' (SNOMED: 84114007)
    📊 Data: {
   "original_term": "heart failure",
@@ -940,10 +940,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "exact",
   "confidence": 0.95,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:27.548142"
+  "timestamp": "2025-06-21T14:29:26.130951"
 }
 
-[2025-06-20T23:33:27.550690] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:26.134699] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'EKG' (18/26)
    📊 Data: {
   "term": "EKG",
@@ -952,14 +952,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:27.552447] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:26.136328] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'EKG' in Neo4j SNOMED
    📊 Data: {
   "term": "EKG",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:29.257904] 🔄 NEO4J_CONTAINS_SEARCH_QUERY
+[2025-06-21T14:29:27.718264] 🔄 NEO4J_CONTAINS_SEARCH_QUERY
    📋 No exact match found, trying contains search for 'EKG'
    📊 Data: {
   "term": "EKG",
@@ -967,7 +967,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:31.038283] 🔄 NEO4J_CONTAINS_SEARCH_SUCCESS
+[2025-06-21T14:29:29.526777] 🔄 NEO4J_CONTAINS_SEARCH_SUCCESS
    📋 Found 3 contains matches for 'EKG'
    📊 Data: {
   "term": "EKG",
@@ -975,7 +975,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "CONTAINS"
 }
 
-[2025-06-20T23:33:31.039434] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:29.528987] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'EKG' → 'EKG finding' (SNOMED: 301120008)
    📊 Data: {
   "original_term": "EKG",
@@ -984,10 +984,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "contains",
   "confidence": 0.8,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:31.039428"
+  "timestamp": "2025-06-21T14:29:29.528979"
 }
 
-[2025-06-20T23:33:31.041711] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:29.532382] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'EKG' → 'EKG: asystole' (SNOMED: 427485008)
    📊 Data: {
   "original_term": "EKG",
@@ -996,10 +996,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "contains",
   "confidence": 0.8,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:31.041708"
+  "timestamp": "2025-06-21T14:29:29.532378"
 }
 
-[2025-06-20T23:33:31.043631] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:29.535443] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'EKG' → 'EKG hypertrophy' (SNOMED: 1155004)
    📊 Data: {
   "original_term": "EKG",
@@ -1008,10 +1008,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "contains",
   "confidence": 0.8,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:31.043629"
+  "timestamp": "2025-06-21T14:29:29.535440"
 }
 
-[2025-06-20T23:33:31.046020] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:29.538218] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'blood work' (19/26)
    📊 Data: {
   "term": "blood work",
@@ -1020,14 +1020,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:31.047223] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:29.539547] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'blood work' in Neo4j SNOMED
    📊 Data: {
   "term": "blood work",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:32.861710] 🔄 NEO4J_CONTAINS_SEARCH_QUERY
+[2025-06-21T14:29:31.346076] 🔄 NEO4J_CONTAINS_SEARCH_QUERY
    📋 No exact match found, trying contains search for 'blood work'
    📊 Data: {
   "term": "blood work",
@@ -1035,14 +1035,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:34.627800] 🔄 NEO4J_SEMANTIC_SEARCH_QUERY
+[2025-06-21T14:29:33.090427] 🔄 NEO4J_SEMANTIC_SEARCH_QUERY
    📋 No contains match found, trying semantic search for 'blood work'
    📊 Data: {
   "term": "blood work",
   "query_type": "SEMANTIC"
 }
 
-[2025-06-20T23:33:36.536765] 🔄 NEO4J_SEMANTIC_SEARCH_SUCCESS
+[2025-06-21T14:29:35.084614] 🔄 NEO4J_SEMANTIC_SEARCH_SUCCESS
    📋 Found 5 semantic matches for 'blood work'
    📊 Data: {
   "term": "blood work",
@@ -1050,7 +1050,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "SEMANTIC"
 }
 
-[2025-06-20T23:33:36.541360] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:35.089210] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'blood work' → 'Blood' (SNOMED: 87612001)
    📊 Data: {
   "original_term": "blood work",
@@ -1059,10 +1059,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:36.541346"
+  "timestamp": "2025-06-21T14:29:35.089196"
 }
 
-[2025-06-20T23:33:36.546175] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:35.093509] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'blood work' → 'Worker' (SNOMED: 106541005)
    📊 Data: {
   "original_term": "blood work",
@@ -1071,10 +1071,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:36.546171"
+  "timestamp": "2025-06-21T14:29:35.093505"
 }
 
-[2025-06-20T23:33:36.549171] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:35.097766] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'blood work' → 'Working' (SNOMED: 261041009)
    📊 Data: {
   "original_term": "blood work",
@@ -1083,10 +1083,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:36.549160"
+  "timestamp": "2025-06-21T14:29:35.097760"
 }
 
-[2025-06-20T23:33:36.553194] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:35.101689] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'blood work' → 'In work' (SNOMED: 224363007)
    📊 Data: {
   "original_term": "blood work",
@@ -1095,10 +1095,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:36.553187"
+  "timestamp": "2025-06-21T14:29:35.101677"
 }
 
-[2025-06-20T23:33:36.556107] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:35.106020] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'blood work' → 'Overwork' (SNOMED: 105490003)
    📊 Data: {
   "original_term": "blood work",
@@ -1107,10 +1107,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "semantic",
   "confidence": 0.65,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:36.556101"
+  "timestamp": "2025-06-21T14:29:35.106016"
 }
 
-[2025-06-20T23:33:36.559607] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:35.109186] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'lipid panel' (20/26)
    📊 Data: {
   "term": "lipid panel",
@@ -1119,14 +1119,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:36.560879] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:35.111033] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'lipid panel' in Neo4j SNOMED
    📊 Data: {
   "term": "lipid panel",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:36.663800] 🔄 NEO4J_EXACT_MATCH_SUCCESS
+[2025-06-21T14:29:35.215666] 🔄 NEO4J_EXACT_MATCH_SUCCESS
    📋 Found 1 exact matches for 'lipid panel'
    📊 Data: {
   "term": "lipid panel",
@@ -1134,7 +1134,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "EXACT"
 }
 
-[2025-06-20T23:33:36.667427] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:35.218070] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'lipid panel' → 'Lipid panel' (SNOMED: 16254007)
    📊 Data: {
   "original_term": "lipid panel",
@@ -1143,10 +1143,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "exact",
   "confidence": 0.95,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:36.667415"
+  "timestamp": "2025-06-21T14:29:35.218062"
 }
 
-[2025-06-20T23:33:36.671230] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:35.220946] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'BNP' (21/26)
    📊 Data: {
   "term": "BNP",
@@ -1155,14 +1155,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:36.673463] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:35.221898] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'BNP' in Neo4j SNOMED
    📊 Data: {
   "term": "BNP",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:38.432190] 🔄 NEO4J_CONTAINS_SEARCH_QUERY
+[2025-06-21T14:29:36.759982] 🔄 NEO4J_CONTAINS_SEARCH_QUERY
    📋 No exact match found, trying contains search for 'BNP'
    📊 Data: {
   "term": "BNP",
@@ -1170,7 +1170,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:40.264075] 🔄 NEO4J_CONTAINS_SEARCH_SUCCESS
+[2025-06-21T14:29:38.396680] 🔄 NEO4J_CONTAINS_SEARCH_SUCCESS
    📋 Found 3 contains matches for 'BNP'
    📊 Data: {
   "term": "BNP",
@@ -1178,7 +1178,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "CONTAINS"
 }
 
-[2025-06-20T23:33:40.265694] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:38.405963] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'BNP' → 'proBNP - pro-B-type natriuretic peptide' (SNOMED: 407060002)
    📊 Data: {
   "original_term": "BNP",
@@ -1187,10 +1187,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "contains",
   "confidence": 0.8,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:40.265689"
+  "timestamp": "2025-06-21T14:29:38.405945"
 }
 
-[2025-06-20T23:33:40.267822] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:38.411930] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'BNP' → 'N-BNP - N-terminal pro brain natriuretic peptide' (SNOMED: 414798009)
    📊 Data: {
   "original_term": "BNP",
@@ -1199,10 +1199,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "contains",
   "confidence": 0.8,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:40.267819"
+  "timestamp": "2025-06-21T14:29:38.411919"
 }
 
-[2025-06-20T23:33:40.270736] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:38.415211] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'BNP' → 'NT-proBNP - N-terminal pro-B-type natriuretic peptide' (SNOMED: 414798009)
    📊 Data: {
   "original_term": "BNP",
@@ -1211,10 +1211,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "contains",
   "confidence": 0.8,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:40.270730"
+  "timestamp": "2025-06-21T14:29:38.415209"
 }
 
-[2025-06-20T23:33:40.273429] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:38.417231] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'cardiologist' (22/26)
    📊 Data: {
   "term": "cardiologist",
@@ -1223,14 +1223,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:40.274514] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:38.418694] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'cardiologist' in Neo4j SNOMED
    📊 Data: {
   "term": "cardiologist",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:40.391284] 🔄 NEO4J_EXACT_MATCH_SUCCESS
+[2025-06-21T14:29:38.528182] 🔄 NEO4J_EXACT_MATCH_SUCCESS
    📋 Found 1 exact matches for 'cardiologist'
    📊 Data: {
   "term": "cardiologist",
@@ -1238,7 +1238,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "EXACT"
 }
 
-[2025-06-20T23:33:40.392746] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:38.532580] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'cardiologist' → 'Cardiologist' (SNOMED: 17561000)
    📊 Data: {
   "original_term": "cardiologist",
@@ -1247,10 +1247,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "exact",
   "confidence": 0.95,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:40.392741"
+  "timestamp": "2025-06-21T14:29:38.532564"
 }
 
-[2025-06-20T23:33:40.395268] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:38.538240] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'stress test' (23/26)
    📊 Data: {
   "term": "stress test",
@@ -1259,14 +1259,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:40.396474] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:38.540559] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'stress test' in Neo4j SNOMED
    📊 Data: {
   "term": "stress test",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:42.110954] 🔄 NEO4J_CONTAINS_SEARCH_QUERY
+[2025-06-21T14:29:40.089457] 🔄 NEO4J_CONTAINS_SEARCH_QUERY
    📋 No exact match found, trying contains search for 'stress test'
    📊 Data: {
   "term": "stress test",
@@ -1274,7 +1274,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:43.970463] 🔄 NEO4J_CONTAINS_SEARCH_SUCCESS
+[2025-06-21T14:29:41.789326] 🔄 NEO4J_CONTAINS_SEARCH_SUCCESS
    📋 Found 3 contains matches for 'stress test'
    📊 Data: {
   "term": "stress test",
@@ -1282,7 +1282,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "CONTAINS"
 }
 
-[2025-06-20T23:33:43.971815] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:41.790899] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'stress test' → 'Nonstress test' (SNOMED: 387673001)
    📊 Data: {
   "original_term": "stress test",
@@ -1291,10 +1291,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "contains",
   "confidence": 0.8,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:43.971812"
+  "timestamp": "2025-06-21T14:29:41.790895"
 }
 
-[2025-06-20T23:33:43.973927] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:41.793166] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'stress test' → 'Photostress test' (SNOMED: 252813005)
    📊 Data: {
   "original_term": "stress test",
@@ -1303,10 +1303,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "contains",
   "confidence": 0.8,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:43.973922"
+  "timestamp": "2025-06-21T14:29:41.793163"
 }
 
-[2025-06-20T23:33:43.976112] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:41.795348] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'stress test' → 'Stress test table' (SNOMED: 465498004)
    📊 Data: {
   "original_term": "stress test",
@@ -1315,10 +1315,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "contains",
   "confidence": 0.8,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:43.976109"
+  "timestamp": "2025-06-21T14:29:41.795346"
 }
 
-[2025-06-20T23:33:43.978406] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:41.797537] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'diuretic' (24/26)
    📊 Data: {
   "term": "diuretic",
@@ -1327,14 +1327,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:43.979477] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:41.798657] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'diuretic' in Neo4j SNOMED
    📊 Data: {
   "term": "diuretic",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:45.030579] 🔄 NEO4J_EXACT_MATCH_SUCCESS
+[2025-06-21T14:29:42.872764] 🔄 NEO4J_EXACT_MATCH_SUCCESS
    📋 Found 1 exact matches for 'diuretic'
    📊 Data: {
   "term": "diuretic",
@@ -1342,7 +1342,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "EXACT"
 }
 
-[2025-06-20T23:33:45.032384] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:42.878314] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'diuretic' → 'Diuretic' (SNOMED: 372695000)
    📊 Data: {
   "original_term": "diuretic",
@@ -1351,10 +1351,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "exact",
   "confidence": 0.95,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:45.032378"
+  "timestamp": "2025-06-21T14:29:42.878302"
 }
 
-[2025-06-20T23:33:45.036424] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:42.884704] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'hydrochlorothiazide' (25/26)
    📊 Data: {
   "term": "hydrochlorothiazide",
@@ -1363,14 +1363,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:45.038361] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:42.887199] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'hydrochlorothiazide' in Neo4j SNOMED
    📊 Data: {
   "term": "hydrochlorothiazide",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:46.334361] 🔄 NEO4J_EXACT_MATCH_SUCCESS
+[2025-06-21T14:29:43.938226] 🔄 NEO4J_EXACT_MATCH_SUCCESS
    📋 Found 1 exact matches for 'hydrochlorothiazide'
    📊 Data: {
   "term": "hydrochlorothiazide",
@@ -1378,7 +1378,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "EXACT"
 }
 
-[2025-06-20T23:33:46.339578] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:43.943936] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'hydrochlorothiazide' → 'Hydrochlorothiazide' (SNOMED: 387525002)
    📊 Data: {
   "original_term": "hydrochlorothiazide",
@@ -1387,10 +1387,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "exact",
   "confidence": 0.95,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:46.339565"
+  "timestamp": "2025-06-21T14:29:43.943919"
 }
 
-[2025-06-20T23:33:46.345924] 🔄 NEO4J_TERM_QUERY_START
+[2025-06-21T14:29:43.950273] 🔄 NEO4J_TERM_QUERY_START
    📋 Querying Neo4j for term 'smoking cessation' (26/26)
    📊 Data: {
   "term": "smoking cessation",
@@ -1399,14 +1399,14 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:46.347737] 🔄 NEO4J_EXACT_MATCH_QUERY
+[2025-06-21T14:29:43.952878] 🔄 NEO4J_EXACT_MATCH_QUERY
    📋 Trying exact match for term 'smoking cessation' in Neo4j SNOMED
    📊 Data: {
   "term": "smoking cessation",
   "query_type": "EXACT_MATCH"
 }
 
-[2025-06-20T23:33:48.200636] 🔄 NEO4J_CONTAINS_SEARCH_QUERY
+[2025-06-21T14:29:45.840011] 🔄 NEO4J_CONTAINS_SEARCH_QUERY
    📋 No exact match found, trying contains search for 'smoking cessation'
    📊 Data: {
   "term": "smoking cessation",
@@ -1414,7 +1414,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "language": "en"
 }
 
-[2025-06-20T23:33:50.033231] 🔄 NEO4J_CONTAINS_SEARCH_SUCCESS
+[2025-06-21T14:29:47.528158] 🔄 NEO4J_CONTAINS_SEARCH_SUCCESS
    📋 Found 3 contains matches for 'smoking cessation'
    📊 Data: {
   "term": "smoking cessation",
@@ -1422,7 +1422,7 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "CONTAINS"
 }
 
-[2025-06-20T23:33:50.040717] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:47.533724] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'smoking cessation' → 'Age at smoking cessation' (SNOMED: 1221000175102)
    📊 Data: {
   "original_term": "smoking cessation",
@@ -1431,10 +1431,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "contains",
   "confidence": 0.8,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:50.040699"
+  "timestamp": "2025-06-21T14:29:47.533712"
 }
 
-[2025-06-20T23:33:50.045127] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:47.538829] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'smoking cessation' → 'Smoking cessation advice' (SNOMED: 225323000)
    📊 Data: {
   "original_term": "smoking cessation",
@@ -1443,10 +1443,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "contains",
   "confidence": 0.8,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:50.045123"
+  "timestamp": "2025-06-21T14:29:47.538825"
 }
 
-[2025-06-20T23:33:50.049875] 🔄 NEO4J_SNOMED_MAPPING
+[2025-06-21T14:29:47.542809] 🔄 NEO4J_SNOMED_MAPPING
    📋 Mapped 'smoking cessation' → 'Smoking cessation therapy' (SNOMED: 710081004)
    📊 Data: {
   "original_term": "smoking cessation",
@@ -1455,10 +1455,10 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "match_type": "contains",
   "confidence": 0.8,
   "language": "en",
-  "timestamp": "2025-06-20T23:33:50.049870"
+  "timestamp": "2025-06-21T14:29:47.542804"
 }
 
-[2025-06-20T23:33:50.054249] 🔄 NEO4J_SNOMED_MAPPING_COMPLETED
+[2025-06-21T14:29:47.546945] 🔄 NEO4J_SNOMED_MAPPING_COMPLETED
    📋 SNOMED mapping completed: 54 mappings found
    📊 Data: {
   "total_mappings_found": 54,
@@ -1467,144 +1467,125 @@ Output folder: generated_notes/1234sdfda56tfdxsz
   "database": "NEO4J_SNOMED_CANADIAN_EDITION"
 }
 
-[2025-06-20T23:33:50.056814] ✅ [INFO] Retrieved 54 SNOMED codes for the entire encounter.
-[2025-06-20T23:33:50.058987] ✅ [INFO] No specific preferences found for doctor doc_123.
-[2025-06-20T23:33:50.061006] ✅ [INFO] Starting generation for section 1/7: 'Subjective'
-[2025-06-20T23:33:50.958375] 🐞 [DEBUG] Attempt 1: Retrieved 5 chunks for 'Subjective'.
-[2025-06-20T23:33:59.328256] 🔄 SECTION_GENERATION_COMPLETED
-   📋 Generated Subjective section (ID: section_86d1bec2) - 1181 chars, 5 line refs
+[2025-06-21T14:29:47.549314] ✅ [INFO] Retrieved 54 SNOMED codes for the entire encounter.
+[2025-06-21T14:29:47.551266] ✅ [INFO] No specific preferences found for doctor doc_123.
+[2025-06-21T14:29:47.553287] ✅ [INFO] Starting generation for section 1/7: 'Subjective'
+[2025-06-21T14:29:48.282955] 🐞 [DEBUG] Attempt 1: Retrieved 1 chunks for 'Subjective'.
+[2025-06-21T14:29:57.996851] 🔄 SECTION_GENERATION_COMPLETED
+   📋 Generated Subjective section (ID: section_bc411656) - 1159 chars, 7 line refs
    📊 Data: {
-  "section_id": "section_86d1bec2",
+  "section_id": "section_bc411656",
   "section_type": "Subjective",
-  "content_length": 1181,
-  "line_references_found": 5,
+  "content_length": 1159,
+  "line_references_found": 7,
   "snomed_mappings_applied": 54,
   "confidence_score": 0.9,
   "processing_duration": 0,
   "status": "COMPLETED",
-  "timestamp": "2025-06-20T23:33:59.328239"
+  "timestamp": "2025-06-21T14:29:57.996833"
 }
 
-[2025-06-20T23:33:59.334305] ✅ [INFO] ✅ Successfully generated and saved section 'Subjective' on attempt 1.
-[2025-06-20T23:33:59.336046] ✅ [INFO] Starting generation for section 2/7: 'Objective'
-[2025-06-20T23:34:00.078504] 🐞 [DEBUG] Attempt 1: Retrieved 5 chunks for 'Objective'.
-[2025-06-20T23:34:07.099237] 🔄 SECTION_GENERATION_COMPLETED
-   📋 Generated Objective section (ID: section_fd05b799) - 589 chars, 2 line refs
+[2025-06-21T14:29:58.006499] ✅ [INFO] ✅ Successfully generated and saved section 'Subjective' on attempt 1.
+[2025-06-21T14:29:58.011934] ✅ [INFO] Starting generation for section 2/7: 'Objective'
+[2025-06-21T14:29:58.806171] 🐞 [DEBUG] Attempt 1: Retrieved 3 chunks for 'Objective'.
+[2025-06-21T14:30:03.499405] 🔄 SECTION_GENERATION_COMPLETED
+   📋 Generated Objective section (ID: section_f62759b6) - 521 chars, 4 line refs
    📊 Data: {
-  "section_id": "section_fd05b799",
+  "section_id": "section_f62759b6",
   "section_type": "Objective",
-  "content_length": 589,
-  "line_references_found": 2,
-  "snomed_mappings_applied": 54,
-  "confidence_score": 0.9,
-  "processing_duration": 0,
-  "status": "COMPLETED",
-  "timestamp": "2025-06-20T23:34:07.099215"
-}
-
-[2025-06-20T23:34:07.108090] ✅ [INFO] ✅ Successfully generated and saved section 'Objective' on attempt 1.
-[2025-06-20T23:34:07.112420] ✅ [INFO] Starting generation for section 3/7: 'Assessment'
-[2025-06-20T23:34:07.737066] 🐞 [DEBUG] Attempt 1: Retrieved 5 chunks for 'Assessment'.
-[2025-06-20T23:34:19.798794] 🔄 SECTION_GENERATION_COMPLETED
-   📋 Generated Assessment section (ID: section_0d7bcf2c) - 1073 chars, 7 line refs
-   📊 Data: {
-  "section_id": "section_0d7bcf2c",
-  "section_type": "Assessment",
-  "content_length": 1073,
-  "line_references_found": 7,
-  "snomed_mappings_applied": 54,
-  "confidence_score": 0.8,
-  "processing_duration": 0,
-  "status": "COMPLETED",
-  "timestamp": "2025-06-20T23:34:19.798770"
-}
-
-[2025-06-20T23:34:19.807338] ✅ [INFO] ✅ Successfully generated and saved section 'Assessment' on attempt 1.
-[2025-06-20T23:34:19.811773] ✅ [INFO] Starting generation for section 4/7: 'Plan'
-[2025-06-20T23:34:20.593006] 🐞 [DEBUG] Attempt 1: Retrieved 5 chunks for 'Plan'.
-[2025-06-20T23:35:01.287792] 🔄 SECTION_GENERATION_COMPLETED
-   📋 Generated Plan section (ID: section_07a65982) - 890 chars, 1 line refs
-   📊 Data: {
-  "section_id": "section_07a65982",
-  "section_type": "Plan",
-  "content_length": 890,
-  "line_references_found": 1,
+  "content_length": 521,
+  "line_references_found": 4,
   "snomed_mappings_applied": 54,
   "confidence_score": 1.0,
   "processing_duration": 0,
   "status": "COMPLETED",
-  "timestamp": "2025-06-20T23:35:01.287773"
+  "timestamp": "2025-06-21T14:30:03.499374"
 }
 
-[2025-06-20T23:35:01.295243] ✅ [INFO] ✅ Successfully generated and saved section 'Plan' on attempt 1.
-[2025-06-20T23:35:01.298270] ✅ [INFO] Starting generation for section 5/7: 'Patient_Summary'
-[2025-06-20T23:35:01.781240] 🐞 [DEBUG] Attempt 1: Retrieved 5 chunks for 'Patient_Summary'.
-[2025-06-20T23:35:10.527789] 🔄 SECTION_GENERATION_COMPLETED
-   📋 Generated Patient_Summary section (ID: section_bed31629) - 973 chars, 5 line refs
+[2025-06-21T14:30:03.508788] ✅ [INFO] ✅ Successfully generated and saved section 'Objective' on attempt 1.
+[2025-06-21T14:30:03.512736] ✅ [INFO] Starting generation for section 3/7: 'Assessment'
+[2025-06-21T14:30:04.198596] 🐞 [DEBUG] Attempt 1: Retrieved 3 chunks for 'Assessment'.
+[2025-06-21T14:30:16.927924] 🔄 SECTION_GENERATION_COMPLETED
+   📋 Generated Assessment section (ID: section_a300f62f) - 1269 chars, 11 line refs
    📊 Data: {
-  "section_id": "section_bed31629",
-  "section_type": "Patient_Summary",
-  "content_length": 973,
+  "section_id": "section_a300f62f",
+  "section_type": "Assessment",
+  "content_length": 1269,
+  "line_references_found": 11,
+  "snomed_mappings_applied": 54,
+  "confidence_score": 0.8,
+  "processing_duration": 0,
+  "status": "COMPLETED",
+  "timestamp": "2025-06-21T14:30:16.927907"
+}
+
+[2025-06-21T14:30:16.936154] ✅ [INFO] ✅ Successfully generated and saved section 'Assessment' on attempt 1.
+[2025-06-21T14:30:16.938884] ✅ [INFO] Starting generation for section 4/7: 'Plan'
+[2025-06-21T14:30:17.616147] 🐞 [DEBUG] Attempt 1: Retrieved 3 chunks for 'Plan'.
+[2025-06-21T14:30:25.738075] 🔄 SECTION_GENERATION_COMPLETED
+   📋 Generated Plan section (ID: section_cbeae3f6) - 944 chars, 5 line refs
+   📊 Data: {
+  "section_id": "section_cbeae3f6",
+  "section_type": "Plan",
+  "content_length": 944,
   "line_references_found": 5,
   "snomed_mappings_applied": 54,
-  "confidence_score": 1.0,
+  "confidence_score": 0.9,
   "processing_duration": 0,
   "status": "COMPLETED",
-  "timestamp": "2025-06-20T23:35:10.527764"
+  "timestamp": "2025-06-21T14:30:25.738046"
 }
 
-[2025-06-20T23:35:10.535895] ✅ [INFO] ✅ Successfully generated and saved section 'Patient_Summary' on attempt 1.
-[2025-06-20T23:35:10.539820] ✅ [INFO] Starting generation for section 6/7: 'Referral_Note'
-[2025-06-20T23:35:11.142046] 🐞 [DEBUG] Attempt 1: Retrieved 5 chunks for 'Referral_Note'.
-[2025-06-20T23:35:22.130792] 🔄 SECTION_GENERATION_COMPLETED
-   📋 Generated Referral_Note section (ID: section_627b3abb) - 3855 chars, 0 line refs
+[2025-06-21T14:30:25.746962] ✅ [INFO] ✅ Successfully generated and saved section 'Plan' on attempt 1.
+[2025-06-21T14:30:25.751147] ✅ [INFO] Starting generation for section 5/7: 'Patient_Summary'
+[2025-06-21T14:30:26.355948] 🐞 [DEBUG] Attempt 1: Retrieved 3 chunks for 'Patient_Summary'.
+[2025-06-21T14:31:03.083626] 🔄 SECTION_GENERATION_COMPLETED
+   📋 Generated Patient_Summary section (ID: section_ebaf4f27) - 1471 chars, 11 line refs
    📊 Data: {
-  "section_id": "section_627b3abb",
-  "section_type": "Referral_Note",
-  "content_length": 3855,
-  "line_references_found": 0,
+  "section_id": "section_ebaf4f27",
+  "section_type": "Patient_Summary",
+  "content_length": 1471,
+  "line_references_found": 11,
   "snomed_mappings_applied": 54,
   "confidence_score": 0.9,
   "processing_duration": 0,
   "status": "COMPLETED",
-  "timestamp": "2025-06-20T23:35:22.130769"
+  "timestamp": "2025-06-21T14:31:03.083609"
 }
 
-[2025-06-20T23:35:22.138355] ❌ [ERROR] ❌ Generation resulted in an error for section 'Referral_Note'.
-   Details: {
-  "error_content": "Error: Failed to parse LLM response. Raw output: {\n  \"noteContent\": \"### Referral Note\\n\\n**Referral To:** Cardiologist\\n\\n**Reason for Referral:**\\nMr. Smith is being referred for a comprehensive cardiac evaluation due to persistent chest pain, shortness of breath, palpitations, and swollen ankles. The chest pain is described as a dull ache on the left side, exacerbated by physical activity, and has been ongoing for approximately two months (Line 2, 3). The patient also reports shortness of breath accompanying the chest pain and palpitations, described as his heart \"racing\" at times (Line 4, 5). Additionally, there is significant swelling in his ankles, particularly noticeable at the end of the day (Line 5).\n\n**Pertinent History and Findings:**\n- **Hypertension:** Managed with Lisinopril 10mg daily for the past year (Line 6).\n- **High Cholesterol:** History of high cholesterol, currently not on medication (Line 6).\n- **Vital Signs:** Blood pressure recorded at 145/90 mmHg (Line 19).\n- **Physical Examination:** Faint heart murmur detected, lungs clear, 2+ pitting edema in both ankles (Line 19).\n\n**Questions for the Consultant:**\n1. Could the patient's symptoms be indicative of coronary artery disease or heart failure? (Line 2, 3, 4, 5, 19)\n2. Is there a need for further cardiac evaluation, including a stress test, to rule out coronary artery disease and heart failure? (Line 21)\n3. What are the potential causes of the patient's palpitations and swollen ankles, and what management strategies would you recommend? (Line 4, 5)\n4. Are there any additional diagnostic tests or treatments you would recommend for this patient, considering his history of hypertension and high cholesterol? (Line 6, 21)\n5. What are the potential implications of the detected heart murmur, and what further investigations or interventions are necessary? (Line 19)\n\n**Follow-up:**\nThe patient has been referred to a cardiologist for a full evaluation, including a stress test, to further investigate the potential cardiac issues (Line 21). A follow-up appointment is scheduled in two weeks to review test results and discuss smoking cessation (Line 21).\n\",\n  \"lineReferences\": [\n    {\n      \"line_number\": 2,\n      \"text\": \"I'm still having that chest pain we talked about. It's a dull ache, mostly on the left side, exacerbated by physical activity such as walking up stairs. The pain has been ongoing for approximately two months.\",\n      \"start_char\": 28,\n      \"end_char\": 143\n    },\n    {\n      \"line_number\": 3,\n      \"text\": \"It's a dull ache, mostly on the left side, exacerbated by physical activity such as walking up stairs. The pain has been ongoing for approximately two months.\",\n      \"start_char\": 0,\n      \"end_char\": 108\n    },\n    {\n      \"line_number\": 4,\n      \"text\": \"Yes, I do get a bit short of breath. No dizziness, but my heart feels like it's racing sometimes.\",\n      \"start_char\": 0,\n      \"end_char\": 93\n    },\n    {\n      \"line_number\": 5,\n      \"text\": \"Also, my ankles have been really swollen, especially at the end of the day.\",\n      \"start_char\": 0,\n      \"end_char\": 66\n    },\n    {\n      \"line_number\": 6,\n      \"text\": \"That's right. I've been taking it for about a year. I also have a history of high cholesterol, but I'm not on any medication for that.\",\n      \"start_char\": 0,\n      \"end_char\": 105\n    },\n    {\n      \"line_number\": 19,\n      \"text\": \"Okay, your heart has a regular rate and rhythm, but I do hear a faint murmur. Your lungs sound clear. I also see 2+ pitting edema in both of your ankles.\",\n      \"start_char\": 0,\n      \"end_char\": 144\n    },\n    {\n      \"line_number\": 21,\n      \"text\": \"I'm also going to refer you to a cardiologist for a full evaluation, including a stress test, to rule out coronary artery disease and heart failure.\",\n      \"start_char\": 0,\n      \"end_char\": 125\n    }\n  ]\n}"
-}
-[2025-06-20T23:35:22.847558] 🐞 [DEBUG] Attempt 2: Retrieved 5 chunks for 'Referral_Note'.
-[2025-06-20T23:36:06.713785] 🔄 SECTION_GENERATION_COMPLETED
-   📋 Generated Referral_Note section (ID: section_4abc50fc) - 1726 chars, 7 line refs
+[2025-06-21T14:31:03.090685] ✅ [INFO] ✅ Successfully generated and saved section 'Patient_Summary' on attempt 1.
+[2025-06-21T14:31:03.093482] ✅ [INFO] Starting generation for section 6/7: 'Referral_Note'
+[2025-06-21T14:31:03.700770] 🐞 [DEBUG] Attempt 1: Retrieved 3 chunks for 'Referral_Note'.
+[2025-06-21T14:31:14.486097] 🔄 SECTION_GENERATION_COMPLETED
+   📋 Generated Referral_Note section (ID: section_0c899087) - 2306 chars, 8 line refs
    📊 Data: {
-  "section_id": "section_4abc50fc",
+  "section_id": "section_0c899087",
   "section_type": "Referral_Note",
-  "content_length": 1726,
-  "line_references_found": 7,
-  "snomed_mappings_applied": 54,
-  "confidence_score": 0.8,
-  "processing_duration": 0,
-  "status": "COMPLETED",
-  "timestamp": "2025-06-20T23:36:06.713773"
-}
-
-[2025-06-20T23:36:06.719742] ✅ [INFO] ✅ Successfully generated and saved section 'Referral_Note' on attempt 2.
-[2025-06-20T23:36:06.723253] ✅ [INFO] Starting generation for section 7/7: 'Billing_Codes'
-[2025-06-20T23:36:07.243896] 🐞 [DEBUG] Attempt 1: Retrieved 5 chunks for 'Billing_Codes'.
-[2025-06-20T23:36:23.110480] 🔄 SECTION_GENERATION_COMPLETED
-   📋 Generated Billing_Codes section (ID: section_1f7d6e31) - 751 chars, 8 line refs
-   📊 Data: {
-  "section_id": "section_1f7d6e31",
-  "section_type": "Billing_Codes",
-  "content_length": 751,
+  "content_length": 2306,
   "line_references_found": 8,
   "snomed_mappings_applied": 54,
   "confidence_score": 0.9,
   "processing_duration": 0,
   "status": "COMPLETED",
-  "timestamp": "2025-06-20T23:36:23.110465"
+  "timestamp": "2025-06-21T14:31:14.486072"
 }
 
-[2025-06-20T23:36:23.116602] ✅ [INFO] ✅ Successfully generated and saved section 'Billing_Codes' on attempt 1.
-[2025-06-20T23:36:23.119567] ✅ [INFO] ✅ Encounter processing pipeline completed successfully.
+[2025-06-21T14:31:14.495739] ✅ [INFO] ✅ Successfully generated and saved section 'Referral_Note' on attempt 1.
+[2025-06-21T14:31:14.500066] ✅ [INFO] Starting generation for section 7/7: 'Billing_Codes'
+[2025-06-21T14:31:14.945019] 🐞 [DEBUG] Attempt 1: Retrieved 3 chunks for 'Billing_Codes'.
+[2025-06-21T14:31:31.069755] 🔄 SECTION_GENERATION_COMPLETED
+   📋 Generated Billing_Codes section (ID: section_78ffbb7f) - 684 chars, 12 line refs
+   📊 Data: {
+  "section_id": "section_78ffbb7f",
+  "section_type": "Billing_Codes",
+  "content_length": 684,
+  "line_references_found": 12,
+  "snomed_mappings_applied": 54,
+  "confidence_score": 0.8,
+  "processing_duration": 0,
+  "status": "COMPLETED",
+  "timestamp": "2025-06-21T14:31:31.069731"
+}
+
+[2025-06-21T14:31:31.079372] ✅ [INFO] ✅ Successfully generated and saved section 'Billing_Codes' on attempt 1.
+[2025-06-21T14:31:31.083654] ✅ [INFO] ✅ Encounter processing pipeline completed successfully.

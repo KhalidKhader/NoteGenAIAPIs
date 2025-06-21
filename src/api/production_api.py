@@ -14,7 +14,6 @@ Handles ANY section type dynamically based on prompts array - not just SOAP!
 
 import json
 import uuid
-import time
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any
@@ -31,7 +30,6 @@ from src.models.api_models import (
 from src.services.conversation_rag import ConversationRAGService, get_conversation_rag_service
 from src.services.snomed_rag import SNOMEDRAGService, get_snomed_rag_service
 from src.services.section_generator import MedicalSectionGenerator, get_soap_generator_service
-from src.services.pattern_learning import PatternLearningService, get_pattern_learning_service
 
 router = APIRouter()
 logger = get_logger(__name__)
@@ -109,7 +107,6 @@ async def _run_encounter_processing_pipeline(
         convo_rag: ConversationRAGService = await get_conversation_rag_service()
         snomed_rag: SNOMEDRAGService = await get_snomed_rag_service()
         section_generator: MedicalSectionGenerator = await get_soap_generator_service()
-        # pattern_service: PatternLearningService = await get_pattern_learning_service() # For future use
 
         # STEP 3: Store conversation and get chunk IDs
         medical_logger.log("Storing and chunking conversation.", "INFO")

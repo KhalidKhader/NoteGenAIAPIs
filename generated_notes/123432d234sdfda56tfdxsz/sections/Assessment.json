@@ -1,70 +1,94 @@
 {
-  "section_id": "section_1f7d6e31",
-  "template_id": 3,
-  "section_name": "Billing_Codes",
-  "content": "### Billing Codes\n\n**CPT Codes:**\n- **99214**: Established patient office or other outpatient visit, typically 25 minutes (Line 1-21).\n- **93000**: Electrocardiogram, routine ECG with at least 12 leads; with interpretation and report (Line 21).\n- **80061**: Lipid panel (Line 21).\n- **83880**: Natriuretic peptide (BNP) (Line 21).\n\n**ICD-10 Codes:**\n- **I20.9**: Angina pectoris, unspecified (Line 2-3).\n- **R06.02**: Shortness of breath (Line 4).\n- **R00.2**: Palpitations (Line 4).\n- **I10**: Essential (primary) hypertension (Line 6, 19).\n- **E78.5**: Hyperlipidemia, unspecified (Line 6).\n- **I50.9**: Heart failure, unspecified (Line 19).\n- **R60.0**: Localized edema (Line 5, 19).\n- **Z87.891**: Personal history of nicotine dependence (Line 6).",
+  "section_id": "section_a300f62f",
+  "template_id": 1,
+  "section_name": "Assessment",
+  "content": "### Assessment\n\n1. **Chest Pain:** The patient presents with a dull ache in the chest, primarily on the left side, exacerbated by exertion such as walking up stairs. This has been ongoing for approximately two months (Line 2, 3).\n\n2. **Shortness of Breath and Palpitations:** Associated symptoms include shortness of breath and palpitations, with no dizziness reported (Line 5, 6).\n\n3. **Hypertension:** Blood pressure recorded at 145/90 mmHg, indicating suboptimal control. The patient is currently on Lisinopril, which has been increased to 20mg daily (Line 8, 14, 16).\n\n4. **Swollen Ankles:** Notable 2+ pitting edema in both ankles, particularly at the end of the day, suggesting possible fluid retention (Line 6, 14).\n\n5. **Heart Murmur:** A faint heart murmur was detected during the physical examination (Line 13).\n\n6. **Possible Cardiac Issues:** Differential diagnosis includes coronary artery disease and heart failure, necessitating further evaluation with an EKG, lipid panel, BNP, and referral to a cardiologist for a stress test (Line 15, 16).\n\n7. **High Cholesterol:** History of high cholesterol, currently not on medication (Line 9).\n\n8. **Smoking History:** Long-term smoker attempting cessation, which may contribute to cardiovascular risk (Line 10).",
   "line_references": [
     {
-      "line_number": 1,
-      "start_char": 0,
-      "end_char": 89,
-      "text": "doctor: Good morning, Mr. Smith. I see you're here for a follow-up. What can I help you with today?",
-      "speaker": null,
-      "confidence": 1.0
-    },
-    {
       "line_number": 2,
-      "start_char": 0,
-      "end_char": 197,
-      "text": "patient: Hi Dr. Evans. I'm still having that chest pain we talked about. It's a dull ache, mostly on the left side, and it seems to get worse when I walk up stairs. It's been happening for about two months now.",
+      "start_char": 25,
+      "end_char": 135,
+      "text": "I'm still having that chest pain we talked about. It's a dull ache, mostly on the left side, and it seems to get worse when I walk up stairs.",
       "speaker": null,
       "confidence": 1.0
     },
     {
       "line_number": 3,
       "start_char": 0,
-      "end_char": 81,
-      "text": "doctor: I see. Any shortness of breath, dizziness, or palpitations with the pain?",
-      "speaker": null,
-      "confidence": 1.0
-    },
-    {
-      "line_number": 4,
-      "start_char": 0,
-      "end_char": 196,
-      "text": "patient: Yes, I do get a bit short of breath. No dizziness, but my heart feels like it's racing sometimes. Also, my ankles have been really swollen lately, especially at the end of the day.",
+      "end_char": 45,
+      "text": "It's been happening for about two months now.",
       "speaker": null,
       "confidence": 1.0
     },
     {
       "line_number": 5,
       "start_char": 0,
-      "end_char": 104,
-      "text": "doctor: Okay. Let's review your history. You have hypertension, correct? And you're taking Lisinopril 10mg?",
+      "end_char": 95,
+      "text": "Yes, I do get a bit short of breath. No dizziness, but my heart feels like it's racing sometimes.",
       "speaker": null,
       "confidence": 1.0
     },
     {
       "line_number": 6,
       "start_char": 0,
-      "end_char": 202,
-      "text": "patient: That's right. I've been taking it for about a year. I also have a history of high cholesterol, but I'm not on anything for that right now. And I've been a smoker for 20 years, trying to quit.",
+      "end_char": 80,
+      "text": "Also, my ankles have been really swollen lately, especially at the end of the day.",
       "speaker": null,
       "confidence": 1.0
     },
     {
-      "line_number": 19,
+      "line_number": 8,
       "start_char": 0,
-      "end_char": 211,
-      "text": "doctor: Okay, your heart has a regular rate and rhythm, but I do hear a faint murmur. Your lungs sound clear. Your blood pressure today is 145/90 mmHg, which is a bit high. I see 2+ pitting edema in both of your ankles.",
+      "end_char": 50,
+      "text": "That's right. I've been taking it for about a year.",
       "speaker": null,
       "confidence": 1.0
     },
     {
-      "line_number": 21,
+      "line_number": 9,
       "start_char": 0,
-      "end_char": 421,
-      "text": "doctor: Here's the plan: I'm ordering an EKG today, and I want you to get some blood work done—specifically a lipid panel and a BNP, which is a marker for heart failure. I'm also referring you to a cardiologist for a full evaluation, including a stress test. In the meantime, I'm increasing your Lisinopril to 20mg daily and adding a low-dose diuretic, hydrochlorothiazide 12.5mg, to help with the swelling. We need to get that blood pressure down.",
+      "end_char": 85,
+      "text": "I also have a history of high cholesterol, but I'm not on anything for that right now.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 10,
+      "start_char": 0,
+      "end_char": 55,
+      "text": "And I've been a smoker for 20 years, trying to quit.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 13,
+      "start_char": 0,
+      "end_char": 80,
+      "text": "Okay, your heart has a regular rate and rhythm, but I do hear a faint murmur.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 14,
+      "start_char": 0,
+      "end_char": 100,
+      "text": "Your blood pressure today is 145/90 mmHg, which is a bit high. I see 2+ pitting edema in both of your ankles.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 15,
+      "start_char": 0,
+      "end_char": 140,
+      "text": "Given your symptoms and exam findings, I'm concerned about a possible cardiac issue. I want to rule out coronary artery disease and heart failure.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 16,
+      "start_char": 0,
+      "end_char": 150,
+      "text": "Here's the plan: I'm ordering an EKG today, and I want you to get some blood work done—specifically a lipid panel and a BNP, which is a marker for heart failure.",
       "speaker": null,
       "confidence": 1.0
     }
@@ -557,26 +581,30 @@
       "language": "en"
     }
   ],
-  "confidence_score": 0.9,
+  "confidence_score": 0.8,
   "language": "en",
   "processing_metadata": {
-    "duration_seconds": 13.133883953094482,
+    "duration_seconds": 9.82588815689087,
     "model_name": "gpt-4",
-    "context_chars_used": 8333,
+    "context_chars_used": 4365,
     "factual_consistency_details": {
-      "factualConsistencyScore": 9,
-      "hallucinationRisk": "LOW",
+      "factualConsistencyScore": 8,
+      "hallucinationRisk": "MEDIUM",
       "issuesFound": [
         {
-          "statement": "Line references for CPT Codes 99214, 93000, 80061, and 83880",
-          "issue": "Line references are not explicitly mentioned in the transcript."
+          "statement": "The patient is currently on Lisinopril, which has been increased to 20mg daily (Line 8, 14, 16).",
+          "issue": "Incorrect line reference; the increase to 20mg is mentioned later in the transcript."
         },
         {
-          "statement": "Line references for ICD-10 Codes I20.9, R06.02, R00.2, I10, E78.5, I50.9, R60.0, Z87.891",
-          "issue": "Line references are not explicitly mentioned in the transcript."
+          "statement": "Swollen Ankles: Notable 2+ pitting edema in both ankles, particularly at the end of the day, suggesting possible fluid retention (Line 6, 14).",
+          "issue": "Incorrect line reference; the edema is noted in Line 14, but 'particularly at the end of the day' is not explicitly stated in the transcript."
+        },
+        {
+          "statement": "Possible Cardiac Issues: Differential diagnosis includes coronary artery disease and heart failure, necessitating further evaluation with an EKG, lipid panel, BNP, and referral to a cardiologist for a stress test (Line 15, 16).",
+          "issue": "Incorrect line reference; the plan for tests and referral is mentioned later in the transcript."
         }
       ],
-      "justification": "The generated content accurately reflects the medical conditions and procedures discussed in the source transcript. The CPT and ICD-10 codes are consistent with the patient's symptoms and doctor's plan. However, the line references are not explicitly supported by the transcript, which slightly reduces the factual consistency score. The overall hallucination risk is low because the main content is well-supported."
+      "justification": "The generated content is mostly consistent with the source transcript, but there are inaccuracies in line references and minor details that are not explicitly supported by the transcript. The factual consistency score reflects these discrepancies, and the hallucination risk is medium due to the potential for misinterpretation of the transcript details."
     }
   }
 }
