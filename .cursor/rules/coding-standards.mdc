@@ -1,0 +1,481 @@
+---
+description: Use this one ever you want to write code
+globs: 
+alwaysApply: false
+---
+# NoteGen AI APIs Coding Standards
+
+This document outlines the coding standards and best practices for the NoteGen AI APIs project.
+
+## System Architecture Overview
+
+### Core Components
+- **API Gateway**: NestJS backend (pre-built) - orchestrates requests and passes data to Python services
+- **Python AI Service**: Handles SOAP generation using LangChain and Azure OpenAI
+- **Conversation RAG**: Vector database for storing and retrieving conversation chunks
+- **SNOMED RAG**: Neo4j knowledge graph (pre-existing) with SNOMED Canadian edition data
+- **Pattern Learning**: Doctor preference adaptation system
+
+### Data Flow
+1. NestJS backend sends: SOAP Templates, System prompts, Custom instructions, Generator section, Section prompt, Transcription text
+2. Python service processes: Save conversations to Vector RAG, Generate SOAP sections using section prompts
+3. Python service returns: Generated section content and section ID to NestJS backend
+
+## Python Environment & Dependencies
+
+### Package Management
+- **Use Poetry** for dependency management and virtual environments
+- **No shell scripts (.sh files)** - use Makefiles instead
+- **Python 3.11+** for optimal performance with async operations
+
+DONT:
+!!! DONT: create new codes without cleaning the old codes !!!
+!!! DONT: create .sh files, use make files instead !!!
+!!! DONT: use the base .env, use poetry !!!
+!!! Dont use any static data like:
+        # Medical terminology by section
+        clinical_keywords = {
+            "subjective": [
+                # English symptoms and complaints
+                "pain", "ache", "hurt", "discomfort", "nausea", "vomiting", "fever", "chills",
+                "fatigue", "weakness", "dizzy", "headache", "shortness of breath", "chest pain",
+                "abdominal pain", "back pain", "joint pain", "muscle pain", "burning", "tingling",
+                "numbness", "swelling", "rash", "itching", "cough", "sore throat", "runny nose",
+                # French symptoms
+                "douleur", "mal", "nausée", "vomissement", "fièvre", "frissons", "fatigue",
+                "faiblesse", "étourdissement", "maux de tête", "essoufflement", "douleur thoracique",
+                "douleur abdominale", "mal de dos", "douleur articulaire", "brûlure", "picotement",
+                "engourdissement", "enflure", "éruption", "démangeaison", "toux", "mal de gorge"
+            ],
+            "objective": [
+                # English clinical findings
+                "blood pressure", "heart rate", "temperature", "weight", "height", "oxygen saturation",
+                "pulse", "respiration", "examination", "palpation", "auscultation", "inspection",
+                "reflex", "range of motion", "swelling", "tenderness", "mass", "lesion",
+                # French clinical findings
+                "tension artérielle", "pression", "fréquence cardiaque", "température", "poids",
+                "taille", "saturation", "pouls", "respiration", "examen", "palpation", "auscultation",
+                "réflexe", "amplitude", "enflure", "sensibilité", "masse", "lésion"
+            ],
+            "assessment": [
+                # English diagnoses and conditions
+                "hypertension", "diabetes", "infection", "inflammation", "arthritis", "pneumonia",
+                "bronchitis", "asthma", "depression", "anxiety", "migraine", "gastritis",
+                "dermatitis", "sinusitis", "otitis", "conjunctivitis", "diagnosis", "condition",
+                # French diagnoses
+                "hypertension", "diabète", "infection", "inflammation", "arthrite", "pneumonie",
+                "bronchite", "asthme", "dépression", "anxiété", "migraine", "gastrite",
+                "dermatite", "sinusite", "otite", "conjonctivite", "diagnostic", "condition"
+            ],
+            "plan": [
+                # English treatments and medications
+                "medication", "prescription", "dosage", "treatment", "therapy", "surgery",
+                "follow-up", "referral", "test", "lab work", "imaging", "x-ray", "ultrasound",
+                "physical therapy", "diet", "exercise", "rest", "ice", "heat", "bandage",
+                # French treatments
+                "médicament", "ordonnance", "posologie", "traitement", "thérapie", "chirurgie",
+                "suivi", "référence", "test", "laboratoire", "imagerie", "radiographie", "échographie",
+                "physiothérapie", "diète", "exercice", "repos", "glace", "chaleur", "bandage"
+            ]
+        } !!!
+
+### Core Dependencies
+```toml
+[tool.poetry.dependencies]
+python = "^3.11"
+langchain = "^0.1.0"
+langchain-openai = "^0.1.0"
+langchain-community = "^0.0.20"
+langchain-neo4j = "^0.0.5"
+neo4j = "^5.15.0"
+azure-openai = "^1.10.0"
+fastapi = "^0.104.0"
+uvicorn = "^0.24.0"
+pydantic = "^2.5.0"
+langfuse = "^2.0.0"
+chromadb = "^0.4.0"  # or alternative vector DB
+numpy = "^1.24.0"
+pandas = "^2.1.0"
+```
+
+## Environment Configuration
+
+### Required Environment Variables
+```python
+# Azure OpenAI Configuration
+AZURE_OPENAI_API_KEY = "your_api_key"
+AZURE_OPENAI_ENDPOINT = "https://your-instance.openai.azure.com"
+AZURE_OPENAI_DEPLOYMENT_NAME = "gpt-4o"
+AZURE_OPENAI_INSTANCE_NAME = "your-instance-name"
+AZURE_OPENAI_API_VERSION = "2024-05-01-preview"
+AZURE_OPENAI_MODEL = "gpt-4"
+
+# Embedding Configuration
+OPENAI_EMBEDDING_ENDPOINT = "https://your-instance.openai.azure.com"
+OPENAI_EMBEDDING_API_KEY = "your_embedding_key"
+OPENAI_EMBEDDING_DEPLOYMENT_NAME = "text-embedding-ada-002"
+
+# Neo4j Configuration (SNOMED RAG)
+NEO4J_URI = "bolt://localhost:7687"
+NEO4J_USER = "neo4j"
+NEO4J_USERNAME = "neo4j"
+NEO4J_PASSWORD = "your_password"
+NEO4J_DATABASE = "neo4j"
+
+# CORS Settings
+CORS_ORIGINS = "http://localhost:3000,http://localhost:8000,http://localhost:8005"
+
+# Observability
+LANGFUSE_SECRET_KEY = "your_secret_key"
+LANGFUSE_PUBLIC_KEY = "your_public_key"
+LANGFUSE_HOST = "https://us.cloud.langfuse.com"
+
+# HuggingFace Token
+HF_TOKEN = "your_hf_token"
+```
+
+## LangChain Implementation Standards
+
+### Azure OpenAI Integration
+```python
+from langchain_openai import AzureChatOpenAI, AzureOpenAIEmbeddings
+from langchain.schema import HumanMessage, SystemMessage
+
+# Initialize Azure OpenAI
+llm = AzureChatOpenAI(
+    azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+    api_key=os.getenv("AZURE_OPENAI_API_KEY"),
+    api_version=os.getenv("AZURE_OPENAI_API_VERSION"),
+    deployment_name=os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME"),
+    model=os.getenv("AZURE_OPENAI_MODEL"),
+    temperature=0.1
+)
+
+# Initialize embeddings
+embeddings = AzureOpenAIEmbeddings(
+    azure_endpoint=os.getenv("OPENAI_EMBEDDING_ENDPOINT"),
+    api_key=os.getenv("OPENAI_EMBEDDING_API_KEY"),
+    api_version=os.getenv("AZURE_OPENAI_API_VERSION"),
+    deployment=os.getenv("OPENAI_EMBEDDING_DEPLOYMENT_NAME")
+)
+```
+
+### Neo4j SNOMED RAG Implementation
+```python
+from langchain_neo4j import Neo4jGraph, Neo4jVector
+from langchain.chains import GraphCypherQAChain
+
+# Initialize Neo4j connection
+graph = Neo4jGraph(
+    url=os.getenv("NEO4J_URI"),
+    username=os.getenv("NEO4J_USERNAME"),
+    password=os.getenv("NEO4J_PASSWORD"),
+    database=os.getenv("NEO4J_DATABASE")
+)
+
+# SNOMED retrieval chain
+snomed_chain = GraphCypherQAChain.from_llm(
+    llm=llm,
+    graph=graph,
+    verbose=True
+)
+```
+
+### Conversation RAG Implementation
+```python
+from langchain.vectorstores import Chroma
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.chains import RetrievalQA
+
+# Initialize vector store for conversations
+vector_store = Chroma(
+    embedding_function=embeddings,
+    persist_directory="./conversation_rag_db"
+)
+
+# Text splitter for conversation chunks
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1500,
+    chunk_overlap=150,
+    separators=["\n\n", "\n", ". ", " "]
+)
+
+# Conversation retrieval chain
+conversation_retriever = RetrievalQA.from_chain_type(
+    llm=llm,
+    chain_type="stuff",
+    retriever=vector_store.as_retriever(search_kwargs={"k": 5})
+)
+```
+
+## SOAP Generation Patterns
+
+### Section Generation Template
+```python
+from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
+
+class SOAPSectionGenerator:
+    def __init__(self, llm, conversation_rag, snomed_rag):
+        self.llm = llm
+        self.conversation_rag = conversation_rag
+        self.snomed_rag = snomed_rag
+    
+    async def generate_section(
+        self, 
+        section_type: str,
+        section_prompt: str,
+        transcription_text: str,
+        soap_template: dict,
+        custom_instructions: str = ""
+    ) -> dict:
+        """Generate a specific SOAP section using RAG-enhanced prompts"""
+        
+        # Retrieve relevant conversation chunks
+        relevant_chunks = await self.conversation_rag.retrieve(
+            query=f"{section_type} information from conversation",
+            k=5
+        )
+        
+        # Get SNOMED codes if needed
+        snomed_context = await self.snomed_rag.retrieve(
+            query=f"Medical terminology for {section_type}"
+        )
+        
+        # Build enhanced prompt
+        enhanced_prompt = self._build_section_prompt(
+            section_prompt=section_prompt,
+            conversation_chunks=relevant_chunks,
+            snomed_context=snomed_context,
+            custom_instructions=custom_instructions
+        )
+        
+        # Generate section
+        response = await self.llm.agenerate([enhanced_prompt])
+        
+        return {
+            "section_id": f"{section_type}_{uuid.uuid4()}",
+            "content": response.generations[0][0].text,
+            "section_type": section_type
+        }
+```
+
+## Python Style Guidelines
+
+### Code Structure
+- Follow PEP 8 style guidelines
+- Use 4 spaces for indentation (no tabs)
+- Keep line length under 100 characters
+- Use descriptive variable and function names
+- Use type hints for function parameters and return values
+
+### Async Patterns
+```python
+import asyncio
+from typing import Dict, List, Optional, Any
+
+async def process_soap_generation(
+    transcription_data: Dict[str, Any],
+    section_prompts: List[Dict[str, str]],
+    soap_template: Dict[str, Any]
+) -> Dict[str, Any]:
+    """Process SOAP generation with proper async patterns"""
+    
+    # Store conversation in RAG
+    await store_conversation_chunks(transcription_data["text"])
+    
+    # Generate sections concurrently where possible
+    tasks = []
+    for section_info in section_prompts:
+        task = generate_soap_section(
+            section_type=section_info["type"],
+            section_prompt=section_info["prompt"],
+            transcription_text=transcription_data["text"]
+        )
+        tasks.append(task)
+    
+    # Wait for all sections to complete
+    sections = await asyncio.gather(*tasks)
+    
+    return {
+        "sections": sections,
+        "status": "completed",
+        "processing_time": time.time() - start_time
+    }
+```
+
+### Error Handling
+```python
+from langchain.schema import LLMResult
+from typing import Union
+import logging
+
+logger = logging.getLogger(__name__)
+
+class SOAPGenerationError(Exception):
+    """Custom exception for SOAP generation errors"""
+    pass
+
+async def safe_llm_call(
+    llm_chain: LLMChain,
+    input_data: Dict[str, Any],
+    max_retries: int = 3
+) -> Union[LLMResult, None]:
+    """Safely call LLM with retry logic and error handling"""
+    
+    for attempt in range(max_retries):
+        try:
+            result = await llm_chain.arun(input_data)
+            return result
+        except Exception as e:
+            logger.warning(f"LLM call attempt {attempt + 1} failed: {str(e)}")
+            if attempt == max_retries - 1:
+                logger.error(f"All LLM call attempts failed: {str(e)}")
+                raise SOAPGenerationError(f"Failed to generate SOAP section: {str(e)}")
+            await asyncio.sleep(2 ** attempt)  # Exponential backoff
+    
+    return None
+```
+
+## Testing Standards
+
+### Unit Testing
+```python
+import pytest
+from unittest.mock import AsyncMock, MagicMock
+from your_module import SOAPSectionGenerator
+
+@pytest.mark.asyncio
+async def test_soap_section_generation():
+    """Test SOAP section generation with mocked dependencies"""
+    
+    # Mock LLM and RAG components
+    mock_llm = AsyncMock()
+    mock_conversation_rag = AsyncMock()
+    mock_snomed_rag = AsyncMock()
+    
+    # Setup mock responses
+    mock_conversation_rag.retrieve.return_value = ["relevant chunk 1", "relevant chunk 2"]
+    mock_snomed_rag.retrieve.return_value = ["SNOMED code info"]
+    mock_llm.agenerate.return_value = MagicMock(
+        generations=[[MagicMock(text="Generated SOAP content")]]
+    )
+    
+    # Initialize generator
+    generator = SOAPSectionGenerator(mock_llm, mock_conversation_rag, mock_snomed_rag)
+    
+    # Test section generation
+    result = await generator.generate_section(
+        section_type="Subjective",
+        section_prompt="Generate subjective section",
+        transcription_text="Patient conversation text",
+        soap_template={"template": "data"}
+    )
+    
+    # Assertions
+    assert result["section_type"] == "Subjective"
+    assert "section_id" in result
+    assert result["content"] == "Generated SOAP content"
+```
+
+### Integration Testing
+- Test RAG retrieval accuracy
+- Test LLM response quality
+- Test end-to-end SOAP generation pipeline
+- Mock external services (Azure OpenAI, Neo4j) for CI/CD
+
+## Build and Development Tools
+
+### Makefile Commands
+```makefile
+# Makefile for NoteGen AI APIs
+
+.PHONY: install dev test lint format clean docker-up docker-down
+
+install:
+	poetry install
+
+dev:
+	poetry run uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
+
+test:
+	poetry run pytest tests/ -v --cov=src
+
+lint:
+	poetry run ruff check src/
+	poetry run mypy src/
+
+format:
+	poetry run black src/
+	poetry run isort src/
+
+clean:
+	find . -type d -name "__pycache__" -delete
+	find . -type f -name "*.pyc" -delete
+
+docker-up:
+	docker-compose up -d neo4j
+
+docker-down:
+	docker-compose down
+
+neo4j-status:
+	docker ps | grep neo4j
+```
+
+## Observability and Monitoring
+
+### LangFuse Integration
+```python
+from langfuse.decorators import observe
+from langfuse import Langfuse
+
+# Initialize LangFuse
+langfuse = Langfuse(
+    secret_key=os.getenv("LANGFUSE_SECRET_KEY"),
+    public_key=os.getenv("LANGFUSE_PUBLIC_KEY"),
+    host=os.getenv("LANGFUSE_HOST")
+)
+
+@observe(name="soap_section_generation")
+async def generate_soap_section_with_tracing(
+    section_type: str,
+    conversation_text: str
+) -> Dict[str, Any]:
+    """Generate SOAP section with LangFuse tracing"""
+    
+    # Your SOAP generation logic here
+    result = await generate_section(section_type, conversation_text)
+    
+    # Log metrics
+    langfuse.score(
+        name="soap_quality",
+        value=calculate_quality_score(result),
+        trace_id=langfuse.get_trace_id()
+    )
+    
+    return result
+```
+
+## Security Guidelines
+
+### Data Handling
+- Encrypt patient conversation data before storing in vector database
+- Use secure connections for all external API calls
+- Implement proper access controls for RAG systems
+- Log all data access for audit purposes
+
+### API Security
+```python
+from fastapi import FastAPI, HTTPException, Depends
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+
+security = HTTPBearer()
+
+async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    """Verify JWT token from NestJS backend"""
+    if not verify_jwt_token(credentials.credentials):
+        raise HTTPException(status_code=401, detail="Invalid token")
+    return credentials.credentials
+
+

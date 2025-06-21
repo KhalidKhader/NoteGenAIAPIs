@@ -1,0 +1,458 @@
+---
+trigger: always_on
+description: SOAP Generation Patterns and Best Practices
+globs: *.py,*.ts
+---
+
+# SOAP Generation Patterns and Best Practices
+
+## Overview
+
+This document defines the patterns, strategies, and best practices for generating SOAP notes from medical conversations using AI, with special focus on handling long conversations and maintaining medical accuracy.
+
+## SOAP Generation Strategies
+
+### Strategy 1: Sequential Chaining (Short Conversations)
+**Use Case**: Conversations under 20 minutes
+**Token Limit**: Within GPT-4o context window
+
+```
+Input: Conversation Text
+│
+├─ Step 1: Generate Subjective (S)
+│  └─ Prompt: S_prompt + conversation
+│
+├─ Step 2: Generate Objective (O)  
+│  └─ Prompt: O_prompt + S + conversation
+│
+├─ Step 3: Generate Assessment (A)
+│  └─ Prompt: A_prompt + S + O + conversation
+│
+├─ Step 4: Generate Plan (P)
+│  └─ Prompt: P_prompt + S + O + A + conversation
+│
+└─ Step 5: Extract Keywords/Measurements
+   └─ Prompt: Keywords_prompt + S + O + A + P + conversation
+```
+
+### Strategy 2: RAG-Enhanced Generation (Long Conversations)
+**Use Case**: Conversations over 20 minutes
+**Token Optimization**: 60-80% reduction
+
+```
+Input: Long Conversation
+│
+├─ Step 1: Semantic Chunking
+│  └─ Split by medical topics/sections
+│
+├─ Step 2: Context-Aware Retrieval
+│  └─ For each SOAP section:
+│     ├─ Retrieve relevant chunks
+│     ├─ Get previous sections context
+│     └─ Apply doctor preferences
+│
+├─ Step 3: Focused Generation
+│  └─ Generate with reduced context
+│
+└─ Step 4: Assembly & Validation
+   └─ Combine sections with SNOMED validation
+```
+
+## Prompt Engineering Patterns
+
+### Base Prompt Structure
+```python
+SOAP_PROMPT_TEMPLATE = """
+You are a medical documentation specialist creating {section} section of SOAP notes.
+
+CONTEXT:
+- Language: {language} (English/French)
+- Medical Standards: SNOMED Canadian Edition
+- Doctor Preferences: {doctor_patterns}
+
+CONVERSATION EXCERPT:
+{relevant_conversation_chunks}
+
+PREVIOUS SECTIONS:
+{previous_sections}
+
+INSTRUCTIONS:
+Generate the {section} section following these guidelines:
+1. Use medical terminology appropriate for {specialty}
+2. Apply SNOMED codes where applicable
+3. Follow doctor's preferred terminology: {preferred_terms}
+4. Maintain professional medical language
+5. Include relevant measurements and observations
+
+OUTPUT FORMAT:
+{section_format}
+"""
+```
+
+### Section-Specific Patterns
+
+#### Subjective Section
+```python
+SUBJECTIVE_PROMPT = """
+Extract the patient's subjective experience including:
+- Chief complaint and history of present illness
+- Review of systems
+- Past medical history relevant to current visit
+- Social history and family history if mentioned
+- Patient's own words and descriptions
+
+Focus on what the patient reports, not clinical observations.
+"""
+```
+
+#### Objective Section
+```python
+OBJECTIVE_PROMPT = """
+Extract objective clinical findings including:
+- Vital signs and measurements
+- Physical examination findings
+- Laboratory results mentioned
+- Diagnostic test results
+- Clinical observations by healthcare provider
+
+Focus on measurable, observable data only.
+"""
+```
+
+#### Assessment Section
+```python
+ASSESSMENT_PROMPT = """
+Extract clinical assessment including:
+- Primary and secondary diagnoses
+- Clinical impressions
+- Differential diagnoses considered
+- SNOMED codes for conditions
+- Severity and status of conditions
+
+Apply doctor's preferred diagnostic terminology.
+"""
+```
+
+#### Plan Section
+```python
+PLAN_PROMPT = """
+Extract treatment plan including:
+- Medications prescribed or adjusted
+- Procedures recommended or performed
+- Follow-up appointments scheduled
+- Patient education provided
+- Lifestyle modifications discussed
+- Referrals to specialists
+
+Include specific dosages, frequencies, and instructions.
+"""
+```
+
+## Pattern Learning Implementation
+
+### Learning Algorithm
+```python
+class PatternLearner:
+    def learn_from_modification(
+        self,
+        doctor_id: str,
+        original_text: str,
+        modified_text: str,
+        context: Dict[str, str]
+    ):
+        """Learn patterns from doctor modifications"""
+        
+        # 1. Extract term differences
+        differences = self.extract_differences(original_text, modified_text)
+        
+        # 2. Identify pattern types
+        for diff in differences:
+            pattern_type = self.classify_pattern(diff)
+            
+            # 3. Update pattern database
+            self.update_pattern(
+                doctor_id=doctor_id,
+                pattern_type=pattern_type,
+                original_term=diff.original,
+                preferred_term=diff.modified,
+                context=context
+            )
+    
+    def apply_patterns(
+        self,
+        text: str,
+        doctor_id: str,
+        context: Dict[str, str]
+    ) -> str:
+        """Apply learned patterns to generated text"""
+        
+        patterns = self.get_patterns(doctor_id, context)
+        
+        for pattern in patterns:
+            if pattern.confidence > 0.8:
+                text = text.replace(
+                    pattern.original_term,
+                    pattern.preferred_term
+                )
+        
+        return text
+```
+
+### Pattern Types
+1. **Terminology Preferences**: "Hypertension" → "HTN"
+2. **Abbreviation Styles**: "Blood pressure" → "BP"
+3. **Format Preferences**: "120/80 mmHg" → "120/80"
+4. **Section Organization**: Preferred order of information
+5. **Detail Level**: Verbose vs. concise descriptions
+
+## Quality Assurance Patterns
+
+### Validation Pipeline
+```python
+class SOAPValidator:
+    def validate_soap_note(self, soap_note: SOAPNote) -> ValidationResult:
+        """Comprehensive SOAP note validation"""
+        
+        results = []
+        
+        # 1. Medical terminology validation
+        results.append(self.validate_medical_terms(soap_note))
+        
+        # 2. SNOMED code validation
+        results.append(self.validate_snomed_codes(soap_note))
+        
+        # 3. Completeness check
+        results.append(self.check_completeness(soap_note))
+        
+        # 4. Consistency validation
+        results.append(self.check_consistency(soap_note))
+        
+        # 5. Format validation
+        results.append(self.validate_format(soap_note))
+        
+        return self.aggregate_results(results)
+```
+
+### Error Handling Patterns
+```python
+class SOAPGenerationErrorHandler:
+    def handle_generation_error(
+        self,
+        error: Exception,
+        context: GenerationContext
+    ) -> SOAPGenerationResult:
+        """Handle errors gracefully with fallback strategies"""
+        
+        if isinstance(error, TokenLimitError):
+            return self.fallback_to_chunked_generation(context)
+        
+        elif isinstance(error, ModelTimeoutError):
+            return self.retry_with_backoff(context)
+        
+        elif isinstance(error, InvalidResponseError):
+            return self.regenerate_with_stricter_prompt(context)
+        
+        else:
+            return self.fallback_to_basic_generation(context)
+```
+
+## Performance Optimization Patterns
+
+### Caching Strategy
+```python
+class SOAPCache:
+    def __init__(self):
+        self.conversation_cache = {}
+        self.pattern_cache = {}
+        self.snomed_cache = {}
+    
+    def get_cached_soap_section(
+        self,
+        conversation_hash: str,
+        section: str,
+        doctor_id: str
+    ) -> Optional[str]:
+        """Retrieve cached SOAP section if available"""
+        
+        cache_key = f"{conversation_hash}:{section}:{doctor_id}"
+        return self.conversation_cache.get(cache_key)
+    
+    def cache_soap_section(
+        self,
+        conversation_hash: str,
+        section: str,
+        doctor_id: str,
+        content: str,
+        ttl: int = 3600
+    ):
+        """Cache generated SOAP section"""
+        
+        cache_key = f"{conversation_hash}:{section}:{doctor_id}"
+        self.conversation_cache[cache_key] = {
+            'content': content,
+            'timestamp': time.time(),
+            'ttl': ttl
+        }
+```
+
+### Parallel Processing
+```python
+async def generate_soap_parallel(
+    conversation: str,
+    doctor_id: str
+) -> SOAPNote:
+    """Generate SOAP sections in parallel where possible"""
+    
+    # Chunk conversation
+    chunks = await chunk_conversation(conversation)
+    
+    # Generate S and O in parallel (independent)
+    subjective_task = generate_subjective(chunks, doctor_id)
+    objective_task = generate_objective(chunks, doctor_id)
+    
+    subjective, objective = await asyncio.gather(
+        subjective_task,
+        objective_task
+    )
+    
+    # Generate A and P sequentially (dependent on S and O)
+    assessment = await generate_assessment(chunks, subjective, objective, doctor_id)
+    plan = await generate_plan(chunks, subjective, objective, assessment, doctor_id)
+    
+    # Generate keywords in parallel with final assembly
+    keywords_task = generate_keywords(chunks, subjective, objective, assessment, plan)
+    
+    return SOAPNote(
+        subjective=subjective,
+        objective=objective,
+        assessment=assessment,
+        plan=plan,
+        keywords=await keywords_task
+    )
+```
+
+## Multi-Language Support Patterns
+
+### Language Detection and Routing
+```python
+class LanguageHandler:
+    def detect_language(self, conversation: str) -> str:
+        """Detect conversation language (French/English)"""
+        # Implementation using language detection libraries
+        pass
+    
+    def get_language_specific_prompts(self, language: str) -> Dict[str, str]:
+        """Get prompts in appropriate language"""
+        return {
+            'en': self.english_prompts,
+            'fr': self.french_prompts
+        }.get(language, self.english_prompts)
+    
+    def get_snomed_terms(self, language: str, concept_id: str) -> List[str]:
+        """Get SNOMED terms in specified language"""
+        pass
+```
+
+### Bilingual SOAP Generation
+```python
+BILINGUAL_PROMPT_TEMPLATE = """
+Generate SOAP {section} in {primary_language} with SNOMED codes.
+If medical terms exist in both French and English, prefer {primary_language}.
+
+SNOMED Canadian Edition supports both languages:
+- Use appropriate language-specific terminology
+- Include SNOMED codes for all diagnoses
+- Maintain medical accuracy across languages
+"""
+```
+
+## Testing Patterns
+
+### Unit Testing for SOAP Generation
+```python
+class TestSOAPGeneration:
+    def test_subjective_generation(self):
+        """Test subjective section generation"""
+        conversation = "Patient reports chest pain..."
+        result = generate_subjective(conversation, "doc_123")
+        
+        assert "chest pain" in result.lower()
+        assert len(result) > 50  # Minimum content check
+        assert self.contains_medical_terminology(result)
+    
+    def test_pattern_application(self):
+        """Test doctor pattern application"""
+        original = "Patient has hypertension"
+        doctor_id = "doc_123"
+        
+        # Set up pattern: hypertension -> HTN
+        self.pattern_learner.add_pattern(
+            doctor_id, "hypertension", "HTN", context={"section": "assessment"}
+        )
+        
+        result = self.pattern_learner.apply_patterns(original, doctor_id, {"section": "assessment"})
+        assert "HTN" in result
+        assert "hypertension" not in result.lower()
+```
+
+### Integration Testing
+```python
+class TestSOAPIntegration:
+    async def test_end_to_end_generation(self):
+        """Test complete SOAP generation workflow"""
+        conversation = self.load_test_conversation("long_conversation.txt")
+        doctor_id = "test_doctor"
+        
+        soap_note = await generate_complete_soap(conversation, doctor_id)
+        
+        # Validate all sections present
+        assert soap_note.subjective
+        assert soap_note.objective
+        assert soap_note.assessment
+        assert soap_note.plan
+        
+        # Validate SNOMED codes
+        assert self.contains_valid_snomed_codes(soap_note)
+        
+        # Validate doctor patterns applied
+        assert self.patterns_applied_correctly(soap_note, doctor_id)
+```
+
+## Monitoring and Analytics Patterns
+
+### Performance Metrics
+```python
+class SOAPMetrics:
+    def track_generation_time(self, section: str, duration: float):
+        """Track time taken for each section generation"""
+        self.metrics.histogram(f"soap.generation.{section}.duration", duration)
+    
+    def track_token_usage(self, section: str, tokens: int):
+        """Track token consumption per section"""
+        self.metrics.counter(f"soap.tokens.{section}", tokens)
+    
+    def track_pattern_application(self, doctor_id: str, pattern_count: int):
+        """Track pattern application frequency"""
+        self.metrics.gauge(f"soap.patterns.applied", pattern_count, tags={"doctor": doctor_id})
+```
+
+### Quality Metrics
+```python
+class QualityMetrics:
+    def measure_medical_accuracy(self, soap_note: SOAPNote) -> float:
+        """Measure medical terminology accuracy"""
+        # Implementation using medical knowledge bases
+        pass
+    
+    def measure_completeness(self, soap_note: SOAPNote) -> float:
+        """Measure SOAP note completeness"""
+        # Check for required elements in each section
+        pass
+    
+    def measure_consistency(self, soap_note: SOAPNote) -> float:
+        """Measure internal consistency across sections"""
+        # Check for contradictions between sections
+        pass
+```
+
+This comprehensive pattern library ensures consistent, high-quality SOAP note generation while maintaining flexibility for different conversation lengths and doctor preferences.

@@ -1,0 +1,594 @@
+---
+trigger: always_on
+description: Environment setup and configuration guidelines
+globs: *.py,*.toml,*.env,Makefile
+---
+
+# Environment Setup and Configuration
+
+This document outlines the environment setup requirements for the NoteGen AI APIs project, focusing on medical SOAP note generation using LangChain, Azure OpenAI, and Neo4j.
+
+## System Requirements
+
+### Python Environment
+- **Python 3.11+** (required for optimal async performance)
+- **Poetry** for dependency management and virtual environments
+- **No shell scripts (.sh files)** - use Makefiles for automation
+- **FastAPI** for REST API endpoints
+- **Uvicorn** for ASGI server
+
+### External Services
+- **Azure OpenAI** with GPT-4o deployment
+- **Neo4j** Docker instance with SNOMED Canadian edition data (pre-existing)
+- **Vector Database** (ChromaDB or Weaviate) for conversation storage
+- **LangFuse** for observability and tracing
+
+### DONT:
+!!! DONT: create new codes without cleaning the old codes !!!
+!!! DONT: create .sh files, use make files instead !!!
+!!! DONT: use the base .env, use poetry !!!
+!!! Dont use any static data like:
+        # Medical terminology by section
+        clinical_keywords = {
+            "subjective": [
+                # English symptoms and complaints
+                "pain", "ache", "hurt", "discomfort", "nausea", "vomiting", "fever", "chills",
+                "fatigue", "weakness", "dizzy", "headache", "shortness of breath", "chest pain",
+                "abdominal pain", "back pain", "joint pain", "muscle pain", "burning", "tingling",
+                "numbness", "swelling", "rash", "itching", "cough", "sore throat", "runny nose",
+                # French symptoms
+                "douleur", "mal", "nausée", "vomissement", "fièvre", "frissons", "fatigue",
+                "faiblesse", "étourdissement", "maux de tête", "essoufflement", "douleur thoracique",
+                "douleur abdominale", "mal de dos", "douleur articulaire", "brûlure", "picotement",
+                "engourdissement", "enflure", "éruption", "démangeaison", "toux", "mal de gorge"
+            ],
+            "objective": [
+                # English clinical findings
+                "blood pressure", "heart rate", "temperature", "weight", "height", "oxygen saturation",
+                "pulse", "respiration", "examination", "palpation", "auscultation", "inspection",
+                "reflex", "range of motion", "swelling", "tenderness", "mass", "lesion",
+                # French clinical findings
+                "tension artérielle", "pression", "fréquence cardiaque", "température", "poids",
+                "taille", "saturation", "pouls", "respiration", "examen", "palpation", "auscultation",
+                "réflexe", "amplitude", "enflure", "sensibilité", "masse", "lésion"
+            ],
+            "assessment": [
+                # English diagnoses and conditions
+                "hypertension", "diabetes", "infection", "inflammation", "arthritis", "pneumonia",
+                "bronchitis", "asthma", "depression", "anxiety", "migraine", "gastritis",
+                "dermatitis", "sinusitis", "otitis", "conjunctivitis", "diagnosis", "condition",
+                # French diagnoses
+                "hypertension", "diabète", "infection", "inflammation", "arthrite", "pneumonie",
+                "bronchite", "asthme", "dépression", "anxiété", "migraine", "gastrite",
+                "dermatite", "sinusite", "otite", "conjonctivite", "diagnostic", "condition"
+            ],
+            "plan": [
+                # English treatments and medications
+                "medication", "prescription", "dosage", "treatment", "therapy", "surgery",
+                "follow-up", "referral", "test", "lab work", "imaging", "x-ray", "ultrasound",
+                "physical therapy", "diet", "exercise", "rest", "ice", "heat", "bandage",
+                # French treatments
+                "médicament", "ordonnance", "posologie", "traitement", "thérapie", "chirurgie",
+                "suivi", "référence", "test", "laboratoire", "imagerie", "radiographie", "échographie",
+                "physiothérapie", "diète", "exercice", "repos", "glace", "chaleur", "bandage"
+            ]
+        } !!!
+
+
+
+## Local Development Setup
+
+### 1. Poetry Installation and Configuration
+```bash
+# Install Poetry (if not already installed)
+curl -sSL https://install.python-poetry.org | python3 -
+
+# Configure Poetry to create virtual environments in project directory
+poetry config virtualenvs.in-project true
+
+# Install dependencies
+poetry install
+
+# Activate virtual environment
+poetry shell
+```
+
+### 2. Project Dependencies (pyproject.toml)
+```toml
+[tool.poetry]
+name = "notegen-ai-apis"
+version = "0.1.0"
+description = "Medical SOAP note generation using AI and RAG systems"
+authors = ["Your Team <team@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.104.1"
+uvicorn = {extras = ["standard"], version = "^0.24.0"}
+pydantic = "^2.5.0"
+pydantic-settings = "^2.1.0"
+
+# LangChain ecosystem
+langchain = "^0.1.0"
+langchain-openai = "^0.0.5"
+langchain-neo4j = "^0.0.5"
+langchain-chroma = "^0.1.0"
+langchain-community = "^0.0.10"
+
+# Azure OpenAI
+openai = "^1.6.0"
+azure-openai = "^1.0.0"
+
+# Vector databases
+chromadb = "^0.4.18"
+weaviate-client = "^3.25.3"
+
+# Graph database
+neo4j = "^5.15.0"
+
+# Observability and monitoring
+langfuse = "^2.0.0"
+prometheus-client = "^0.19.0"
+
+# Security and encryption
+cryptography = "^41.0.8"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+
+# Async and HTTP
+httpx = "^0.25.2"
+aiofiles = "^23.2.1"
+redis = "^5.0.1"
+
+# Data processing
+pandas = "^2.1.4"
+numpy = "^1.25.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-asyncio = "^0.21.0"
+pytest-cov = "^4.1.0"
+black = "^23.12.0"
+isort = "^5.13.0"
+ruff = "^0.1.0"
+mypy = "^1.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+```
+
+### 3. Environment Variables Configuration
+
+#### Required Environment Variables
+```bash
+# Azure OpenAI Configuration
+AZURE_OPENAI_API_KEY=your_azure_openai_api_key
+AZURE_OPENAI_ENDPOINT=https://your-instance.openai.azure.com
+AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4o
+AZURE_OPENAI_INSTANCE_NAME=your-instance-name
+AZURE_OPENAI_API_VERSION=2024-05-01-preview
+AZURE_OPENAI_MODEL=gpt-4
+
+# Azure OpenAI Embeddings
+OPENAI_EMBEDDING_ENDPOINT=https://your-instance.openai.azure.com
+OPENAI_EMBEDDING_API_KEY=your_embedding_api_key
+OPENAI_EMBEDDING_DEPLOYMENT_NAME=text-embedding-ada-002
+
+# Neo4j Configuration (SNOMED RAG)
+NEO4J_URI=bolt://localhost:7687
+NEO4J_USER=neo4j
+NEO4J_USERNAME=neo4j
+NEO4J_PASSWORD=your_neo4j_password
+NEO4J_DATABASE=neo4j
+
+# LangFuse Configuration (Observability)
+LANGFUSE_SECRET_KEY=sk-lf-9547c655-5f43-43fc-a34e-88d37209e272
+LANGFUSE_PUBLIC_KEY=pk-lf-a08b3616-851f-4650-9c6a-1769d66b859f
+LANGFUSE_HOST=https://us.cloud.langfuse.com
+
+# CORS Settings
+CORS_ORIGINS=http://localhost:3000,http://localhost:8000,http://localhost:8005
+
+# HuggingFace Token (for additional models if needed)
+HF_TOKEN=your_huggingface_token
+
+# Application Settings
+APP_NAME=NoteGen AI APIs
+APP_VERSION=0.1.0
+DEBUG=false
+LOG_LEVEL=INFO
+
+# Vector Database Settings
+VECTOR_DB_PATH=./conversation_rag_db
+VECTOR_DB_COLLECTION_NAME=medical_conversations
+
+# RAG Configuration
+CONVERSATION_CHUNK_SIZE=1500
+CONVERSATION_CHUNK_OVERLAP=150
+MAX_RETRIEVAL_CHUNKS=5
+SNOMED_QUERY_LIMIT=10
+```
+
+#### Environment File Structure
+```bash
+# .env (local development - not committed)
+# Copy from .env.example and fill in actual values
+
+# .env.example (committed to repo)
+# Template with placeholder values for team reference
+```
+
+## Docker Configuration
+
+### Neo4j Setup (Pre-existing)
+```bash
+# Neo4j is already running with SNOMED data
+# Verify connection
+docker ps | grep neo4j
+
+# Check Neo4j status
+docker exec -it neo4j-container cypher-shell -u neo4j -p your_password
+```
+
+### Optional: Vector Database Docker Setup
+```yaml
+# docker-compose.yml (if using Weaviate instead of ChromaDB)
+version: '3.8'
+services:
+  weaviate:
+    image: semitechnologies/weaviate:latest
+    ports:
+      - "8080:8080"
+    environment:
+      QUERY_DEFAULTS_LIMIT: 25
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+      DEFAULT_VECTORIZER_MODULE: 'none'
+      CLUSTER_HOSTNAME: 'node1'
+```
+
+## Development Workflow
+
+### Makefile Commands
+```makefile
+# Makefile for development automation
+
+.PHONY: install dev test lint format clean docker-up docker-down
+
+# Install dependencies
+install:
+	poetry install
+
+# Run development server
+dev:
+	poetry run uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
+
+# Run tests
+test:
+	poetry run pytest tests/ -v --cov=src --cov-report=html
+
+# Lint code
+lint:
+	poetry run ruff check src/
+	poetry run mypy src/
+
+# Format code
+format:
+	poetry run black src/
+	poetry run isort src/
+
+# Clean cache and temporary files
+clean:
+	find . -type d -name "__pycache__" -delete
+	find . -type f -name "*.pyc" -delete
+	find . -type d -name ".pytest_cache" -delete
+	rm -rf .coverage htmlcov/
+
+# Docker operations
+docker-up:
+	docker-compose up -d
+
+docker-down:
+	docker-compose down
+
+# Neo4j operations
+neo4j-status:
+	docker ps | grep neo4j
+
+neo4j-logs:
+	docker logs neo4j-container
+
+# Development utilities
+deps-update:
+	poetry update
+
+deps-export:
+	poetry export -f requirements.txt --output requirements.txt --without-hashes
+```
+
+## Runtime Configuration
+
+### Application Modes
+```python
+# src/config/settings.py
+from pydantic_settings import BaseSettings
+from typing import List, Optional
+
+class Settings(BaseSettings):
+    # Application
+    app_name: str = "NoteGen AI APIs"
+    app_version: str = "0.1.0"
+    debug: bool = False
+    log_level: str = "INFO"
+    
+    # Azure OpenAI
+    azure_openai_api_key: str
+    azure_openai_endpoint: str
+    azure_openai_deployment_name: str = "gpt-4o"
+    azure_openai_api_version: str = "2024-05-01-preview"
+    azure_openai_model: str = "gpt-4"
+    
+    # Embeddings
+    openai_embedding_endpoint: str
+    openai_embedding_api_key: str
+    openai_embedding_deployment_name: str = "text-embedding-ada-002"
+    
+    # Neo4j
+    neo4j_uri: str = "bolt://localhost:7687"
+    neo4j_username: str = "neo4j"
+    neo4j_password: str
+    neo4j_database: str = "neo4j"
+    
+    # CORS
+    cors_origins: List[str] = ["http://localhost:3000", "http://localhost:8000"]
+    
+    # LangFuse
+    langfuse_secret_key: str
+    langfuse_public_key: str
+    langfuse_host: str = "https://us.cloud.langfuse.com"
+    
+    # RAG Configuration
+    vector_db_path: str = "./conversation_rag_db"
+    conversation_chunk_size: int = 1500
+    conversation_chunk_overlap: int = 150
+    max_retrieval_chunks: int = 5
+    
+    class Config:
+        env_file = ".env"
+        case_sensitive = False
+
+settings = Settings()
+```
+
+### Logging Configuration
+```python
+# src/config/logging.py
+import logging
+import sys
+from pathlib import Path
+
+def setup_logging(log_level: str = "INFO"):
+    """Configure application logging"""
+    
+    # Create logs directory
+    log_dir = Path("logs")
+    log_dir.mkdir(exist_ok=True)
+    
+    # Configure logging
+    logging.basicConfig(
+        level=getattr(logging, log_level.upper()),
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        handlers=[
+            logging.FileHandler(log_dir / "app.log"),
+            logging.StreamHandler(sys.stdout)
+        ]
+    )
+    
+    # Set specific logger levels
+    logging.getLogger("uvicorn").setLevel(logging.INFO)
+    logging.getLogger("langchain").setLevel(logging.WARNING)
+    logging.getLogger("neo4j").setLevel(logging.WARNING)
+```
+
+## Service Configuration
+
+### LangChain Service Setup
+```python
+# src/services/langchain_service.py
+from langchain_openai import AzureChatOpenAI, AzureOpenAIEmbeddings
+from langchain_neo4j import Neo4jGraph
+from langchain.vectorstores import Chroma
+from src.config.settings import settings
+
+class LangChainService:
+    def __init__(self):
+        self.llm = self._setup_llm()
+        self.embeddings = self._setup_embeddings()
+        self.neo4j_graph = self._setup_neo4j()
+        self.vector_store = self._setup_vector_store()
+    
+    def _setup_llm(self) -> AzureChatOpenAI:
+        return AzureChatOpenAI(
+            azure_endpoint=settings.azure_openai_endpoint,
+            api_key=settings.azure_openai_api_key,
+            api_version=settings.azure_openai_api_version,
+            deployment_name=settings.azure_openai_deployment_name,
+            model=settings.azure_openai_model,
+            temperature=0.1,
+            max_tokens=4000
+        )
+    
+    def _setup_embeddings(self) -> AzureOpenAIEmbeddings:
+        return AzureOpenAIEmbeddings(
+            azure_endpoint=settings.openai_embedding_endpoint,
+            api_key=settings.openai_embedding_api_key,
+            api_version=settings.azure_openai_api_version,
+            deployment=settings.openai_embedding_deployment_name
+        )
+    
+    def _setup_neo4j(self) -> Neo4jGraph:
+        return Neo4jGraph(
+            url=settings.neo4j_uri,
+            username=settings.neo4j_username,
+            password=settings.neo4j_password,
+            database=settings.neo4j_database
+        )
+    
+    def _setup_vector_store(self) -> Chroma:
+        return Chroma(
+            embedding_function=self.embeddings,
+            persist_directory=settings.vector_db_path,
+            collection_name="medical_conversations"
+        )
+```
+
+## Security Configuration
+
+### Environment Security
+```python
+# src/config/security.py
+import os
+from cryptography.fernet import Fernet
+
+class SecurityConfig:
+    def __init__(self):
+        self.encryption_key = self._get_or_create_encryption_key()
+        self.fernet = Fernet(self.encryption_key)
+    
+    def _get_or_create_encryption_key(self) -> bytes:
+        """Get or create encryption key for sensitive data"""
+        key_file = Path(".encryption_key")
+        
+        if key_file.exists():
+            return key_file.read_bytes()
+        else:
+            key = Fernet.generate_key()
+            key_file.write_bytes(key)
+            return key
+    
+    def encrypt_sensitive_data(self, data: str) -> str:
+        """Encrypt sensitive conversation data"""
+        return self.fernet.encrypt(data.encode()).decode()
+    
+    def decrypt_sensitive_data(self, encrypted_data: str) -> str:
+        """Decrypt sensitive conversation data"""
+        return self.fernet.decrypt(encrypted_data.encode()).decode()
+```
+
+## Development Tools
+
+### VS Code Configuration
+```json
+// .vscode/settings.json
+{
+    "python.defaultInterpreterPath": "./.venv/bin/python",
+    "python.linting.enabled": true,
+    "python.linting.ruffEnabled": true,
+    "python.formatting.provider": "black",
+    "python.sortImports.args": ["--profile", "black"],
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    }
+}
+```
+
+### Pre-commit Hooks
+```yaml
+# .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/psf/black
+    rev: 23.12.0
+    hooks:
+      - id: black
+        language_version: python3.11
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.0
+    hooks:
+      - id: isort
+        args: ["--profile", "black"]
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.0
+    hooks:
+      - id: ruff
+```
+
+## Monitoring and Observability
+
+### Health Check Configuration
+```python
+# src/api/health.py
+from fastapi import APIRouter, HTTPException
+from src.services.langchain_service import LangChainService
+
+router = APIRouter()
+
+@router.get("/health")
+async def health_check():
+    """Health check endpoint"""
+    try:
+        # Check Neo4j connection
+        # Check vector database
+        # Check Azure OpenAI connection
+        
+        return {
+            "status": "healthy",
+            "services": {
+                "neo4j": "connected",
+                "vector_db": "connected",
+                "azure_openai": "connected"
+            }
+        }
+    except Exception as e:
+        raise HTTPException(status_code=503, detail=f"Service unhealthy: {str(e)}")
+```
+
+## Compliance and Data Protection
+
+### Data Handling Guidelines
+- **Encrypt all patient conversation data** before storing in vector database
+- **Use secure connections** for all external API calls
+- **Implement proper access controls** for RAG systems
+- **Log all data access** for audit purposes
+- **Follow HIPAA/PIPEDA** compliance requirements
+
+### Audit Logging
+```python
+# src/utils/audit_logger.py
+import logging
+from datetime import datetime
+from typing import Dict, Any
+
+class AuditLogger:
+    def __init__(self):
+        self.logger = logging.getLogger("audit")
+    
+    def log_patient_data_access(self, user_id: str, action: str, metadata: Dict[str, Any]):
+        """Log patient data access for compliance"""
+        audit_entry = {
+            "timestamp": datetime.utcnow().isoformat(),
+            "user_id": user_id,
+            "action": action,
+            "metadata": metadata
+        }
+        self.logger.info(f"AUDIT: {audit_entry}")

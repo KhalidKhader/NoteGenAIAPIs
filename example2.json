@@ -1,0 +1,127 @@
+{
+  "sections": [
+    {
+      "id": 1,
+      "templateId": 1,
+      "name": "Subjective",
+      "prompt": "Synthesize all patient-reported information into a clinical narrative. Include the chief complaint, history of present illness (HPI), review of systems (ROS), and any relevant past medical, family, or social history mentioned. Focus on the patient's direct statements and experiences.",
+      "order": 1,
+      "createdAt": "2025-06-17T15:40:05.000Z",
+      "updatedAt": "2025-06-17T15:40:05.000Z"
+    },
+    {
+      "id": 2,
+      "templateId": 1,
+      "name": "Objective",
+      "prompt": "Document all objective, measurable, and observable findings from the encounter. This includes vital signs, physical examination findings, laboratory results, and any other diagnostic data mentioned by the provider. Avoid any subjective patient statements.",
+      "order": 2,
+      "createdAt": "2025-06-17T15:40:05.000Z",
+      "updatedAt": "2025-06-17T15:40:05.000Z"
+    },
+    {
+      "id": 3,
+      "templateId": 1,
+      "name": "Assessment",
+      "prompt": "Formulate a list of clinical impressions, diagnoses, or differential diagnoses based on the synthesis of the subjective and objective information. Each assessment point should be a concise clinical statement.",
+      "order": 3,
+      "createdAt": "2025-06-17T15:40:05.000Z",
+      "updatedAt": "2025-06-17T15:40:05.000Z"
+    },
+    {
+      "id": 4,
+      "templateId": 1,
+      "name": "Plan",
+      "prompt": "Outline the complete management plan discussed during the encounter. Include all orders for medications (with dosage and frequency), laboratory tests, imaging studies, referrals to other specialists, patient education, and follow-up instructions.",
+      "order": 4,
+      "createdAt": "2025-06-17T15:40:05.000Z",
+      "updatedAt": "2025-06-17T15:40:05.000Z"
+    },
+    {
+      "id": 5,
+      "templateId": 2,
+      "name": "Patient_Summary",
+      "prompt": "Create a brief summary of the visit for the patient in simple, easy-to-understand language. Include the main reason for the visit, key findings, and the most important follow-up actions.",
+      "order": 1,
+      "createdAt": "2025-06-17T15:40:05.000Z",
+      "updatedAt": "2025-06-17T15:40:05.000Z"
+    },
+    {
+      "id": 6,
+      "templateId": 2,
+      "name": "Referral_Note",
+      "prompt": "Generate a formal referral note to a specialist. State the reason for referral, summarize pertinent history and findings, and list the specific questions to be addressed by the consultant.",
+      "order": 2,
+      "createdAt": "2025-06-17T15:40:05.000Z",
+      "updatedAt": "2025-06-17T15:40:05.000Z"
+    },
+    {
+      "id": 7,
+      "templateId": 3,
+      "name": "Billing_Codes",
+      "prompt": "Based on the encounter, list potential CPT and ICD-10 billing codes for the services rendered and diagnoses made. This is for suggestion purposes only.",
+      "order": 1,
+      "createdAt": "2025-06-17T15:53:39.000Z",
+      "updatedAt": "2025-06-17T15:53:39.000Z"
+    }
+  ],
+  "encounterId": "1234sdfda56tfdxsz",
+  "encounterTranscript": [
+    {
+      "id": "A123",
+      "doctor": "Good morning, Mr. Smith. I see you're here for a follow-up. What can I help you with today?"
+    },
+    {
+      "id": "A124",
+      "patient": "Hi Dr. Evans. I'm still having that chest pain we talked about. It's a dull ache, mostly on the left side, and it seems to get worse when I walk up stairs. It's been happening for about two months now."
+    },
+    {
+      "id": "A125",
+      "doctor": "I see. Any shortness of breath, dizziness, or palpitations with the pain?"
+    },
+    {
+      "id": "A126",
+      "patient": "Yes, I do get a bit short of breath. No dizziness, but my heart feels like it's racing sometimes. Also, my ankles have been really swollen lately, especially at the end of the day."
+    },
+    {
+      "id": "A127",
+      "doctor": "Okay. Let's review your history. You have hypertension, correct? And you're taking Lisinopril 10mg?"
+    },
+    {
+      "id": "A128",
+      "patient": "That's right. I've been taking it for about a year. I also have a history of high cholesterol, but I'm not on anything for that right now. And I've been a smoker for 20 years, trying to quit."
+    },
+    {
+      "id": "A129",
+      "doctor": "Thank you for that information. I'm going to listen to your heart and lungs. Please take some deep breaths for me."
+    },
+    {
+      "id": "A130",
+      "doctor": "Okay, your heart has a regular rate and rhythm, but I do hear a faint murmur. Your lungs sound clear. Your blood pressure today is 145/90 mmHg, which is a bit high. I see 2+ pitting edema in both of your ankles."
+    },
+    {
+      "id": "A131",
+      "doctor": "Given your symptoms and exam findings, I'm concerned about a possible cardiac issue. I want to rule out coronary artery disease and heart failure."
+    },
+    {
+      "id": "A132",
+      "doctor": "Here's the plan: I'm ordering an EKG today, and I want you to get some blood work done—specifically a lipid panel and a BNP, which is a marker for heart failure. I'm also referring you to a cardiologist for a full evaluation, including a stress test. In the meantime, I'm increasing your Lisinopril to 20mg daily and adding a low-dose diuretic, hydrochlorothiazide 12.5mg, to help with the swelling. We need to get that blood pressure down."
+    },
+    {
+      "id": "A133",
+      "patient": "Okay, that sounds like a lot. Is it serious?"
+    },
+    {
+      "id": "A134",
+      "doctor": "It's important we investigate it thoroughly. The tests will give us a clear picture. Please make an appointment to see me in two weeks to review the results. And please, let's talk more seriously about smoking cessation at our next visit."
+    },
+    {
+      "id": "A135",
+      "patient": "I understand. Thank you, doctor."
+    }
+  ],
+  "systemPrompt": "You are an experienced medical professional tasked with creating a structured and clinically sound summary of a medical encounter. Use formal medical language and a professional, objective tone. Your summary must:   - Be strictly based on the transcript and context provided.   - Be written in passive voice.   - Contain no assumptions, interpretations, or personal opinions.   - Avoid offering advice or recommendations.   - Be formatted in the appropriate language used in the transcript (English or Canadian French).   - Exclude repetition of previously generated sections.   - Adhere to proper clinical writing standards (SOAP style, if applicable).   - Do not mention 'transcript' in the note, only use the information from the transcript.  If there is no clinically relevant new content, return a clinically neutral note such as:   - No additional clinical impressions could be determined based on the available information.  **Language Requirements:**   - generate the note in the language of the transcript, english. **Content Constraints:**   - Do not include repeated information from <Previously Generated Sections>.   - Do not fabricate or infer any symptoms or diagnoses.   - Do not list absence of symptoms (e.g., do not write no fever reported).   - Do not mention the transcript or that information was missing.   - Use passive voice and clinical tone throughout.  Return your output as a **valid JSON object** with one property: noteContent, containing markdown-formatted text.",
+  "doctorId": "doc_123",
+  "userId": 2,
+  "clinicId": "2",
+  "language": "en"
+}

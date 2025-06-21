@@ -1,0 +1,558 @@
+{
+  "section_id": "section_86d1bec2",
+  "template_id": 1,
+  "section_name": "Subjective",
+  "content": "### Subjective\n\n**Chief Complaint:**\nMr. Smith reports persistent chest pain, described as a dull ache primarily on the left side, exacerbated by physical activity such as walking up stairs. The pain has been ongoing for approximately two months (Line 2, 3).\n\n**History of Present Illness (HPI):**\nThe patient experiences shortness of breath accompanying the chest pain, but denies dizziness. He notes palpitations, describing his heart as \"racing\" at times. Additionally, he reports significant swelling in his ankles, particularly noticeable at the end of the day (Line 4, 5).\n\n**Review of Systems (ROS):**\n- **Cardiovascular:** Chest pain, palpitations, swollen ankles (Line 2, 4, 5).\n- **Respiratory:** Shortness of breath (Line 4).\n- **Neurological:** Denies dizziness (Line 4).\n\n**Past Medical History:**\n- Hypertension, currently managed with Lisinopril 10mg daily for the past year (Line 6).\n- History of high cholesterol, currently not on medication (Line 6).\n\n**Social History:**\n- Smoker for 20 years, currently attempting cessation (Line 6).\n\n**Family History:**\nNo family history information provided (Line N/A).\n\n**Allergies:**\nNo known allergies reported (Line N/A).",
+  "line_references": [
+    {
+      "line_number": 2,
+      "start_char": 0,
+      "end_char": 162,
+      "text": "patient: Hi Dr. Evans. I'm still having that chest pain we talked about. It's a dull ache, mostly on the left side, and it seems to get worse when I walk up stairs. It's been happening for about two months now.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 3,
+      "start_char": 0,
+      "end_char": 81,
+      "text": "doctor: I see. Any shortness of breath, dizziness, or palpitations with the pain?",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 4,
+      "start_char": 0,
+      "end_char": 164,
+      "text": "patient: Yes, I do get a bit short of breath. No dizziness, but my heart feels like it's racing sometimes. Also, my ankles have been really swollen lately, especially at the end of the day.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 5,
+      "start_char": 0,
+      "end_char": 95,
+      "text": "doctor: Okay. Let's review your history. You have hypertension, correct? And you're taking Lisinopril 10mg?",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 6,
+      "start_char": 0,
+      "end_char": 176,
+      "text": "patient: That's right. I've been taking it for about a year. I also have a history of high cholesterol, but I'm not on anything for that right now. And I've been a smoker for 20 years, trying to quit.",
+      "speaker": null,
+      "confidence": 1.0
+    }
+  ],
+  "snomed_mappings": [
+    {
+      "concept_id": "29857009",
+      "preferred_term": "Chest pain",
+      "description": "Chest pain",
+      "original_term": "chest pain",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "263744001",
+      "preferred_term": "Dull",
+      "description": "Dull",
+      "original_term": "dull ache",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "426148002",
+      "preferred_term": "Sachet",
+      "description": "Sachet",
+      "original_term": "dull ache",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "385048003",
+      "preferred_term": "Cachet",
+      "description": "Cachet",
+      "original_term": "dull ache",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "385048003",
+      "preferred_term": "cachet",
+      "description": "cachet",
+      "original_term": "dull ache",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "732987003",
+      "preferred_term": "cachet",
+      "description": "cachet",
+      "original_term": "dull ache",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "267036007",
+      "preferred_term": "Shortness of breath",
+      "description": "Shortness of breath",
+      "original_term": "shortness of breath",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "404640003",
+      "preferred_term": "Dizziness",
+      "description": "Dizziness",
+      "original_term": "dizziness",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "80313002",
+      "preferred_term": "palpitations",
+      "description": "palpitations",
+      "original_term": "palpitations",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "fr"
+    },
+    {
+      "concept_id": "300890009",
+      "preferred_term": "Not swollen",
+      "description": "Not swollen",
+      "original_term": "swollen ankles",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "277890004",
+      "preferred_term": "Swollen toe",
+      "description": "Swollen toe",
+      "original_term": "swollen ankles",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "69948000",
+      "preferred_term": "Both ankles",
+      "description": "Both ankles",
+      "original_term": "swollen ankles",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "248495005",
+      "preferred_term": "Swollen vein",
+      "description": "Swollen vein",
+      "original_term": "swollen ankles",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "162383006",
+      "preferred_term": "Swollen nose",
+      "description": "Swollen nose",
+      "original_term": "swollen ankles",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "38341003",
+      "preferred_term": "Hypertension",
+      "description": "Hypertension",
+      "original_term": "hypertension",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "386873009",
+      "preferred_term": "Lisinopril",
+      "description": "Lisinopril",
+      "original_term": "Lisinopril",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "13644009",
+      "preferred_term": "High cholesterol",
+      "description": "High cholesterol",
+      "original_term": "high cholesterol",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "77176002",
+      "preferred_term": "Smoker",
+      "description": "Smoker",
+      "original_term": "smoker",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "88610006",
+      "preferred_term": "Heart murmur",
+      "description": "Heart murmur",
+      "original_term": "heart murmur",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "75367002",
+      "preferred_term": "Blood pressure",
+      "description": "Blood pressure",
+      "original_term": "blood pressure",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "259018001",
+      "preferred_term": "mmHg",
+      "description": "mmHg",
+      "original_term": "145/90 mmHg",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "259076006",
+      "preferred_term": "mmHg/L/s",
+      "description": "mmHg/L/s",
+      "original_term": "145/90 mmHg",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "259077002",
+      "preferred_term": "mmHg/mL/s",
+      "description": "mmHg/mL/s",
+      "original_term": "145/90 mmHg",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "259078007",
+      "preferred_term": "mmHg/sq. m",
+      "description": "mmHg/sq. m",
+      "original_term": "145/90 mmHg",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "264864008",
+      "preferred_term": "mmHg.mL.beats/min",
+      "description": "mmHg.mL.beats/min",
+      "original_term": "145/90 mmHg",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "5008001",
+      "preferred_term": "Pitting edema",
+      "description": "Pitting edema",
+      "original_term": "pitting edema",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "85756007",
+      "preferred_term": "Tissue",
+      "description": "Tissue",
+      "original_term": "cardiac issue",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "241547009",
+      "preferred_term": "Cardiac CT",
+      "description": "Cardiac CT",
+      "original_term": "cardiac issue",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "84648007",
+      "preferred_term": "Acardiacus",
+      "description": "Acardiacus",
+      "original_term": "cardiac issue",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "12402003",
+      "preferred_term": "Scar tissue",
+      "description": "Scar tissue",
+      "original_term": "cardiac issue",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "3138006",
+      "preferred_term": "Bony tissue",
+      "description": "Bony tissue",
+      "original_term": "cardiac issue",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "53741008",
+      "preferred_term": "Coronary artery disease",
+      "description": "Coronary artery disease",
+      "original_term": "coronary artery disease",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "84114007",
+      "preferred_term": "Heart failure",
+      "description": "Heart failure",
+      "original_term": "heart failure",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "301120008",
+      "preferred_term": "EKG finding",
+      "description": "EKG finding",
+      "original_term": "EKG",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "427485008",
+      "preferred_term": "EKG: asystole",
+      "description": "EKG: asystole",
+      "original_term": "EKG",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "1155004",
+      "preferred_term": "EKG hypertrophy",
+      "description": "EKG hypertrophy",
+      "original_term": "EKG",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "87612001",
+      "preferred_term": "Blood",
+      "description": "Blood",
+      "original_term": "blood work",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "106541005",
+      "preferred_term": "Worker",
+      "description": "Worker",
+      "original_term": "blood work",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "261041009",
+      "preferred_term": "Working",
+      "description": "Working",
+      "original_term": "blood work",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "224363007",
+      "preferred_term": "In work",
+      "description": "In work",
+      "original_term": "blood work",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "105490003",
+      "preferred_term": "Overwork",
+      "description": "Overwork",
+      "original_term": "blood work",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "16254007",
+      "preferred_term": "Lipid panel",
+      "description": "Lipid panel",
+      "original_term": "lipid panel",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "407060002",
+      "preferred_term": "proBNP - pro-B-type natriuretic peptide",
+      "description": "proBNP - pro-B-type natriuretic peptide",
+      "original_term": "BNP",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "414798009",
+      "preferred_term": "N-BNP - N-terminal pro brain natriuretic peptide",
+      "description": "N-BNP - N-terminal pro brain natriuretic peptide",
+      "original_term": "BNP",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "414798009",
+      "preferred_term": "NT-proBNP - N-terminal pro-B-type natriuretic peptide",
+      "description": "NT-proBNP - N-terminal pro-B-type natriuretic peptide",
+      "original_term": "BNP",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "17561000",
+      "preferred_term": "Cardiologist",
+      "description": "Cardiologist",
+      "original_term": "cardiologist",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "387673001",
+      "preferred_term": "Nonstress test",
+      "description": "Nonstress test",
+      "original_term": "stress test",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "252813005",
+      "preferred_term": "Photostress test",
+      "description": "Photostress test",
+      "original_term": "stress test",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "465498004",
+      "preferred_term": "Stress test table",
+      "description": "Stress test table",
+      "original_term": "stress test",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "372695000",
+      "preferred_term": "Diuretic",
+      "description": "Diuretic",
+      "original_term": "diuretic",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "387525002",
+      "preferred_term": "Hydrochlorothiazide",
+      "description": "Hydrochlorothiazide",
+      "original_term": "hydrochlorothiazide",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "1221000175102",
+      "preferred_term": "Age at smoking cessation",
+      "description": "Age at smoking cessation",
+      "original_term": "smoking cessation",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "225323000",
+      "preferred_term": "Smoking cessation advice",
+      "description": "Smoking cessation advice",
+      "original_term": "smoking cessation",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "710081004",
+      "preferred_term": "Smoking cessation therapy",
+      "description": "Smoking cessation therapy",
+      "original_term": "smoking cessation",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    }
+  ],
+  "confidence_score": 0.9,
+  "language": "en",
+  "processing_metadata": {
+    "duration_seconds": 6.405070781707764,
+    "model_name": "gpt-4",
+    "context_chars_used": 7043,
+    "factual_consistency_details": {
+      "factualConsistencyScore": 9,
+      "hallucinationRisk": "LOW",
+      "issuesFound": [
+        {
+          "statement": "Family History: No family history information provided (Line N/A).",
+          "issue": "Not explicitly stated in the transcript."
+        },
+        {
+          "statement": "Allergies: No known allergies reported (Line N/A).",
+          "issue": "Not explicitly stated in the transcript."
+        }
+      ],
+      "justification": "The generated content is largely consistent with the source transcript. The chief complaint, history of present illness, review of systems, past medical history, and social history are all accurately reflected in the generated content. However, the statements regarding family history and allergies are not explicitly mentioned in the transcript, which slightly affects the factual consistency score. The overall hallucination risk is low as the majority of the content is well-supported by the transcript."
+    }
+  }
+}

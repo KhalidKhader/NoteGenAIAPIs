@@ -1,0 +1,517 @@
+{
+  "section_id": "section_07a65982",
+  "template_id": 1,
+  "section_name": "Plan",
+  "content": "### Plan\n\n1. **Medications:**\n   - Increase Lisinopril to 20mg daily to better manage hypertension (Line 21).\n   - Add Hydrochlorothiazide 12.5mg daily to address swelling in the ankles (Line 21).\n\n2. **Laboratory Tests:**\n   - Order blood work including a lipid panel and BNP to assess heart failure risk (Line 21).\n\n3. **Imaging and Diagnostic Tests:**\n   - Perform an EKG to evaluate cardiac function (Line 21).\n\n4. **Referrals:**\n   - Refer to a cardiologist for a comprehensive evaluation, including a stress test to rule out coronary artery disease and heart failure (Line 21).\n\n5. **Patient Education:**\n   - Discuss the importance of smoking cessation and plan to address this more thoroughly at the next visit (Line 21).\n\n6. **Follow-up Instructions:**\n   - Schedule a follow-up appointment in two weeks to review test results and adjust the management plan as necessary (Line 21).",
+  "line_references": [
+    {
+      "line_number": 21,
+      "start_char": 0,
+      "end_char": 368,
+      "text": "Here's the plan: I'm ordering an EKG today, and I want you to get some blood work done—specifically a lipid panel and a BNP, which is a marker for heart failure. I'm also referring you to a cardiologist for a full evaluation, including a stress test. In the meantime, I'm increasing your Lisinopril to 20mg daily and adding a low-dose diuretic, hydrochlorothiazide 12.5mg, to help with the swelling. We need to get that blood pressure down.",
+      "speaker": null,
+      "confidence": 1.0
+    }
+  ],
+  "snomed_mappings": [
+    {
+      "concept_id": "29857009",
+      "preferred_term": "Chest pain",
+      "description": "Chest pain",
+      "original_term": "chest pain",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "263744001",
+      "preferred_term": "Dull",
+      "description": "Dull",
+      "original_term": "dull ache",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "426148002",
+      "preferred_term": "Sachet",
+      "description": "Sachet",
+      "original_term": "dull ache",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "385048003",
+      "preferred_term": "Cachet",
+      "description": "Cachet",
+      "original_term": "dull ache",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "385048003",
+      "preferred_term": "cachet",
+      "description": "cachet",
+      "original_term": "dull ache",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "732987003",
+      "preferred_term": "cachet",
+      "description": "cachet",
+      "original_term": "dull ache",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "267036007",
+      "preferred_term": "Shortness of breath",
+      "description": "Shortness of breath",
+      "original_term": "shortness of breath",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "404640003",
+      "preferred_term": "Dizziness",
+      "description": "Dizziness",
+      "original_term": "dizziness",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "80313002",
+      "preferred_term": "palpitations",
+      "description": "palpitations",
+      "original_term": "palpitations",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "fr"
+    },
+    {
+      "concept_id": "300890009",
+      "preferred_term": "Not swollen",
+      "description": "Not swollen",
+      "original_term": "swollen ankles",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "277890004",
+      "preferred_term": "Swollen toe",
+      "description": "Swollen toe",
+      "original_term": "swollen ankles",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "69948000",
+      "preferred_term": "Both ankles",
+      "description": "Both ankles",
+      "original_term": "swollen ankles",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "248495005",
+      "preferred_term": "Swollen vein",
+      "description": "Swollen vein",
+      "original_term": "swollen ankles",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "162383006",
+      "preferred_term": "Swollen nose",
+      "description": "Swollen nose",
+      "original_term": "swollen ankles",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "38341003",
+      "preferred_term": "Hypertension",
+      "description": "Hypertension",
+      "original_term": "hypertension",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "386873009",
+      "preferred_term": "Lisinopril",
+      "description": "Lisinopril",
+      "original_term": "Lisinopril",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "13644009",
+      "preferred_term": "High cholesterol",
+      "description": "High cholesterol",
+      "original_term": "high cholesterol",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "77176002",
+      "preferred_term": "Smoker",
+      "description": "Smoker",
+      "original_term": "smoker",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "88610006",
+      "preferred_term": "Heart murmur",
+      "description": "Heart murmur",
+      "original_term": "heart murmur",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "75367002",
+      "preferred_term": "Blood pressure",
+      "description": "Blood pressure",
+      "original_term": "blood pressure",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "259018001",
+      "preferred_term": "mmHg",
+      "description": "mmHg",
+      "original_term": "145/90 mmHg",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "259076006",
+      "preferred_term": "mmHg/L/s",
+      "description": "mmHg/L/s",
+      "original_term": "145/90 mmHg",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "259077002",
+      "preferred_term": "mmHg/mL/s",
+      "description": "mmHg/mL/s",
+      "original_term": "145/90 mmHg",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "259078007",
+      "preferred_term": "mmHg/sq. m",
+      "description": "mmHg/sq. m",
+      "original_term": "145/90 mmHg",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "264864008",
+      "preferred_term": "mmHg.mL.beats/min",
+      "description": "mmHg.mL.beats/min",
+      "original_term": "145/90 mmHg",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "5008001",
+      "preferred_term": "Pitting edema",
+      "description": "Pitting edema",
+      "original_term": "pitting edema",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "85756007",
+      "preferred_term": "Tissue",
+      "description": "Tissue",
+      "original_term": "cardiac issue",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "241547009",
+      "preferred_term": "Cardiac CT",
+      "description": "Cardiac CT",
+      "original_term": "cardiac issue",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "84648007",
+      "preferred_term": "Acardiacus",
+      "description": "Acardiacus",
+      "original_term": "cardiac issue",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "12402003",
+      "preferred_term": "Scar tissue",
+      "description": "Scar tissue",
+      "original_term": "cardiac issue",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "3138006",
+      "preferred_term": "Bony tissue",
+      "description": "Bony tissue",
+      "original_term": "cardiac issue",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "53741008",
+      "preferred_term": "Coronary artery disease",
+      "description": "Coronary artery disease",
+      "original_term": "coronary artery disease",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "84114007",
+      "preferred_term": "Heart failure",
+      "description": "Heart failure",
+      "original_term": "heart failure",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "301120008",
+      "preferred_term": "EKG finding",
+      "description": "EKG finding",
+      "original_term": "EKG",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "427485008",
+      "preferred_term": "EKG: asystole",
+      "description": "EKG: asystole",
+      "original_term": "EKG",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "1155004",
+      "preferred_term": "EKG hypertrophy",
+      "description": "EKG hypertrophy",
+      "original_term": "EKG",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "87612001",
+      "preferred_term": "Blood",
+      "description": "Blood",
+      "original_term": "blood work",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "106541005",
+      "preferred_term": "Worker",
+      "description": "Worker",
+      "original_term": "blood work",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "261041009",
+      "preferred_term": "Working",
+      "description": "Working",
+      "original_term": "blood work",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "224363007",
+      "preferred_term": "In work",
+      "description": "In work",
+      "original_term": "blood work",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "105490003",
+      "preferred_term": "Overwork",
+      "description": "Overwork",
+      "original_term": "blood work",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "16254007",
+      "preferred_term": "Lipid panel",
+      "description": "Lipid panel",
+      "original_term": "lipid panel",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "407060002",
+      "preferred_term": "proBNP - pro-B-type natriuretic peptide",
+      "description": "proBNP - pro-B-type natriuretic peptide",
+      "original_term": "BNP",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "414798009",
+      "preferred_term": "N-BNP - N-terminal pro brain natriuretic peptide",
+      "description": "N-BNP - N-terminal pro brain natriuretic peptide",
+      "original_term": "BNP",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "414798009",
+      "preferred_term": "NT-proBNP - N-terminal pro-B-type natriuretic peptide",
+      "description": "NT-proBNP - N-terminal pro-B-type natriuretic peptide",
+      "original_term": "BNP",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "17561000",
+      "preferred_term": "Cardiologist",
+      "description": "Cardiologist",
+      "original_term": "cardiologist",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "387673001",
+      "preferred_term": "Nonstress test",
+      "description": "Nonstress test",
+      "original_term": "stress test",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "252813005",
+      "preferred_term": "Photostress test",
+      "description": "Photostress test",
+      "original_term": "stress test",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "465498004",
+      "preferred_term": "Stress test table",
+      "description": "Stress test table",
+      "original_term": "stress test",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "372695000",
+      "preferred_term": "Diuretic",
+      "description": "Diuretic",
+      "original_term": "diuretic",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "387525002",
+      "preferred_term": "Hydrochlorothiazide",
+      "description": "Hydrochlorothiazide",
+      "original_term": "hydrochlorothiazide",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "1221000175102",
+      "preferred_term": "Age at smoking cessation",
+      "description": "Age at smoking cessation",
+      "original_term": "smoking cessation",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "225323000",
+      "preferred_term": "Smoking cessation advice",
+      "description": "Smoking cessation advice",
+      "original_term": "smoking cessation",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "710081004",
+      "preferred_term": "Smoking cessation therapy",
+      "description": "Smoking cessation therapy",
+      "original_term": "smoking cessation",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    }
+  ],
+  "confidence_score": 1.0,
+  "language": "en",
+  "processing_metadata": {
+    "duration_seconds": 38.6912362575531,
+    "model_name": "gpt-4",
+    "context_chars_used": 8333,
+    "factual_consistency_details": {
+      "factualConsistencyScore": 10,
+      "hallucinationRisk": "LOW",
+      "issuesFound": [],
+      "justification": "All statements in the generated content are directly supported by the source transcript. The plan to increase Lisinopril, add Hydrochlorothiazide, order blood work including a lipid panel and BNP, perform an EKG, refer to a cardiologist, discuss smoking cessation, and schedule a follow-up appointment are all mentioned in the transcript. There are no discrepancies or unsupported claims, and the line references, although not explicitly numbered in the transcript, align with the content discussed."
+    }
+  }
+}
