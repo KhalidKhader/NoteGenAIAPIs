@@ -23,6 +23,29 @@ Medical SOAP note generation microservice using AI and RAG systems. This service
 6. **Traceability**: Returns line references and SNOMED mappings for every section
 7. **Immediate Response**: Sends each completed section back to NestJS immediately
 
+## 🏗️ Architecture
+
+### Core Components
+
+```mermaid
+graph TB
+    A[Patient-Doctor Conversation] --> B[Speech-to-Text]
+    B --> C[Intelligent Chunking]
+    C --> D[Three-Tier RAG System]
+    
+    D --> E[Conversation RAG<br/>Encrypted Vector Storage]
+    D --> F[SNOMED RAG<br/>Neo4j Graph Database]
+    D --> G[Pattern Learning RAG<br/>Doctor Preferences]
+    
+    E --> H[LangChain Orchestration]
+    F --> H
+    G --> H
+    
+    H --> I[Azure OpenAI GPT-4o]
+    I --> J[Sequential SOAP Generation]
+    J --> K[Structured Medical Note]
+```
+
 ## 🛠 Installation
 
 ### Prerequisites
