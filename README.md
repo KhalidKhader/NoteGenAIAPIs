@@ -108,11 +108,6 @@ NEO4J_USERNAME=neo4j
 NEO4J_PASSWORD=your_neo4j_password
 NEO4J_DATABASE=neo4j
 
-# LangFuse Configuration (Observability)
-LANGFUSE_SECRET_KEY=sk-lf-9547c655-5f43-43fc-a34e-88d37209e272
-LANGFUSE_PUBLIC_KEY=pk-lf-a08b3616-851f-4650-9c6a-1769d66b859f
-LANGFUSE_HOST=https://us.cloud.langfuse.com
-
 # Vector Database
 CHROMA_PERSIST_DIRECTORY=./chroma_db
 WEAVIATE_URL=http://localhost:8080
@@ -248,8 +243,8 @@ from langfuse import Langfuse
 
 # Initialize LangFuse
 langfuse = Langfuse(
-    secret_key="sk-lf-9547c655-5f43-43fc-a34e-88d37209e272",
-    public_key="pk-lf-a08b3616-851f-4650-9c6a-1769d66b859f",
+    secret_key="....",
+    public_key="....",
     host="https://us.cloud.langfuse.com"
 )
 
