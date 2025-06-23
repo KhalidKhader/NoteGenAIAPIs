@@ -10,7 +10,6 @@ This module provides comprehensive logging capabilities including:
 import json
 import logging
 import logging.handlers
-import re
 import sys
 from pathlib import Path
 from typing import Any, Dict, Optional
@@ -253,45 +252,86 @@ class MedicalProcessingLogger:
         self.detailed_log["conversation_storage"] = details
         self._save_detailed_log()
     
-    def log_neo4j_mapping(self, original_term: str, snomed_result: Dict[str, Any]):
-        """Log SNOMED Neo4j mapping details."""
-        mapping_details = {
-            "original_term": original_term,
-            "snomed_concept_id": snomed_result.get("concept_id", ""),
-            "preferred_term": snomed_result.get("preferred_term", ""),
-            "match_type": snomed_result.get("match_type", ""),
-            "confidence": snomed_result.get("confidence", 0.0),
-            "language": snomed_result.get("language", ""),
-            "timestamp": datetime.utcnow().isoformat()
+    def log_llm_call(self, call_type: str, details: Dict[str, Any]):
+        """Log a call to Azure OpenAI."""
+        timestamp = datetime.utcnow().isoformat()
+        
+        # Basic details for text log
+        prompt_length = len(details.get("prompt", ""))
+        log_details = f"LLM call '{call_type}' with prompt length {prompt_length}"
+
+        self.log_step(f"LLM_{call_type.upper()}_START", log_details, details)
+        
+        # Detailed log for JSON
+        self.detailed_log["azure_openai_calls"].append({
+            "call_type": call_type,
+            "timestamp": timestamp,
+            "request_details": details
+        })
+        self._save_detailed_log()
+
+
+    def log_llm_response(self, call_type: str, response: Any):
+        """Log a response from Azure OpenAI."""
+        timestamp = datetime.utcnow().isoformat()
+        
+        response_details = {
+            "call_type": call_type,
+            "timestamp": timestamp,
+            "response": response
         }
         
-        self.medical_mappings[original_term] = mapping_details
+        self.log_step(f"LLM_{call_type.upper()}_COMPLETED", f"Received response for LLM call '{call_type}'", response_details)
+        
+        # Find the corresponding request and add the response
+        for call in reversed(self.detailed_log["azure_openai_calls"]):
+            if call["call_type"] == call_type and "response_details" not in call:
+                call["response_details"] = response_details
+                break
+        self._save_detailed_log()
+
+    def log_neo4j_query(self, query_type: str, details: Dict[str, Any]):
+        """Logs a query to the Neo4j database."""
+        timestamp = datetime.utcnow().isoformat()
+        self.detailed_log['neo4j_queries'].append({
+            "query_type": query_type,
+            "timestamp": timestamp,
+            "details": details
+        })
+        self.log_step(
+            f"NEO4J_{query_type.upper()}_QUERY",
+            f"Executing Neo4j query: {query_type}",
+            details
+        )
+        self._save_detailed_log()
+
+    def log_neo4j_mapping(self, original_term: str, snomed_result: Dict[str, Any]):
+        """Log a successful SNOMED mapping."""
+        
+        mapping_details = {
+            "original_term": original_term,
+            **snomed_result
+        }
+        self.medical_mappings.setdefault(original_term, []).append(snomed_result)
         
         self.log_step(
             "NEO4J_SNOMED_MAPPING",
-            f"Mapped '{original_term}' → '{snomed_result.get('preferred_term', 'N/A')}' (SNOMED: {snomed_result.get('concept_id', 'N/A')})",
+            f"Mapped '{original_term}' → '{snomed_result.get('preferred_term')}' (SNOMED: {snomed_result.get('snomed_concept_id')})",
             mapping_details
         )
-        
-        self.detailed_log["neo4j_queries"].append({
-            "query_type": "SNOMED_MAPPING",
-            "input_term": original_term,
-            "result": snomed_result,
-            "timestamp": datetime.utcnow().isoformat()
-        })
-        self._save_detailed_log()
-    
+
     def log_section_generation(self, section_id: str, section_type: str, generation_result: Dict[str, Any]):
-        """Log section generation completion."""
+        """Log the result of a SOAP section generation."""
+        
         generation_details = {
             "section_id": section_id,
             "section_type": section_type,
             "content_length": len(generation_result.get("content", "")),
             "line_references_found": len(generation_result.get("line_references", [])),
             "snomed_mappings_applied": len(generation_result.get("snomed_mappings", [])),
-            "confidence_score": generation_result.get("confidence_score", 0.0),
-            "processing_duration": generation_result.get("processing_metadata", {}).get("processing_duration_seconds", 0),
-            "status": "COMPLETED",
+            "confidence_score": generation_result.get("confidence_score"),
+            "processing_duration": generation_result.get("processing_metadata", {}).get("duration"),
+            "status": "COMPLETED" if not generation_result.get("content", "").startswith("Error:") else "FAILED",
             "timestamp": datetime.utcnow().isoformat()
         }
         
@@ -301,131 +341,107 @@ class MedicalProcessingLogger:
             generation_details
         )
         
-        self.detailed_log["section_generations"].append(generation_details)
+        self.detailed_log['section_generations'].append(generation_details)
         self._save_detailed_log()
-    
+
+
     def log_file_operation(self, operation: str, file_path: str, details: Dict[str, Any]):
-        """Log file operations."""
-        file_op = {
+        """Log a file operation."""
+        op_details = {
             "operation": operation,
             "file_path": file_path,
-            "file_size_bytes": details.get("file_size", 0),
-            "content_type": details.get("content_type", ""),
-            "timestamp": datetime.utcnow().isoformat(),
-            "success": details.get("success", True)
+            **details
         }
-        
-        self.file_operations.append(file_op)
-        
+        self.file_operations.append(op_details)
         self.log_step(
-            "FILE_OPERATION",
-            f"{operation}: {file_path} ({details.get('file_size', 0)} bytes)",
-            file_op
+            f"FILE_{operation.upper()}",
+            f"Performed '{operation}' on {file_path}",
+            op_details
         )
-        
-        self.detailed_log["file_operations"].append(file_op)
-        self._save_detailed_log()
-    
+
     def log_performance_metric(self, metric_name: str, value: float, unit: str = "seconds"):
-        """Log performance metrics."""
-        self.performance_metrics[metric_name] = {
-            "value": value,
-            "unit": unit,
-            "timestamp": datetime.utcnow().isoformat()
-        }
-        
+        """Log a performance metric."""
+        self.performance_metrics[metric_name] = {"value": value, "unit": unit}
         self.log_step(
             "PERFORMANCE_METRIC",
-            f"{metric_name}: {value} {unit}",
-            {"metric": metric_name, "value": value, "unit": unit}
+            f"Recorded performance metric '{metric_name}': {value:.4f} {unit}",
+            self.performance_metrics[metric_name]
         )
-        
-        self.detailed_log["performance_metrics"][metric_name] = self.performance_metrics[metric_name]
-        self._save_detailed_log()
-    
+
     def finalize_processing(self, total_sections: int, successful_sections: int, failed_sections: int):
-        """Finalize processing and write summary."""
-        total_time = time.time() - self.start_time
+        """Finalize processing and log summary."""
+        end_time = time.time()
+        total_duration = end_time - self.start_time
         
         summary = {
-            "total_processing_time_seconds": total_time,
-            "total_sections_requested": total_sections,
+            "total_processing_time_seconds": total_duration,
+            "total_sections_processed": total_sections,
             "successful_sections": successful_sections,
             "failed_sections": failed_sections,
-            "success_rate": (successful_sections / total_sections * 100) if total_sections > 0 else 0,
-            "total_processing_steps": len(self.processing_steps),
-            "total_medical_mappings": len(self.medical_mappings),
-            "total_doctor_preferences_applied": len(self.doctor_preferences_applied),
-            "total_file_operations": len(self.file_operations),
-            "completed_at": datetime.utcnow().isoformat()
+            "status": "COMPLETED" if failed_sections == 0 else "PARTIALLY_FAILED" if successful_sections > 0 else "FAILED",
+            "end_time": datetime.utcnow().isoformat()
         }
         
-        self.log_step(
-            "PROCESSING_COMPLETED",
-            f"Encounter processing completed: {successful_sections}/{total_sections} sections successful in {total_time:.2f}s",
-            summary
-        )
-        
-        # Write final summary
-        with open(self.processing_log_file, 'a') as f:
-            f.write(f"\n{'='*80}\n")
-            f.write("🏁 PROCESSING SUMMARY\n")
-            f.write(f"{'='*80}\n")
-            f.write(f"Total processing time: {total_time:.2f} seconds\n")
-            f.write(f"Sections processed: {successful_sections}/{total_sections} successful\n")
-            f.write(f"Success rate: {summary['success_rate']:.1f}%\n")
-            f.write(f"Medical mappings created: {len(self.medical_mappings)}\n")
-            f.write(f"Doctor preferences applied: {len(self.doctor_preferences_applied)}\n")
-            f.write(f"File operations: {len(self.file_operations)}\n")
-            f.write(f"Processing steps logged: {len(self.processing_steps)}\n")
-            f.write(f"Completed at: {datetime.utcnow().isoformat()}Z\n")
-        
-        # Update detailed log with summary
+        self.log_step("PROCESSING_FINALIZED", "Encounter processing finished.", summary)
         self.detailed_log["processing_summary"] = summary
-        self.detailed_log["completed_at"] = datetime.utcnow().isoformat()
         self._save_detailed_log()
-    
-    def log(self, message: str, level: str = "INFO", **kwargs):
-        """Generic log method to capture ad-hoc messages."""
-        timestamp = datetime.utcnow().isoformat()
-        log_entry = {
-            "timestamp": timestamp,
-            "level": level,
-            "message": message,
-            "encounter_id": self.encounter_id,
-            "details": kwargs.get("details", {})
-        }
-        self.log_entries.append(log_entry)
         
-        # Also write to the simple text log for immediate visibility
-        color_map = {"INFO": "✅", "WARNING": "⚠️", "ERROR": "❌", "DEBUG": "🐞"}
-        icon = color_map.get(level, "ℹ️")
-
+        summary_message = (
+            f"\n{'='*80}\n"
+            f"🏁 Processing Finished at: {datetime.utcnow().isoformat()}Z\n"
+            f"⏱️ Total Duration: {total_duration:.4f} seconds\n"
+            f"📊 Sections: {successful_sections}/{total_sections} succeeded.\n"
+            f"{'='*80}\n"
+        )
+        self.output_folder.mkdir(parents=True, exist_ok=True)
         with open(self.processing_log_file, 'a') as f:
-            f.write(f"[{timestamp}] {icon} [{level}] {message}\n")
-            if 'details' in kwargs and kwargs['details']:
-                f.write(f"   Details: {json.dumps(kwargs['details'], indent=2)}\n")
+            f.write(summary_message)
 
-        self.detailed_log["processing_steps"].append({
+    def log(self, message: str, level: str = "INFO", **kwargs):
+        """
+        Log a generic message to the processing log file.
+        This is useful for informational messages, warnings, or errors that are not
+        part of a structured step.
+        """
+        timestamp = datetime.utcnow().isoformat()
+        
+        # Determine emoji based on level
+        emoji_map = {
+            "INFO": "✅",
+            "WARNING": "⚠️",
+            "ERROR": "❌",
+            "DEBUG": "🐞",
+        }
+        emoji = emoji_map.get(level.upper(), "ℹ️")
+        
+        log_message = f"[{timestamp}] {emoji} [{level.upper()}] {message}\n"
+        
+        # Add details if provided
+        if kwargs:
+            log_message += f"   Details: {json.dumps(kwargs, indent=2, default=str)}\n"
+        
+        self.output_folder.mkdir(parents=True, exist_ok=True)
+        with open(self.processing_log_file, 'a') as f:
+            f.write(log_message)
+        
+        # Add to detailed JSON log as well
+        self.detailed_log['processing_steps'].append({
             "step": "GENERIC_LOG",
             "timestamp": timestamp,
+            "level": level.upper(),
             "details": message,
-            "level": level,
-            "data": kwargs.get("details", {})
+            "data": kwargs
         })
         self._save_detailed_log()
-    
+
+
     def _save_detailed_log(self):
-        """Save detailed JSON log."""
-        try:
-            with open(self.detailed_log_file, 'w') as f:
-                json.dump(self.detailed_log, f, indent=2, ensure_ascii=False)
-        except Exception as e:
-            # Fallback to basic logging if JSON fails
-            with open(self.processing_log_file, 'a') as f:
-                f.write(f"[ERROR] Failed to save detailed JSON log: {e}\n")
+        """Save the detailed JSON log."""
+        self.output_folder.mkdir(parents=True, exist_ok=True)
+        with open(self.detailed_log_file, 'w', encoding='utf-8') as f:
+            json.dump(self.detailed_log, f, indent=2, ensure_ascii=False)
 
 
 def create_medical_logger(encounter_id: str, output_folder: Path) -> MedicalProcessingLogger:
-    """Create a medical processing logger for an encounter."""
-    return MedicalProcessingLogger(encounter_id, output_folder) 
+    """Factory function to create a medical logger."""
+    return MedicalProcessingLogger(encounter_id, output_folder)

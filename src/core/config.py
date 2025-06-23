@@ -5,7 +5,6 @@ handling all environment variables and application settings for the medical
 SOAP generation microservice.
 """
 
-import os
 from functools import lru_cache
 from typing import List
 
@@ -19,6 +18,8 @@ class Settings(BaseSettings):
     # =============================================================================
     # Application Settings
     # =============================================================================
+    app_name: str = Field(default="notegen-ai-api", description="Application name")
+    app_version: str = Field(default="0.1.0", description="Application version")
     log_level: str = Field(default="INFO", description="Logging level")
     debug: bool = Field(default=False, description="Enable debug mode")
 
@@ -36,17 +37,17 @@ class Settings(BaseSettings):
         """Get CORS origins as a list."""
         return self._parse_cors_origins(self.cors_origins_raw)
 
-    def _parse_cors_origins(self, v: str) -> List[str]:
+    def _parse_cors_origins(self, cors_origins_str: str) -> List[str]:
         """Parse CORS origins from string."""
-        if not v or not v.strip():
+        if not cors_origins_str or not cors_origins_str.strip():
             return ["http://localhost:3000", "http://localhost:8000", "http://localhost:8005"]
         
-        v = v.strip().strip('"').strip("'")
-        if not v:
+        cleaned_str = cors_origins_str.strip().strip('"').strip("'")
+        if not cleaned_str:
             return ["http://localhost:3000", "http://localhost:8000", "http://localhost:8005"]
         
         origins = []
-        for origin in v.split(","):
+        for origin in cleaned_str.split(","):
             origin = origin.strip().strip('"').strip("'")
             if origin:
                 origins.append(origin)
@@ -103,7 +104,7 @@ class Settings(BaseSettings):
     # =============================================================================
     # RAG Configuration
     # =============================================================================
-    retrieval_k_value: int = Field(default=5, description="Number of chunks to retrieve for RAG")
+    retrieval_k_value: int = Field(default=10, description="Number of chunks to retrieve for RAG")
     chunk_size: int = Field(default=1500, description="Chunk size for conversation splitting")
     store_full_conversation: bool = Field(default=True, description="Store full conversation text in RAG")
 

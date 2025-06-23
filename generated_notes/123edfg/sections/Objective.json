@@ -1,0 +1,39 @@
+{
+  "section_id": "section_366a54b1",
+  "template_id": 1,
+  "section_name": "Objective",
+  "content": "### Objective\n\n- **Vital Signs:**\n  - Temperature: 100.8°F (Line 14)\n\n- **Physical Examination:**\n  - Throat: Red with some swelling of the tonsils (Line 14)\n\n- **Laboratory Tests:**\n  - No laboratory tests were discussed or performed during this visit.",
+  "line_references": [
+    {
+      "line_number": 14,
+      "start_char": 0,
+      "end_char": 81,
+      "text": "Your temperature is 100.8°F, and your throat looks red with some swelling of the tonsils.",
+      "speaker": null,
+      "confidence": 1.0
+    }
+  ],
+  "snomed_mappings": [],
+  "confidence_score": 0.9,
+  "language": "en",
+  "processing_metadata": {
+    "duration_seconds": 1.8764019012451172,
+    "model_name": "gpt-4",
+    "context_chars_used": 8988,
+    "factual_consistency_details": {
+      "factualConsistencyScore": 9,
+      "hallucinationRisk": "LOW",
+      "issuesFound": [
+        {
+          "statement": "Temperature: 100.8°F (Line 14)",
+          "issue": "Incorrect line reference"
+        },
+        {
+          "statement": "Throat: Red with some swelling of the tonsils (Line 14)",
+          "issue": "Incorrect line reference"
+        }
+      ],
+      "justification": "The generated content accurately reflects the information provided in the source transcript regarding the patient's temperature and throat examination. However, the line references cited in the generated content are incorrect, as the relevant information appears earlier in the transcript. No unsupported information or contradictions were found, hence the low hallucination risk and high factual consistency score."
+    }
+  }
+}

@@ -5,12 +5,11 @@ Comprehensive medical system health monitoring with AWS OpenSearch integration.
 """
 
 from datetime import datetime
-from typing import Dict, Any, List
+from typing import List
 
 from fastapi import APIRouter, HTTPException, status
 
 from src.core.logging import get_logger
-from src.core.observability import get_observability_service
 from src.models.api_models import (
     HealthCheckResponse,
     ServiceStatus,
@@ -66,24 +65,6 @@ async def detailed_health_check() -> HealthCheckResponse:
                     status="unhealthy",
                     details=f"Connection failed: {str(e)}"
                 ))
-
-        # Check Observability Service
-        observability = None
-        try:
-            observability = await get_observability_service()
-            obs_health = await observability.health_check()
-            obs_status = "healthy" if obs_health.get("status") == "healthy" else "unhealthy"
-            services.append(ServiceStatus(
-                service_name="Langfuse Observability",
-                status=obs_status,
-                details="Medical tracing operational" if obs_status == "healthy" else obs_health.get("details", "Observability disabled")
-            ))
-        except Exception as e:
-            services.append(ServiceStatus(
-                service_name="Langfuse Observability",
-                status="unhealthy",
-                details=f"Observability failed: {str(e)}"
-            ))
 
         # --- Determine Overall Status ---
         unhealthy_count = sum(1 for s in services if s.status == "unhealthy")

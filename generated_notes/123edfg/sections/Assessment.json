@@ -1,0 +1,71 @@
+{
+  "section_id": "section_08f479d6",
+  "template_id": 1,
+  "section_name": "Assessment",
+  "content": "### Assessment\n\n- **Viral Pharyngitis:** The patient presents with a sore throat, mild fever, and dry cough, along with difficulty swallowing and swollen glands in the neck. Physical examination reveals a temperature of 100.8°F and a red throat with swollen tonsils, consistent with viral pharyngitis (Line 14). The patient has also been in contact with a roommate who had a cold, supporting a viral etiology (Line 8).",
+  "line_references": [
+    {
+      "line_number": 2,
+      "start_char": 0,
+      "end_char": 48,
+      "text": "I've been having a sore throat for the past three days.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 4,
+      "start_char": 0,
+      "end_char": 43,
+      "text": "Yes, I've had a mild fever and a dry cough.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 6,
+      "start_char": 0,
+      "end_char": 76,
+      "text": "Yes, it hurts a bit when I swallow, and I think my neck feels a bit swollen.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 8,
+      "start_char": 0,
+      "end_char": 34,
+      "text": "My roommate had a cold last week.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 14,
+      "start_char": 0,
+      "end_char": 89,
+      "text": "Your temperature is 100.8°F, and your throat looks red with some swelling of the tonsils.",
+      "speaker": null,
+      "confidence": 1.0
+    }
+  ],
+  "snomed_mappings": [],
+  "confidence_score": 0.9,
+  "language": "en",
+  "processing_metadata": {
+    "duration_seconds": 4.027162075042725,
+    "model_name": "gpt-4",
+    "context_chars_used": 8988,
+    "factual_consistency_details": {
+      "factualConsistencyScore": 9,
+      "hallucinationRisk": "LOW",
+      "issuesFound": [
+        {
+          "statement": "Physical examination reveals a temperature of 100.8°F and a red throat with swollen tonsils, consistent with viral pharyngitis (Line 14).",
+          "issue": "Incorrect line reference"
+        },
+        {
+          "statement": "The patient has also been in contact with a roommate who had a cold, supporting a viral etiology (Line 8).",
+          "issue": "Incorrect line reference"
+        }
+      ],
+      "justification": "The generated content is largely consistent with the source transcript. The symptoms, examination findings, and contact history are all supported by the transcript. However, the line references provided in the generated content are incorrect, as the transcript does not contain line numbers. This minor issue slightly reduces the factual consistency score and contributes to a low hallucination risk."
+    }
+  }
+}

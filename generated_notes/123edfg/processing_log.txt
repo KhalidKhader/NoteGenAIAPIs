@@ -1,0 +1,1062 @@
+🏥 MEDICAL AI PROCESSING LOG - Encounter 123edfg
+================================================================================
+Started at: 2025-06-23T20:29:05.403399Z
+Output folder: generated_notes/123edfg
+
+[2025-06-23T20:29:05.418333] ✅ [INFO] 🚀 Starting processing pipeline for job notes_123edfg_9bcbc298
+   Details: {
+  "details": {
+    "encounter_id": "123edfg"
+  }
+}
+[2025-06-23T20:29:14.099923] ✅ [INFO] Storing and chunking conversation.
+[2025-06-23T20:29:14.100417] ✅ [INFO] Storing conversation 123edfg for doctor doc_123 in en.
+   Details: {
+  "details": {
+    "turn_count": 13
+  }
+}
+[2025-06-23T20:29:14.100754] ✅ [INFO] Created 1 speaker-aware chunks (1 per turn) to preserve complete speaker context.
+   Details: {
+  "details": {
+    "total_turns": 13,
+    "chunks_created": 1,
+    "strategy": "one_chunk_per_turn"
+  }
+}
+[2025-06-23T20:29:14.101074] ✅ [INFO] Created 2 speaker-aware chunks (1 per turn) to preserve complete speaker context.
+   Details: {
+  "details": {
+    "total_turns": 13,
+    "chunks_created": 2,
+    "strategy": "one_chunk_per_turn"
+  }
+}
+[2025-06-23T20:29:14.101299] ✅ [INFO] Created 3 speaker-aware chunks (1 per turn) to preserve complete speaker context.
+   Details: {
+  "details": {
+    "total_turns": 13,
+    "chunks_created": 3,
+    "strategy": "one_chunk_per_turn"
+  }
+}
+[2025-06-23T20:29:14.101489] ✅ [INFO] Created 4 speaker-aware chunks (1 per turn) to preserve complete speaker context.
+   Details: {
+  "details": {
+    "total_turns": 13,
+    "chunks_created": 4,
+    "strategy": "one_chunk_per_turn"
+  }
+}
+[2025-06-23T20:29:14.101705] ✅ [INFO] Created 5 speaker-aware chunks (1 per turn) to preserve complete speaker context.
+   Details: {
+  "details": {
+    "total_turns": 13,
+    "chunks_created": 5,
+    "strategy": "one_chunk_per_turn"
+  }
+}
+[2025-06-23T20:29:14.101937] ✅ [INFO] Created 6 speaker-aware chunks (1 per turn) to preserve complete speaker context.
+   Details: {
+  "details": {
+    "total_turns": 13,
+    "chunks_created": 6,
+    "strategy": "one_chunk_per_turn"
+  }
+}
+[2025-06-23T20:29:14.102149] ✅ [INFO] Created 7 speaker-aware chunks (1 per turn) to preserve complete speaker context.
+   Details: {
+  "details": {
+    "total_turns": 13,
+    "chunks_created": 7,
+    "strategy": "one_chunk_per_turn"
+  }
+}
+[2025-06-23T20:29:14.102343] ✅ [INFO] Created 8 speaker-aware chunks (1 per turn) to preserve complete speaker context.
+   Details: {
+  "details": {
+    "total_turns": 13,
+    "chunks_created": 8,
+    "strategy": "one_chunk_per_turn"
+  }
+}
+[2025-06-23T20:29:14.102579] ✅ [INFO] Created 9 speaker-aware chunks (1 per turn) to preserve complete speaker context.
+   Details: {
+  "details": {
+    "total_turns": 13,
+    "chunks_created": 9,
+    "strategy": "one_chunk_per_turn"
+  }
+}
+[2025-06-23T20:29:14.102828] ✅ [INFO] Created 10 speaker-aware chunks (1 per turn) to preserve complete speaker context.
+   Details: {
+  "details": {
+    "total_turns": 13,
+    "chunks_created": 10,
+    "strategy": "one_chunk_per_turn"
+  }
+}
+[2025-06-23T20:29:14.103110] ✅ [INFO] Created 11 speaker-aware chunks (1 per turn) to preserve complete speaker context.
+   Details: {
+  "details": {
+    "total_turns": 13,
+    "chunks_created": 11,
+    "strategy": "one_chunk_per_turn"
+  }
+}
+[2025-06-23T20:29:14.103377] ✅ [INFO] Created 12 speaker-aware chunks (1 per turn) to preserve complete speaker context.
+   Details: {
+  "details": {
+    "total_turns": 13,
+    "chunks_created": 12,
+    "strategy": "one_chunk_per_turn"
+  }
+}
+[2025-06-23T20:29:14.103664] ✅ [INFO] Created 13 speaker-aware chunks (1 per turn) to preserve complete speaker context.
+   Details: {
+  "details": {
+    "total_turns": 13,
+    "chunks_created": 13,
+    "strategy": "one_chunk_per_turn"
+  }
+}
+[2025-06-23T20:29:16.149220] 🐞 [DEBUG] Stored chunk 1/13 with doc_id aac6c3ff-395c-405a-a93a-3ec8f4e4d133
+[2025-06-23T20:29:16.912686] 🐞 [DEBUG] Stored chunk 2/13 with doc_id 02de0910-1a3d-40cf-b6cf-7c8b7c2e386d
+[2025-06-23T20:29:17.722768] 🐞 [DEBUG] Stored chunk 3/13 with doc_id 1f9463f4-ada7-4b6e-a1ba-1dc968bd0cfc
+[2025-06-23T20:29:18.457381] 🐞 [DEBUG] Stored chunk 4/13 with doc_id 270270f2-80fa-4279-a991-a0a4354fdd8d
+[2025-06-23T20:29:19.174521] 🐞 [DEBUG] Stored chunk 5/13 with doc_id 81fd8ec2-ba23-4259-a531-e2dea8fb40d9
+[2025-06-23T20:29:20.027231] 🐞 [DEBUG] Stored chunk 6/13 with doc_id a055fe96-01b2-424a-af29-dde8a251717b
+[2025-06-23T20:29:20.904351] 🐞 [DEBUG] Stored chunk 7/13 with doc_id 86de0afa-c301-4efc-88a1-81016df89e82
+[2025-06-23T20:29:21.709214] 🐞 [DEBUG] Stored chunk 8/13 with doc_id 35da2082-96ea-4c54-8703-e056cfd6bfa0
+[2025-06-23T20:29:22.472602] 🐞 [DEBUG] Stored chunk 9/13 with doc_id 29f48e80-e5ea-4e6f-bc46-cffb87bfb587
+[2025-06-23T20:29:23.211065] 🐞 [DEBUG] Stored chunk 10/13 with doc_id 06cd96ae-80f5-45ce-8c93-458cb51a31f9
+[2025-06-23T20:29:23.983295] 🐞 [DEBUG] Stored chunk 11/13 with doc_id f471d6a8-c218-4cee-8ba4-5136d6c0e631
+[2025-06-23T20:29:24.827817] 🐞 [DEBUG] Stored chunk 12/13 with doc_id fe454284-9729-4908-9a95-fae8809535be
+[2025-06-23T20:29:25.589315] 🐞 [DEBUG] Stored chunk 13/13 with doc_id 71f050d2-efd8-4f3e-a7db-3379e76b8e55
+[2025-06-23T20:29:26.565722] ✅ [INFO] Stored full conversation document.
+[2025-06-23T20:29:26.566774] ✅ [INFO] Extracting all medical terms from full transcript for SNOMED mapping.
+[2025-06-23T20:29:26.567680] 🔄 LLM_TERM_EXTRACTION_START
+   📋 Starting medical term extraction from text (length: 1281)
+   📊 Data: {
+  "text_length": 1281,
+  "language": "en"
+}
+
+[2025-06-23T20:29:29.110647] 🔄 LLM_TERM_EXTRACTION_COMPLETED
+   📋 Extracted 18 medical terms using LLM.
+   📊 Data: {
+  "terms_extracted": 18,
+  "sample_terms": [
+    "sore throat",
+    "fever",
+    "cough",
+    "mild fever",
+    "dry cough",
+    "trouble swallowing",
+    "swollen glands",
+    "pain when swallowing",
+    "swollen neck",
+    "cold"
+  ]
+}
+
+[2025-06-23T20:29:29.111761] 🔄 NEO4J_SNOMED_MAPPING_START
+   📋 Starting SNOMED mapping for 18 medical terms
+   📊 Data: {
+  "medical_terms": [
+    "sore throat",
+    "fever",
+    "cough",
+    "mild fever",
+    "dry cough",
+    "trouble swallowing",
+    "swollen glands",
+    "pain when swallowing",
+    "swollen neck",
+    "cold",
+    "temperature",
+    "red throat",
+    "swelling of the tonsils",
+    "viral pharyngitis",
+    "rest",
+    "fluids",
+    "over-the-counter pain relievers",
+    "strep test"
+  ],
+  "language": "en",
+  "database": "NEO4J_SNOMED_CANADIAN_EDITION",
+  "query_strategy": "PARALLEL_EXACT_CONTAINS_SEMANTIC"
+}
+
+[2025-06-23T20:29:29.112502] 🔄 NEO4J_EXACT_QUERY
+   📋 Running exact search for term 'sore throat'
+   📊 Data: {
+  "term": "sore throat",
+  "query_type": "EXACT"
+}
+
+[2025-06-23T20:29:29.113357] 🔄 NEO4J_EXACT_QUERY
+   📋 Running exact search for term 'fever'
+   📊 Data: {
+  "term": "fever",
+  "query_type": "EXACT"
+}
+
+[2025-06-23T20:29:29.114308] 🔄 NEO4J_SEARCH_ERROR
+   📋 Neo4j search failed for term 'fever': read() called while another coroutine is already waiting for incoming data
+   📊 Data: {
+  "term": "fever",
+  "error": "read() called while another coroutine is already waiting for incoming data"
+}
+
+[2025-06-23T20:29:29.115047] 🔄 NEO4J_EXACT_QUERY
+   📋 Running exact search for term 'cough'
+   📊 Data: {
+  "term": "cough",
+  "query_type": "EXACT"
+}
+
+[2025-06-23T20:29:29.115983] 🔄 NEO4J_SEARCH_ERROR
+   📋 Neo4j search failed for term 'cough': read() called while another coroutine is already waiting for incoming data
+   📊 Data: {
+  "term": "cough",
+  "error": "read() called while another coroutine is already waiting for incoming data"
+}
+
+[2025-06-23T20:29:29.116864] 🔄 NEO4J_EXACT_QUERY
+   📋 Running exact search for term 'mild fever'
+   📊 Data: {
+  "term": "mild fever",
+  "query_type": "EXACT"
+}
+
+[2025-06-23T20:29:29.117577] 🔄 NEO4J_SEARCH_ERROR
+   📋 Neo4j search failed for term 'mild fever': read() called while another coroutine is already waiting for incoming data
+   📊 Data: {
+  "term": "mild fever",
+  "error": "read() called while another coroutine is already waiting for incoming data"
+}
+
+[2025-06-23T20:29:29.118164] 🔄 NEO4J_EXACT_QUERY
+   📋 Running exact search for term 'dry cough'
+   📊 Data: {
+  "term": "dry cough",
+  "query_type": "EXACT"
+}
+
+[2025-06-23T20:29:29.118932] 🔄 NEO4J_SEARCH_ERROR
+   📋 Neo4j search failed for term 'dry cough': read() called while another coroutine is already waiting for incoming data
+   📊 Data: {
+  "term": "dry cough",
+  "error": "read() called while another coroutine is already waiting for incoming data"
+}
+
+[2025-06-23T20:29:29.119452] 🔄 NEO4J_EXACT_QUERY
+   📋 Running exact search for term 'trouble swallowing'
+   📊 Data: {
+  "term": "trouble swallowing",
+  "query_type": "EXACT"
+}
+
+[2025-06-23T20:29:29.120101] 🔄 NEO4J_SEARCH_ERROR
+   📋 Neo4j search failed for term 'trouble swallowing': read() called while another coroutine is already waiting for incoming data
+   📊 Data: {
+  "term": "trouble swallowing",
+  "error": "read() called while another coroutine is already waiting for incoming data"
+}
+
+[2025-06-23T20:29:29.120598] 🔄 NEO4J_EXACT_QUERY
+   📋 Running exact search for term 'swollen glands'
+   📊 Data: {
+  "term": "swollen glands",
+  "query_type": "EXACT"
+}
+
+[2025-06-23T20:29:29.121528] 🔄 NEO4J_SEARCH_ERROR
+   📋 Neo4j search failed for term 'swollen glands': read() called while another coroutine is already waiting for incoming data
+   📊 Data: {
+  "term": "swollen glands",
+  "error": "read() called while another coroutine is already waiting for incoming data"
+}
+
+[2025-06-23T20:29:29.122144] 🔄 NEO4J_EXACT_QUERY
+   📋 Running exact search for term 'pain when swallowing'
+   📊 Data: {
+  "term": "pain when swallowing",
+  "query_type": "EXACT"
+}
+
+[2025-06-23T20:29:29.122858] 🔄 NEO4J_SEARCH_ERROR
+   📋 Neo4j search failed for term 'pain when swallowing': read() called while another coroutine is already waiting for incoming data
+   📊 Data: {
+  "term": "pain when swallowing",
+  "error": "read() called while another coroutine is already waiting for incoming data"
+}
+
+[2025-06-23T20:29:29.123384] 🔄 NEO4J_EXACT_QUERY
+   📋 Running exact search for term 'swollen neck'
+   📊 Data: {
+  "term": "swollen neck",
+  "query_type": "EXACT"
+}
+
+[2025-06-23T20:29:29.124006] 🔄 NEO4J_SEARCH_ERROR
+   📋 Neo4j search failed for term 'swollen neck': read() called while another coroutine is already waiting for incoming data
+   📊 Data: {
+  "term": "swollen neck",
+  "error": "read() called while another coroutine is already waiting for incoming data"
+}
+
+[2025-06-23T20:29:29.124482] 🔄 NEO4J_EXACT_QUERY
+   📋 Running exact search for term 'cold'
+   📊 Data: {
+  "term": "cold",
+  "query_type": "EXACT"
+}
+
+[2025-06-23T20:29:29.125085] 🔄 NEO4J_SEARCH_ERROR
+   📋 Neo4j search failed for term 'cold': read() called while another coroutine is already waiting for incoming data
+   📊 Data: {
+  "term": "cold",
+  "error": "read() called while another coroutine is already waiting for incoming data"
+}
+
+[2025-06-23T20:29:29.125550] 🔄 NEO4J_EXACT_QUERY
+   📋 Running exact search for term 'temperature'
+   📊 Data: {
+  "term": "temperature",
+  "query_type": "EXACT"
+}
+
+[2025-06-23T20:29:29.126132] 🔄 NEO4J_SEARCH_ERROR
+   📋 Neo4j search failed for term 'temperature': read() called while another coroutine is already waiting for incoming data
+   📊 Data: {
+  "term": "temperature",
+  "error": "read() called while another coroutine is already waiting for incoming data"
+}
+
+[2025-06-23T20:29:29.126594] 🔄 NEO4J_EXACT_QUERY
+   📋 Running exact search for term 'red throat'
+   📊 Data: {
+  "term": "red throat",
+  "query_type": "EXACT"
+}
+
+[2025-06-23T20:29:29.127197] 🔄 NEO4J_SEARCH_ERROR
+   📋 Neo4j search failed for term 'red throat': read() called while another coroutine is already waiting for incoming data
+   📊 Data: {
+  "term": "red throat",
+  "error": "read() called while another coroutine is already waiting for incoming data"
+}
+
+[2025-06-23T20:29:29.127808] 🔄 NEO4J_EXACT_QUERY
+   📋 Running exact search for term 'swelling of the tonsils'
+   📊 Data: {
+  "term": "swelling of the tonsils",
+  "query_type": "EXACT"
+}
+
+[2025-06-23T20:29:29.128723] 🔄 NEO4J_SEARCH_ERROR
+   📋 Neo4j search failed for term 'swelling of the tonsils': read() called while another coroutine is already waiting for incoming data
+   📊 Data: {
+  "term": "swelling of the tonsils",
+  "error": "read() called while another coroutine is already waiting for incoming data"
+}
+
+[2025-06-23T20:29:29.129381] 🔄 NEO4J_EXACT_QUERY
+   📋 Running exact search for term 'viral pharyngitis'
+   📊 Data: {
+  "term": "viral pharyngitis",
+  "query_type": "EXACT"
+}
+
+[2025-06-23T20:29:29.130131] 🔄 NEO4J_SEARCH_ERROR
+   📋 Neo4j search failed for term 'viral pharyngitis': read() called while another coroutine is already waiting for incoming data
+   📊 Data: {
+  "term": "viral pharyngitis",
+  "error": "read() called while another coroutine is already waiting for incoming data"
+}
+
+[2025-06-23T20:29:29.130662] 🔄 NEO4J_EXACT_QUERY
+   📋 Running exact search for term 'rest'
+   📊 Data: {
+  "term": "rest",
+  "query_type": "EXACT"
+}
+
+[2025-06-23T20:29:29.131374] 🔄 NEO4J_SEARCH_ERROR
+   📋 Neo4j search failed for term 'rest': read() called while another coroutine is already waiting for incoming data
+   📊 Data: {
+  "term": "rest",
+  "error": "read() called while another coroutine is already waiting for incoming data"
+}
+
+[2025-06-23T20:29:29.131885] 🔄 NEO4J_EXACT_QUERY
+   📋 Running exact search for term 'fluids'
+   📊 Data: {
+  "term": "fluids",
+  "query_type": "EXACT"
+}
+
+[2025-06-23T20:29:29.132504] 🔄 NEO4J_SEARCH_ERROR
+   📋 Neo4j search failed for term 'fluids': read() called while another coroutine is already waiting for incoming data
+   📊 Data: {
+  "term": "fluids",
+  "error": "read() called while another coroutine is already waiting for incoming data"
+}
+
+[2025-06-23T20:29:29.133044] 🔄 NEO4J_EXACT_QUERY
+   📋 Running exact search for term 'over-the-counter pain relievers'
+   📊 Data: {
+  "term": "over-the-counter pain relievers",
+  "query_type": "EXACT"
+}
+
+[2025-06-23T20:29:29.133863] 🔄 NEO4J_SEARCH_ERROR
+   📋 Neo4j search failed for term 'over-the-counter pain relievers': read() called while another coroutine is already waiting for incoming data
+   📊 Data: {
+  "term": "over-the-counter pain relievers",
+  "error": "read() called while another coroutine is already waiting for incoming data"
+}
+
+[2025-06-23T20:29:29.134379] 🔄 NEO4J_EXACT_QUERY
+   📋 Running exact search for term 'strep test'
+   📊 Data: {
+  "term": "strep test",
+  "query_type": "EXACT"
+}
+
+[2025-06-23T20:29:29.135009] 🔄 NEO4J_SEARCH_ERROR
+   📋 Neo4j search failed for term 'strep test': read() called while another coroutine is already waiting for incoming data
+   📊 Data: {
+  "term": "strep test",
+  "error": "read() called while another coroutine is already waiting for incoming data"
+}
+
+[2025-06-23T20:29:29.138746] 🔄 NEO4J_CONTAINS_QUERY
+   📋 Running contains search for term 'sore throat'
+   📊 Data: {
+  "term": "sore throat",
+  "query_type": "CONTAINS"
+}
+
+[2025-06-23T20:29:29.966289] 🔄 NEO4J_SEARCH_ERROR
+   📋 Neo4j search failed for term 'sore throat': Failed to read from closed connection IPv4Address(('localhost', 7687)) (ResolvedIPv6Address(('::1', 7687, 0, 0)))
+   📊 Data: {
+  "term": "sore throat",
+  "error": "Failed to read from closed connection IPv4Address(('localhost', 7687)) (ResolvedIPv6Address(('::1', 7687, 0, 0)))"
+}
+
+[2025-06-23T20:29:29.967037] 🔄 NEO4J_SNOMED_MAPPING_COMPLETED
+   📋 SNOMED mapping completed: 0 mappings found
+   📊 Data: {
+  "total_mappings_found": 0,
+  "terms_processed": 18,
+  "success_rate": 0.0,
+  "database": "NEO4J_SNOMED_CANADIAN_EDITION"
+}
+
+[2025-06-23T20:29:29.967483] ✅ [INFO] Retrieved 0 SNOMED codes for the entire encounter.
+[2025-06-23T20:29:29.967905] ✅ [INFO] No specific preferences found for doctor doc_123.
+[2025-06-23T20:29:29.968292] ✅ [INFO] Starting generation for section 1/7: 'Subjective'
+[2025-06-23T20:29:30.667592] 🐞 [DEBUG] Attempt 1: Retrieved 10 chunks for 'Subjective'.
+[2025-06-23T20:29:34.935389] 🔄 SECTION_GENERATION_COMPLETED
+   📋 Generated Subjective section (ID: section_25b41234) - 335 chars, 4 line refs
+   📊 Data: {
+  "section_id": "section_25b41234",
+  "section_type": "Subjective",
+  "content_length": 335,
+  "line_references_found": 4,
+  "snomed_mappings_applied": 0,
+  "confidence_score": 1.0,
+  "processing_duration": null,
+  "status": "COMPLETED",
+  "timestamp": "2025-06-23T20:29:34.935383"
+}
+
+[2025-06-23T20:29:34.937104] ✅ [INFO] ✅ Successfully generated and saved section 'Subjective' on attempt 1.
+[2025-06-23T20:29:34.937967] ✅ [INFO] 🚀 Sending section 'Subjective' to NestJS
+[2025-06-23T20:29:34.938590] ✅ [INFO] 🚀 Sending section 1 to NestJS
+   Details: {
+  "details": {
+    "encounter_id": "123edfg",
+    "section_id": 1,
+    "clinic_id": "2",
+    "job_id": "notes_123edfg_9bcbc298",
+    "url": "https://9134-196-159-22-237.ngrok-free.app/internal/encounters/123edfg/notes",
+    "content_length": 335
+  }
+}
+[2025-06-23T20:29:34.939216] 🐞 [DEBUG] Attempt 1/3 to send section 1
+[2025-06-23T20:29:35.181585] 🐞 [DEBUG] NestJS Response Status: 404
+   Details: {
+  "details": {
+    "status_code": 404,
+    "response_headers": {
+      "connection": "close",
+      "content-type": "text/html",
+      "ngrok-error-code": "ERR_NGROK_3200",
+      "referrer-policy": "no-referrer",
+      "date": "Mon, 23 Jun 2025 20:29:35 GMT",
+      "transfer-encoding": "chunked"
+    },
+    "attempt": 1
+  }
+}
+[2025-06-23T20:29:35.183294] ⚠️ [WARNING] ❌ NestJS error on attempt 1: NestJS returned status 404: <!DOCTYPE html>
+<html class="h-full" lang="en-US" dir="ltr">
+  <head>
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <meta charset="utf-8">
+    <meta name="author" content="ngrok">
+    <meta name="description" content="ngrok is the fastest way to put anything on the internet with a single command.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="style" rel="stylesheet" href="https://cdn.ngrok.com/static/css/error.css">
+    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>
+    <script id="script" src="https://cdn.ngrok.com/static/js/error.js" type="text/javascript"></script>
+  </head>
+  <body class="h-full" id="ngrok">
+    <div id="root" data-payload="eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ=="></div>
+  </body>
+</html>
+
+   Details: {
+  "details": {
+    "status_code": 404,
+    "response_text": "<!DOCTYPE html>\n<html class=\"h-full\" lang=\"en-US\" dir=\"ltr\">\n  <head>\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <meta charset=\"utf-8\">\n    <meta name=\"author\" content=\"ngrok\">\n    <meta name=\"description\" content=\"ngrok is the fastest way to put anything on the internet with a single command.\">\n    <meta name=\"robots\" content=\"noindex, nofollow\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link id=\"style\" rel=\"stylesheet\" href=\"https://cdn.ngrok.com/static/css/error.css\">\n    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>\n    <script id=\"script\" src=\"https://cdn.ngrok.com/static/js/error.js\" type=\"text/javascript\"></script>\n  </head>\n  <body class=\"h-full\" id=\"ngrok\">\n    <div id=\"root\" data-payload=\"eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ==\"></div>\n  </body>\n</html>\n",
+    "attempt": 1
+  }
+}
+[2025-06-23T20:29:35.184538] ❌ [ERROR] 🔥 Failed to send section 1 to NestJS after 3 attempts
+   Details: {
+  "details": {
+    "final_error": "NestJS returned status 404: <!DOCTYPE html>\n<html class=\"h-full\" lang=\"en-US\" dir=\"ltr\">\n  <head>\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <meta charset=\"utf-8\">\n    <meta name=\"author\" content=\"ngrok\">\n    <meta name=\"description\" content=\"ngrok is the fastest way to put anything on the internet with a single command.\">\n    <meta name=\"robots\" content=\"noindex, nofollow\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link id=\"style\" rel=\"stylesheet\" href=\"https://cdn.ngrok.com/static/css/error.css\">\n    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>\n    <script id=\"script\" src=\"https://cdn.ngrok.com/static/js/error.js\" type=\"text/javascript\"></script>\n  </head>\n  <body class=\"h-full\" id=\"ngrok\">\n    <div id=\"root\" data-payload=\"eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ==\"></div>\n  </body>\n</html>\n",
+    "total_attempts": 3,
+    "encounter_id": "123edfg",
+    "section_id": 1
+  }
+}
+[2025-06-23T20:29:35.185701] ❌ [ERROR] ❌ Failed to send section 'Subjective' to NestJS: NestJS returned status 404: <!DOCTYPE html>
+<html class="h-full" lang="en-US" dir="ltr">
+  <head>
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <meta charset="utf-8">
+    <meta name="author" content="ngrok">
+    <meta name="description" content="ngrok is the fastest way to put anything on the internet with a single command.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="style" rel="stylesheet" href="https://cdn.ngrok.com/static/css/error.css">
+    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>
+    <script id="script" src="https://cdn.ngrok.com/static/js/error.js" type="text/javascript"></script>
+  </head>
+  <body class="h-full" id="ngrok">
+    <div id="root" data-payload="eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ=="></div>
+  </body>
+</html>
+
+   Details: {
+  "details": {
+    "success": false,
+    "error": "NestJS returned status 404: <!DOCTYPE html>\n<html class=\"h-full\" lang=\"en-US\" dir=\"ltr\">\n  <head>\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <meta charset=\"utf-8\">\n    <meta name=\"author\" content=\"ngrok\">\n    <meta name=\"description\" content=\"ngrok is the fastest way to put anything on the internet with a single command.\">\n    <meta name=\"robots\" content=\"noindex, nofollow\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link id=\"style\" rel=\"stylesheet\" href=\"https://cdn.ngrok.com/static/css/error.css\">\n    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>\n    <script id=\"script\" src=\"https://cdn.ngrok.com/static/js/error.js\" type=\"text/javascript\"></script>\n  </head>\n  <body class=\"h-full\" id=\"ngrok\">\n    <div id=\"root\" data-payload=\"eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ==\"></div>\n  </body>\n</html>\n",
+    "attempts": 3
+  }
+}
+[2025-06-23T20:29:35.186760] ✅ [INFO] Starting generation for section 2/7: 'Objective'
+[2025-06-23T20:29:35.718481] 🐞 [DEBUG] Attempt 1: Retrieved 10 chunks for 'Objective'.
+[2025-06-23T20:29:40.008007] 🔄 SECTION_GENERATION_COMPLETED
+   📋 Generated Objective section (ID: section_366a54b1) - 253 chars, 1 line refs
+   📊 Data: {
+  "section_id": "section_366a54b1",
+  "section_type": "Objective",
+  "content_length": 253,
+  "line_references_found": 1,
+  "snomed_mappings_applied": 0,
+  "confidence_score": 0.9,
+  "processing_duration": null,
+  "status": "COMPLETED",
+  "timestamp": "2025-06-23T20:29:40.007999"
+}
+
+[2025-06-23T20:29:40.010397] ✅ [INFO] ✅ Successfully generated and saved section 'Objective' on attempt 1.
+[2025-06-23T20:29:40.011596] ✅ [INFO] 🚀 Sending section 'Objective' to NestJS
+[2025-06-23T20:29:40.012423] ✅ [INFO] 🚀 Sending section 2 to NestJS
+   Details: {
+  "details": {
+    "encounter_id": "123edfg",
+    "section_id": 2,
+    "clinic_id": "2",
+    "job_id": "notes_123edfg_9bcbc298",
+    "url": "https://9134-196-159-22-237.ngrok-free.app/internal/encounters/123edfg/notes",
+    "content_length": 253
+  }
+}
+[2025-06-23T20:29:40.013295] 🐞 [DEBUG] Attempt 1/3 to send section 2
+[2025-06-23T20:29:40.195307] 🐞 [DEBUG] NestJS Response Status: 404
+   Details: {
+  "details": {
+    "status_code": 404,
+    "response_headers": {
+      "connection": "close",
+      "content-type": "text/html",
+      "ngrok-error-code": "ERR_NGROK_3200",
+      "referrer-policy": "no-referrer",
+      "date": "Mon, 23 Jun 2025 20:29:40 GMT",
+      "transfer-encoding": "chunked"
+    },
+    "attempt": 1
+  }
+}
+[2025-06-23T20:29:40.196528] ⚠️ [WARNING] ❌ NestJS error on attempt 1: NestJS returned status 404: <!DOCTYPE html>
+<html class="h-full" lang="en-US" dir="ltr">
+  <head>
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <meta charset="utf-8">
+    <meta name="author" content="ngrok">
+    <meta name="description" content="ngrok is the fastest way to put anything on the internet with a single command.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="style" rel="stylesheet" href="https://cdn.ngrok.com/static/css/error.css">
+    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>
+    <script id="script" src="https://cdn.ngrok.com/static/js/error.js" type="text/javascript"></script>
+  </head>
+  <body class="h-full" id="ngrok">
+    <div id="root" data-payload="eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ=="></div>
+  </body>
+</html>
+
+   Details: {
+  "details": {
+    "status_code": 404,
+    "response_text": "<!DOCTYPE html>\n<html class=\"h-full\" lang=\"en-US\" dir=\"ltr\">\n  <head>\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <meta charset=\"utf-8\">\n    <meta name=\"author\" content=\"ngrok\">\n    <meta name=\"description\" content=\"ngrok is the fastest way to put anything on the internet with a single command.\">\n    <meta name=\"robots\" content=\"noindex, nofollow\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link id=\"style\" rel=\"stylesheet\" href=\"https://cdn.ngrok.com/static/css/error.css\">\n    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>\n    <script id=\"script\" src=\"https://cdn.ngrok.com/static/js/error.js\" type=\"text/javascript\"></script>\n  </head>\n  <body class=\"h-full\" id=\"ngrok\">\n    <div id=\"root\" data-payload=\"eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ==\"></div>\n  </body>\n</html>\n",
+    "attempt": 1
+  }
+}
+[2025-06-23T20:29:40.197266] ❌ [ERROR] 🔥 Failed to send section 2 to NestJS after 3 attempts
+   Details: {
+  "details": {
+    "final_error": "NestJS returned status 404: <!DOCTYPE html>\n<html class=\"h-full\" lang=\"en-US\" dir=\"ltr\">\n  <head>\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <meta charset=\"utf-8\">\n    <meta name=\"author\" content=\"ngrok\">\n    <meta name=\"description\" content=\"ngrok is the fastest way to put anything on the internet with a single command.\">\n    <meta name=\"robots\" content=\"noindex, nofollow\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link id=\"style\" rel=\"stylesheet\" href=\"https://cdn.ngrok.com/static/css/error.css\">\n    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>\n    <script id=\"script\" src=\"https://cdn.ngrok.com/static/js/error.js\" type=\"text/javascript\"></script>\n  </head>\n  <body class=\"h-full\" id=\"ngrok\">\n    <div id=\"root\" data-payload=\"eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ==\"></div>\n  </body>\n</html>\n",
+    "total_attempts": 3,
+    "encounter_id": "123edfg",
+    "section_id": 2
+  }
+}
+[2025-06-23T20:29:40.197974] ❌ [ERROR] ❌ Failed to send section 'Objective' to NestJS: NestJS returned status 404: <!DOCTYPE html>
+<html class="h-full" lang="en-US" dir="ltr">
+  <head>
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <meta charset="utf-8">
+    <meta name="author" content="ngrok">
+    <meta name="description" content="ngrok is the fastest way to put anything on the internet with a single command.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="style" rel="stylesheet" href="https://cdn.ngrok.com/static/css/error.css">
+    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>
+    <script id="script" src="https://cdn.ngrok.com/static/js/error.js" type="text/javascript"></script>
+  </head>
+  <body class="h-full" id="ngrok">
+    <div id="root" data-payload="eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ=="></div>
+  </body>
+</html>
+
+   Details: {
+  "details": {
+    "success": false,
+    "error": "NestJS returned status 404: <!DOCTYPE html>\n<html class=\"h-full\" lang=\"en-US\" dir=\"ltr\">\n  <head>\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <meta charset=\"utf-8\">\n    <meta name=\"author\" content=\"ngrok\">\n    <meta name=\"description\" content=\"ngrok is the fastest way to put anything on the internet with a single command.\">\n    <meta name=\"robots\" content=\"noindex, nofollow\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link id=\"style\" rel=\"stylesheet\" href=\"https://cdn.ngrok.com/static/css/error.css\">\n    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>\n    <script id=\"script\" src=\"https://cdn.ngrok.com/static/js/error.js\" type=\"text/javascript\"></script>\n  </head>\n  <body class=\"h-full\" id=\"ngrok\">\n    <div id=\"root\" data-payload=\"eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ==\"></div>\n  </body>\n</html>\n",
+    "attempts": 3
+  }
+}
+[2025-06-23T20:29:40.198731] ✅ [INFO] Starting generation for section 3/7: 'Assessment'
+[2025-06-23T20:29:41.049109] 🐞 [DEBUG] Attempt 1: Retrieved 10 chunks for 'Assessment'.
+[2025-06-23T20:29:47.679215] 🔄 SECTION_GENERATION_COMPLETED
+   📋 Generated Assessment section (ID: section_08f479d6) - 418 chars, 5 line refs
+   📊 Data: {
+  "section_id": "section_08f479d6",
+  "section_type": "Assessment",
+  "content_length": 418,
+  "line_references_found": 5,
+  "snomed_mappings_applied": 0,
+  "confidence_score": 0.9,
+  "processing_duration": null,
+  "status": "COMPLETED",
+  "timestamp": "2025-06-23T20:29:47.679204"
+}
+
+[2025-06-23T20:29:47.684096] ✅ [INFO] ✅ Successfully generated and saved section 'Assessment' on attempt 1.
+[2025-06-23T20:29:47.686019] ✅ [INFO] 🚀 Sending section 'Assessment' to NestJS
+[2025-06-23T20:29:47.687268] ✅ [INFO] 🚀 Sending section 3 to NestJS
+   Details: {
+  "details": {
+    "encounter_id": "123edfg",
+    "section_id": 3,
+    "clinic_id": "2",
+    "job_id": "notes_123edfg_9bcbc298",
+    "url": "https://9134-196-159-22-237.ngrok-free.app/internal/encounters/123edfg/notes",
+    "content_length": 418
+  }
+}
+[2025-06-23T20:29:47.688511] 🐞 [DEBUG] Attempt 1/3 to send section 3
+[2025-06-23T20:29:47.876221] 🐞 [DEBUG] NestJS Response Status: 404
+   Details: {
+  "details": {
+    "status_code": 404,
+    "response_headers": {
+      "connection": "close",
+      "content-type": "text/html",
+      "ngrok-error-code": "ERR_NGROK_3200",
+      "referrer-policy": "no-referrer",
+      "date": "Mon, 23 Jun 2025 20:29:47 GMT",
+      "transfer-encoding": "chunked"
+    },
+    "attempt": 1
+  }
+}
+[2025-06-23T20:29:47.879477] ⚠️ [WARNING] ❌ NestJS error on attempt 1: NestJS returned status 404: <!DOCTYPE html>
+<html class="h-full" lang="en-US" dir="ltr">
+  <head>
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <meta charset="utf-8">
+    <meta name="author" content="ngrok">
+    <meta name="description" content="ngrok is the fastest way to put anything on the internet with a single command.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="style" rel="stylesheet" href="https://cdn.ngrok.com/static/css/error.css">
+    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>
+    <script id="script" src="https://cdn.ngrok.com/static/js/error.js" type="text/javascript"></script>
+  </head>
+  <body class="h-full" id="ngrok">
+    <div id="root" data-payload="eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ=="></div>
+  </body>
+</html>
+
+   Details: {
+  "details": {
+    "status_code": 404,
+    "response_text": "<!DOCTYPE html>\n<html class=\"h-full\" lang=\"en-US\" dir=\"ltr\">\n  <head>\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <meta charset=\"utf-8\">\n    <meta name=\"author\" content=\"ngrok\">\n    <meta name=\"description\" content=\"ngrok is the fastest way to put anything on the internet with a single command.\">\n    <meta name=\"robots\" content=\"noindex, nofollow\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link id=\"style\" rel=\"stylesheet\" href=\"https://cdn.ngrok.com/static/css/error.css\">\n    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>\n    <script id=\"script\" src=\"https://cdn.ngrok.com/static/js/error.js\" type=\"text/javascript\"></script>\n  </head>\n  <body class=\"h-full\" id=\"ngrok\">\n    <div id=\"root\" data-payload=\"eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ==\"></div>\n  </body>\n</html>\n",
+    "attempt": 1
+  }
+}
+[2025-06-23T20:29:47.883225] ❌ [ERROR] 🔥 Failed to send section 3 to NestJS after 3 attempts
+   Details: {
+  "details": {
+    "final_error": "NestJS returned status 404: <!DOCTYPE html>\n<html class=\"h-full\" lang=\"en-US\" dir=\"ltr\">\n  <head>\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <meta charset=\"utf-8\">\n    <meta name=\"author\" content=\"ngrok\">\n    <meta name=\"description\" content=\"ngrok is the fastest way to put anything on the internet with a single command.\">\n    <meta name=\"robots\" content=\"noindex, nofollow\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link id=\"style\" rel=\"stylesheet\" href=\"https://cdn.ngrok.com/static/css/error.css\">\n    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>\n    <script id=\"script\" src=\"https://cdn.ngrok.com/static/js/error.js\" type=\"text/javascript\"></script>\n  </head>\n  <body class=\"h-full\" id=\"ngrok\">\n    <div id=\"root\" data-payload=\"eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ==\"></div>\n  </body>\n</html>\n",
+    "total_attempts": 3,
+    "encounter_id": "123edfg",
+    "section_id": 3
+  }
+}
+[2025-06-23T20:29:47.885621] ❌ [ERROR] ❌ Failed to send section 'Assessment' to NestJS: NestJS returned status 404: <!DOCTYPE html>
+<html class="h-full" lang="en-US" dir="ltr">
+  <head>
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <meta charset="utf-8">
+    <meta name="author" content="ngrok">
+    <meta name="description" content="ngrok is the fastest way to put anything on the internet with a single command.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="style" rel="stylesheet" href="https://cdn.ngrok.com/static/css/error.css">
+    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>
+    <script id="script" src="https://cdn.ngrok.com/static/js/error.js" type="text/javascript"></script>
+  </head>
+  <body class="h-full" id="ngrok">
+    <div id="root" data-payload="eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ=="></div>
+  </body>
+</html>
+
+   Details: {
+  "details": {
+    "success": false,
+    "error": "NestJS returned status 404: <!DOCTYPE html>\n<html class=\"h-full\" lang=\"en-US\" dir=\"ltr\">\n  <head>\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <meta charset=\"utf-8\">\n    <meta name=\"author\" content=\"ngrok\">\n    <meta name=\"description\" content=\"ngrok is the fastest way to put anything on the internet with a single command.\">\n    <meta name=\"robots\" content=\"noindex, nofollow\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link id=\"style\" rel=\"stylesheet\" href=\"https://cdn.ngrok.com/static/css/error.css\">\n    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>\n    <script id=\"script\" src=\"https://cdn.ngrok.com/static/js/error.js\" type=\"text/javascript\"></script>\n  </head>\n  <body class=\"h-full\" id=\"ngrok\">\n    <div id=\"root\" data-payload=\"eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ==\"></div>\n  </body>\n</html>\n",
+    "attempts": 3
+  }
+}
+[2025-06-23T20:29:47.887516] ✅ [INFO] Starting generation for section 4/7: 'Plan'
+[2025-06-23T20:29:48.533746] 🐞 [DEBUG] Attempt 1: Retrieved 10 chunks for 'Plan'.
+[2025-06-23T20:29:52.485397] 🔄 SECTION_GENERATION_COMPLETED
+   📋 Generated Plan section (ID: section_a8b94c47) - 359 chars, 1 line refs
+   📊 Data: {
+  "section_id": "section_a8b94c47",
+  "section_type": "Plan",
+  "content_length": 359,
+  "line_references_found": 1,
+  "snomed_mappings_applied": 0,
+  "confidence_score": 1.0,
+  "processing_duration": null,
+  "status": "COMPLETED",
+  "timestamp": "2025-06-23T20:29:52.485393"
+}
+
+[2025-06-23T20:29:52.487342] ✅ [INFO] ✅ Successfully generated and saved section 'Plan' on attempt 1.
+[2025-06-23T20:29:52.488164] ✅ [INFO] 🚀 Sending section 'Plan' to NestJS
+[2025-06-23T20:29:52.488842] ✅ [INFO] 🚀 Sending section 4 to NestJS
+   Details: {
+  "details": {
+    "encounter_id": "123edfg",
+    "section_id": 4,
+    "clinic_id": "2",
+    "job_id": "notes_123edfg_9bcbc298",
+    "url": "https://9134-196-159-22-237.ngrok-free.app/internal/encounters/123edfg/notes",
+    "content_length": 359
+  }
+}
+[2025-06-23T20:29:52.489545] 🐞 [DEBUG] Attempt 1/3 to send section 4
+[2025-06-23T20:29:52.670637] 🐞 [DEBUG] NestJS Response Status: 404
+   Details: {
+  "details": {
+    "status_code": 404,
+    "response_headers": {
+      "connection": "close",
+      "content-type": "text/html",
+      "ngrok-error-code": "ERR_NGROK_3200",
+      "referrer-policy": "no-referrer",
+      "date": "Mon, 23 Jun 2025 20:29:52 GMT",
+      "transfer-encoding": "chunked"
+    },
+    "attempt": 1
+  }
+}
+[2025-06-23T20:29:52.672785] ⚠️ [WARNING] ❌ NestJS error on attempt 1: NestJS returned status 404: <!DOCTYPE html>
+<html class="h-full" lang="en-US" dir="ltr">
+  <head>
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <meta charset="utf-8">
+    <meta name="author" content="ngrok">
+    <meta name="description" content="ngrok is the fastest way to put anything on the internet with a single command.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="style" rel="stylesheet" href="https://cdn.ngrok.com/static/css/error.css">
+    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>
+    <script id="script" src="https://cdn.ngrok.com/static/js/error.js" type="text/javascript"></script>
+  </head>
+  <body class="h-full" id="ngrok">
+    <div id="root" data-payload="eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ=="></div>
+  </body>
+</html>
+
+   Details: {
+  "details": {
+    "status_code": 404,
+    "response_text": "<!DOCTYPE html>\n<html class=\"h-full\" lang=\"en-US\" dir=\"ltr\">\n  <head>\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <meta charset=\"utf-8\">\n    <meta name=\"author\" content=\"ngrok\">\n    <meta name=\"description\" content=\"ngrok is the fastest way to put anything on the internet with a single command.\">\n    <meta name=\"robots\" content=\"noindex, nofollow\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link id=\"style\" rel=\"stylesheet\" href=\"https://cdn.ngrok.com/static/css/error.css\">\n    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>\n    <script id=\"script\" src=\"https://cdn.ngrok.com/static/js/error.js\" type=\"text/javascript\"></script>\n  </head>\n  <body class=\"h-full\" id=\"ngrok\">\n    <div id=\"root\" data-payload=\"eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ==\"></div>\n  </body>\n</html>\n",
+    "attempt": 1
+  }
+}
+[2025-06-23T20:29:52.674386] ❌ [ERROR] 🔥 Failed to send section 4 to NestJS after 3 attempts
+   Details: {
+  "details": {
+    "final_error": "NestJS returned status 404: <!DOCTYPE html>\n<html class=\"h-full\" lang=\"en-US\" dir=\"ltr\">\n  <head>\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <meta charset=\"utf-8\">\n    <meta name=\"author\" content=\"ngrok\">\n    <meta name=\"description\" content=\"ngrok is the fastest way to put anything on the internet with a single command.\">\n    <meta name=\"robots\" content=\"noindex, nofollow\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link id=\"style\" rel=\"stylesheet\" href=\"https://cdn.ngrok.com/static/css/error.css\">\n    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>\n    <script id=\"script\" src=\"https://cdn.ngrok.com/static/js/error.js\" type=\"text/javascript\"></script>\n  </head>\n  <body class=\"h-full\" id=\"ngrok\">\n    <div id=\"root\" data-payload=\"eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ==\"></div>\n  </body>\n</html>\n",
+    "total_attempts": 3,
+    "encounter_id": "123edfg",
+    "section_id": 4
+  }
+}
+[2025-06-23T20:29:52.675905] ❌ [ERROR] ❌ Failed to send section 'Plan' to NestJS: NestJS returned status 404: <!DOCTYPE html>
+<html class="h-full" lang="en-US" dir="ltr">
+  <head>
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <meta charset="utf-8">
+    <meta name="author" content="ngrok">
+    <meta name="description" content="ngrok is the fastest way to put anything on the internet with a single command.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="style" rel="stylesheet" href="https://cdn.ngrok.com/static/css/error.css">
+    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>
+    <script id="script" src="https://cdn.ngrok.com/static/js/error.js" type="text/javascript"></script>
+  </head>
+  <body class="h-full" id="ngrok">
+    <div id="root" data-payload="eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ=="></div>
+  </body>
+</html>
+
+   Details: {
+  "details": {
+    "success": false,
+    "error": "NestJS returned status 404: <!DOCTYPE html>\n<html class=\"h-full\" lang=\"en-US\" dir=\"ltr\">\n  <head>\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <meta charset=\"utf-8\">\n    <meta name=\"author\" content=\"ngrok\">\n    <meta name=\"description\" content=\"ngrok is the fastest way to put anything on the internet with a single command.\">\n    <meta name=\"robots\" content=\"noindex, nofollow\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link id=\"style\" rel=\"stylesheet\" href=\"https://cdn.ngrok.com/static/css/error.css\">\n    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>\n    <script id=\"script\" src=\"https://cdn.ngrok.com/static/js/error.js\" type=\"text/javascript\"></script>\n  </head>\n  <body class=\"h-full\" id=\"ngrok\">\n    <div id=\"root\" data-payload=\"eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ==\"></div>\n  </body>\n</html>\n",
+    "attempts": 3
+  }
+}
+[2025-06-23T20:29:52.677427] ✅ [INFO] Starting generation for section 5/7: 'Visit - 1'
+[2025-06-23T20:29:52.880355] 🐞 [DEBUG] Attempt 1: Retrieved 10 chunks for 'Visit - 1'.
+[2025-06-23T20:30:00.309447] 🔄 SECTION_GENERATION_COMPLETED
+   📋 Generated Visit - 1 section (ID: section_021b791e) - 992 chars, 6 line refs
+   📊 Data: {
+  "section_id": "section_021b791e",
+  "section_type": "Visit - 1",
+  "content_length": 992,
+  "line_references_found": 6,
+  "snomed_mappings_applied": 0,
+  "confidence_score": 1.0,
+  "processing_duration": null,
+  "status": "COMPLETED",
+  "timestamp": "2025-06-23T20:30:00.309433"
+}
+
+[2025-06-23T20:30:00.315966] ✅ [INFO] ✅ Successfully generated and saved section 'Visit - 1' on attempt 1.
+[2025-06-23T20:30:00.318321] ✅ [INFO] 🚀 Sending section 'Visit - 1' to NestJS
+[2025-06-23T20:30:00.320198] ✅ [INFO] 🚀 Sending section 5 to NestJS
+   Details: {
+  "details": {
+    "encounter_id": "123edfg",
+    "section_id": 5,
+    "clinic_id": "2",
+    "job_id": "notes_123edfg_9bcbc298",
+    "url": "https://9134-196-159-22-237.ngrok-free.app/internal/encounters/123edfg/notes",
+    "content_length": 992
+  }
+}
+[2025-06-23T20:30:00.321918] 🐞 [DEBUG] Attempt 1/3 to send section 5
+[2025-06-23T20:30:00.506826] 🐞 [DEBUG] NestJS Response Status: 404
+   Details: {
+  "details": {
+    "status_code": 404,
+    "response_headers": {
+      "connection": "close",
+      "content-type": "text/html",
+      "ngrok-error-code": "ERR_NGROK_3200",
+      "referrer-policy": "no-referrer",
+      "date": "Mon, 23 Jun 2025 20:30:00 GMT",
+      "transfer-encoding": "chunked"
+    },
+    "attempt": 1
+  }
+}
+[2025-06-23T20:30:00.512337] ⚠️ [WARNING] ❌ NestJS error on attempt 1: NestJS returned status 404: <!DOCTYPE html>
+<html class="h-full" lang="en-US" dir="ltr">
+  <head>
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <meta charset="utf-8">
+    <meta name="author" content="ngrok">
+    <meta name="description" content="ngrok is the fastest way to put anything on the internet with a single command.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="style" rel="stylesheet" href="https://cdn.ngrok.com/static/css/error.css">
+    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>
+    <script id="script" src="https://cdn.ngrok.com/static/js/error.js" type="text/javascript"></script>
+  </head>
+  <body class="h-full" id="ngrok">
+    <div id="root" data-payload="eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ=="></div>
+  </body>
+</html>
+
+   Details: {
+  "details": {
+    "status_code": 404,
+    "response_text": "<!DOCTYPE html>\n<html class=\"h-full\" lang=\"en-US\" dir=\"ltr\">\n  <head>\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <meta charset=\"utf-8\">\n    <meta name=\"author\" content=\"ngrok\">\n    <meta name=\"description\" content=\"ngrok is the fastest way to put anything on the internet with a single command.\">\n    <meta name=\"robots\" content=\"noindex, nofollow\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link id=\"style\" rel=\"stylesheet\" href=\"https://cdn.ngrok.com/static/css/error.css\">\n    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>\n    <script id=\"script\" src=\"https://cdn.ngrok.com/static/js/error.js\" type=\"text/javascript\"></script>\n  </head>\n  <body class=\"h-full\" id=\"ngrok\">\n    <div id=\"root\" data-payload=\"eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ==\"></div>\n  </body>\n</html>\n",
+    "attempt": 1
+  }
+}
+[2025-06-23T20:30:00.516599] ❌ [ERROR] 🔥 Failed to send section 5 to NestJS after 3 attempts
+   Details: {
+  "details": {
+    "final_error": "NestJS returned status 404: <!DOCTYPE html>\n<html class=\"h-full\" lang=\"en-US\" dir=\"ltr\">\n  <head>\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <meta charset=\"utf-8\">\n    <meta name=\"author\" content=\"ngrok\">\n    <meta name=\"description\" content=\"ngrok is the fastest way to put anything on the internet with a single command.\">\n    <meta name=\"robots\" content=\"noindex, nofollow\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link id=\"style\" rel=\"stylesheet\" href=\"https://cdn.ngrok.com/static/css/error.css\">\n    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>\n    <script id=\"script\" src=\"https://cdn.ngrok.com/static/js/error.js\" type=\"text/javascript\"></script>\n  </head>\n  <body class=\"h-full\" id=\"ngrok\">\n    <div id=\"root\" data-payload=\"eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ==\"></div>\n  </body>\n</html>\n",
+    "total_attempts": 3,
+    "encounter_id": "123edfg",
+    "section_id": 5
+  }
+}
+[2025-06-23T20:30:00.518628] ❌ [ERROR] ❌ Failed to send section 'Visit - 1' to NestJS: NestJS returned status 404: <!DOCTYPE html>
+<html class="h-full" lang="en-US" dir="ltr">
+  <head>
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    <meta charset="utf-8">
+    <meta name="author" content="ngrok">
+    <meta name="description" content="ngrok is the fastest way to put anything on the internet with a single command.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="style" rel="stylesheet" href="https://cdn.ngrok.com/static/css/error.css">
+    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>
+    <script id="script" src="https://cdn.ngrok.com/static/js/error.js" type="text/javascript"></script>
+  </head>
+  <body class="h-full" id="ngrok">
+    <div id="root" data-payload="eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ=="></div>
+  </body>
+</html>
+
+   Details: {
+  "details": {
+    "success": false,
+    "error": "NestJS returned status 404: <!DOCTYPE html>\n<html class=\"h-full\" lang=\"en-US\" dir=\"ltr\">\n  <head>\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <link rel=\"preload\" href=\"https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff\" as=\"font\" type=\"font/woff\" crossorigin=\"anonymous\" />\n    <meta charset=\"utf-8\">\n    <meta name=\"author\" content=\"ngrok\">\n    <meta name=\"description\" content=\"ngrok is the fastest way to put anything on the internet with a single command.\">\n    <meta name=\"robots\" content=\"noindex, nofollow\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link id=\"style\" rel=\"stylesheet\" href=\"https://cdn.ngrok.com/static/css/error.css\">\n    <noscript>The endpoint 9134-196-159-22-237.ngrok-free.app is offline. (ERR_NGROK_3200)</noscript>\n    <script id=\"script\" src=\"https://cdn.ngrok.com/static/js/error.js\" type=\"text/javascript\"></script>\n  </head>\n  <body class=\"h-full\" id=\"ngrok\">\n    <div id=\"root\" data-payload=\"eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlRoZSBlbmRwb2ludCA5MTM0LTE5Ni0xNTktMjItMjM3Lm5ncm9rLWZyZWUuYXBwIGlzIG9mZmxpbmUuIiwidGl0bGUiOiJOb3QgRm91bmQifQ==\"></div>\n  </body>\n</html>\n",
+    "attempts": 3
+  }
+}
+[2025-06-23T20:30:00.520887] ✅ [INFO] Starting generation for section 6/7: 'Visit - 2'
+[2025-06-23T20:30:00.721269] 🐞 [DEBUG] Attempt 1: Retrieved 10 chunks for 'Visit - 2'.

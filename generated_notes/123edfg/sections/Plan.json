@@ -1,0 +1,30 @@
+{
+  "section_id": "section_a8b94c47",
+  "template_id": 1,
+  "section_name": "Plan",
+  "content": "### Plan\n\n- **Rest and Hydration:** The patient is advised to rest and increase fluid intake to help alleviate symptoms (Line 14).\n- **Over-the-Counter Pain Relievers:** Recommend the use of over-the-counter pain relievers to manage discomfort (Line 14).\n- **Follow-Up:** If symptoms worsen in a few days, the patient should return for a strep test (Line 14).",
+  "line_references": [
+    {
+      "line_number": 14,
+      "start_char": 0,
+      "end_char": 144,
+      "text": "It looks like a viral pharyngitis. I'll recommend rest, fluids, and over-the-counter pain relievers. If it gets worse in a few days, come back for a strep test.",
+      "speaker": null,
+      "confidence": 1.0
+    }
+  ],
+  "snomed_mappings": [],
+  "confidence_score": 1.0,
+  "language": "en",
+  "processing_metadata": {
+    "duration_seconds": 2.130394220352173,
+    "model_name": "gpt-4",
+    "context_chars_used": 8988,
+    "factual_consistency_details": {
+      "factualConsistencyScore": 10,
+      "hallucinationRisk": "LOW",
+      "issuesFound": [],
+      "justification": "The generated content is perfectly consistent with the source transcript. Each statement in the 'Plan' section is directly supported by the conversation between the doctor and the patient. The recommendations for rest, hydration, over-the-counter pain relievers, and the follow-up advice for a strep test if symptoms worsen are all explicitly mentioned in the transcript. The line references, although not directly verifiable due to the format of the transcript, do not affect the factual accuracy of the content. Therefore, there are no issues found, and the hallucination risk is low."
+    }
+  }
+}

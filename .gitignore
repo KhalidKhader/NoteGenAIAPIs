@@ -285,4 +285,4 @@ htmlcov/
 # Profiling data
 *.prof
 
-.windsurf
+.windsurf/rules

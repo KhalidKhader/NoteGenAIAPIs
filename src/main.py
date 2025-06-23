@@ -22,8 +22,10 @@ except ImportError:
 
 from src.core.config import settings
 from src.core.logging import setup_logging, get_logger
-from src.core.observability import get_observability_service
 from src.api import health, production_api
+
+from src.api.health import router as health_router
+from src.api.production_api import router as production_router
 
 # Setup medical-grade logging
 setup_logging()
@@ -35,23 +37,14 @@ async def lifespan(app: FastAPI):
     # Startup
     logger.info("🏥 Starting NoteGen AI APIs - Medical Template Extraction System")
     logger.info("📋 Story Requirements: Multi-template + Long encounters + Line referencing + Multilingual + Hallucination prevention")
-    logger.info("🔒 Medical compliance: HIPAA/PIPEDA ready with Canadian data residency")
-    
-    # Initialize observability service
-    observability = await get_observability_service()
-    logger.info("🔍 Medical observability initialized with Langfuse")
-    
+    logger.info("🔒 Medical compliance: HIPAA/PIPEDA ready with Canadian data residency")    
     logger.info("🚀 System ready for medical encounter processing")
     
     yield
 
     # Shutdown
     logger.info("🏥 Shutting down NoteGen AI APIs - Medical Template Extraction System")
-    
-    # Close observability service
-    if observability:
-        await observability.close()
-        logger.info("🔍 Medical observability service closed")
+
     
     logger.info("✅ All medical encounters completed, system shutdown complete")
 
@@ -72,21 +65,18 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Include production API router - NEW FORMAT integration
-app.include_router(
-    production_api.router,
-    tags=["production"]
-)
+@app.on_event("startup")
+async def startup_event():
+    """Application startup event."""
+    logger.info("🚀 Starting NoteGen AI Service...")
+    logger.info("✅ Service started successfully.")
 
-# Include health check router
-app.include_router(
-    health.router,
-    prefix="/internal/health",
-    tags=["health"]
-)
+# Include routers
+app.include_router(health_router, prefix="/health", tags=["System Health"])
+app.include_router(production_router, tags=["Medical Note Generation"])
 
 

@@ -1,0 +1,54 @@
+{
+  "section_id": "section_25b41234",
+  "template_id": 1,
+  "section_name": "Subjective",
+  "content": "The patient reports experiencing a sore throat for the past three days (Line 2). Additionally, the patient has had a mild fever and a dry cough (Line 4). The patient mentions difficulty swallowing and a sensation of swollen glands in the neck (Line 6). The patient has been in contact with a roommate who had a cold last week (Line 8).",
+  "line_references": [
+    {
+      "line_number": 2,
+      "start_char": 0,
+      "end_char": 47,
+      "text": "I've been having a sore throat for the past three days.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 4,
+      "start_char": 0,
+      "end_char": 42,
+      "text": "Yes, I've had a mild fever and a dry cough.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 6,
+      "start_char": 0,
+      "end_char": 78,
+      "text": "Yes, it hurts a bit when I swallow, and I think my neck feels a bit swollen.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 8,
+      "start_char": 0,
+      "end_char": 33,
+      "text": "My roommate had a cold last week.",
+      "speaker": null,
+      "confidence": 1.0
+    }
+  ],
+  "snomed_mappings": [],
+  "confidence_score": 1.0,
+  "language": "en",
+  "processing_metadata": {
+    "duration_seconds": 2.939929246902466,
+    "model_name": "gpt-4",
+    "context_chars_used": 8988,
+    "factual_consistency_details": {
+      "factualConsistencyScore": 10,
+      "hallucinationRisk": "LOW",
+      "issuesFound": [],
+      "justification": "All statements in the generated content are directly supported by the source transcript. The patient reports a sore throat for three days, mild fever, dry cough, difficulty swallowing, and swollen glands, and mentions contact with a roommate who had a cold. These details are consistent with the transcript, and the line references are accurate. Therefore, there are no issues found, and the factual consistency score is perfect with a low hallucination risk."
+    }
+  }
+}

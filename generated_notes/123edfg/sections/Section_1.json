@@ -1,38 +1,46 @@
 {
-  "section_id": "section_146a1163",
-  "template_id": 1,
-  "section_name": "Subjective",
-  "content": "The patient reports experiencing a sore throat and mild fever for the past three days. Additionally, the patient has a dry cough and trouble swallowing. No swollen glands or neck pain have been noted. The patient denies any recent weight loss or changes in appetite.",
+  "section_id": "section_69c64281",
+  "template_id": 3,
+  "section_name": "Section 1",
+  "content": "### Section 1\n\n- **Chief Complaint:** Sore throat for the past three days (Line 2).\n- **History of Present Illness:** The patient reports a sore throat lasting three days, accompanied by a mild fever and dry cough (Line 4). The patient experiences pain when swallowing and a sensation of a swollen neck (Line 6). The patient has been in contact with a roommate who had a cold last week (Line 8).\n- **Vital Signs:** Temperature recorded at 100.8°F (Line 14).\n- **Physical Examination:** Throat examination reveals redness and swelling of the tonsils (Line 14).\n- **Assessment:** Viral pharyngitis is suspected based on symptoms and physical examination findings (Line 14).\n- **Plan:** The patient is advised to rest, increase fluid intake, and use over-the-counter pain relievers. A follow-up is recommended if symptoms worsen, with a potential strep test (Line 14).",
   "line_references": [
     {
-      "line_number": 3,
+      "line_number": 2,
+      "start_char": 10,
+      "end_char": 53,
+      "text": "patient: I've been having a sore throat for the past three days.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 4,
       "start_char": 10,
       "end_char": 54,
-      "text": "I've had a sore throat and mild fever for the past three days.",
+      "text": "patient: Yes, I've had a mild fever and a dry cough.",
       "speaker": null,
       "confidence": 1.0
     },
     {
-      "line_number": 5,
-      "start_char": 13,
-      "end_char": 56,
-      "text": "There's also a dry cough and trouble swallowing.",
+      "line_number": 6,
+      "start_char": 10,
+      "end_char": 84,
+      "text": "patient: Yes, it hurts a bit when I swallow, and I think my neck feels a bit swollen.",
       "speaker": null,
       "confidence": 1.0
     },
     {
-      "line_number": 7,
-      "start_char": 3,
-      "end_char": 33,
-      "text": "No swollen glands or neck pain.",
+      "line_number": 8,
+      "start_char": 10,
+      "end_char": 47,
+      "text": "patient: My roommate had a cold last week.",
       "speaker": null,
       "confidence": 1.0
     },
     {
-      "line_number": 9,
-      "start_char": 3,
-      "end_char": 58,
-      "text": "I haven't noticed any weight loss or changes in appetite.",
+      "line_number": 14,
+      "start_char": 9,
+      "end_char": 95,
+      "text": "doctor: Your temperature is 100.8°F, and your throat looks red with some swelling of the tonsils.",
       "speaker": null,
       "confidence": 1.0
     }
@@ -471,34 +479,17 @@
       "language": "en"
     }
   ],
-  "confidence_score": 0.1,
+  "confidence_score": 1.0,
   "language": "en",
   "processing_metadata": {
-    "duration_seconds": 3.5714950561523438,
+    "duration_seconds": 41.884344816207886,
     "model_name": "gpt-4",
-    "context_chars_used": 0,
+    "context_chars_used": 8988,
     "factual_consistency_details": {
-      "factualConsistencyScore": 1,
-      "hallucinationRisk": "HIGH",
-      "issuesFound": [
-        {
-          "statement": "The patient reports experiencing a sore throat and mild fever for the past three days.",
-          "issue": "Not supported by transcript"
-        },
-        {
-          "statement": "Additionally, the patient has a dry cough and trouble swallowing.",
-          "issue": "Not supported by transcript"
-        },
-        {
-          "statement": "No swollen glands or neck pain have been noted.",
-          "issue": "Not supported by transcript"
-        },
-        {
-          "statement": "The patient denies any recent weight loss or changes in appetite.",
-          "issue": "Not supported by transcript"
-        }
-      ],
-      "justification": "The generated content contains multiple statements about the patient's symptoms and history that cannot be verified against the source transcript, which is missing. Without any source information, all claims in the generated content are considered unsupported, leading to a low factual consistency score and a high hallucination risk."
+      "factualConsistencyScore": 10,
+      "hallucinationRisk": "LOW",
+      "issuesFound": [],
+      "justification": "All statements in the generated content are directly supported by the source transcript. The line references, although not explicitly numbered in the transcript, align with the order of information presented. There are no unsupported claims or contradictions, indicating a high level of factual consistency and a low risk of hallucination."
     }
   }
 }

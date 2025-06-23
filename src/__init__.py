@@ -9,7 +9,6 @@ This package provides:
 - Azure OpenAI GPT-4o integration with LangChain
 - HIPAA/PIPEDA compliant data handling
 - Real-time observability with LangFuse
-- Sequential SOAP generation (S → O → A → P)
 """
 
 __version__ = "0.1.0"

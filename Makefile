@@ -19,7 +19,8 @@ dev:
 
 ## Testing examples Commands
 run-example:
-	curl -X POST http://127.0.0.1:8000/process-encounter -H "Content-Type: application/json" -d @generated_notes/examples/example.json
-
+	curl -X POST http://127.0.0.1:8000/generate-notes -H "Content-Type: application/json" -d @generated_notes/examples/example.json
+run-example1:
+	curl -X POST http://127.0.0.1:8000/generate-notes -H "Content-Type: application/json" -d @generated_notes/examples/example1.json
 run-example2:
-	curl -X POST http://127.0.0.1:8000/process-encounter -H "Content-Type: application/json" -d @generated_notes/examples/example2.json
+	curl -X POST http://127.0.0.1:8000/generate-notes -H "Content-Type: application/json" -d @generated_notes/examples/example2.json

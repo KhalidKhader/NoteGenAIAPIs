@@ -12,7 +12,7 @@ Features:
 from datetime import datetime
 from typing import Dict, List, Optional, Any
 
-from opensearchpy import OpenSearch, RequestsHttpConnection
+from opensearchpy import OpenSearch, RequestsHttpConnection, NotFoundError
 from langchain_openai import AzureOpenAIEmbeddings
 from langchain_community.vectorstores import OpenSearchVectorSearch
 
@@ -108,12 +108,16 @@ class ConversationRAGService:
             cluster_health = self.opensearch_client.cluster.health()
             if cluster_health['status'] not in ['green', 'yellow']:
                 logger.warning(f"OpenSearch cluster status: {cluster_health['status']}")
-        except Exception as e:
+        except NotFoundError:
+            logger.info("Health check not found, falling back to listing indices (normal for some permissions).")
             try:
                 indices = self.opensearch_client.cat.indices(format='json')
                 logger.info(f"OpenSearch connection verified - found {len(indices)} indices")
             except Exception as conn_error:
-                raise RuntimeError(f"OpenSearch connection failed: {conn_error}")
+                raise RuntimeError(f"OpenSearch connection failed on fallback check: {conn_error}")
+        except Exception as e:
+            logger.error(f"An unexpected error occurred during OpenSearch health check: {e}", exc_info=True)
+            raise RuntimeError(f"OpenSearch connection failed: {e}")
     
     async def _create_index(self) -> None:
         """Create OpenSearch index for medical conversations."""
@@ -173,7 +177,6 @@ class ConversationRAGService:
                 continue
             
             # Robustly find speaker and text
-            item_id = item.get("id", f"line_{i}")
             speaker = next((key for key in item if key.lower() not in ["id", "line_number"]), None)
             
             if speaker and isinstance(item[speaker], str):
@@ -194,76 +197,39 @@ class ConversationRAGService:
     ) -> List[Dict[str, Any]]:
         """
         Creates semantic chunks from conversation turns, ensuring no speaker's
-        turn is split across chunks. It groups consecutive turns from the same speaker.
+        turn is split across chunks. Each element from the encounterTranscript array
+        becomes a complete chunk to preserve speaker context and avoid mid-turn splits.
+        
+        New strategy: Each transcript element becomes its own chunk to preserve
+        complete speaker turns and avoid splitting mid-conversation.
         """
         if not turns:
             return []
 
-        # 1. Group consecutive turns by the same speaker into "speaker blocks"
-        speaker_blocks = []
-        current_block = {"speaker": turns[0]["speaker"], "turns": [turns[0]]}
-        
-        for i in range(1, len(turns)):
-            if turns[i]["speaker"] == current_block["speaker"]:
-                current_block["turns"].append(turns[i])
-            else:
-                speaker_blocks.append(current_block)
-                current_block = {"speaker": turns[i]["speaker"], "turns": [turns[i]]}
-        speaker_blocks.append(current_block)
-        
-        if medical_logger:
-            medical_logger.log(f"Grouped transcript into {len(speaker_blocks)} speaker blocks.", "DEBUG")
-
-        # 2. Combine speaker blocks into chunks without exceeding max_chunk_size
         chunks = []
-        current_chunk_turns = []
-        current_chunk_size = 0
-
-        for block in speaker_blocks:
-            block_text = "".join([f"{t['speaker']}: {t['text']}\n" for t in block["turns"]])
-            block_size = len(block_text)
-
-            if block_size > max_chunk_size:
-                if current_chunk_turns:
-                    # Finalize the current chunk before handling the large block
-                    chunk_content = "".join([f"{t['speaker']}: {t['text']}\n" for t in current_chunk_turns])
-                    line_numbers = [t['line_number'] for t in current_chunk_turns]
-                    chunks.append({"content": chunk_content.strip(), "line_numbers": line_numbers})
-                    current_chunk_turns, current_chunk_size = [], 0
-                
-                # Add the large block as its own chunk and log a warning
-                line_numbers = [t['line_number'] for t in block["turns"]]
-                chunks.append({"content": block_text.strip(), "line_numbers": line_numbers})
-                if medical_logger:
-                    medical_logger.log(
-                        f"Speaker block by {block['speaker']} (lines {min(line_numbers)}-{max(line_numbers)}) "
-                        f"exceeds max_chunk_size ({block_size}/{max_chunk_size}). Creating a standalone, oversized chunk.",
-                        "WARNING"
-                    )
-                continue
-
-            if current_chunk_size + block_size > max_chunk_size and current_chunk_turns:
-                # Finalize the current chunk
-                chunk_content = "".join([f"{t['speaker']}: {t['text']}\n" for t in current_chunk_turns])
-                line_numbers = [t['line_number'] for t in current_chunk_turns]
-                chunks.append({"content": chunk_content.strip(), "line_numbers": line_numbers})
-                
-                # Start a new chunk with the current block
-                current_chunk_turns = block["turns"]
-                current_chunk_size = block_size
-            else:
-                # Add block to the current chunk
-                current_chunk_turns.extend(block["turns"])
-                current_chunk_size += block_size
         
-        # Add the last remaining chunk
-        if current_chunk_turns:
-            chunk_content = "".join([f"{t['speaker']}: {t['text']}\n" for t in current_chunk_turns])
-            line_numbers = [t['line_number'] for t in current_chunk_turns]
-            chunks.append({"content": chunk_content.strip(), "line_numbers": line_numbers})
-
-        if medical_logger:
-            medical_logger.log(f"Completed speaker-aware chunking. Total chunks: {len(chunks)}", "INFO")
+        # Each turn becomes its own chunk to preserve speaker context completely
+        for turn in turns:
+            chunk_content = f"{turn['speaker']}: {turn['text']}"
+            chunk_data = {
+                "content": chunk_content,
+                "line_numbers": [turn['line_number']],
+                "speaker": turn['speaker'],
+                "turn_preserved": True
+            }
+            chunks.append(chunk_data)
+        
+            if medical_logger:
+                    medical_logger.log(
+                f"Created {len(chunks)} speaker-aware chunks (1 per turn) to preserve complete speaker context.",
+                "INFO",
+                details={
+                    "total_turns": len(turns),
+                    "chunks_created": len(chunks),
+                    "strategy": "one_chunk_per_turn"
+                }
+            )
+        
         return chunks
     
     async def store_and_chunk_conversation(

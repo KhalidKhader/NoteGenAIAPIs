@@ -1,9 +1,50 @@
 {
-  "section_id": "section_2e7b7d40",
-  "template_id": 1,
-  "section_name": "Objective",
-  "content": "### Objective\n\n- **Vital Signs:**\n  - Blood pressure: 138/86 mmHg (Line N/A)\n  - Heart rate: 92 beats per minute (Line N/A)\n  - Oxygen saturation: 95% on room air (Line N/A)\n\n- **Physical Exam:**\n  - Bilateral wheezes auscultated in the lung bases (Line N/A)\n\n- **Laboratory Tests:**\n  - Elevated white blood cell count (Line N/A)",
-  "line_references": [],
+  "section_id": "section_509eddb8",
+  "template_id": 2,
+  "section_name": "Visit - 2",
+  "content": "### Visit - 2\n\n- **Chief Complaint:** Sore throat persisting for three days (Line 2).\n- **History of Present Illness:** The patient continues to experience a sore throat, mild fever, and dry cough (Line 4). Pain during swallowing and a sensation of neck swelling are still present (Line 6). The patient remains in contact with a roommate who had a cold last week (Line 8).\n- **Vital Signs:** Temperature remains at 100.8°F (Line 14).\n- **Physical Examination:** Throat examination shows persistent redness and swelling of the tonsils (Line 14).\n- **Assessment:** Viral pharyngitis is still suspected based on ongoing symptoms and physical examination findings (Line 14).\n- **Plan:** The patient is advised to continue rest, maintain increased fluid intake, and use over-the-counter pain relievers. A follow-up is recommended if symptoms worsen, with a potential strep test (Line 14).",
+  "line_references": [
+    {
+      "line_number": 2,
+      "start_char": 12,
+      "end_char": 55,
+      "text": "patient: I've been having a sore throat for the past three days.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 4,
+      "start_char": 12,
+      "end_char": 54,
+      "text": "patient: Yes, I've had a mild fever and a dry cough.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 6,
+      "start_char": 12,
+      "end_char": 85,
+      "text": "patient: Yes, it hurts a bit when I swallow, and I think my neck feels a bit swollen.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 8,
+      "start_char": 12,
+      "end_char": 47,
+      "text": "patient: My roommate had a cold last week.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 14,
+      "start_char": 8,
+      "end_char": 97,
+      "text": "doctor: Your temperature is 100.8°F, and your throat looks red with some swelling of the tonsils.",
+      "speaker": null,
+      "confidence": 1.0
+    }
+  ],
   "snomed_mappings": [
     {
       "concept_id": "267102003",
@@ -438,38 +479,17 @@
       "language": "en"
     }
   ],
-  "confidence_score": 0.1,
+  "confidence_score": 1.0,
   "language": "en",
   "processing_metadata": {
-    "duration_seconds": 3.5982398986816406,
+    "duration_seconds": 4.4954917430877686,
     "model_name": "gpt-4",
-    "context_chars_used": 0,
+    "context_chars_used": 8988,
     "factual_consistency_details": {
-      "factualConsistencyScore": 1,
-      "hallucinationRisk": "HIGH",
-      "issuesFound": [
-        {
-          "statement": "Blood pressure: 138/86 mmHg (Line N/A)",
-          "issue": "Not supported by transcript"
-        },
-        {
-          "statement": "Heart rate: 92 beats per minute (Line N/A)",
-          "issue": "Not supported by transcript"
-        },
-        {
-          "statement": "Oxygen saturation: 95% on room air (Line N/A)",
-          "issue": "Not supported by transcript"
-        },
-        {
-          "statement": "Bilateral wheezes auscultated in the lung bases (Line N/A)",
-          "issue": "Not supported by transcript"
-        },
-        {
-          "statement": "Elevated white blood cell count (Line N/A)",
-          "issue": "Not supported by transcript"
-        }
-      ],
-      "justification": "The generated content contains multiple statements regarding vital signs, physical exam findings, and laboratory tests that are not supported by any evidence in the provided source transcript chunks. Since there is no source transcript provided, all statements are considered unsupported, leading to a low factual consistency score and a high hallucination risk."
+      "factualConsistencyScore": 10,
+      "hallucinationRisk": "LOW",
+      "issuesFound": [],
+      "justification": "All statements in the generated content are directly supported by the source transcript. The chief complaint, history of present illness, vital signs, physical examination, assessment, and plan are all consistent with the information provided in the transcript. Line references are accurate, and there are no unsupported claims or contradictions. Therefore, the factual consistency score is 10, and the hallucination risk is low."
     }
   }
 }

@@ -16,7 +16,6 @@ from langchain_core.messages import HumanMessage, SystemMessage
 
 from src.core.config import settings
 from src.core.logging import get_logger, MedicalProcessingLogger
-from src.core.observability import get_observability_service
 from src.models.api_models import LineReference
 from src.models.api_models import GeneratedSection
 from src.templates.prompts import (
@@ -132,7 +131,12 @@ class MedicalSectionGenerator:
             (current_avg * (total_gens - 1) + duration) / total_gens
         )
     
-    async def _get_factual_consistency_score(self, generated_text: str, context: str) -> (float, Dict[str, Any]):
+    async def _get_factual_consistency_score(
+        self, 
+        generated_text: str, 
+        context: str, 
+        langfuse_handler: Optional[Any] = None
+    ) -> (float, Dict[str, Any]):
         """Uses an LLM call to get a factual consistency score."""
         if not self.llm:
             return 0.5, {} # Default confidence, empty details
@@ -142,7 +146,10 @@ class MedicalSectionGenerator:
             source_chunks=context
         )
         try:
-            response = await self.llm.ainvoke([HumanMessage(content=prompt)])
+            response = await self.llm.ainvoke(
+                [HumanMessage(content=prompt)],
+                config={"callbacks": [langfuse_handler]} if langfuse_handler else None
+            )
             cleaned_content = response.content.strip().strip("`").strip("json").strip()
             
             validation_data = json.loads(cleaned_content)
@@ -162,7 +169,8 @@ class MedicalSectionGenerator:
         self,
         text: str,
         language: str = "en",
-        medical_logger: Optional[MedicalProcessingLogger] = None
+        medical_logger: Optional[MedicalProcessingLogger] = None,
+        langfuse_handler: Optional[Any] = None,
     ) -> List[str]:
         """Extracts medical terms from a given text using an LLM."""
         if not self._initialized or not self.llm:
@@ -188,7 +196,10 @@ class MedicalSectionGenerator:
                 HumanMessage(content=prompt),
             ]
             
-            response = await self.llm.ainvoke(messages)
+            response = await self.llm.ainvoke(
+                messages,
+                config={"callbacks": [langfuse_handler]} if langfuse_handler else None
+            )
             content = response.content
             
             # Clean up the response content
@@ -237,7 +248,8 @@ class MedicalSectionGenerator:
         doctor_preferences: Dict[str, str],
         full_transcript: List[Dict[str, Any]],
         previous_sections_context: str = "",
-        medical_logger: Optional[MedicalProcessingLogger] = None
+        medical_logger: Optional[MedicalProcessingLogger] = None,
+        langfuse_handler: Optional[Any] = None,
     ) -> GeneratedSection:
         """
         DYNAMIC SECTION GENERATION - Handles ANY section type based on prompt.
@@ -247,22 +259,7 @@ class MedicalSectionGenerator:
             await self.initialize()
 
         start_time = time.time()
-        obs_service = await get_observability_service()
         
-        parent_trace = obs_service.active_traces.get(medical_logger.encounter_id)
-        generation_span = None
-
-        if parent_trace:
-            generation_span = parent_trace.generation(
-                name=f"section-generation-{section_name.replace(' ', '-')}",
-                metadata={
-                    "section_name": section_name,
-                    "template_id": template_id,
-                    "language": language,
-                    "total_context_chars": len(conversation_context_text)
-                },
-                tags=["section-generation", language]
-            )
 
         # 1. Prepare context and prompts
         system_prompt = self._get_system_prompt(
@@ -284,8 +281,6 @@ class MedicalSectionGenerator:
             HumanMessage(content=user_prompt),
         ]
         
-        if generation_span:
-            generation_span.update(input=[msg.model_dump() for msg in messages])
 
         # 2. Invoke LLM and process response
         note_content = ""
@@ -293,7 +288,10 @@ class MedicalSectionGenerator:
         llm_response = None
         
         try:
-            llm_response = await self.llm.ainvoke(messages)
+            llm_response = await self.llm.ainvoke(
+                messages,
+                config={"callbacks": [langfuse_handler]} if langfuse_handler else None
+            )
             content = llm_response.content
             
             # Clean and parse the JSON response
@@ -326,20 +324,17 @@ class MedicalSectionGenerator:
                             else:
                                 logger.warning(f"Discarding incomplete line reference from LLM: {ref_data}")
                 
-                if generation_span:
-                    generation_span.update(output=response_data)
+
 
             except (json.JSONDecodeError, TypeError, ValueError) as e:
                 note_content = f"Error: Failed to parse LLM response. Raw output: {cleaned_content}"
                 logger.error(f"Failed to parse LLM response for section '{section_name}': {e}. Raw output: {cleaned_content}")
-                if generation_span:
-                    generation_span.update(output={"error": str(e), "raw_output": cleaned_content}, level="ERROR")
+
 
         except Exception as e:
             note_content = f"Error: Failed to generate section. Raw output was not received from LLM."
             logger.error(f"Failed to generate section '{section_name}': {str(e)}")
-            if generation_span:
-                generation_span.update(output={"error": str(e)}, level="ERROR")
+
 
         # 3. Finalize section object and update stats
         duration = time.time() - start_time
@@ -347,26 +342,12 @@ class MedicalSectionGenerator:
         self._update_stats(duration, success)
         
         # 4. Perform factual consistency check
-        consistency_score, consistency_details = await self._get_factual_consistency_score(note_content, conversation_context_text)
+        consistency_score, consistency_details = await self._get_factual_consistency_score(
+            note_content, 
+            conversation_context_text, 
+            langfuse_handler
+        )
         
-        if generation_span:
-            obs_service.score_trace(
-                trace_id=parent_trace.id,
-                name="factual-consistency",
-                value=consistency_score,
-                comment=json.dumps(consistency_details.get("justification", {}))
-            )
-
-        # 5. Log usage and end the generation span
-        if generation_span and llm_response and llm_response.response_metadata and 'token_usage' in llm_response.response_metadata:
-            usage = llm_response.response_metadata['token_usage']
-            prompt_tokens = usage.get('prompt_tokens', 0)
-            completion_tokens = usage.get('completion_tokens', 0)
-            obs_service.log_llm_usage(prompt_tokens, completion_tokens)
-            generation_span.end(usage=usage, metadata={"parsed_successfully": success, "factual_consistency": consistency_details})
-        elif generation_span:
-            generation_span.end(metadata={"parsed_successfully": success, "factual_consistency": consistency_details})
-
 
         final_section = GeneratedSection(
             section_id=f"section_{uuid.uuid4().hex[:8]}",

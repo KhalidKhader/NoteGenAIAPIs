@@ -1,0 +1,70 @@
+{
+  "section_id": "section_021b791e",
+  "template_id": 2,
+  "section_name": "Visit - 1",
+  "content": "### Visit - 1\n\n- **Chief Complaint:** The patient presents with a sore throat lasting for three days (Line 2).\n\n- **History of Present Illness:**\n  - The patient reports additional symptoms including a mild fever and dry cough (Line 4).\n  - The patient experiences difficulty swallowing and a sensation of swollen glands in the neck (Line 6).\n  - The patient has been in contact with a roommate who had a cold last week (Line 8).\n\n- **Physical Examination:**\n  - Temperature recorded at 100.8°F (Line 14).\n  - Throat examination reveals redness and swelling of the tonsils (Line 14).\n\n- **Assessment:**\n  - Viral Pharyngitis: Based on symptoms and physical examination findings, the patient is assessed with viral pharyngitis (Line 14).\n\n- **Plan:**\n  - Rest and hydration are advised to alleviate symptoms (Line 14).\n  - Over-the-counter pain relievers are recommended for discomfort management (Line 14).\n  - Follow-up is suggested if symptoms worsen, with a potential strep test (Line 14).",
+  "line_references": [
+    {
+      "line_number": 2,
+      "start_char": 10,
+      "end_char": 55,
+      "text": "patient: I've been having a sore throat for the past three days.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 4,
+      "start_char": 10,
+      "end_char": 54,
+      "text": "patient: Yes, I've had a mild fever and a dry cough.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 6,
+      "start_char": 10,
+      "end_char": 84,
+      "text": "patient: Yes, it hurts a bit when I swallow, and I think my neck feels a bit swollen.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 8,
+      "start_char": 10,
+      "end_char": 45,
+      "text": "patient: My roommate had a cold last week.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 14,
+      "start_char": 8,
+      "end_char": 94,
+      "text": "doctor: Your temperature is 100.8°F, and your throat looks red with some swelling of the tonsils.",
+      "speaker": null,
+      "confidence": 1.0
+    },
+    {
+      "line_number": 14,
+      "start_char": 8,
+      "end_char": 166,
+      "text": "doctor: It looks like a viral pharyngitis. I'll recommend rest, fluids, and over-the-counter pain relievers. If it gets worse in a few days, come back for a strep test.",
+      "speaker": null,
+      "confidence": 1.0
+    }
+  ],
+  "snomed_mappings": [],
+  "confidence_score": 1.0,
+  "language": "en",
+  "processing_metadata": {
+    "duration_seconds": 5.830556869506836,
+    "model_name": "gpt-4",
+    "context_chars_used": 8988,
+    "factual_consistency_details": {
+      "factualConsistencyScore": 10,
+      "hallucinationRisk": "LOW",
+      "issuesFound": [],
+      "justification": "All statements in the generated content are directly supported by the source transcript. The chief complaint, history of present illness, physical examination findings, assessment, and plan are accurately reflected in the transcript. Line references are not explicitly provided in the source transcript, but the content matches the conversation accurately. Therefore, there are no issues found, and the factual consistency is perfect, resulting in a low hallucination risk."
+    }
+  }
+}

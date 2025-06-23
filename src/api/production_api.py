@@ -21,7 +21,8 @@ from typing import Dict, Any
 from fastapi import APIRouter, HTTPException, BackgroundTasks
 
 from src.core.logging import get_logger, create_medical_logger
-from src.core.observability import get_observability_service
+from src.core.observability import get_langfuse_handler
+from src.core.config import settings
 from src.models.api_models import (
     EncounterRequestModel,
     JobAcknowledgementResponse,
@@ -30,51 +31,13 @@ from src.models.api_models import (
 from src.services.conversation_rag import ConversationRAGService, get_conversation_rag_service
 from src.services.snomed_rag import SNOMEDRAGService, get_snomed_rag_service
 from src.services.section_generator import MedicalSectionGenerator, get_soap_generator_service
+from src.services.nestjs_integration import NestJSIntegrationService, get_nestjs_integration_service
 
 router = APIRouter()
 logger = get_logger(__name__)
 
 # In-memory job tracking
 production_jobs: Dict[str, Dict[str, Any]] = {}
-
-@router.post(
-    "/process-encounter",
-    response_model=JobAcknowledgementResponse,
-    summary="Process Complete Encounter for Multi-Template Extraction",
-    description="""
-    This production-ready endpoint orchestrates the entire asynchronous workflow 
-    for processing a medical encounter and generating multiple template-based sections.
-    """
-)
-async def process_encounter(
-    request: EncounterRequestModel,
-    background_tasks: BackgroundTasks
-) -> JobAcknowledgementResponse:
-    """
-    Accepts an encounter, starts a background job for processing, and returns an immediate acknowledgement.
-    """
-    job_id = f"job_{request.encounterId}_{uuid.uuid4().hex[:8]}"
-    logger.info(f"Accepted job {job_id} for encounter {request.encounterId}.")
-
-    production_jobs[job_id] = {
-        "status": "QUEUED",
-        "started_at": datetime.utcnow().isoformat(),
-        "encounter_id": request.encounterId,
-        "total_sections": len(request.sections)
-    }
-
-    background_tasks.add_task(
-        _run_encounter_processing_pipeline,
-        request=request,
-        job_id=job_id,
-    )
-    
-    return JobAcknowledgementResponse(
-        job_id=job_id,
-        status="QUEUED",
-        message="Encounter processing has been queued.",
-        encounter_id=request.encounterId
-    )
 
 async def _run_encounter_processing_pipeline(
     request: EncounterRequestModel,
@@ -92,21 +55,18 @@ async def _run_encounter_processing_pipeline(
     medical_logger = create_medical_logger(encounter_id, output_dir)
     production_jobs[job_id]['status'] = 'PROCESSING'
     
-    obs_service = await get_observability_service()
-    trace = obs_service.start_medical_encounter_trace(
-        conversation_id=encounter_id,
-        doctor_id=request.doctorId,
-        language=request.language,
-        metadata={"job_id": job_id}
-    )
-
+    # Create a single handler for the entire pipeline.
+    # This handler will be flushed at the end to ensure all data is sent.
+    langfuse_handler = get_langfuse_handler(encounter_id)
+    
     try:
-        medical_logger.log(f"🚀 Starting processing pipeline for job {job_id}", "INFO", details={"trace_id": trace.id if trace else 'N/A'})
+        medical_logger.log(f"🚀 Starting processing pipeline for job {job_id}", "INFO", details={"encounter_id": encounter_id})
 
         # STEP 1 & 2: Get service instances
         convo_rag: ConversationRAGService = await get_conversation_rag_service()
         snomed_rag: SNOMEDRAGService = await get_snomed_rag_service()
         section_generator: MedicalSectionGenerator = await get_soap_generator_service()
+        nestjs_service: NestJSIntegrationService = await get_nestjs_integration_service()
 
         # STEP 3: Store conversation and get chunk IDs
         medical_logger.log("Storing and chunking conversation.", "INFO")
@@ -131,7 +91,10 @@ async def _run_encounter_processing_pipeline(
         full_transcript_text = "\\n".join(transcript_lines)
         
         all_medical_terms = await section_generator.extract_medical_terms_with_llm(
-            full_transcript_text, request.language, medical_logger
+            full_transcript_text, 
+            request.language, 
+            medical_logger,
+            langfuse_handler=langfuse_handler
         )
         
         # STEP 5: Get comprehensive SNOMED context once
@@ -179,26 +142,46 @@ async def _run_encounter_processing_pipeline(
                         doctor_preferences=doctor_preferences,
                         full_transcript=request.encounterTranscript,
                         previous_sections_context="\\n---\\n".join(generated_sections_context),
-                        medical_logger=medical_logger
+                        medical_logger=medical_logger,
+                        langfuse_handler=langfuse_handler
                     )
                     
                     if not generated_content.content.startswith("Error:"):
                         medical_logger.log(f"✅ Successfully generated and saved section '{section_name}' on attempt {attempt + 1}.", "INFO")
                         generated_sections_context.append(f"Section: {section_name}\\nContent: {generated_content.content}")
-                        if trace:
-                            trace.update(metadata={**trace.metadata, f"section_{section_name}_status": "Success"})
-                    else:
-                        medical_logger.log(f"❌ Generation resulted in an error for section '{section_name}'.", "ERROR", details={"error_content": generated_content.content})
-                        if trace:
-                            trace.update(metadata={**trace.metadata, f"section_{section_name}_status": "Failed"})
 
                     # Save the generated section to a file
                     section_output_path = sections_dir / f"{section_name.replace(' ', '_')}.json"
                     with open(section_output_path, 'w', encoding='utf-8') as f:
                         json.dump(generated_content.model_dump(), f, indent=2, ensure_ascii=False)
                     
-                    # If successful, break the retry loop
+                    # Send to NestJS immediately after successful generation
                     if not generated_content.content.startswith("Error:"):
+                        medical_logger.log(f"🚀 Sending section '{section_name}' to NestJS", "INFO")
+                        
+                        # Send the section to NestJS
+                        nestjs_response = await nestjs_service.send_generated_section(
+                            encounter_id=encounter_id,
+                            section_id=section_to_generate.id,
+                            note_content=generated_content.content,
+                            clinic_id=request.clinicId,
+                            job_id=job_id,
+                            medical_logger=medical_logger
+                        )
+                        
+                        if nestjs_response.get("success"):
+                            medical_logger.log(
+                                f"✅ Successfully sent section '{section_name}' to NestJS",
+                                "INFO",
+                                details=nestjs_response
+                            )
+                        else:
+                            medical_logger.log(
+                                f"❌ Failed to send section '{section_name}' to NestJS: {nestjs_response.get('error')}",
+                                "ERROR",
+                                details=nestjs_response
+                            )
+                        
                         break
                 
                 except Exception as e:
@@ -214,16 +197,61 @@ async def _run_encounter_processing_pipeline(
 
         production_jobs[job_id]['status'] = 'COMPLETED'
         medical_logger.log("✅ Encounter processing pipeline completed successfully.", "INFO")
-        if trace:
-            obs_service.finish_medical_encounter_trace(encounter_id, success=True, final_status="COMPLETED")
-
+        
     except Exception as e:
         production_jobs[job_id]['status'] = 'FAILED'
         error_message = f"Encounter processing pipeline failed: {str(e)}"
         medical_logger.log(f"🔥 {error_message}", "ERROR", details={"error_type": type(e).__name__})
         logger.error(error_message, exc_info=True)
-        if trace:
-            obs_service.finish_medical_encounter_trace(encounter_id, success=False, final_status="FAILED")
+        
+    finally:
+        # Ensure the handler is flushed to send all buffered data.
+        if langfuse_handler:
+            logger.info(f"Flushing Langfuse handler for encounter {encounter_id}")
+            langfuse_handler.flush()
+
+@router.post(
+    "/generate-notes",
+    response_model=JobAcknowledgementResponse,
+    summary="Generate Notes from NestJS (Main Endpoint)",
+    description="""
+    This is the main endpoint that NestJS calls to generate medical notes.
+    It processes the encounter and sends sections back to NestJS as they're completed.
+    All LLM requests are automatically traced with Langfuse for observability.
+    """
+)
+async def generate_notes(
+    request: EncounterRequestModel,
+    background_tasks: BackgroundTasks
+) -> JobAcknowledgementResponse:
+    """
+    Main endpoint for NestJS integration. Generates notes and sends them back to NestJS.
+    This endpoint matches the expected flow from the story requirements.
+    
+    Features:
+    - Full Langfuse observability for all LLM requests
+    - Real-time section delivery to NestJS
+    - Comprehensive medical logging and tracing
+    - SNOMED validation and doctor preferences
+    """
+    job_id = f"notes_{request.encounterId}_{str(uuid.uuid4())[:8]}"
+    
+    logger.info(f"🚀 Starting notes generation job {job_id} for encounter {request.encounterId}")
+
+    production_jobs[job_id] = {"status": "QUEUED"}
+    
+    background_tasks.add_task(
+        _run_encounter_processing_pipeline,
+        request=request,
+        job_id=job_id,
+    )
+    
+    return JobAcknowledgementResponse(
+        job_id=job_id,
+        status="QUEUED",
+        encounter_id=request.encounterId,
+        message="Encounter processing has been queued."
+    )
 
 @router.get(
     "/extract/jobs/{job_id}/status",
