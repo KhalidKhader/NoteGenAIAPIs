@@ -56,7 +56,6 @@ cover/
 *.pot
 
 # Django stuff:
-*.log
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
@@ -121,12 +120,9 @@ celerybeat.pid
 
 # Environments
 .env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+.env.*
+!.env.example
+.venv/
 
 # Spyder project settings
 .spyderproject
@@ -234,8 +230,6 @@ neo4j_data/
 neo4j_logs/
 
 # Logs
-logs/
-*.log
 
 # Temporary files
 tmp/
@@ -285,4 +279,8 @@ htmlcov/
 # Profiling data
 *.prof
 
-.windsurf/rules
+.cursor/
+
+# Local data
+/generated_notes
+/conversation_rag_db

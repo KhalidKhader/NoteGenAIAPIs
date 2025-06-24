@@ -356,3 +356,22 @@ curl http://localhost:8000/health
 ---
 
 **Status**: ✅ All tests passing (53/53) | Production-ready medical SOAP generation microservice
+
+## 🐳 Docker Deployment
+
+To build and run this service as a Docker container, follow these steps:
+
+1.  **Build the Docker Image:**
+    Use the `make` command to build the image. This will use the `Dockerfile` in the root of the project.
+
+    ```bash
+    make docker-build
+    ```
+
+2.  **Run the Docker Container:**
+    After the image is built, you can run it as a container. Make sure you have a `.env` file with the required environment variables in the root of the project, as it will be passed to the container.
+
+    ```bash
+    make docker-run
+    ```
+    The application will be available at `http://localhost:8000`.

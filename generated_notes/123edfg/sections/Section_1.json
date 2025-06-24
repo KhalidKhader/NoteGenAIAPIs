@@ -1,46 +1,46 @@
 {
-  "section_id": "section_69c64281",
+  "section_id": "section_242725fc",
   "template_id": 3,
   "section_name": "Section 1",
-  "content": "### Section 1\n\n- **Chief Complaint:** Sore throat for the past three days (Line 2).\n- **History of Present Illness:** The patient reports a sore throat lasting three days, accompanied by a mild fever and dry cough (Line 4). The patient experiences pain when swallowing and a sensation of a swollen neck (Line 6). The patient has been in contact with a roommate who had a cold last week (Line 8).\n- **Vital Signs:** Temperature recorded at 100.8°F (Line 14).\n- **Physical Examination:** Throat examination reveals redness and swelling of the tonsils (Line 14).\n- **Assessment:** Viral pharyngitis is suspected based on symptoms and physical examination findings (Line 14).\n- **Plan:** The patient is advised to rest, increase fluid intake, and use over-the-counter pain relievers. A follow-up is recommended if symptoms worsen, with a potential strep test (Line 14).",
+  "content": "### Section 1\n\n**Chief Complaint:**\nThe patient presents with a sore throat lasting for three days.\n\n**History of Present Illness:**\nThe patient reports additional symptoms including a mild fever and dry cough. The patient experiences pain when swallowing and a sensation of neck swelling. The patient has been in contact with a roommate who had a cold last week.\n\n**Physical Examination:**\nTemperature recorded at 100.8°F. Examination of the throat reveals redness and swelling of the tonsils.\n\n**Assessment:**\nThe patient is diagnosed with viral pharyngitis.\n\n**Plan:**\n1. Rest and increase fluid intake.\n2. Use over-the-counter pain relievers as needed.\n3. Return for a strep test if symptoms worsen.",
   "line_references": [
     {
       "line_number": 2,
-      "start_char": 10,
-      "end_char": 53,
-      "text": "patient: I've been having a sore throat for the past three days.",
+      "start_char": 23,
+      "end_char": 66,
+      "text": "I've been having a sore throat for the past three days.",
       "speaker": null,
       "confidence": 1.0
     },
     {
       "line_number": 4,
       "start_char": 10,
-      "end_char": 54,
-      "text": "patient: Yes, I've had a mild fever and a dry cough.",
+      "end_char": 50,
+      "text": "Yes, I've had a mild fever and a dry cough.",
       "speaker": null,
       "confidence": 1.0
     },
     {
       "line_number": 6,
       "start_char": 10,
-      "end_char": 84,
-      "text": "patient: Yes, it hurts a bit when I swallow, and I think my neck feels a bit swollen.",
+      "end_char": 80,
+      "text": "Yes, it hurts a bit when I swallow, and I think my neck feels a bit swollen.",
       "speaker": null,
       "confidence": 1.0
     },
     {
       "line_number": 8,
-      "start_char": 10,
-      "end_char": 47,
-      "text": "patient: My roommate had a cold last week.",
+      "start_char": 0,
+      "end_char": 34,
+      "text": "My roommate had a cold last week.",
       "speaker": null,
       "confidence": 1.0
     },
     {
       "line_number": 14,
-      "start_char": 9,
-      "end_char": 95,
-      "text": "doctor: Your temperature is 100.8°F, and your throat looks red with some swelling of the tonsils.",
+      "start_char": 0,
+      "end_char": 88,
+      "text": "Your temperature is 100.8°F, and your throat looks red with some swelling of the tonsils.",
       "speaker": null,
       "confidence": 1.0
     }
@@ -482,14 +482,14 @@
   "confidence_score": 1.0,
   "language": "en",
   "processing_metadata": {
-    "duration_seconds": 41.884344816207886,
+    "duration_seconds": 50.48005509376526,
     "model_name": "gpt-4",
     "context_chars_used": 8988,
     "factual_consistency_details": {
       "factualConsistencyScore": 10,
       "hallucinationRisk": "LOW",
       "issuesFound": [],
-      "justification": "All statements in the generated content are directly supported by the source transcript. The line references, although not explicitly numbered in the transcript, align with the order of information presented. There are no unsupported claims or contradictions, indicating a high level of factual consistency and a low risk of hallucination."
+      "justification": "The generated content is perfectly consistent with the source transcript. Every statement in the generated content is directly supported by the source transcript. The chief complaint, history of present illness, physical examination findings, assessment, and plan are all accurately reflected in the transcript. There are no unsupported statements or contradictions, leading to a high factual consistency score and a low hallucination risk."
     }
   }
 }

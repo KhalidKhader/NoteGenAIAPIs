@@ -5,13 +5,10 @@ This service handles communication with the NestJS backend to send generated
 medical sections and manage the integration workflow.
 """
 
-import json
 import asyncio
 from typing import Dict, Any, Optional
-from datetime import datetime
 
 import httpx
-from src.core.config import settings
 from src.core.logging import get_logger, MedicalProcessingLogger
 
 logger = get_logger(__name__)

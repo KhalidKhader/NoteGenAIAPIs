@@ -113,75 +113,80 @@ async def story_requirements_check():
     try:
         requirements_status = {}
         
-        # Requirement 1: Long transcript handling
-        try:
-            conversation_rag = await get_conversation_rag_service()
-            health = await conversation_rag.health_check()
-            requirements_status["long_transcript_handling"] = {
-                "status": "✅ PASS" if health.get("status") == "healthy" else "❌ FAIL",
-                "details": "Chunking and OpenSearch storage operational",
-                "service": "AWS OpenSearch RAG"
-            }
-        except Exception:
-            requirements_status["long_transcript_handling"] = {
-                "status": "❌ FAIL",
-                "details": "OpenSearch RAG service unavailable",
-                "service": "AWS OpenSearch RAG"
-            }
+        # --- Service Availability Checks ---
+        conversation_rag_service = None
+        snomed_rag_service = None
         
-        # Requirement 2: Line number referencing
         try:
-            conversation_rag = await get_conversation_rag_service()
-            
-            # Line referencing is operational if conversation RAG is healthy
-            # (This is the core service that handles line number preservation)
-            rag_health = await conversation_rag.health_check()
-            
-            line_ref_operational = rag_health.get("status") == "healthy"
-            
-            requirements_status["line_referencing"] = {
-                "status": "✅ PASS" if line_ref_operational else "❌ FAIL",
-                "details": "Line extraction and referencing implemented with precise tracking",
-                "service": "Conversation RAG (Line Preservation)"
-            }
-        except Exception:
-            requirements_status["line_referencing"] = {
-                "status": "✅ PASS",  # Default to PASS since line referencing is implemented
-                "details": "Line extraction and referencing implemented (service check failed)",
-                "service": "Conversation RAG (Line Preservation)"
-            }
+            conversation_rag_service = await get_conversation_rag_service()
+        except Exception as e:
+            logger.warning(f"Health check could not connect to Conversation RAG service: {e}")
         
-        # Requirement 3: Hallucination prevention
         try:
-            snomed_rag = await get_snomed_rag_service()
-            health = await snomed_rag.health_check()
-            requirements_status["hallucination_prevention"] = {
-                "status": "✅ PASS" if health.get("status") == "healthy" else "❌ FAIL",
-                "details": "SNOMED validation and medical term verification",
-                "service": "Neo4j SNOMED RAG"
-            }
-        except Exception:
+            snomed_rag_service = await get_snomed_rag_service()
+        except Exception as e:
+            logger.warning(f"Health check could not connect to SNOMED RAG service: {e}")
+            
+        # --- Requirement 1 & 2: Conversation RAG (Chunking & Line Referencing) ---
+        if conversation_rag_service:
+            try:
+                health = await conversation_rag_service.health_check()
+                is_healthy = health.get("status") == "healthy"
+                requirements_status["long_transcript_handling"] = {
+                    "status": "✅ PASS" if is_healthy else "❌ FAIL",
+                    "details": "Chunking and OpenSearch storage operational",
+                    "service": "AWS OpenSearch RAG"
+                }
+                requirements_status["line_referencing"] = {
+                    "status": "✅ PASS" if is_healthy else "❌ FAIL",
+                    "details": "Line extraction and referencing implemented with precise tracking",
+                    "service": "Conversation RAG (Line Preservation)"
+                }
+            except Exception as e:
+                fail_details = {"status": "❌ FAIL", "service": "AWS OpenSearch RAG"}
+                requirements_status["long_transcript_handling"] = {**fail_details, "details": f"Health check failed: {e}"}
+                requirements_status["line_referencing"] = {**fail_details, "details": f"Health check failed: {e}", "service": "Conversation RAG (Line Preservation)"}
+        else:
+            fail_details = {"status": "❌ FAIL", "service": "AWS OpenSearch RAG"}
+            requirements_status["long_transcript_handling"] = {**fail_details, "details": "OpenSearch RAG service unavailable"}
+            requirements_status["line_referencing"] = {**fail_details, "details": "OpenSearch RAG service unavailable", "service": "Conversation RAG (Line Preservation)"}
+
+        # --- Requirement 3: Hallucination Prevention (SNOMED) ---
+        if snomed_rag_service:
+            try:
+                health = await snomed_rag_service.health_check()
+                is_healthy = health.get("status") == "healthy"
+                requirements_status["hallucination_prevention"] = {
+                    "status": "✅ PASS" if is_healthy else "❌ FAIL",
+                    "details": "SNOMED validation and medical term verification",
+                    "service": "Neo4j SNOMED RAG"
+                }
+            except Exception as e:
+                 requirements_status["hallucination_prevention"] = {
+                    "status": "❌ FAIL",
+                    "details": f"Health check failed: {e}",
+                    "service": "Neo4j SNOMED RAG"
+                }
+        else:
             requirements_status["hallucination_prevention"] = {
                 "status": "❌ FAIL",
                 "details": "SNOMED RAG service unavailable",
                 "service": "Neo4j SNOMED RAG"
             }
         
-        # Requirement 4: Multi-language support
+        # --- Requirement 4: Multi-language support ---
         requirements_status["multilingual_support"] = {
             "status": "✅ PASS",
             "details": "English and French medical terminology support",
             "service": "Template System"
         }
         
-        # Requirement 5: Multi-RAG integration
-        rag_services_healthy = 0
-        total_rag_services = 2  # OpenSearch + Neo4j
-        
-        if requirements_status["long_transcript_handling"]["status"] == "✅ PASS":
-            rag_services_healthy += 1
-        if requirements_status["hallucination_prevention"]["status"] == "✅ PASS":
-            rag_services_healthy += 1
+        # --- Requirement 5: Multi-RAG integration ---
+        rag_services_healthy = sum(
+            1 for key in ["long_transcript_handling", "hallucination_prevention"]
+            if requirements_status.get(key, {}).get("status") == "✅ PASS"
+        )
+        total_rag_services = 2
             
         requirements_status["multi_rag_integration"] = {
             "status": "✅ PASS" if rag_services_healthy == total_rag_services else "❌ FAIL",

@@ -22,7 +22,6 @@ except ImportError:
 
 from src.core.config import settings
 from src.core.logging import setup_logging, get_logger
-from src.api import health, production_api
 
 from src.api.health import router as health_router
 from src.api.production_api import router as production_router
@@ -78,5 +77,3 @@ async def startup_event():
 # Include routers
 app.include_router(health_router, prefix="/health", tags=["System Health"])
 app.include_router(production_router, tags=["Medical Note Generation"])
-
-

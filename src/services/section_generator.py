@@ -16,6 +16,11 @@ from langchain_core.messages import HumanMessage, SystemMessage
 
 from src.core.config import settings
 from src.core.logging import get_logger, MedicalProcessingLogger
+from src.core.observability import (
+    track_medical_generation_metrics,
+    add_medical_score,
+    create_medical_trace_context
+)
 from src.models.api_models import LineReference
 from src.models.api_models import GeneratedSection
 from src.templates.prompts import (
@@ -135,7 +140,8 @@ class MedicalSectionGenerator:
         self, 
         generated_text: str, 
         context: str, 
-        langfuse_handler: Optional[Any] = None
+        langfuse_handler: Optional[Any] = None,
+        conversation_id: Optional[str] = None
     ) -> (float, Dict[str, Any]):
         """Uses an LLM call to get a factual consistency score."""
         if not self.llm:
@@ -171,6 +177,7 @@ class MedicalSectionGenerator:
         language: str = "en",
         medical_logger: Optional[MedicalProcessingLogger] = None,
         langfuse_handler: Optional[Any] = None,
+        conversation_id: Optional[str] = None,
     ) -> List[str]:
         """Extracts medical terms from a given text using an LLM."""
         if not self._initialized or not self.llm:
@@ -250,6 +257,8 @@ class MedicalSectionGenerator:
         previous_sections_context: str = "",
         medical_logger: Optional[MedicalProcessingLogger] = None,
         langfuse_handler: Optional[Any] = None,
+        conversation_id: Optional[str] = None,
+        doctor_id: Optional[str] = None,
     ) -> GeneratedSection:
         """
         DYNAMIC SECTION GENERATION - Handles ANY section type based on prompt.
@@ -282,10 +291,24 @@ class MedicalSectionGenerator:
         ]
         
 
-        # 2. Invoke LLM and process response
+        # 2. Invoke LLM and process response with enhanced tracing
         note_content = ""
         validated_references = []
-        llm_response = None
+        
+        # Create section-specific trace for this generation
+        if conversation_id:
+            trace = create_medical_trace_context(
+                name=f"section_generation_{section_name}",
+                conversation_id=conversation_id,
+                doctor_id=doctor_id,
+                section_type=section_name,
+                template_type=template_id,
+                metadata={
+                    "prompt_length": len(system_prompt) + len(user_prompt),
+                    "has_snomed_context": bool(snomed_context),
+                    "has_previous_context": bool(previous_sections_context)
+                }
+            )
         
         try:
             llm_response = await self.llm.ainvoke(
@@ -341,12 +364,63 @@ class MedicalSectionGenerator:
         success = not note_content.startswith("Error:")
         self._update_stats(duration, success)
         
-        # 4. Perform factual consistency check
+        # Update trace with results
+        if conversation_id and 'trace' in locals():
+            trace.update(
+                output={
+                    "success": success,
+                    "section_content_length": len(note_content),
+                    "line_references_count": len(validated_references),
+                    "generation_time": duration
+                },
+                metadata={
+                    "model_used": self.llm.model_name if self.llm else "unknown",
+                    "final_success": success
+                }
+            )
+        
+        # 4. Perform factual consistency check and add medical scores
         consistency_score, consistency_details = await self._get_factual_consistency_score(
             note_content, 
             conversation_context_text, 
-            langfuse_handler
+            langfuse_handler,
+            conversation_id
         )
+        
+        # Track medical generation metrics and add scores
+        if conversation_id:
+            track_medical_generation_metrics(
+                conversation_id=conversation_id,
+                section_type=section_name,
+                generation_time=duration,
+                token_usage={},  # Token usage tracked by Langfuse handler
+                success=success,
+                error_message=None if success else "Generation failed"
+            )
+            
+            # Add medical scores to trace if available
+            if 'trace' in locals() and trace:
+                add_medical_score(
+                    trace_id=trace.id,
+                    score_name="factual_consistency",
+                    score_value=consistency_score,
+                    comment="Factual consistency score for generated section",
+                    metadata={
+                        "section_type": section_name,
+                        "template_id": template_id,
+                        "consistency_details": consistency_details
+                    }
+                )
+                
+                # Add performance score
+                performance_score = min(1.0, max(0.0, 1.0 - (duration / 30.0)))  # Normalize based on 30s max
+                add_medical_score(
+                    trace_id=trace.id,
+                    score_name="generation_performance",
+                    score_value=performance_score,
+                    comment=f"Generation performance (time: {duration:.2f}s)",
+                    metadata={"generation_time": duration, "section_type": section_name}
+                )
         
 
         final_section = GeneratedSection(

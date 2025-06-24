@@ -111,14 +111,6 @@ class ContextualLogger:
         self.logger = logging.getLogger(name)
         self._context: Dict[str, Any] = {}
     
-    def set_context(self, **kwargs) -> None:
-        """Set context for subsequent log messages."""
-        self._context.update(kwargs)
-    
-    def clear_context(self) -> None:
-        """Clear logging context."""
-        self._context.clear()
-    
     def _log_with_context(self, level: int, message: str, *args, **kwargs) -> None:
         """Log message with context."""
         extra = kwargs.get('extra', {})
@@ -232,79 +224,8 @@ class MedicalProcessingLogger:
         # Update detailed JSON log
         self.detailed_log["processing_steps"].append(step_info)
         self._save_detailed_log()
+
     
-    def log_conversation_storage(self, conversation_id: str, details: Dict[str, Any]):
-        """Log conversation storage details."""
-        self.log_step(
-            "CONVERSATION_STORAGE",
-            f"Storing conversation {conversation_id} with speaker-aware chunking",
-            {
-                "conversation_id": conversation_id,
-                "total_speaker_turns": details.get("total_speaker_turns", 0),
-                "total_chunks_created": details.get("total_chunks_created", 0),
-                "conversation_length_chars": details.get("conversation_length_chars", 0),
-                "storage_method": "AWS_OPENSEARCH_SPEAKER_AWARE",
-                "chunking_strategy": "PRESERVE_SPEAKER_TURNS",
-                "line_numbers_preserved": details.get("line_numbers_preserved", True)
-            }
-        )
-        
-        self.detailed_log["conversation_storage"] = details
-        self._save_detailed_log()
-    
-    def log_llm_call(self, call_type: str, details: Dict[str, Any]):
-        """Log a call to Azure OpenAI."""
-        timestamp = datetime.utcnow().isoformat()
-        
-        # Basic details for text log
-        prompt_length = len(details.get("prompt", ""))
-        log_details = f"LLM call '{call_type}' with prompt length {prompt_length}"
-
-        self.log_step(f"LLM_{call_type.upper()}_START", log_details, details)
-        
-        # Detailed log for JSON
-        self.detailed_log["azure_openai_calls"].append({
-            "call_type": call_type,
-            "timestamp": timestamp,
-            "request_details": details
-        })
-        self._save_detailed_log()
-
-
-    def log_llm_response(self, call_type: str, response: Any):
-        """Log a response from Azure OpenAI."""
-        timestamp = datetime.utcnow().isoformat()
-        
-        response_details = {
-            "call_type": call_type,
-            "timestamp": timestamp,
-            "response": response
-        }
-        
-        self.log_step(f"LLM_{call_type.upper()}_COMPLETED", f"Received response for LLM call '{call_type}'", response_details)
-        
-        # Find the corresponding request and add the response
-        for call in reversed(self.detailed_log["azure_openai_calls"]):
-            if call["call_type"] == call_type and "response_details" not in call:
-                call["response_details"] = response_details
-                break
-        self._save_detailed_log()
-
-    def log_neo4j_query(self, query_type: str, details: Dict[str, Any]):
-        """Logs a query to the Neo4j database."""
-        timestamp = datetime.utcnow().isoformat()
-        self.detailed_log['neo4j_queries'].append({
-            "query_type": query_type,
-            "timestamp": timestamp,
-            "details": details
-        })
-        self.log_step(
-            f"NEO4J_{query_type.upper()}_QUERY",
-            f"Executing Neo4j query: {query_type}",
-            details
-        )
-        self._save_detailed_log()
-
     def log_neo4j_mapping(self, original_term: str, snomed_result: Dict[str, Any]):
         """Log a successful SNOMED mapping."""
         
@@ -344,58 +265,6 @@ class MedicalProcessingLogger:
         self.detailed_log['section_generations'].append(generation_details)
         self._save_detailed_log()
 
-
-    def log_file_operation(self, operation: str, file_path: str, details: Dict[str, Any]):
-        """Log a file operation."""
-        op_details = {
-            "operation": operation,
-            "file_path": file_path,
-            **details
-        }
-        self.file_operations.append(op_details)
-        self.log_step(
-            f"FILE_{operation.upper()}",
-            f"Performed '{operation}' on {file_path}",
-            op_details
-        )
-
-    def log_performance_metric(self, metric_name: str, value: float, unit: str = "seconds"):
-        """Log a performance metric."""
-        self.performance_metrics[metric_name] = {"value": value, "unit": unit}
-        self.log_step(
-            "PERFORMANCE_METRIC",
-            f"Recorded performance metric '{metric_name}': {value:.4f} {unit}",
-            self.performance_metrics[metric_name]
-        )
-
-    def finalize_processing(self, total_sections: int, successful_sections: int, failed_sections: int):
-        """Finalize processing and log summary."""
-        end_time = time.time()
-        total_duration = end_time - self.start_time
-        
-        summary = {
-            "total_processing_time_seconds": total_duration,
-            "total_sections_processed": total_sections,
-            "successful_sections": successful_sections,
-            "failed_sections": failed_sections,
-            "status": "COMPLETED" if failed_sections == 0 else "PARTIALLY_FAILED" if successful_sections > 0 else "FAILED",
-            "end_time": datetime.utcnow().isoformat()
-        }
-        
-        self.log_step("PROCESSING_FINALIZED", "Encounter processing finished.", summary)
-        self.detailed_log["processing_summary"] = summary
-        self._save_detailed_log()
-        
-        summary_message = (
-            f"\n{'='*80}\n"
-            f"🏁 Processing Finished at: {datetime.utcnow().isoformat()}Z\n"
-            f"⏱️ Total Duration: {total_duration:.4f} seconds\n"
-            f"📊 Sections: {successful_sections}/{total_sections} succeeded.\n"
-            f"{'='*80}\n"
-        )
-        self.output_folder.mkdir(parents=True, exist_ok=True)
-        with open(self.processing_log_file, 'a') as f:
-            f.write(summary_message)
 
     def log(self, message: str, level: str = "INFO", **kwargs):
         """

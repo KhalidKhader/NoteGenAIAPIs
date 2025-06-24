@@ -1,13 +1,13 @@
 {
-  "section_id": "section_08f479d6",
+  "section_id": "section_32edb384",
   "template_id": 1,
   "section_name": "Assessment",
-  "content": "### Assessment\n\n- **Viral Pharyngitis:** The patient presents with a sore throat, mild fever, and dry cough, along with difficulty swallowing and swollen glands in the neck. Physical examination reveals a temperature of 100.8°F and a red throat with swollen tonsils, consistent with viral pharyngitis (Line 14). The patient has also been in contact with a roommate who had a cold, supporting a viral etiology (Line 8).",
+  "content": "The patient is assessed with viral pharyngitis, as indicated by the presence of a sore throat, mild fever, dry cough, pain when swallowing, and a sensation of neck swelling. The physical examination revealed a red throat with swelling of the tonsils, and the patient's temperature was recorded at 100.8°F. The patient has been advised to rest, increase fluid intake, and use over-the-counter pain relievers. A follow-up is recommended if symptoms worsen, at which point a strep test may be considered.",
   "line_references": [
     {
       "line_number": 2,
       "start_char": 0,
-      "end_char": 48,
+      "end_char": 47,
       "text": "I've been having a sore throat for the past three days.",
       "speaker": null,
       "confidence": 1.0
@@ -15,7 +15,7 @@
     {
       "line_number": 4,
       "start_char": 0,
-      "end_char": 43,
+      "end_char": 42,
       "text": "Yes, I've had a mild fever and a dry cough.",
       "speaker": null,
       "confidence": 1.0
@@ -29,43 +29,467 @@
       "confidence": 1.0
     },
     {
-      "line_number": 8,
-      "start_char": 0,
-      "end_char": 34,
-      "text": "My roommate had a cold last week.",
-      "speaker": null,
-      "confidence": 1.0
-    },
-    {
       "line_number": 14,
       "start_char": 0,
       "end_char": 89,
       "text": "Your temperature is 100.8°F, and your throat looks red with some swelling of the tonsils.",
       "speaker": null,
       "confidence": 1.0
+    },
+    {
+      "line_number": 16,
+      "start_char": 0,
+      "end_char": 95,
+      "text": "It looks like a viral pharyngitis. I'll recommend rest, fluids, and over-the-counter pain relievers.",
+      "speaker": null,
+      "confidence": 1.0
     }
   ],
-  "snomed_mappings": [],
-  "confidence_score": 0.9,
+  "snomed_mappings": [
+    {
+      "concept_id": "267102003",
+      "preferred_term": "Sore throat",
+      "description": "Sore throat",
+      "original_term": "sore throat",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "386661006",
+      "preferred_term": "Fever",
+      "description": "Fever",
+      "original_term": "fever",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "49727002",
+      "preferred_term": "Cough",
+      "description": "Cough",
+      "original_term": "cough",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "255604002",
+      "preferred_term": "Mild",
+      "description": "Mild",
+      "original_term": "mild fever",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "386661006",
+      "preferred_term": "Fever",
+      "description": "Fever",
+      "original_term": "mild fever",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "16373008",
+      "preferred_term": "Mildew",
+      "description": "Mildew",
+      "original_term": "mild fever",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "186788009",
+      "preferred_term": "Q fever",
+      "description": "Q fever",
+      "original_term": "mild fever",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "21719001",
+      "preferred_term": "Hayfever",
+      "description": "Hayfever",
+      "original_term": "mild fever",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "11833005",
+      "preferred_term": "Dry cough",
+      "description": "Dry cough",
+      "original_term": "dry cough",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "263906002",
+      "preferred_term": "trouble",
+      "description": "trouble",
+      "original_term": "trouble swallowing",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "54731003",
+      "preferred_term": "Swallowing",
+      "description": "Swallowing",
+      "original_term": "trouble swallowing",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "70591005",
+      "preferred_term": "trouble fœtal",
+      "description": "trouble fœtal",
+      "original_term": "trouble swallowing",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "40950007",
+      "preferred_term": "zar (trouble)",
+      "description": "zar (trouble)",
+      "original_term": "trouble swallowing",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "7766007",
+      "preferred_term": "urine trouble",
+      "description": "urine trouble",
+      "original_term": "trouble swallowing",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "274621000",
+      "preferred_term": "No swollen glands",
+      "description": "No swollen glands",
+      "original_term": "swollen glands",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "420974001",
+      "preferred_term": "When",
+      "description": "When",
+      "original_term": "pain when swallowing",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "22253000",
+      "preferred_term": "Pain",
+      "description": "Pain",
+      "original_term": "pain when swallowing",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "226559002",
+      "preferred_term": "pain",
+      "description": "pain",
+      "original_term": "pain when swallowing",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "223680008",
+      "preferred_term": "Spain",
+      "description": "Spain",
+      "original_term": "pain when swallowing",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "36864000",
+      "preferred_term": "Paint",
+      "description": "Paint",
+      "original_term": "pain when swallowing",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "45048000",
+      "preferred_term": "Neck",
+      "description": "Neck",
+      "original_term": "swollen neck",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "25235000",
+      "preferred_term": "Necking",
+      "description": "Necking",
+      "original_term": "swollen neck",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "70070008",
+      "preferred_term": "Wry neck",
+      "description": "Wry neck",
+      "original_term": "swollen neck",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "424683001",
+      "preferred_term": "Wrynecks",
+      "description": "Wrynecks",
+      "original_term": "swollen neck",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "81680005",
+      "preferred_term": "Neck pain",
+      "description": "Neck pain",
+      "original_term": "swollen neck",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "82272006",
+      "preferred_term": "Cold",
+      "description": "Cold",
+      "original_term": "cold",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "246508008",
+      "preferred_term": "Temperature",
+      "description": "Temperature",
+      "original_term": "temperature",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "126662008",
+      "preferred_term": "Red throat",
+      "description": "Red throat",
+      "original_term": "red throat",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "18720000",
+      "preferred_term": "Of",
+      "description": "Of",
+      "original_term": "swelling of the tonsils",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "258712004",
+      "preferred_term": "oF",
+      "description": "oF",
+      "original_term": "swelling of the tonsils",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "420680007",
+      "preferred_term": "Off",
+      "description": "Off",
+      "original_term": "swelling of the tonsils",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "227365007",
+      "preferred_term": "tofu",
+      "description": "tofu",
+      "original_term": "swelling of the tonsils",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "37378003",
+      "preferred_term": "Soft",
+      "description": "Soft",
+      "original_term": "swelling of the tonsils",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "1532007",
+      "preferred_term": "Viral pharyngitis",
+      "description": "Viral pharyngitis",
+      "original_term": "viral pharyngitis",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "258157001",
+      "preferred_term": "Rest",
+      "description": "Rest",
+      "original_term": "rest",
+      "confidence": 0.95,
+      "match_type": "exact",
+      "language": "en"
+    },
+    {
+      "concept_id": "25670009",
+      "preferred_term": "Fetal fluids",
+      "description": "Fetal fluids",
+      "original_term": "fluids",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "17173007",
+      "preferred_term": "Keen for fluids",
+      "description": "Keen for fluids",
+      "original_term": "fluids",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "789022006",
+      "preferred_term": "Refusing fluids",
+      "description": "Refusing fluids",
+      "original_term": "fluids",
+      "confidence": 0.8,
+      "match_type": "contains",
+      "language": "en"
+    },
+    {
+      "concept_id": "22253000",
+      "preferred_term": "Pain",
+      "description": "Pain",
+      "original_term": "over-the-counter pain relievers",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "226559002",
+      "preferred_term": "pain",
+      "description": "pain",
+      "original_term": "over-the-counter pain relievers",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "36864000",
+      "preferred_term": "Paint",
+      "description": "Paint",
+      "original_term": "over-the-counter pain relievers",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "223680008",
+      "preferred_term": "Spain",
+      "description": "Spain",
+      "original_term": "over-the-counter pain relievers",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "5007006",
+      "preferred_term": "Papain",
+      "description": "Papain",
+      "original_term": "over-the-counter pain relievers",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "272393004",
+      "preferred_term": "Tests",
+      "description": "Tests",
+      "original_term": "strep test",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "272393004",
+      "preferred_term": "tests",
+      "description": "tests",
+      "original_term": "strep test",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "40689003",
+      "preferred_term": "Testis",
+      "description": "Testis",
+      "original_term": "strep test",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    },
+    {
+      "concept_id": "40689003",
+      "preferred_term": "testis",
+      "description": "testis",
+      "original_term": "strep test",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "fr"
+    },
+    {
+      "concept_id": "87717000",
+      "preferred_term": "Tester",
+      "description": "Tester",
+      "original_term": "strep test",
+      "confidence": 0.65,
+      "match_type": "semantic",
+      "language": "en"
+    }
+  ],
+  "confidence_score": 1.0,
   "language": "en",
   "processing_metadata": {
-    "duration_seconds": 4.027162075042725,
+    "duration_seconds": 4.708179950714111,
     "model_name": "gpt-4",
     "context_chars_used": 8988,
     "factual_consistency_details": {
-      "factualConsistencyScore": 9,
+      "factualConsistencyScore": 10,
       "hallucinationRisk": "LOW",
-      "issuesFound": [
-        {
-          "statement": "Physical examination reveals a temperature of 100.8°F and a red throat with swollen tonsils, consistent with viral pharyngitis (Line 14).",
-          "issue": "Incorrect line reference"
-        },
-        {
-          "statement": "The patient has also been in contact with a roommate who had a cold, supporting a viral etiology (Line 8).",
-          "issue": "Incorrect line reference"
-        }
-      ],
-      "justification": "The generated content is largely consistent with the source transcript. The symptoms, examination findings, and contact history are all supported by the transcript. However, the line references provided in the generated content are incorrect, as the transcript does not contain line numbers. This minor issue slightly reduces the factual consistency score and contributes to a low hallucination risk."
+      "issuesFound": [],
+      "justification": "All statements in the generated content are directly supported by the source transcript. The symptoms, diagnosis, examination findings, temperature, and recommendations are consistent with the conversation between the doctor and the patient. There are no unsupported or contradictory claims, and the generated content accurately reflects the information provided in the transcript."
     }
   }
 }

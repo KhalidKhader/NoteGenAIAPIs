@@ -14,14 +14,13 @@ Handles ANY section type dynamically based on prompts array - not just SOAP!
 
 import json
 import uuid
-from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any
 
 from fastapi import APIRouter, HTTPException, BackgroundTasks
 
 from src.core.logging import get_logger, create_medical_logger
-from src.core.observability import get_langfuse_handler
+from src.core.observability import get_langfuse_handler, flush_langfuse_data
 from src.core.config import settings
 from src.models.api_models import (
     EncounterRequestModel,
@@ -55,9 +54,22 @@ async def _run_encounter_processing_pipeline(
     medical_logger = create_medical_logger(encounter_id, output_dir)
     production_jobs[job_id]['status'] = 'PROCESSING'
     
-    # Create a single handler for the entire pipeline.
+    # Create enhanced handler for the entire pipeline with medical context.
     # This handler will be flushed at the end to ensure all data is sent.
-    langfuse_handler = get_langfuse_handler(encounter_id)
+    langfuse_handler = get_langfuse_handler(
+        conversation_id=encounter_id,
+        user_id=request.doctorId,
+        session_id=encounter_id,
+        metadata={
+            "clinic_id": request.clinicId,
+            "language": request.language,
+            "sections_count": len(request.sections),
+            "pipeline_type": "encounter_processing",
+            "encounter_length": len(request.encounterTranscript),
+            "model": settings.azure_openai_model,
+            "deployment": settings.azure_openai_deployment_name
+        }
+    )
     
     try:
         medical_logger.log(f"🚀 Starting processing pipeline for job {job_id}", "INFO", details={"encounter_id": encounter_id})
@@ -94,7 +106,8 @@ async def _run_encounter_processing_pipeline(
             full_transcript_text, 
             request.language, 
             medical_logger,
-            langfuse_handler=langfuse_handler
+            langfuse_handler=langfuse_handler,
+            conversation_id=encounter_id
         )
         
         # STEP 5: Get comprehensive SNOMED context once
@@ -143,7 +156,9 @@ async def _run_encounter_processing_pipeline(
                         full_transcript=request.encounterTranscript,
                         previous_sections_context="\\n---\\n".join(generated_sections_context),
                         medical_logger=medical_logger,
-                        langfuse_handler=langfuse_handler
+                        langfuse_handler=langfuse_handler,
+                        conversation_id=encounter_id,
+                        doctor_id=request.doctorId
                     )
                     
                     if not generated_content.content.startswith("Error:"):
@@ -208,7 +223,7 @@ async def _run_encounter_processing_pipeline(
         # Ensure the handler is flushed to send all buffered data.
         if langfuse_handler:
             logger.info(f"Flushing Langfuse handler for encounter {encounter_id}")
-            langfuse_handler.flush()
+            flush_langfuse_data(langfuse_handler)
 
 @router.post(
     "/generate-notes",

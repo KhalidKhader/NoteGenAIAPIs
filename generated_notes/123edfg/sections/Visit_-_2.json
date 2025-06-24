@@ -1,20 +1,20 @@
 {
-  "section_id": "section_509eddb8",
+  "section_id": "section_f8eafa15",
   "template_id": 2,
   "section_name": "Visit - 2",
-  "content": "### Visit - 2\n\n- **Chief Complaint:** Sore throat persisting for three days (Line 2).\n- **History of Present Illness:** The patient continues to experience a sore throat, mild fever, and dry cough (Line 4). Pain during swallowing and a sensation of neck swelling are still present (Line 6). The patient remains in contact with a roommate who had a cold last week (Line 8).\n- **Vital Signs:** Temperature remains at 100.8°F (Line 14).\n- **Physical Examination:** Throat examination shows persistent redness and swelling of the tonsils (Line 14).\n- **Assessment:** Viral pharyngitis is still suspected based on ongoing symptoms and physical examination findings (Line 14).\n- **Plan:** The patient is advised to continue rest, maintain increased fluid intake, and use over-the-counter pain relievers. A follow-up is recommended if symptoms worsen, with a potential strep test (Line 14).",
+  "content": "### Visit - 2\n\n**Chief Complaint:**\nThe patient presents with a sore throat lasting for three days.\n\n**History of Present Illness:**\nThe patient reports additional symptoms including a mild fever and dry cough. The patient experiences pain when swallowing and a sensation of neck swelling. The patient has been in contact with a roommate who had a cold last week.\n\n**Physical Examination:**\nTemperature recorded at 100.8°F. Examination of the throat reveals redness and swelling of the tonsils.\n\n**Assessment:**\nThe patient is diagnosed with viral pharyngitis.\n\n**Plan:**\n1. Rest and increase fluid intake.\n2. Use over-the-counter pain relievers as needed.\n3. Return for a strep test if symptoms worsen.",
   "line_references": [
     {
       "line_number": 2,
-      "start_char": 12,
-      "end_char": 55,
+      "start_char": 10,
+      "end_char": 57,
       "text": "patient: I've been having a sore throat for the past three days.",
       "speaker": null,
       "confidence": 1.0
     },
     {
       "line_number": 4,
-      "start_char": 12,
+      "start_char": 10,
       "end_char": 54,
       "text": "patient: Yes, I've had a mild fever and a dry cough.",
       "speaker": null,
@@ -22,15 +22,15 @@
     },
     {
       "line_number": 6,
-      "start_char": 12,
-      "end_char": 85,
+      "start_char": 10,
+      "end_char": 86,
       "text": "patient: Yes, it hurts a bit when I swallow, and I think my neck feels a bit swollen.",
       "speaker": null,
       "confidence": 1.0
     },
     {
       "line_number": 8,
-      "start_char": 12,
+      "start_char": 10,
       "end_char": 47,
       "text": "patient: My roommate had a cold last week.",
       "speaker": null,
@@ -38,8 +38,8 @@
     },
     {
       "line_number": 14,
-      "start_char": 8,
-      "end_char": 97,
+      "start_char": 10,
+      "end_char": 98,
       "text": "doctor: Your temperature is 100.8°F, and your throat looks red with some swelling of the tonsils.",
       "speaker": null,
       "confidence": 1.0
@@ -482,14 +482,14 @@
   "confidence_score": 1.0,
   "language": "en",
   "processing_metadata": {
-    "duration_seconds": 4.4954917430877686,
+    "duration_seconds": 3.2482450008392334,
     "model_name": "gpt-4",
     "context_chars_used": 8988,
     "factual_consistency_details": {
       "factualConsistencyScore": 10,
       "hallucinationRisk": "LOW",
       "issuesFound": [],
-      "justification": "All statements in the generated content are directly supported by the source transcript. The chief complaint, history of present illness, vital signs, physical examination, assessment, and plan are all consistent with the information provided in the transcript. Line references are accurate, and there are no unsupported claims or contradictions. Therefore, the factual consistency score is 10, and the hallucination risk is low."
+      "justification": "The generated content is perfectly consistent with the source transcript. Every statement in the generated content is directly supported by the evidence in the source transcript. The chief complaint, history of present illness, physical examination findings, assessment, and plan are all accurately reflected in the transcript. There are no unsupported statements or contradictions, leading to a high factual consistency score and a low hallucination risk."
     }
   }
 }
