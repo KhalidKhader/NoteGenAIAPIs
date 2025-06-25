@@ -129,12 +129,12 @@ jobs:
       - name: Update task definition
         run: |
           # Replace placeholder values in task definition
-          sed -i "s/ACCOUNT_ID/${{ steps.account.outputs.account-id }}/g" notegen-ai-apis/aws/task-definition.json
-          sed -i "s/:latest/:${{ needs.build.outputs.image-tag }}/g" notegen-ai-apis/aws/task-definition.json
+          sed -i "s/ACCOUNT_ID/${{ steps.account.outputs.account-id }}/g" aws/task-definition.json
+          sed -i "s/:latest/:${{ needs.build.outputs.image-tag }}/g" aws/task-definition.json
           
           # Register new task definition
           aws ecs register-task-definition \
-            --cli-input-json file://notegen-ai-apis/aws/task-definition.json \
+            --cli-input-json file://aws/task-definition.json \
             --region ${{ env.AWS_REGION }}
 
       - name: Update ECS Service
@@ -240,12 +240,12 @@ jobs:
       - name: Update task definition
         run: |
           # Replace placeholder values in task definition
-          sed -i "s/ACCOUNT_ID/${{ steps.account.outputs.account-id }}/g" notegen-ai-apis/aws/task-definition-prod.json
-          sed -i "s/:latest/:${{ needs.build.outputs.image-tag }}/g" notegen-ai-apis/aws/task-definition-prod.json
+          sed -i "s/ACCOUNT_ID/${{ steps.account.outputs.account-id }}/g" aws/task-definition-prod.json
+          sed -i "s/:latest/:${{ needs.build.outputs.image-tag }}/g" aws/task-definition-prod.json
           
           # Register new task definition
           aws ecs register-task-definition \
-            --cli-input-json file://notegen-ai-apis/aws/task-definition-prod.json \
+            --cli-input-json file://aws/task-definition-prod.json \
             --region ${{ env.AWS_REGION }}
 
       - name: Update ECS Service
