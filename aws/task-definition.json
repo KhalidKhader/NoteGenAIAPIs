@@ -70,14 +70,7 @@
           "name": "AZURE_OPENAI_EMBEDDING_MODEL",
           "value": "text-embedding-ada-002"
         },
-        {
-          "name": "AZURE_OPENAI_ENDPOINT",
-          "valueFrom": "arn:aws:ssm:ca-central-1:ACCOUNT_ID:parameter/notegen-ai-api/staging/azure-openai/endpoint"
-        },
-        {
-          "name": "AZURE_OPENAI_EMBEDDING_ENDPOINT",
-          "valueFrom": "arn:aws:ssm:ca-central-1:ACCOUNT_ID:parameter/notegen-ai-api/staging/azure-openai/embedding-endpoint"
-        },
+
         {
           "name": "LANGFUSE_HOST",
           "value": "https://us.cloud.langfuse.com"
@@ -93,6 +86,14 @@
         {
           "name": "OPENSEARCH_ENDPOINT",
           "valueFrom": "arn:aws:ssm:ca-central-1:ACCOUNT_ID:parameter/notegen-ai-api/staging/opensearch/endpoint"
+        },
+        {
+          "name": "AZURE_OPENAI_ENDPOINT",
+          "valueFrom": "arn:aws:ssm:ca-central-1:ACCOUNT_ID:parameter/notegen-ai-api/staging/azure-openai/endpoint"
+        },
+        {
+          "name": "AZURE_OPENAI_EMBEDDING_ENDPOINT",
+          "valueFrom": "arn:aws:ssm:ca-central-1:ACCOUNT_ID:parameter/notegen-ai-api/staging/azure-openai/embedding-endpoint"
         },
         {
           "name": "NOTEGEN_API_BASE_URL",
