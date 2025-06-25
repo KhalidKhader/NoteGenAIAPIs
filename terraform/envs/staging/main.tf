@@ -124,7 +124,8 @@ module "ecs_service" {
   app_name     = "notegen-ai-api"
   cluster_name = "notegen-ai-api-${var.environment}-cluster"
   vpc_id       = module.vpc.vpc_id
-  subnet_ids   = module.vpc.public_subnet_ids # Use public subnets for ALB
+  subnet_ids     = module.vpc.private_subnet_ids # ECS tasks should be in private subnets
+  alb_subnet_ids = module.vpc.public_subnet_ids  # ALB should be in public subnets
 
   app_image       = var.app_image != "" ? var.app_image : module.ecr.repository_uri_with_tag
   app_cpu         = var.app_cpu

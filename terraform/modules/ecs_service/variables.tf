@@ -22,8 +22,14 @@ variable "vpc_id" {
 }
 
 variable "subnet_ids" {
-  description = "List of subnet IDs for ECS service"
+  description = "List of subnet IDs for ECS service (tasks)"
   type        = list(string)
+}
+
+variable "alb_subnet_ids" {
+  description = "List of subnet IDs for ALB (should be public subnets)"
+  type        = list(string)
+  default     = []
 }
 
 variable "app_image" {
@@ -202,6 +208,8 @@ variable "azure_openai_secret_arn" {
   description = "ARN of the Azure OpenAI secrets in AWS Secrets Manager"
   type        = string
 }
+
+
 
 # =============================================================================
 # LangFuse Configuration

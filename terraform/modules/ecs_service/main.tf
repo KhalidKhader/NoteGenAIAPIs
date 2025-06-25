@@ -78,7 +78,7 @@ resource "aws_lb" "main" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
-  subnets            = var.subnet_ids
+  subnets            = length(var.alb_subnet_ids) > 0 ? var.alb_subnet_ids : var.subnet_ids
 
   enable_deletion_protection = false
 
@@ -183,6 +183,56 @@ resource "aws_iam_role" "ecs_execution_role" {
 resource "aws_iam_role_policy_attachment" "ecs_execution_role_policy" {
   role       = aws_iam_role.ecs_execution_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+# IAM Policy for ECS Execution Role to access secrets
+resource "aws_iam_role_policy" "ecs_execution_role_secrets_policy" {
+  name = "${var.app_name}-${var.environment}-execution-secrets-policy"
+  role = aws_iam_role.ecs_execution_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = concat(
+      # Secrets Manager permissions for core secrets
+      [
+        {
+          Effect = "Allow"
+          Action = [
+            "secretsmanager:GetSecretValue"
+          ]
+          Resource = [
+            var.neo4j_secret_arn,
+            var.azure_openai_secret_arn,
+            var.langfuse_secret_arn
+          ]
+        }
+      ],
+      # Additional secrets permissions
+      length(var.secrets_arns) > 0 ? [
+        {
+          Effect = "Allow"
+          Action = [
+            "secretsmanager:GetSecretValue"
+          ]
+          Resource = var.secrets_arns
+        }
+      ] : [],
+      # SSM Parameter Store permissions for Azure OpenAI endpoints
+      [
+        {
+          Effect = "Allow"
+          Action = [
+            "ssm:GetParameter",
+            "ssm:GetParameters"
+          ]
+          Resource = [
+            "arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:parameter/notegen-ai-api/${var.environment}/azure-openai/endpoint",
+            "arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:parameter/notegen-ai-api/${var.environment}/azure-openai/embedding-endpoint"
+          ]
+        }
+      ]
+    )
+  })
 }
 
 # IAM Role for ECS Task
@@ -385,7 +435,8 @@ resource "aws_ecs_task_definition" "app" {
           {
             name  = "LANGFUSE_HOST"
             value = var.langfuse_host
-          }
+          },
+
         ],
         # Additional environment variables from input
         var.environment_variables
@@ -405,7 +456,7 @@ resource "aws_ecs_task_definition" "app" {
           },
           {
             name      = "AZURE_OPENAI_ENDPOINT"
-            valueFrom = "${var.azure_openai_secret_arn}:endpoint::"
+            valueFrom = "arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:parameter/notegen-ai-api/${var.environment}/azure-openai/endpoint"
           },
           {
             name      = "AZURE_OPENAI_EMBEDDING_API_KEY"
@@ -413,7 +464,7 @@ resource "aws_ecs_task_definition" "app" {
           },
           {
             name      = "AZURE_OPENAI_EMBEDDING_ENDPOINT"
-            valueFrom = "${var.azure_openai_secret_arn}:embedding_endpoint::"
+            valueFrom = "arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:parameter/notegen-ai-api/${var.environment}/azure-openai/embedding-endpoint"
           },
           {
             name      = "LANGFUSE_SECRET_KEY"
@@ -452,11 +503,11 @@ resource "aws_ecs_task_definition" "app" {
     }
   ])
 
-  lifecycle {
-    ignore_changes = [
-      container_definitions
-    ]
-  }
+  # lifecycle {
+  #   ignore_changes = [
+  #     container_definitions
+  #   ]
+  # }
 
   tags = merge(var.tags, {
     Name        = "${var.app_name}-${var.environment}-task"
@@ -502,4 +553,7 @@ resource "aws_ecs_service" "app" {
 }
 
 # Data source for current AWS region
-data "aws_region" "current" {} 
+data "aws_region" "current" {}
+
+# Data source for current AWS account
+data "aws_caller_identity" "current" {} 
