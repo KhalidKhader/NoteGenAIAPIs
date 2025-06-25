@@ -325,9 +325,14 @@ resource "aws_iam_role_policy" "ecs_task_policy" {
         {
           Effect = "Allow"
           Action = [
-            "aoss:APIAccessAll"
+            "es:ESHttpPost",
+            "es:ESHttpPut", 
+            "es:ESHttpGet",
+            "es:ESHttpDelete",
+            "es:ESHttpHead",
+            "es:ESHttpPatch"
           ]
-          Resource = "*"
+          Resource = "arn:aws:es:ca-central-1:225989351675:domain/notegenai-staging-search/*"
         }
       ]
     )
