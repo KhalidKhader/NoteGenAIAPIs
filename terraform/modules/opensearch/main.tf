@@ -12,6 +12,13 @@ resource "aws_security_group" "opensearch" {
     cidr_blocks = ["10.0.0.0/16"] # Allow from VPC
   }
 
+  ingress {
+    from_port   = 9200
+    to_port     = 9200
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.0.0/16"] # Allow from VPC for OpenSearch standard port
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
