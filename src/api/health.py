@@ -133,21 +133,21 @@ async def story_requirements_check():
                 health = await conversation_rag_service.health_check()
                 is_healthy = health.get("status") == "healthy"
                 requirements_status["long_transcript_handling"] = {
-                    "status": "✅ PASS" if is_healthy else "❌ FAIL",
+                    "status": "PASS" if is_healthy else "FAIL",
                     "details": "Chunking and OpenSearch storage operational",
                     "service": "AWS OpenSearch RAG"
                 }
                 requirements_status["line_referencing"] = {
-                    "status": "✅ PASS" if is_healthy else "❌ FAIL",
+                    "status": "PASS" if is_healthy else "FAIL",
                     "details": "Line extraction and referencing implemented with precise tracking",
                     "service": "Conversation RAG (Line Preservation)"
                 }
             except Exception as e:
-                fail_details = {"status": "❌ FAIL", "service": "AWS OpenSearch RAG"}
+                fail_details = {"status": "FAIL", "service": "AWS OpenSearch RAG"}
                 requirements_status["long_transcript_handling"] = {**fail_details, "details": f"Health check failed: {e}"}
                 requirements_status["line_referencing"] = {**fail_details, "details": f"Health check failed: {e}", "service": "Conversation RAG (Line Preservation)"}
         else:
-            fail_details = {"status": "❌ FAIL", "service": "AWS OpenSearch RAG"}
+            fail_details = {"status": "FAIL", "service": "AWS OpenSearch RAG"}
             requirements_status["long_transcript_handling"] = {**fail_details, "details": "OpenSearch RAG service unavailable"}
             requirements_status["line_referencing"] = {**fail_details, "details": "OpenSearch RAG service unavailable", "service": "Conversation RAG (Line Preservation)"}
 
@@ -157,26 +157,26 @@ async def story_requirements_check():
                 health = await snomed_rag_service.health_check()
                 is_healthy = health.get("status") == "healthy"
                 requirements_status["hallucination_prevention"] = {
-                    "status": "✅ PASS" if is_healthy else "❌ FAIL",
+                    "status": "PASS" if is_healthy else "FAIL",
                     "details": "SNOMED validation and medical term verification",
                     "service": "Neo4j SNOMED RAG"
                 }
             except Exception as e:
                  requirements_status["hallucination_prevention"] = {
-                    "status": "❌ FAIL",
+                    "status": "FAIL",
                     "details": f"Health check failed: {e}",
                     "service": "Neo4j SNOMED RAG"
                 }
         else:
             requirements_status["hallucination_prevention"] = {
-                "status": "❌ FAIL",
+                "status": "FAIL",
                 "details": "SNOMED RAG service unavailable",
                 "service": "Neo4j SNOMED RAG"
             }
         
         # --- Requirement 4: Multi-language support ---
         requirements_status["multilingual_support"] = {
-            "status": "✅ PASS",
+            "status": "PASS",
             "details": "English and French medical terminology support",
             "service": "Template System"
         }
@@ -184,23 +184,23 @@ async def story_requirements_check():
         # --- Requirement 5: Multi-RAG integration ---
         rag_services_healthy = sum(
             1 for key in ["long_transcript_handling", "hallucination_prevention"]
-            if requirements_status.get(key, {}).get("status") == "✅ PASS"
+            if requirements_status.get(key, {}).get("status") == "PASS"
         )
         total_rag_services = 2
             
         requirements_status["multi_rag_integration"] = {
-            "status": "✅ PASS" if rag_services_healthy == total_rag_services else "❌ FAIL",
+            "status": "PASS" if rag_services_healthy == total_rag_services else "FAIL",
             "details": f"{rag_services_healthy}/{total_rag_services} RAG services operational",
             "service": "Multi-RAG Architecture"
         }
         
         # Overall compliance
-        passing_requirements = sum(1 for req in requirements_status.values() if req["status"] == "✅ PASS")
+        passing_requirements = sum(1 for req in requirements_status.values() if req["status"] == "PASS")
         total_requirements = len(requirements_status)
         
         return {
             "story_compliance": {
-                "overall_status": "✅ COMPLIANT" if passing_requirements == total_requirements else "❌ NON-COMPLIANT",
+                "overall_status": "COMPLIANT" if passing_requirements == total_requirements else "NON-COMPLIANT",
                 "requirements_passed": f"{passing_requirements}/{total_requirements}",
                 "timestamp": datetime.utcnow().isoformat()
             },
