@@ -49,11 +49,13 @@ data "aws_iam_policy_document" "github_actions_staging_assume_role" {
     }
     
     condition {
-      test     = "StringEquals"
+      test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
       values   = [
         "repo:${var.github_repository}:ref:refs/heads/develop",
-        "repo:${var.github_repository}:ref:refs/heads/v3"
+        "repo:${var.github_repository}:ref:refs/heads/v3",
+        "repo:${var.github_repository}:environment:staging",
+        "repo:${var.github_repository}:ref:refs/heads/main"
       ]
     }
   }
