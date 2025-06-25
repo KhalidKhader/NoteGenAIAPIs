@@ -30,6 +30,11 @@ output "security_group_id" {
   value       = aws_security_group.opensearch.id
 }
 
+output "username_secret_arn" {
+  description = "ARN of the Secrets Manager secret containing OpenSearch username"
+  value       = aws_secretsmanager_secret.opensearch_username.arn
+}
+
 output "password_secret_arn" {
   description = "ARN of the Secrets Manager secret containing OpenSearch password"
   value       = aws_secretsmanager_secret.opensearch_password.arn

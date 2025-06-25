@@ -91,6 +91,12 @@ output "opensearch_kibana_endpoint" {
 }
 
 # Secrets Manager ARNs
+output "opensearch_username_secret_arn" {
+  description = "ARN of OpenSearch username secret"
+  value       = module.opensearch.username_secret_arn
+  sensitive   = true
+}
+
 output "opensearch_password_secret_arn" {
   description = "ARN of OpenSearch password secret"
   value       = module.opensearch.password_secret_arn

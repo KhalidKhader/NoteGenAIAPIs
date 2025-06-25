@@ -202,8 +202,12 @@ resource "aws_iam_role_policy" "ecs_execution_role_secrets_policy" {
           ]
           Resource = [
             var.neo4j_secret_arn,
+            var.opensearch_username_secret_arn,
+            var.opensearch_password_secret_arn,
             var.azure_openai_api_key_secret_arn,
+            var.azure_openai_endpoint_secret_arn,
             var.azure_openai_embedding_api_key_secret_arn,
+            var.azure_openai_embedding_endpoint_secret_arn,
             var.langfuse_secret_key_secret_arn,
             var.langfuse_public_key_secret_arn
           ]
@@ -280,8 +284,12 @@ resource "aws_iam_role_policy" "ecs_task_policy" {
           ]
           Resource = [
             var.neo4j_secret_arn,
+            var.opensearch_username_secret_arn,
+            var.opensearch_password_secret_arn,
             var.azure_openai_api_key_secret_arn,
+            var.azure_openai_endpoint_secret_arn,
             var.azure_openai_embedding_api_key_secret_arn,
+            var.azure_openai_embedding_endpoint_secret_arn,
             var.langfuse_secret_key_secret_arn,
             var.langfuse_public_key_secret_arn
           ]
@@ -325,12 +333,7 @@ resource "aws_iam_role_policy" "ecs_task_policy" {
         {
           Effect = "Allow"
           Action = [
-            "es:ESHttpPost",
-            "es:ESHttpPut", 
-            "es:ESHttpGet",
-            "es:ESHttpDelete",
-            "es:ESHttpHead",
-            "es:ESHttpPatch"
+            "es:*"
           ]
           Resource = "arn:aws:es:ca-central-1:225989351675:domain/notegenai-staging-search/*"
         }
@@ -463,12 +466,20 @@ resource "aws_ecs_task_definition" "app" {
             valueFrom = "${var.neo4j_secret_arn}:password::"
           },
           {
+            name      = "OPENSEARCH_USERNAME"
+            valueFrom = var.opensearch_username_secret_arn
+          },
+          {
+            name      = "OPENSEARCH_PASSWORD"
+            valueFrom = var.opensearch_password_secret_arn
+          },
+          {
             name      = "AZURE_OPENAI_API_KEY"
             valueFrom = var.azure_openai_api_key_secret_arn
           },
           {
             name      = "AZURE_OPENAI_ENDPOINT"
-            valueFrom = "arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:parameter/notegen-ai-api/${var.environment}/azure-openai/endpoint"
+            valueFrom = var.azure_openai_endpoint_secret_arn
           },
           {
             name      = "AZURE_OPENAI_EMBEDDING_API_KEY"
@@ -476,7 +487,7 @@ resource "aws_ecs_task_definition" "app" {
           },
           {
             name      = "AZURE_OPENAI_EMBEDDING_ENDPOINT"
-            valueFrom = "arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:parameter/notegen-ai-api/${var.environment}/azure-openai/embedding-endpoint"
+            valueFrom = var.azure_openai_embedding_endpoint_secret_arn
           },
           {
             name      = "LANGFUSE_SECRET_KEY"

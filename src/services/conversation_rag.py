@@ -81,7 +81,14 @@ class ConversationRAGService:
             raise RuntimeError(f"Medical RAG initialization failed: {str(e)}")
     
     async def _setup_aws_auth(self):
-        """Setup AWS authentication for OpenSearch."""
+        """Setup authentication for OpenSearch."""
+        
+        # Check if OpenSearch username/password are provided (for Fine-Grained Access Control)
+        if hasattr(settings, 'opensearch_username') and hasattr(settings, 'opensearch_password'):
+            logger.info("Using OpenSearch basic authentication (username/password)")
+            return (settings.opensearch_username, settings.opensearch_password)
+        
+        # Fallback to AWS IAM authentication
         import boto3
         from opensearchpy import AWSV4SignerAuth
         
@@ -101,7 +108,8 @@ class ConversationRAGService:
         if not credentials:
             raise ValueError("No AWS credentials found - ensure IAM roles are configured or provide explicit credentials")
         
-        return AWSV4SignerAuth(credentials, 'ca-central-1', 'aoss')
+        # Use 'es' service for managed OpenSearch domains (not 'aoss' which is for serverless)
+        return AWSV4SignerAuth(credentials, 'ca-central-1', 'es')
     
     async def _test_connection(self):
         """Test OpenSearch connection."""

@@ -100,6 +100,8 @@ class Settings(BaseSettings):
     )
     opensearch_index: str = Field(default="medical-conversations", description="OpenSearch index name")
     opensearch_timeout: int = Field(default=300, description="OpenSearch timeout in seconds")
+    opensearch_username: Optional[str] = Field(default=None, description="OpenSearch username for basic authentication")
+    opensearch_password: Optional[str] = Field(default=None, description="OpenSearch password for basic authentication")
 
     # =============================================================================
     # NoteGen API Service Integration Configuration

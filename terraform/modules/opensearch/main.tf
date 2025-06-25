@@ -125,7 +125,32 @@ resource "random_password" "opensearch_password" {
   }
 }
 
-# Store OpenSearch password in Secrets Manager
+# Store OpenSearch username in Secrets Manager (following convention)
+resource "aws_secretsmanager_secret" "opensearch_username" {
+  name                    = "notegen-ai-api-${var.environment}-opensearch-username"
+  description             = "OpenSearch admin username for ${var.environment}"
+  recovery_window_in_days = 7
+
+  lifecycle {
+    prevent_destroy = true
+  }
+
+  tags = merge(var.tags, {
+    Name        = "notegen-ai-api-${var.environment}-opensearch-username"
+    Environment = var.environment
+  })
+}
+
+resource "aws_secretsmanager_secret_version" "opensearch_username" {
+  secret_id     = aws_secretsmanager_secret.opensearch_username.id
+  secret_string = "admin"
+  
+  lifecycle {
+    ignore_changes = [secret_string]
+  }
+}
+
+# Store OpenSearch password in Secrets Manager (following convention)
 resource "aws_secretsmanager_secret" "opensearch_password" {
   name                    = "notegen-ai-api-${var.environment}-opensearch-password"
   description             = "OpenSearch admin password for ${var.environment}"
@@ -142,11 +167,8 @@ resource "aws_secretsmanager_secret" "opensearch_password" {
 }
 
 resource "aws_secretsmanager_secret_version" "opensearch_password" {
-  secret_id = aws_secretsmanager_secret.opensearch_password.id
-  secret_string = jsonencode({
-    username = "admin"
-    password = random_password.opensearch_password.result
-  })
+  secret_id     = aws_secretsmanager_secret.opensearch_password.id
+  secret_string = random_password.opensearch_password.result
   
   lifecycle {
     ignore_changes = [secret_string]

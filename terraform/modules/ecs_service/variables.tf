@@ -134,6 +134,16 @@ variable "opensearch_index" {
   default     = "medical-conversations"
 }
 
+variable "opensearch_username_secret_arn" {
+  description = "ARN of the OpenSearch username secret in AWS Secrets Manager"
+  type        = string
+}
+
+variable "opensearch_password_secret_arn" {
+  description = "ARN of the OpenSearch password secret in AWS Secrets Manager"
+  type        = string
+}
+
 # =============================================================================
 # Neo4j Configuration
 # =============================================================================
@@ -209,8 +219,18 @@ variable "azure_openai_api_key_secret_arn" {
   type        = string
 }
 
+variable "azure_openai_endpoint_secret_arn" {
+  description = "ARN of the Azure OpenAI endpoint secret in AWS Secrets Manager"
+  type        = string
+}
+
 variable "azure_openai_embedding_api_key_secret_arn" {
   description = "ARN of the Azure OpenAI Embedding API key secret in AWS Secrets Manager"
+  type        = string
+}
+
+variable "azure_openai_embedding_endpoint_secret_arn" {
+  description = "ARN of the Azure OpenAI embedding endpoint secret in AWS Secrets Manager"
   type        = string
 }
 

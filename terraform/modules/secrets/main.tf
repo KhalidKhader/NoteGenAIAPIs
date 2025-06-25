@@ -12,6 +12,10 @@ resource "aws_secretsmanager_secret" "neo4j" {
     Environment = var.environment
     Component   = "neo4j"
   })
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_secretsmanager_secret_version" "neo4j" {
@@ -35,6 +39,10 @@ resource "aws_secretsmanager_secret" "azure_openai_api_key" {
     Environment = var.environment
     Component   = "azure-openai"
   })
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_secretsmanager_secret_version" "azure_openai_api_key" {
@@ -56,6 +64,10 @@ resource "aws_secretsmanager_secret" "azure_openai_embedding_api_key" {
     Environment = var.environment
     Component   = "azure-openai"
   })
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_secretsmanager_secret_version" "azure_openai_embedding_api_key" {
@@ -77,6 +89,10 @@ resource "aws_secretsmanager_secret" "langfuse_secret_key" {
     Environment = var.environment
     Component   = "langfuse"
   })
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_secretsmanager_secret_version" "langfuse_secret_key" {
@@ -98,11 +114,65 @@ resource "aws_secretsmanager_secret" "langfuse_public_key" {
     Environment = var.environment
     Component   = "langfuse"
   })
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_secretsmanager_secret_version" "langfuse_public_key" {
   secret_id     = aws_secretsmanager_secret.langfuse_public_key.id
   secret_string = var.langfuse_public_key
+
+  lifecycle {
+    ignore_changes = [secret_string]
+  }
+}
+
+# Azure OpenAI Endpoint Secrets (for sensitive endpoint URLs)
+resource "aws_secretsmanager_secret" "azure_openai_endpoint" {
+  name        = "${var.app_name}-${var.environment}-azure-openai-endpoint"
+  description = "Azure OpenAI endpoint URL for ${var.app_name} ${var.environment}"
+
+  tags = merge(var.tags, {
+    Name        = "${var.app_name}-${var.environment}-azure-openai-endpoint"
+    Environment = var.environment
+    Component   = "azure-openai"
+  })
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "aws_secretsmanager_secret_version" "azure_openai_endpoint" {
+  secret_id     = aws_secretsmanager_secret.azure_openai_endpoint.id
+  secret_string = var.azure_openai_endpoint
+
+  lifecycle {
+    ignore_changes = [secret_string]
+  }
+}
+
+# Azure OpenAI Embedding Endpoint Secret
+resource "aws_secretsmanager_secret" "azure_openai_embedding_endpoint" {
+  name        = "${var.app_name}-${var.environment}-azure-openai-embedding-endpoint"
+  description = "Azure OpenAI embedding endpoint URL for ${var.app_name} ${var.environment}"
+
+  tags = merge(var.tags, {
+    Name        = "${var.app_name}-${var.environment}-azure-openai-embedding-endpoint"
+    Environment = var.environment
+    Component   = "azure-openai"
+  })
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "aws_secretsmanager_secret_version" "azure_openai_embedding_endpoint" {
+  secret_id     = aws_secretsmanager_secret.azure_openai_embedding_endpoint.id
+  secret_string = var.azure_openai_embedding_endpoint
 
   lifecycle {
     ignore_changes = [secret_string]
