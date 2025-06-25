@@ -75,6 +75,10 @@
           "value": "https://us.cloud.langfuse.com"
         },
         {
+          "name": "PYTHONPATH",
+          "value": "/app"
+        },
+        {
           "name": "NEO4J_URI",
           "valueFrom": "arn:aws:ssm:ca-central-1:ACCOUNT_ID:parameter/notegen-ai-api/prod/neo4j/uri"
         },

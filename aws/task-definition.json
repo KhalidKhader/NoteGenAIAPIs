@@ -75,6 +75,10 @@
           "value": "https://us.cloud.langfuse.com"
         },
         {
+          "name": "PYTHONPATH",
+          "value": "/app"
+        },
+        {
           "name": "NEO4J_URI",
           "value": "bolt://neo4j.notegen-ai-api-staging.local:7687"
         },
