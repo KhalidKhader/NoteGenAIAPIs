@@ -503,11 +503,11 @@ resource "aws_ecs_task_definition" "app" {
     }
   ])
 
-  # lifecycle {
-  #   ignore_changes = [
-  #     container_definitions
-  #   ]
-  # }
+  lifecycle {
+    ignore_changes = [
+      container_definitions
+    ]
+  }
 
   tags = merge(var.tags, {
     Name        = "${var.app_name}-${var.environment}-task"

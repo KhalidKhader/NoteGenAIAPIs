@@ -191,4 +191,14 @@ variable "langfuse_public_key" {
   type        = string
   sensitive   = true
   default     = ""
+}
+
+# =============================================================================
+# GitHub Configuration
+# =============================================================================
+
+variable "github_repository" {
+  description = "GitHub repository in format 'owner/repo-name'"
+  type        = string
+  default     = "InstaClinic-ai/notegen-ai-apis"
 } 

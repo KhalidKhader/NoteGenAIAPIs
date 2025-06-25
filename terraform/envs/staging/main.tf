@@ -165,4 +165,28 @@ module "ecs_service" {
   }
 
   depends_on = [module.vpc, module.secrets, module.opensearch, module.neo4j, module.parameters]
+}
+
+# =============================================================================
+# GitHub OIDC Module
+# =============================================================================
+
+module "github_oidc" {
+  source = "../../modules/github_oidc"
+
+  app_name               = "notegen-ai-api"
+  environment            = var.environment
+  github_repository      = var.github_repository
+  ecr_repository_arn     = module.ecr.repository_arn
+  ecs_cluster_name       = module.ecs_service.cluster_name
+  ecs_service_name       = "notegen-ai-api-${var.environment}"
+  ecs_execution_role_arn = module.ecs_service.execution_role_arn
+  ecs_task_role_arn      = module.ecs_service.task_role_arn
+  create_prod_role       = false
+
+  tags = {
+    Project = "notegen-ai"
+  }
+
+  depends_on = [module.ecs_service]
 } 

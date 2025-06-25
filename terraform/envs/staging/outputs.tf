@@ -17,6 +17,20 @@ output "vpc_id" {
   value       = module.vpc.vpc_id
 }
 
+# =============================================================================
+# GitHub OIDC Outputs
+# =============================================================================
+
+output "github_actions_role_arn" {
+  description = "ARN of the GitHub Actions IAM role"
+  value       = module.github_oidc.github_actions_staging_role_arn
+}
+
+output "github_oidc_provider_arn" {
+  description = "ARN of the GitHub OIDC provider"
+  value       = module.github_oidc.github_oidc_provider_arn
+}
+
 output "private_subnet_ids" {
   description = "IDs of the private subnets"
   value       = module.vpc.private_subnet_ids
