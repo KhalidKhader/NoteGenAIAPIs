@@ -4,7 +4,7 @@
 
 # Neo4j Secrets
 resource "aws_secretsmanager_secret" "neo4j" {
-  name        = "${var.app_name}-${var.environment}-neo4j-v2"
+  name        = "${var.app_name}-${var.environment}-neo4j"
   description = "Neo4j database credentials for ${var.app_name} ${var.environment}"
 
   tags = merge(var.tags, {
@@ -27,7 +27,7 @@ resource "aws_secretsmanager_secret_version" "neo4j" {
 
 # Azure OpenAI Secrets
 resource "aws_secretsmanager_secret" "azure_openai" {
-  name        = "${var.app_name}-${var.environment}-azure-openai-v2"
+  name        = "${var.app_name}-${var.environment}-azure-openai"
   description = "Azure OpenAI API credentials for ${var.app_name} ${var.environment}"
 
   tags = merge(var.tags, {
@@ -51,7 +51,7 @@ resource "aws_secretsmanager_secret_version" "azure_openai" {
 
 # LangFuse Secrets
 resource "aws_secretsmanager_secret" "langfuse" {
-  name        = "${var.app_name}-${var.environment}-langfuse-v2"
+  name        = "${var.app_name}-${var.environment}-langfuse"
   description = "LangFuse observability credentials for ${var.app_name} ${var.environment}"
 
   tags = merge(var.tags, {

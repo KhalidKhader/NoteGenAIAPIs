@@ -102,23 +102,23 @@
       "secrets": [
         {
           "name": "NEO4J_PASSWORD",
-          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-prod-neo4j-XXXXXX:password::"
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-prod-neo4j:password::"
         },
         {
           "name": "AZURE_OPENAI_API_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-prod-azure-openai-XXXXXX:api_key::"
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-prod-azure-openai:api_key::"
         },
         {
           "name": "AZURE_OPENAI_EMBEDDING_API_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-prod-azure-openai-XXXXXX:embedding_api_key::"
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-prod-azure-openai:embedding_api_key::"
         },
         {
           "name": "LANGFUSE_SECRET_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-prod-langfuse-XXXXXX:secret_key::"
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-prod-langfuse:secret_key::"
         },
         {
           "name": "LANGFUSE_PUBLIC_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-prod-langfuse-XXXXXX:public_key::"
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-prod-langfuse:public_key::"
         }
       ],
       "logConfiguration": {

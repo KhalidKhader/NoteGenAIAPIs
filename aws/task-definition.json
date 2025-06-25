@@ -71,6 +71,14 @@
           "value": "text-embedding-ada-002"
         },
         {
+          "name": "AZURE_OPENAI_ENDPOINT",
+          "valueFrom": "arn:aws:ssm:ca-central-1:ACCOUNT_ID:parameter/notegen-ai-api/staging/azure-openai/endpoint"
+        },
+        {
+          "name": "AZURE_OPENAI_EMBEDDING_ENDPOINT",
+          "valueFrom": "arn:aws:ssm:ca-central-1:ACCOUNT_ID:parameter/notegen-ai-api/staging/azure-openai/embedding-endpoint"
+        },
+        {
           "name": "LANGFUSE_HOST",
           "value": "https://us.cloud.langfuse.com"
         },
@@ -80,45 +88,39 @@
         },
         {
           "name": "NEO4J_URI",
-          "value": "bolt://neo4j.notegen-ai-api-staging.local:7687"
+          "valueFrom": "arn:aws:ssm:ca-central-1:ACCOUNT_ID:parameter/notegen-ai-api/staging/neo4j/uri"
         },
         {
           "name": "OPENSEARCH_ENDPOINT",
-          "value": "vpc-notegenai-staging-search-hrrjaqryo42zvlg33vivxtubfy.ca-central-1.es.amazonaws.com"
+          "valueFrom": "arn:aws:ssm:ca-central-1:ACCOUNT_ID:parameter/notegen-ai-api/staging/opensearch/endpoint"
         },
         {
           "name": "NOTEGEN_API_BASE_URL",
-          "value": "https://9134-196-159-22-237.ngrok-free.app"
+          "valueFrom": "arn:aws:ssm:ca-central-1:ACCOUNT_ID:parameter/notegen-ai-api/staging/notegen-api/base-url"
         }
       ],
       "secrets": [
         {
           "name": "NEO4J_PASSWORD",
-          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-neo4j-v2-P72DER:password::"
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-neo4j:password::"
         },
         {
           "name": "AZURE_OPENAI_API_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-azure-openai-v2-g7cY1R:api_key::"
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-azure-openai:api_key::"
         },
-        {
-          "name": "AZURE_OPENAI_ENDPOINT",
-          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-azure-openai-v2-g7cY1R:endpoint::"
-        },
+
         {
           "name": "AZURE_OPENAI_EMBEDDING_API_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-azure-openai-v2-g7cY1R:embedding_api_key::"
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-azure-openai:embedding_api_key::"
         },
-        {
-          "name": "AZURE_OPENAI_EMBEDDING_ENDPOINT",
-          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-azure-openai-v2-g7cY1R:embedding_endpoint::"
-        },
+
         {
           "name": "LANGFUSE_SECRET_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-langfuse-v2-s78cyS:secret_key::"
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-langfuse:secret_key::"
         },
         {
           "name": "LANGFUSE_PUBLIC_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-langfuse-v2-s78cyS:public_key::"
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-langfuse:public_key::"
         }
       ],
       "logConfiguration": {
