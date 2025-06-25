@@ -70,7 +70,6 @@
           "name": "AZURE_OPENAI_EMBEDDING_MODEL",
           "value": "text-embedding-ada-002"
         },
-
         {
           "name": "LANGFUSE_HOST",
           "value": "https://us.cloud.langfuse.com"
@@ -78,7 +77,9 @@
         {
           "name": "PYTHONPATH",
           "value": "/app"
-        },
+        }
+      ],
+      "secrets": [
         {
           "name": "NEO4J_URI",
           "valueFrom": "arn:aws:ssm:ca-central-1:ACCOUNT_ID:parameter/notegen-ai-api/staging/neo4j/uri"
@@ -98,9 +99,7 @@
         {
           "name": "NOTEGEN_API_BASE_URL",
           "valueFrom": "arn:aws:ssm:ca-central-1:ACCOUNT_ID:parameter/notegen-ai-api/staging/notegen-api/base-url"
-        }
-      ],
-      "secrets": [
+        },
         {
           "name": "NEO4J_PASSWORD",
           "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-neo4j:password::"
@@ -109,12 +108,10 @@
           "name": "AZURE_OPENAI_API_KEY",
           "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-azure-openai:api_key::"
         },
-
         {
           "name": "AZURE_OPENAI_EMBEDDING_API_KEY",
           "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-azure-openai:embedding_api_key::"
         },
-
         {
           "name": "LANGFUSE_SECRET_KEY",
           "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-langfuse:secret_key::"
