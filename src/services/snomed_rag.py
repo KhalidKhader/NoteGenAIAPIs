@@ -49,7 +49,7 @@ class SNOMEDRAGService:
         if self._initialized:
             return
             
-        logger.info("🏥 Initializing SNOMED RAG Service with Neo4j GraphRAG")
+        logger.info("Initializing SNOMED RAG Service with Neo4j GraphRAG")
         
         try:
             # Initialize Neo4j driver
@@ -63,13 +63,13 @@ class SNOMEDRAGService:
             
             # Test connection
             await self._test_connection()
-            logger.info("✅ Neo4j GraphRAG connection established")
+            logger.info("Neo4j GraphRAG connection established")
             
             self._initialized = True
-            logger.info("✅ SNOMED RAG Service initialized successfully")
+            logger.info("SNOMED RAG Service initialized successfully")
             
         except Exception as e:
-            logger.error(f"❌ SNOMED RAG initialization failed: {str(e)}")
+            logger.error(f"SNOMED RAG initialization failed: {str(e)}")
             raise RuntimeError(f"SNOMED RAG initialization failed: {str(e)}")
 
     async def _test_connection(self) -> None:
@@ -98,13 +98,13 @@ class SNOMEDRAGService:
             List of SNOMED mappings with concept IDs and preferred terms
         """
         if not self._initialized or not self.driver:
-            logger.error("❌ SNOMED RAG service not initialized")
+            logger.error("SNOMED RAG service not initialized")
             raise RuntimeError("SNOMED RAG service not initialized")
         
         if not medical_terms:
             return []
         
-        logger.info(f"🔍 Getting SNOMED mappings for {len(medical_terms)} terms in language: {language}")
+        logger.info(f"Getting SNOMED mappings for {len(medical_terms)} terms in language: {language}")
         
         if medical_logger:
             medical_logger.log_step(
@@ -154,11 +154,11 @@ class SNOMEDRAGService:
                     }
                 )
             
-            logger.info(f"✅ Found {len(mappings)} SNOMED mappings")
+            logger.info(f"Found {len(mappings)} SNOMED mappings")
             return mappings
             
         except Exception as e:
-            logger.error(f"❌ Failed to get SNOMED mappings: {str(e)}")
+            logger.error(f"Failed to get SNOMED mappings: {str(e)}")
             if medical_logger:
                 medical_logger.log_step(
                     "NEO4J_SNOMED_MAPPING_FAILED",
@@ -249,7 +249,7 @@ class SNOMEDRAGService:
             return self._format_snomed_records(semantic_records, term, "semantic")
             
         except Exception as e:
-            logger.warning(f"⚠️ Failed to search SNOMED for term '{term}': {str(e)}")
+            logger.warning(f"Failed to search SNOMED for term '{term}': {str(e)}")
             if medical_logger:
                 medical_logger.log_step(
                     "NEO4J_SEARCH_ERROR",
@@ -320,7 +320,7 @@ class SNOMEDRAGService:
                 }
                 
         except Exception as e:
-            logger.error(f"❌ SNOMED RAG health check failed: {str(e)}")
+            logger.error(f"SNOMED RAG health check failed: {str(e)}")
             return {
                 "status": "unhealthy",
                 "error": str(e),
@@ -335,9 +335,9 @@ class SNOMEDRAGService:
                 await self.driver.close()
                 self.driver = None
             self._initialized = False
-            logger.info("🔒 SNOMED RAG Service closed")
+            logger.info("SNOMED RAG Service closed")
         except Exception as e:
-            logger.error(f"❌ Error closing SNOMED RAG service: {str(e)}")
+            logger.error(f"Error closing SNOMED RAG service: {str(e)}")
 
 
 # =============================================================================

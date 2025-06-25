@@ -260,6 +260,7 @@ cache/
 .langfuse/
 
 # Model files (too large for git)
+models/
 *.model
 *.pkl
 *.joblib

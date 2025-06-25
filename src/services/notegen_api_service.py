@@ -88,7 +88,7 @@ class NotegenAPIService:
         
         if medical_logger:
             medical_logger.log(
-                f"🚀 Sending section {section_id} to NoteGen API backend",
+                f"Sending section {section_id} to NoteGen API backend",
                 "INFO",
                 details={
                     "encounter_id": encounter_id,
@@ -133,7 +133,7 @@ class NotegenAPIService:
                     
                     if medical_logger:
                         medical_logger.log(
-                            f"✅ Successfully sent section {section_id} to NoteGen API backend",
+                            f"Successfully sent section {section_id} to NoteGen API backend",
                             "INFO",
                             details={
                                 "response_data": response_data,
@@ -158,7 +158,7 @@ class NotegenAPIService:
                     
                     if medical_logger:
                         medical_logger.log(
-                            f"❌ NoteGen API error on attempt {attempt + 1}: {error_msg}",
+                            f"NoteGen API error on attempt {attempt + 1}: {error_msg}",
                             "WARNING",
                             details={
                                 "status_code": response.status_code,
@@ -183,7 +183,7 @@ class NotegenAPIService:
                 
                 if medical_logger:
                     medical_logger.log(
-                        f"⏰ Timeout on attempt {attempt + 1}: {error_msg}",
+                        f"Timeout on attempt {attempt + 1}: {error_msg}",
                         "WARNING",
                         details={"attempt": attempt + 1, "error": str(e)}
                     )
@@ -197,7 +197,7 @@ class NotegenAPIService:
                 
                 if medical_logger:
                     medical_logger.log(
-                        f"💥 Unexpected error on attempt {attempt + 1}: {error_msg}",
+                        f"Unexpected error on attempt {attempt + 1}: {error_msg}",
                         "ERROR",
                         details={
                             "attempt": attempt + 1,
@@ -212,7 +212,7 @@ class NotegenAPIService:
         # All attempts failed
         if medical_logger:
             medical_logger.log(
-                f"🔥 Failed to send section {section_id} to NoteGen API backend after {self.max_retries} attempts",
+                f"Failed to send section {section_id} to NoteGen API backend after {self.max_retries} attempts",
                 "ERROR",
                 details={
                     "final_error": last_error,
@@ -227,6 +227,95 @@ class NotegenAPIService:
             "error": last_error,
             "attempts": self.max_retries
         }
+    
+    async def send_section_result(
+        self,
+        encounter_id: str,
+        section_id: int,
+        section_result: 'SectionGenerationResult',
+        clinic_id: str,
+        job_id: str,
+        medical_logger: Optional[MedicalProcessingLogger] = None
+    ) -> Dict[str, Any]:
+        """
+        Send a section generation result (success or failure) to NoteGen API backend.
+        
+        This method handles both successful and failed section generations,
+        providing comprehensive status and error information to the backend.
+        
+        Args:
+            encounter_id: The encounter ID
+            section_id: The section ID from NoteGen API backend
+            section_result: The SectionGenerationResult with status and content
+            clinic_id: The clinic ID
+            job_id: Our internal job ID for tracking
+            medical_logger: Logger for medical compliance
+        
+        Returns:
+            Response data from NoteGen API backend
+        """
+        if not self._client:
+            await self.initialize()
+        
+        url = f"{self.base_url}/internal/encounters/{encounter_id}/notes"
+        
+        # Prepare payload based on section result status
+        if section_result.status == "success":
+            payload = {
+                "sectionId": section_id,
+                "noteContent": section_result.content,
+                "status": "success",
+                "metadata": {
+                    "attempt_count": section_result.attempt_count,
+                    "processing_time": section_result.processing_time,
+                    "confidence_score": section_result.confidence_score,
+                    "line_references_count": len(section_result.line_references),
+                    "snomed_mappings_count": len(section_result.snomed_mappings)
+                }
+            }
+        else:
+            payload = {
+                "sectionId": section_id,
+                "noteContent": f"GENERATION_FAILED: {section_result.error_message}",
+                "status": "failed",
+                "error": {
+                    "message": section_result.error_message,
+                    "trace": section_result.error_trace,
+                    "attempt_count": section_result.attempt_count,
+                    "processing_time": section_result.processing_time
+                }
+            }
+        
+        headers = {
+            "x-clinic-id": str(clinic_id),
+            "Content-Type": "application/json"
+        }
+        
+        if medical_logger:
+            medical_logger.log(
+                f"Sending section result {section_id} ({section_result.status}) to NoteGen API backend",
+                "INFO",
+                details={
+                    "encounter_id": encounter_id,
+                    "section_id": section_id,
+                    "section_name": section_result.section_name,
+                    "status": section_result.status,
+                    "attempt_count": section_result.attempt_count,
+                    "clinic_id": clinic_id,
+                    "job_id": job_id,
+                    "url": url
+                }
+            )
+        
+        # Use the existing retry logic
+        return await self.send_generated_section(
+            encounter_id=encounter_id,
+            section_id=section_id,
+            note_content=payload["noteContent"],
+            clinic_id=clinic_id,
+            job_id=job_id,
+            medical_logger=medical_logger
+        )
     
     async def health_check(self) -> Dict[str, Any]:
         """Check if NoteGen API backend is reachable."""

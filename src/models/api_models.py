@@ -26,6 +26,16 @@ class RequestedSection(BaseModel):
     order: int = Field(..., description="The order of this section within its template.", example=1)
 
 
+class SectionGenerationStatus(BaseModel):
+    """Status tracking for section generation with retry logic."""
+    status: str = Field(..., description="Generation status: 'success', 'failed', 'processing'")
+    attempt_count: int = Field(default=0, description="Number of attempts made")
+    max_attempts: int = Field(default=3, description="Maximum number of attempts allowed")
+    error_message: Optional[str] = Field(None, description="Error message if generation failed")
+    error_trace: Optional[str] = Field(None, description="Full error trace for debugging")
+    last_attempt_time: Optional[datetime] = Field(None, description="Timestamp of last attempt")
+
+
 class EncounterRequestModel(BaseModel):
     """
     Production request model for a complete encounter processing task.
@@ -80,6 +90,10 @@ class EncounterRequestModel(BaseModel):
         min_length=1,
         description="Clinic ID required for NestJS integration."
     )
+    patientInfo: bool = Field(
+        default=False,
+        description="Flag to extract and send patient demographic information."
+    )
 
     @field_validator('encounterId', 'doctorId', 'clinicId')
     @classmethod
@@ -115,6 +129,32 @@ class GeneratedSection(BaseModel):
         default_factory=dict, 
         description="Metadata from the generation process, like tokens used or model version."
     )
+    generation_status: SectionGenerationStatus = Field(
+        ..., 
+        description="Status and error tracking for section generation."
+    )
+
+
+class SectionGenerationResult(BaseModel):
+    """
+    Result of section generation including success/failure status.
+    Used internally for processing and API responses.
+    """
+    section_id: Union[str, int] = Field(..., description="Section ID from the request")
+    section_name: str = Field(..., description="Name of the section")
+    status: str = Field(..., description="'success' or 'failed'")
+    content: Optional[str] = Field(None, description="Generated content if successful")
+    error_message: Optional[str] = Field(None, description="Error message if failed")
+    error_trace: Optional[str] = Field(None, description="Full error trace if failed")
+    attempt_count: int = Field(default=0, description="Number of attempts made")
+    processing_time: Optional[float] = Field(None, description="Time taken for generation in seconds")
+    
+    # Success-specific fields
+    line_references: List[Dict[str, Any]] = Field(default_factory=list)
+    snomed_mappings: List[Dict[str, Any]] = Field(default_factory=list)
+    confidence_score: Optional[float] = Field(None)
+    language: Optional[str] = Field(None)
+    processing_metadata: Dict[str, Any] = Field(default_factory=dict)
 
 
 class JobAcknowledgementResponse(BaseModel):

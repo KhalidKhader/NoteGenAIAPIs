@@ -740,6 +740,122 @@ Text:
 ---
 """
 
+# =============================================================================
+# Patient Information Extraction Prompts
+# =============================================================================
+
+PATIENT_INFO_EXTRACTION_PROMPT = {
+    "en": """
+You are a medical information extraction specialist. Your task is to extract specific patient demographic information from a medical conversation transcript.
+
+EXTRACT THE FOLLOWING INFORMATION:
+1. First name
+2. Last name
+3. Date of birth (format: YYYY-MM-DD, or null if not mentioned)
+4. Gender (male/female/other/null if not mentioned)
+5. Recording consent (true if patient explicitly agreed to recording, false if declined, null if not discussed)
+
+INSTRUCTIONS:
+- Only extract information that is explicitly mentioned in the conversation
+- Use null for any field that is not clearly stated
+- Be very careful with dates - only extract if clearly stated
+- For names, extract exactly as spoken (don't make assumptions)
+- For consent, only mark true if explicit agreement is given
+
+EXAMPLES:
+
+Example 1:
+Doctor: "Good morning, Mrs. Sarah Johnson. I see you're here for your annual checkup."
+Patient: "Yes, that's right. And yes, I'm okay with you recording this session."
+Doctor: "Thank you. Can you confirm your date of birth for our records?"
+Patient: "March 15th, 1985."
+
+Response:
+{{
+  "first_name": "Sarah",
+  "last_name": "Johnson", 
+  "date_of_birth": "1985-03-15",
+  "gender": null,
+  "recording_consent": true
+}}
+
+Example 2:
+Doctor: "Hello Mr. Robert Smith, how are you feeling today?"
+Patient: "I'm doing well, doctor."
+Doctor: "I need to record our session today, is that alright?"
+Patient: "No, I'd prefer not to be recorded."
+
+Response:
+{{
+  "first_name": "Robert",
+  "last_name": "Smith",
+  "date_of_birth": null,
+  "gender": "male",
+  "recording_consent": false
+}}
+
+CONVERSATION TRANSCRIPT:
+{transcript}
+
+RESPONSE (JSON only, no explanation):
+""",
+    
+    "fr": """
+Vous êtes un spécialiste de l'extraction d'informations médicales. Votre tâche est d'extraire des informations démographiques spécifiques du patient à partir d'une transcription de conversation médicale.
+
+EXTRAIRE LES INFORMATIONS SUIVANTES:
+1. Prénom
+2. Nom de famille
+3. Date de naissance (format: YYYY-MM-DD, ou null si non mentionné)
+4. Sexe (masculin/féminin/autre/null si non mentionné)
+5. Consentement d'enregistrement (true si le patient a explicitement accepté l'enregistrement, false si refusé, null si non discuté)
+
+INSTRUCTIONS:
+- Extraire seulement les informations explicitement mentionnées dans la conversation
+- Utiliser null pour tout champ qui n'est pas clairement énoncé
+- Être très prudent avec les dates - extraire seulement si clairement énoncé
+- Pour les noms, extraire exactement comme prononcé (ne pas faire d'hypothèses)
+- Pour le consentement, marquer true seulement si un accord explicite est donné
+
+EXEMPLES:
+
+Exemple 1:
+Docteur: "Bonjour Madame Sarah Johnson. Je vois que vous êtes ici pour votre examen annuel."
+Patient: "Oui, c'est exact. Et oui, je suis d'accord pour que vous enregistriez cette session."
+Docteur: "Merci. Pouvez-vous confirmer votre date de naissance pour nos dossiers?"
+Patient: "Le 15 mars 1985."
+
+Réponse:
+{{
+  "first_name": "Sarah",
+  "last_name": "Johnson",
+  "date_of_birth": "1985-03-15", 
+  "gender": null,
+  "recording_consent": true
+}}
+
+Exemple 2:
+Docteur: "Bonjour Monsieur Robert Smith, comment vous sentez-vous aujourd'hui?"
+Patient: "Je vais bien, docteur."
+Docteur: "Je dois enregistrer notre session aujourd'hui, est-ce que ça va?"
+Patient: "Non, je préférerais ne pas être enregistré."
+
+Réponse:
+{{
+  "first_name": "Robert",
+  "last_name": "Smith",
+  "date_of_birth": null,
+  "gender": "masculin",
+  "recording_consent": false
+}}
+
+TRANSCRIPTION DE CONVERSATION:
+{transcript}
+
+RÉPONSE (JSON seulement, pas d'explication):
+"""
+}
+
 __all__ = [
     "PromptLanguage",
     "SOAPSectionType", 
@@ -756,4 +872,5 @@ __all__ = [
     "FACTUAL_CONSISTENCY_VALIDATION_PROMPT",
     "SECTION_GENERATION_SYSTEM_PROMPT_TEMPLATE",
     "SECTION_GENERATION_USER_PROMPT_TEMPLATE",
+    "PATIENT_INFO_EXTRACTION_PROMPT",
 ]
