@@ -1,0 +1,306 @@
+name: Deploy NoteGen AI APIs
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - v3  # Added v3 branch for testing
+    paths:
+      - 'notegen-ai-apis/**'
+      - '.github/workflows/deploy.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'notegen-ai-apis/**'
+
+env:
+  AWS_REGION: ca-central-1
+  ECR_REPOSITORY: notegen-ai-api
+
+jobs:
+  # =============================================================================
+  # Build and Push Docker Image
+  # =============================================================================
+  build:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    permissions:
+      id-token: write   # Required for OIDC authentication
+      contents: read    # Required to checkout code
+    outputs:
+      image-tag: ${{ steps.image-tag.outputs.tag }}
+      image-uri: ${{ steps.build-image.outputs.image }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Poetry
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+
+      - name: Configure Poetry
+        run: |
+          poetry config virtualenvs.create false
+
+      - name: Install dependencies
+        working-directory: ./notegen-ai-apis
+        run: |
+          poetry install --only=main --no-root
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::225989351675:role/notegen-ai-api-staging-github-actions-role
+          role-session-name: GitHubActions-Build
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Generate image tag
+        id: image-tag
+        run: |
+          if [[ ${{ github.ref }} == 'refs/heads/main' ]]; then
+            TAG="prod-$(date +%Y%m%d)-${GITHUB_SHA::8}"
+          else
+            TAG="staging-$(date +%Y%m%d)-${GITHUB_SHA::8}"
+          fi
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "Generated tag: $TAG"
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ steps.image-tag.outputs.tag }}
+        run: |
+          cd notegen-ai-apis
+          
+          # Build the Docker image
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          
+          # Push the image to ECR
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          
+          # Output the image URI
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+  # =============================================================================
+  # Deploy to Staging
+  # =============================================================================
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: build
+    if: (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/v3') && github.event_name == 'push'
+    environment: staging
+    permissions:
+      id-token: write   # Required for OIDC authentication
+      contents: read    # Required to checkout code
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::225989351675:role/notegen-ai-api-staging-github-actions-role
+          role-session-name: GitHubActions-Deploy-Staging
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Get AWS Account ID
+        id: account
+        run: |
+          ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+          echo "account-id=$ACCOUNT_ID" >> $GITHUB_OUTPUT
+
+      - name: Update task definition
+        run: |
+          # Replace placeholder values in task definition
+          sed -i "s/ACCOUNT_ID/${{ steps.account.outputs.account-id }}/g" notegen-ai-apis/aws/task-definition.json
+          sed -i "s/:latest/:${{ needs.build.outputs.image-tag }}/g" notegen-ai-apis/aws/task-definition.json
+          
+          # Register new task definition
+          aws ecs register-task-definition \
+            --cli-input-json file://notegen-ai-apis/aws/task-definition.json \
+            --region ${{ env.AWS_REGION }}
+
+      - name: Update ECS Service
+        run: |
+          aws ecs update-service \
+            --cluster notegen-ai-api-staging-cluster \
+            --service notegen-ai-api-staging \
+            --task-definition notegen-ai-api-staging \
+            --force-new-deployment \
+            --region ${{ env.AWS_REGION }}
+
+      - name: Wait for deployment
+        run: |
+          echo "Waiting for ECS service to stabilize..."
+          aws ecs wait services-stable \
+            --cluster notegen-ai-api-staging-cluster \
+            --services notegen-ai-api-staging \
+            --region ${{ env.AWS_REGION }} \
+            --cli-read-timeout 900
+
+      - name: Health check
+        run: |
+          # Get the ALB DNS name from the ECS service
+          ALB_ARN=$(aws ecs describe-services \
+            --cluster notegen-ai-api-staging-cluster \
+            --services notegen-ai-api-staging \
+            --query 'services[0].loadBalancers[0].targetGroupArn' \
+            --output text)
+          
+          if [[ "$ALB_ARN" != "None" && "$ALB_ARN" != "" ]]; then
+            ALB_ARN=$(aws elbv2 describe-target-groups \
+              --target-group-arns $ALB_ARN \
+              --query 'TargetGroups[0].LoadBalancerArns[0]' \
+              --output text)
+            
+            ALB_DNS=$(aws elbv2 describe-load-balancers \
+              --load-balancer-arns $ALB_ARN \
+              --query 'LoadBalancers[0].DNSName' \
+              --output text)
+            
+            echo "Health checking: http://${ALB_DNS}/health"
+            
+            for i in {1..10}; do
+              if curl -f "http://${ALB_DNS}/health" > /dev/null 2>&1; then
+                echo "✅ Staging deployment is healthy!"
+                exit 0
+              fi
+              echo "Attempt $i/10 failed, waiting 30 seconds..."
+              sleep 30
+            done
+            
+            echo "❌ Health check failed after 10 attempts"
+            exit 1
+          else
+            echo "⚠️ Could not find ALB for health check, using known ALB DNS..."
+            # Fallback to known ALB DNS from Terraform output
+            ALB_DNS="notegen-ai-api-staging-alb-2046352778.ca-central-1.elb.amazonaws.com"
+            echo "Health checking: http://${ALB_DNS}/health"
+            
+            for i in {1..10}; do
+              if curl -f "http://${ALB_DNS}/health" > /dev/null 2>&1; then
+                echo "✅ Staging deployment is healthy!"
+                exit 0
+              fi
+              echo "Attempt $i/10 failed, waiting 30 seconds..."
+              sleep 30
+            done
+            
+            echo "❌ Health check failed after 10 attempts"
+            exit 1
+          fi
+
+  # =============================================================================
+  # Deploy to Production
+  # =============================================================================
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment: production
+    permissions:
+      id-token: write   # Required for OIDC authentication
+      contents: read    # Required to checkout code
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::225989351675:role/notegen-ai-api-staging-github-actions-role
+          role-session-name: GitHubActions-Deploy-Production
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Get AWS Account ID
+        id: account
+        run: |
+          ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+          echo "account-id=$ACCOUNT_ID" >> $GITHUB_OUTPUT
+
+      - name: Update task definition
+        run: |
+          # Replace placeholder values in task definition
+          sed -i "s/ACCOUNT_ID/${{ steps.account.outputs.account-id }}/g" notegen-ai-apis/aws/task-definition-prod.json
+          sed -i "s/:latest/:${{ needs.build.outputs.image-tag }}/g" notegen-ai-apis/aws/task-definition-prod.json
+          
+          # Register new task definition
+          aws ecs register-task-definition \
+            --cli-input-json file://notegen-ai-apis/aws/task-definition-prod.json \
+            --region ${{ env.AWS_REGION }}
+
+      - name: Update ECS Service
+        run: |
+          aws ecs update-service \
+            --cluster notegen-prod-cluster \
+            --service notegen-ai-api-prod \
+            --task-definition notegen-ai-api-prod \
+            --force-new-deployment \
+            --region ${{ env.AWS_REGION }}
+
+      - name: Wait for deployment
+        run: |
+          echo "Waiting for ECS service to stabilize..."
+          aws ecs wait services-stable \
+            --cluster notegen-prod-cluster \
+            --services notegen-ai-api-prod \
+            --region ${{ env.AWS_REGION }} \
+            --cli-read-timeout 900
+
+      - name: Health check
+        run: |
+          # Get the ALB DNS name from the ECS service
+          ALB_ARN=$(aws ecs describe-services \
+            --cluster notegen-prod-cluster \
+            --services notegen-ai-api-prod \
+            --query 'services[0].loadBalancers[0].targetGroupArn' \
+            --output text)
+          
+          if [[ "$ALB_ARN" != "None" && "$ALB_ARN" != "" ]]; then
+            ALB_ARN=$(aws elbv2 describe-target-groups \
+              --target-group-arns $ALB_ARN \
+              --query 'TargetGroups[0].LoadBalancerArns[0]' \
+              --output text)
+            
+            ALB_DNS=$(aws elbv2 describe-load-balancers \
+              --load-balancer-arns $ALB_ARN \
+              --query 'LoadBalancers[0].DNSName' \
+              --output text)
+            
+            echo "Health checking: http://${ALB_DNS}/health"
+            
+            for i in {1..10}; do
+              if curl -f "http://${ALB_DNS}/health" > /dev/null 2>&1; then
+                echo "✅ Production deployment is healthy!"
+                exit 0
+              fi
+              echo "Attempt $i/10 failed, waiting 30 seconds..."
+              sleep 30
+            done
+            
+            echo "❌ Health check failed after 10 attempts"
+            exit 1
+          else
+            echo "⚠️ Could not find ALB for health check, skipping..."
+          fi 
