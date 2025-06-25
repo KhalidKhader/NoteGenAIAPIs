@@ -217,7 +217,7 @@ resource "aws_iam_role_policy" "ecs_execution_role_secrets_policy" {
           Resource = var.secrets_arns
         }
       ] : [],
-      # SSM Parameter Store permissions for Azure OpenAI endpoints
+      # SSM Parameter Store permissions for all required parameters
       [
         {
           Effect = "Allow"
@@ -226,8 +226,11 @@ resource "aws_iam_role_policy" "ecs_execution_role_secrets_policy" {
             "ssm:GetParameters"
           ]
           Resource = [
+            "arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:parameter/notegen-ai-api/${var.environment}/neo4j/uri",
+            "arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:parameter/notegen-ai-api/${var.environment}/opensearch/endpoint",
             "arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:parameter/notegen-ai-api/${var.environment}/azure-openai/endpoint",
-            "arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:parameter/notegen-ai-api/${var.environment}/azure-openai/embedding-endpoint"
+            "arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:parameter/notegen-ai-api/${var.environment}/azure-openai/embedding-endpoint",
+            "arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:parameter/notegen-ai-api/${var.environment}/notegen-api/base-url"
           ]
         }
       ]
