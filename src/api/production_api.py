@@ -30,7 +30,7 @@ from src.models.api_models import (
 from src.services.conversation_rag import ConversationRAGService, get_conversation_rag_service
 from src.services.snomed_rag import SNOMEDRAGService, get_snomed_rag_service
 from src.services.section_generator import MedicalSectionGenerator, get_soap_generator_service
-from src.services.nestjs_integration import NestJSIntegrationService, get_nestjs_integration_service
+from src.services.notegen_api_service import NotegenAPIService, get_notegen_api_service
 
 router = APIRouter()
 logger = get_logger(__name__)
@@ -78,7 +78,7 @@ async def _run_encounter_processing_pipeline(
         convo_rag: ConversationRAGService = await get_conversation_rag_service()
         snomed_rag: SNOMEDRAGService = await get_snomed_rag_service()
         section_generator: MedicalSectionGenerator = await get_soap_generator_service()
-        nestjs_service: NestJSIntegrationService = await get_nestjs_integration_service()
+        notegen_api_service: NotegenAPIService = await get_notegen_api_service()
 
         # STEP 3: Store conversation and get chunk IDs
         medical_logger.log("Storing and chunking conversation.", "INFO")
@@ -170,32 +170,32 @@ async def _run_encounter_processing_pipeline(
                     with open(section_output_path, 'w', encoding='utf-8') as f:
                         json.dump(generated_content.model_dump(), f, indent=2, ensure_ascii=False)
                     
-                    # Send to NestJS immediately after successful generation
-                    if not generated_content.content.startswith("Error:"):
-                        medical_logger.log(f"🚀 Sending section '{section_name}' to NestJS", "INFO")
-                        
-                        # Send the section to NestJS
-                        nestjs_response = await nestjs_service.send_generated_section(
-                            encounter_id=encounter_id,
-                            section_id=section_to_generate.id,
-                            note_content=generated_content.content,
-                            clinic_id=request.clinicId,
-                            job_id=job_id,
-                            medical_logger=medical_logger
-                        )
-                        
-                        if nestjs_response.get("success"):
-                            medical_logger.log(
-                                f"✅ Successfully sent section '{section_name}' to NestJS",
-                                "INFO",
-                                details=nestjs_response
+                                            # Send to NoteGen API backend immediately after successful generation
+                        if not generated_content.content.startswith("Error:"):
+                            medical_logger.log(f"🚀 Sending section '{section_name}' to NoteGen API backend", "INFO")
+                            
+                            # Send the section to NoteGen API backend
+                            api_response = await notegen_api_service.send_generated_section(
+                                encounter_id=encounter_id,
+                                section_id=section_to_generate.id,
+                                note_content=generated_content.content,
+                                clinic_id=request.clinicId,
+                                job_id=job_id,
+                                medical_logger=medical_logger
                             )
-                        else:
-                            medical_logger.log(
-                                f"❌ Failed to send section '{section_name}' to NestJS: {nestjs_response.get('error')}",
-                                "ERROR",
-                                details=nestjs_response
-                            )
+                            
+                            if api_response.get("success"):
+                                medical_logger.log(
+                                    f"✅ Successfully sent section '{section_name}' to NoteGen API backend",
+                                    "INFO",
+                                    details=api_response
+                                )
+                            else:
+                                medical_logger.log(
+                                    f"❌ Failed to send section '{section_name}' to NoteGen API backend: {api_response.get('error')}",
+                                    "ERROR",
+                                    details=api_response
+                                )
                         
                         break
                 
@@ -228,10 +228,10 @@ async def _run_encounter_processing_pipeline(
 @router.post(
     "/generate-notes",
     response_model=JobAcknowledgementResponse,
-    summary="Generate Notes from NestJS (Main Endpoint)",
+    summary="Generate Notes from NoteGen API (Main Endpoint)",
     description="""
-    This is the main endpoint that NestJS calls to generate medical notes.
-    It processes the encounter and sends sections back to NestJS as they're completed.
+    This is the main endpoint that the NoteGen API backend calls to generate medical notes.
+    It processes the encounter and sends sections back to the NoteGen API backend as they're completed.
     All LLM requests are automatically traced with Langfuse for observability.
     """
 )
@@ -240,12 +240,12 @@ async def generate_notes(
     background_tasks: BackgroundTasks
 ) -> JobAcknowledgementResponse:
     """
-    Main endpoint for NestJS integration. Generates notes and sends them back to NestJS.
+    Main endpoint for NoteGen API backend integration. Generates notes and sends them back to the backend.
     This endpoint matches the expected flow from the story requirements.
     
     Features:
     - Full Langfuse observability for all LLM requests
-    - Real-time section delivery to NestJS
+    - Real-time section delivery to NoteGen API backend
     - Comprehensive medical logging and tracing
     - SNOMED validation and doctor preferences
     """

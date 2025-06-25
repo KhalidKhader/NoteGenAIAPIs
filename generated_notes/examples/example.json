@@ -1,8 +1,8 @@
 {
   "sections": [
     {
-      "id": 1,
-      "templateId": 1,
+      "id": "1",
+      "templateId": "1",
       "name": "Subjective",
       "prompt": "Extract only the patient-reported symptoms, complaints, and relevant history from the transcript. Examples:-Intermittent headaches for the past week were reported. -The patient described chest pain radiating to the left arm.  -A history of smoking for 20 years was noted.  -Fatigue and shortness of breath on exertion were experienced.  -The patient reported recent weight loss over the last month.",
       "order": 1,
@@ -10,8 +10,8 @@
       "updatedAt": "2025-06-17T15:40:05.000Z"
     },
     {
-      "id": 2,
-      "templateId": 1,
+      "id": "2",
+      "templateId": "1",
       "name": "Objective",
       "prompt": "Summarize only physical exam results, vital signs, and test results from the transcript.Examples:-Blood pressure measured at 138/86 mmHg.-Bilateral wheezes were auscultated in the lung bases.-Heart rate recorded at 92 beats per minute.-Oxygen saturation was 95% on room air.-Laboratory tests showed elevated white blood cell count.",
       "order": 2,
@@ -19,8 +19,8 @@
       "updatedAt": "2025-06-17T15:40:05.000Z"
     },
     {
-      "id": 3,
-      "templateId": 1,
+      "id": "3",
+      "templateId": "1",
       "name": "Assessment",
       "prompt": "Generate a concise list of diagnoses or clinical impressions based on the subjective and objective mentions in the transcript.Examples:-Hypertension was identified based on elevated blood pressure readings and history.-Acute bronchitis was suspected due to productive cough and wheezing.-Type 2 diabetes mellitus was considered given elevated glucose levels.-Anxiety disorder was assessed based on reported symptoms and history.-Osteoarthritis of the knee was diagnosed following joint pain and exam findings.",
       "order": 3,
@@ -28,8 +28,8 @@
       "updatedAt": "2025-06-17T15:40:05.000Z"
     },
     {
-      "id": 4,
-      "templateId": 1,
+      "id": "4",
+      "templateId": "1",
       "name": "Plan",
       "prompt": "List only the recommended next steps, including medications, tests, referrals, or follow-up instructions discussed in the transcript.Examples:-Lisinopril 10mg daily was prescribed.-A chest X-ray was ordered to evaluate lung pathology.-Referral to cardiology was arranged for further assessment.-The patient was advised to follow a low-sodium diet.-Follow-up appointment scheduled in two weeks.",
       "order": 4,
@@ -37,8 +37,8 @@
       "updatedAt": "2025-06-17T15:40:05.000Z"
     },
     {
-      "id": 5,
-      "templateId": 2,
+      "id": "5",
+      "templateId": "2",
       "name": "Visit - 1",
       "prompt": "say hello world",
       "order": 1,
@@ -46,8 +46,8 @@
       "updatedAt": "2025-06-17T15:40:05.000Z"
     },
     {
-      "id": 6,
-      "templateId": 2,
+      "id": "6",
+      "templateId": "2",
       "name": "Visit - 2",
       "prompt": "say hi",
       "order": 2,
@@ -55,8 +55,8 @@
       "updatedAt": "2025-06-17T15:40:05.000Z"
     },
     {
-      "id": 7,
-      "templateId": 3,
+      "id": "7",
+      "templateId": "3",
       "name": "Section 1",
       "prompt": "say hola elmundo",
       "order": 1,

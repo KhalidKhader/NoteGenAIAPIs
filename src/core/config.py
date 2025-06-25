@@ -6,7 +6,7 @@ SOAP generation microservice.
 """
 
 from functools import lru_cache
-from typing import List
+from typing import List, Optional
 
 from pydantic import ConfigDict, Field, field_validator
 from pydantic_settings import BaseSettings
@@ -77,10 +77,10 @@ class Settings(BaseSettings):
     azure_output_price_per_1k_tokens: float = Field(default=0.015, description="Price per 1K output tokens for the Azure model")
 
     # Azure OpenAI Embeddings
-    openai_embedding_endpoint: str = Field(description="OpenAI embedding endpoint - REQUIRED")
-    openai_embedding_api_key: str = Field(description="OpenAI embedding API key - REQUIRED")
-    openai_embedding_deployment_name: str = Field(default="text-embedding-ada-002", description="Embedding deployment name")
-    openai_embedding_model: str = Field(default="text-embedding-ada-002", description="OpenAI embedding model")
+    azure_openai_embedding_endpoint: str = Field(description="Azure OpenAI embedding endpoint - REQUIRED")
+    azure_openai_embedding_api_key: str = Field(description="Azure OpenAI embedding API key - REQUIRED")
+    azure_openai_embedding_deployment_name: str = Field(default="text-embedding-ada-002", description="Embedding deployment name")
+    azure_openai_embedding_model: str = Field(default="text-embedding-ada-002", description="Azure OpenAI embedding model")
 
     # =============================================================================
     # LangFuse Configuration (Observability)
@@ -92,14 +92,33 @@ class Settings(BaseSettings):
     # =============================================================================
     # AWS Configuration (OpenSearch)
     # =============================================================================
-    aws_access_key_id: str = Field(description="AWS Access Key ID - REQUIRED")
-    aws_secret_access_key: str = Field(description="AWS Secret Access Key - REQUIRED")
+    aws_access_key_id: Optional[str] = Field(default=None, description="AWS Access Key ID - Optional (not needed when running on AWS with IAM roles)")
+    aws_secret_access_key: Optional[str] = Field(default=None, description="AWS Secret Access Key - Optional (not needed when running on AWS with IAM roles)")
     opensearch_endpoint: str = Field(
         default="https://9tty40b80t5pqwdeqop6.ca-central-1.aoss.amazonaws.com",
         description="AWS OpenSearch endpoint"
     )
     opensearch_index: str = Field(default="medical-conversations", description="OpenSearch index name")
     opensearch_timeout: int = Field(default=300, description="OpenSearch timeout in seconds")
+
+    # =============================================================================
+    # NoteGen API Service Integration Configuration
+    # =============================================================================
+    notegen_api_base_url: str = Field(
+        default="http://localhost:3000",
+        description="Base URL for NoteGen API service backend integration",
+        alias="notegen_api_base_url"
+    )
+    notegen_api_timeout: float = Field(
+        default=30.0,
+        description="HTTP timeout for NoteGen API service requests in seconds",
+        alias="notegen_api_timeout"
+    )
+    notegen_api_max_retries: int = Field(
+        default=3,
+        description="Maximum retry attempts for NoteGen API service requests",
+        alias="notegen_api_max_retries"
+    )
 
     # =============================================================================
     # RAG Configuration

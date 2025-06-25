@@ -1,0 +1,38 @@
+ENVIRONMENT=development 
+LOG_LEVEL=INFO
+
+# Neo4j settings
+NEO4J_URI=bolt://localhost:7687
+NEO4J_USER=neo4j
+NEO4J_PASSWORD=OeU2iAGXPk2SzYGMYu-IPK4lSxeh72smucUVBt_U96s
+NEO4J_DATABASE=neo4j
+# Azure OpenAI Configuration
+AZURE_OPENAI_API_KEY=pnqCLTtJNCuJ0aFWOwV7WPOlrajwGwxTdFuDlAPxNdCdPgT1kxjaJQQJ99AKACREanaXJ3w3AAABACOGf7KP
+AZURE_OPENAI_ENDPOINT=https://notegen-openai-eastca.openai.azure.com
+AZURE_OPENAI_DEPLOYMENT_NAME="gpt-4o"
+AZURE_OPENAI_API_VERSION=2024-05-01-preview
+AZURE_OPENAI_MODEL=gpt-4
+
+# Azure OpenAI Embeddings Configuration  
+AZURE_OPENAI_EMBEDDING_ENDPOINT=https://notegen-openai-eastca.openai.azure.com
+AZURE_OPENAI_EMBEDDING_API_KEY=pnqCLTtJNCuJ0aFWOwV7WPOlrajwGwxTdFuDlAPxNdCdPgT1kxjaJQQJ99AKACREanaXJ3w3AAABACOGf7KP
+AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME=text-embedding-ada-002
+
+# AWS OpenSearch Configuration
+OPENSEARCH_ENDPOINT=https://9tty40b80t5pqwdeqop6.ca-central-1.aoss.amazonaws.com
+OPENSEARCH_INDEX=medical-conversations
+
+# AWS Credentials (Optional - not needed when running on AWS with IAM roles)
+# AWS_ACCESS_KEY_ID=your_access_key_here
+# AWS_SECRET_ACCESS_KEY=your_secret_key_here
+
+# NoteGen API Service Integration Configuration
+NOTEGEN_API_BASE_URL=https://9134-196-159-22-237.ngrok-free.app
+NOTEGEN_API_TIMEOUT=30.0
+NOTEGEN_API_MAX_RETRIES=3
+
+LANGFUSE_SECRET_KEY=sk-lf-d00defd1-f91f-4eff-a46f-c493e0240b79
+LANGFUSE_PUBLIC_KEY=pk-lf-e4a45c41-bb70-483d-bb13-7c3db0fe0b7b
+LANGFUSE_HOST="https://us.cloud.langfuse.com"
+
+

@@ -243,7 +243,6 @@ soap_notes/
 # API keys and secrets (additional protection)
 .env.local
 .env.production
-secrets/
 keys/
 
 # Docker
@@ -284,3 +283,14 @@ htmlcov/
 # Local data
 /generated_notes
 /conversation_rag_db
+
+# Terraform
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/crash.log
+terraform-deployer-keys
+terraform/envs/staging/.terraform.lock.hcl
+.terraform/*
+**/.terraform/*

@@ -1,38 +1,39 @@
 """
-NestJS Integration Service for NoteGen AI APIs.
+NoteGen API Service for NoteGen AI APIs.
 
-This service handles communication with the NestJS backend to send generated
-medical sections and manage the integration workflow.
+This service handles communication with the NoteGen backend (formerly NestJS) 
+to send generated medical sections and manage the integration workflow.
 """
 
 import asyncio
 from typing import Dict, Any, Optional
 
 import httpx
+from src.core.config import settings
 from src.core.logging import get_logger, MedicalProcessingLogger
 
 logger = get_logger(__name__)
 
 
-class NestJSIntegrationService:
+class NotegenAPIService:
     """
-    Service for integrating with NestJS backend.
+    Service for integrating with NoteGen API backend.
     
     Handles:
-    - Sending generated sections to NestJS
+    - Sending generated sections to NoteGen API backend
     - Managing job status updates
     - Error handling and retry logic
     - Comprehensive logging for medical compliance
     """
     
     def __init__(self):
-        self.base_url = "https://9134-196-159-22-237.ngrok-free.app"
-        self.timeout = 30.0
-        self.max_retries = 3
+        self.base_url = settings.notegen_api_base_url
+        self.timeout = settings.notegen_api_timeout
+        self.max_retries = settings.notegen_api_max_retries
         self._client: Optional[httpx.AsyncClient] = None
     
     async def initialize(self) -> None:
-        """Initialize the NestJS integration service."""
+        """Initialize the NoteGen API integration service."""
         self._client = httpx.AsyncClient(
             timeout=httpx.Timeout(self.timeout),
             headers={
@@ -40,7 +41,7 @@ class NestJSIntegrationService:
                 "User-Agent": "NoteGen-AI-APIs/1.0"
             }
         )
-        logger.info("NestJS Integration Service initialized")
+        logger.info("NoteGen API Integration Service initialized")
     
     async def close(self) -> None:
         """Close the HTTP client."""
@@ -57,18 +58,18 @@ class NestJSIntegrationService:
         medical_logger: Optional[MedicalProcessingLogger] = None
     ) -> Dict[str, Any]:
         """
-        Send a generated section to NestJS backend.
+        Send a generated section to NoteGen API backend.
         
         Args:
             encounter_id: The encounter ID
-            section_id: The section ID from NestJS
+            section_id: The section ID from NoteGen API backend
             note_content: The generated content
             clinic_id: The clinic ID
             job_id: Our internal job ID for tracking
             medical_logger: Logger for medical compliance
         
         Returns:
-            Response data from NestJS
+            Response data from NoteGen API backend
         """
         if not self._client:
             await self.initialize()
@@ -87,7 +88,7 @@ class NestJSIntegrationService:
         
         if medical_logger:
             medical_logger.log(
-                f"🚀 Sending section {section_id} to NestJS",
+                f"🚀 Sending section {section_id} to NoteGen API backend",
                 "INFO",
                 details={
                     "encounter_id": encounter_id,
@@ -118,7 +119,7 @@ class NestJSIntegrationService:
                 # Log the response
                 if medical_logger:
                     medical_logger.log(
-                        f"NestJS Response Status: {response.status_code}",
+                        f"NoteGen API Response Status: {response.status_code}",
                         "DEBUG",
                         details={
                             "status_code": response.status_code,
@@ -132,7 +133,7 @@ class NestJSIntegrationService:
                     
                     if medical_logger:
                         medical_logger.log(
-                            f"✅ Successfully sent section {section_id} to NestJS",
+                            f"✅ Successfully sent section {section_id} to NoteGen API backend",
                             "INFO",
                             details={
                                 "response_data": response_data,
@@ -148,7 +149,7 @@ class NestJSIntegrationService:
                         "attempt": attempt + 1
                     }
                 else:
-                    error_msg = f"NestJS returned status {response.status_code}"
+                    error_msg = f"NoteGen API backend returned status {response.status_code}"
                     try:
                         error_response = response.json()
                         error_msg += f": {error_response}"
@@ -157,7 +158,7 @@ class NestJSIntegrationService:
                     
                     if medical_logger:
                         medical_logger.log(
-                            f"❌ NestJS error on attempt {attempt + 1}: {error_msg}",
+                            f"❌ NoteGen API error on attempt {attempt + 1}: {error_msg}",
                             "WARNING",
                             details={
                                 "status_code": response.status_code,
@@ -177,7 +178,7 @@ class NestJSIntegrationService:
                         await asyncio.sleep(2 ** attempt)  # Exponential backoff
             
             except httpx.TimeoutException as e:
-                error_msg = f"Timeout sending to NestJS: {str(e)}"
+                error_msg = f"Timeout sending to NoteGen API backend: {str(e)}"
                 last_error = error_msg
                 
                 if medical_logger:
@@ -191,7 +192,7 @@ class NestJSIntegrationService:
                     await asyncio.sleep(2 ** attempt)
             
             except Exception as e:
-                error_msg = f"Unexpected error sending to NestJS: {str(e)}"
+                error_msg = f"Unexpected error sending to NoteGen API backend: {str(e)}"
                 last_error = error_msg
                 
                 if medical_logger:
@@ -211,7 +212,7 @@ class NestJSIntegrationService:
         # All attempts failed
         if medical_logger:
             medical_logger.log(
-                f"🔥 Failed to send section {section_id} to NestJS after {self.max_retries} attempts",
+                f"🔥 Failed to send section {section_id} to NoteGen API backend after {self.max_retries} attempts",
                 "ERROR",
                 details={
                     "final_error": last_error,
@@ -228,7 +229,7 @@ class NestJSIntegrationService:
         }
     
     async def health_check(self) -> Dict[str, Any]:
-        """Check if NestJS backend is reachable."""
+        """Check if NoteGen API backend is reachable."""
         if not self._client:
             await self.initialize()
         
@@ -247,13 +248,24 @@ class NestJSIntegrationService:
 
 
 # Global service instance
-_nestjs_service: Optional[NestJSIntegrationService] = None
+_notegen_api_service: Optional[NotegenAPIService] = None
 
 
-async def get_nestjs_integration_service() -> NestJSIntegrationService:
-    """Get the global NestJS integration service instance."""
-    global _nestjs_service
-    if _nestjs_service is None:
-        _nestjs_service = NestJSIntegrationService()
-        await _nestjs_service.initialize()
-    return _nestjs_service 
+async def get_notegen_api_service() -> NotegenAPIService:
+    """Get the global NoteGen API service instance."""
+    global _notegen_api_service
+    if _notegen_api_service is None:
+        _notegen_api_service = NotegenAPIService()
+        await _notegen_api_service.initialize()
+    return _notegen_api_service
+
+
+# Backward compatibility alias
+async def get_nestjs_integration_service() -> NotegenAPIService:
+    """
+    Backward compatibility alias for get_notegen_api_service.
+    
+    DEPRECATED: Use get_notegen_api_service() instead.
+    This function will be removed in a future version.
+    """
+    return await get_notegen_api_service() 

@@ -1,0 +1,140 @@
+{
+  "family": "notegen-ai-api-prod",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "1024",
+  "memory": "2048",
+  "executionRoleArn": "arn:aws:iam::ACCOUNT_ID:role/notegen-ai-api-prod-execution-role",
+  "taskRoleArn": "arn:aws:iam::ACCOUNT_ID:role/notegen-ai-api-prod-task-role",
+  "containerDefinitions": [
+    {
+      "name": "notegen-ai-api",
+      "image": "ACCOUNT_ID.dkr.ecr.ca-central-1.amazonaws.com/notegen-ai-api:latest",
+      "portMappings": [
+        {
+          "containerPort": 8000,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "APP_NAME",
+          "value": "notegen-ai-api"
+        },
+        {
+          "name": "ENVIRONMENT",
+          "value": "prod"
+        },
+        {
+          "name": "LOG_LEVEL",
+          "value": "INFO"
+        },
+        {
+          "name": "DEBUG",
+          "value": "false"
+        },
+        {
+          "name": "CORS_ORIGINS",
+          "value": "https://app.notegen.ai,https://api.notegen.ai"
+        },
+        {
+          "name": "OPENSEARCH_INDEX",
+          "value": "medical-conversations"
+        },
+        {
+          "name": "NEO4J_USER",
+          "value": "neo4j"
+        },
+        {
+          "name": "NEO4J_DATABASE",
+          "value": "neo4j"
+        },
+        {
+          "name": "AZURE_OPENAI_DEPLOYMENT_NAME",
+          "value": "gpt-4o"
+        },
+        {
+          "name": "AZURE_OPENAI_API_VERSION",
+          "value": "2024-05-01-preview"
+        },
+        {
+          "name": "AZURE_OPENAI_MODEL",
+          "value": "gpt-4o"
+        },
+        {
+          "name": "AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME",
+          "value": "text-embedding-ada-002"
+        },
+        {
+          "name": "AZURE_OPENAI_EMBEDDING_MODEL",
+          "value": "text-embedding-ada-002"
+        },
+        {
+          "name": "LANGFUSE_HOST",
+          "value": "https://us.cloud.langfuse.com"
+        },
+        {
+          "name": "NEO4J_URI",
+          "valueFrom": "arn:aws:ssm:ca-central-1:ACCOUNT_ID:parameter/notegen-ai-api/prod/neo4j/uri"
+        },
+        {
+          "name": "OPENSEARCH_ENDPOINT",
+          "valueFrom": "arn:aws:ssm:ca-central-1:ACCOUNT_ID:parameter/notegen-ai-api/prod/opensearch/endpoint"
+        },
+        {
+          "name": "AZURE_OPENAI_ENDPOINT",
+          "valueFrom": "arn:aws:ssm:ca-central-1:ACCOUNT_ID:parameter/notegen-ai-api/prod/azure-openai/endpoint"
+        },
+        {
+          "name": "AZURE_OPENAI_EMBEDDING_ENDPOINT", 
+          "valueFrom": "arn:aws:ssm:ca-central-1:ACCOUNT_ID:parameter/notegen-ai-api/prod/azure-openai/embedding-endpoint"
+        },
+        {
+          "name": "NOTEGEN_API_BASE_URL",
+          "valueFrom": "arn:aws:ssm:ca-central-1:ACCOUNT_ID:parameter/notegen-ai-api/prod/notegen-api/base-url"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "NEO4J_PASSWORD",
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-prod-neo4j-XXXXXX:password::"
+        },
+        {
+          "name": "AZURE_OPENAI_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-prod-azure-openai-XXXXXX:api_key::"
+        },
+        {
+          "name": "AZURE_OPENAI_EMBEDDING_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-prod-azure-openai-XXXXXX:embedding_api_key::"
+        },
+        {
+          "name": "LANGFUSE_SECRET_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-prod-langfuse-XXXXXX:secret_key::"
+        },
+        {
+          "name": "LANGFUSE_PUBLIC_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-prod-langfuse-XXXXXX:public_key::"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/notegen-ai-api-prod",
+          "awslogs-region": "ca-central-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "curl -f http://localhost:8000/health || exit 1"
+        ],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 60
+      }
+    }
+  ]
+} 

@@ -47,11 +47,11 @@ class ConversationRAGService:
         logger.info("Initializing Medical Conversation RAG Service with AWS OpenSearch")
         try:
             self.embeddings = AzureOpenAIEmbeddings(
-                azure_endpoint=settings.openai_embedding_endpoint,
-                api_key=settings.openai_embedding_api_key,
+                azure_endpoint=settings.azure_openai_embedding_endpoint,
+                api_key=settings.azure_openai_embedding_api_key,
                 api_version=settings.azure_openai_api_version,
-                deployment=settings.openai_embedding_deployment_name,
-                model=settings.openai_embedding_model
+                deployment=settings.azure_openai_embedding_deployment_name,
+                model=settings.azure_openai_embedding_model
             )
             auth = await self._setup_aws_auth()
             self.opensearch_client = OpenSearch(
@@ -68,7 +68,7 @@ class ConversationRAGService:
                 index_name=settings.opensearch_index,
                 embedding_function=self.embeddings,
                 http_auth=auth,
-                timeout=300,
+                timeout=settings.opensearch_timeout,
                 use_ssl=True,
                 verify_certs=True,
                 connection_class=RequestsHttpConnection
@@ -83,23 +83,24 @@ class ConversationRAGService:
     async def _setup_aws_auth(self):
         """Setup AWS authentication for OpenSearch."""
         import boto3
-        import os
         from opensearchpy import AWSV4SignerAuth
-        aws_key = os.getenv('AWS_ACCESS_KEY_ID')
-        aws_secret = os.getenv('AWS_SECRET_ACCESS_KEY')
-        if aws_key and aws_secret:
-            logger.info("Using explicit AWS credentials from environment")
+        
+        # Check if explicit credentials are provided in settings
+        if settings.aws_access_key_id and settings.aws_secret_access_key:
+            logger.info("Using explicit AWS credentials from settings")
             session = boto3.Session(
-                aws_access_key_id=aws_key,
-                aws_secret_access_key=aws_secret,
+                aws_access_key_id=settings.aws_access_key_id,
+                aws_secret_access_key=settings.aws_secret_access_key,
                 region_name='ca-central-1'
             )
         else:
-            logger.info("Using default boto3 session")
+            logger.info("Using default boto3 session (IAM roles or instance profile)")
             session = boto3.Session()
+        
         credentials = session.get_credentials()
-        if not credentials or not credentials.access_key:
-            raise ValueError("No AWS credentials found")
+        if not credentials:
+            raise ValueError("No AWS credentials found - ensure IAM roles are configured or provide explicit credentials")
+        
         return AWSV4SignerAuth(credentials, 'ca-central-1', 'aoss')
     
     async def _test_connection(self):

@@ -2560,7 +2560,6 @@ anyio = ">=4.4.0,<5.0.0"
 backoff = ">=1.10.0"
 httpx = ">=0.15.4,<1.0"
 idna = ">=3.7,<4.0"
-langchain = {version = ">=0.0.309", optional = true, markers = "extra == \"langchain\""}
 packaging = ">=23.2,<25.0"
 pydantic = ">=1.10.7,<3.0"
 requests = ">=2,<3"
@@ -6429,4 +6428,4 @@ cffi = ["cffi (>=1.11)"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "753627a42ff855a0fe8d8311a6f6f65ad047ab4414af6fdbe723de92c5fd023d"
+content-hash = "b767906f24f942d46c7d7c2954c7cc55aeb013692e0e7367d8f6028de0e2d2cb"

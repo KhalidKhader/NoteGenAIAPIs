@@ -1,16 +1,59 @@
+# Version control
 .git
 .gitignore
+
+# Docker files
 .dockerignore
 Dockerfile
+
+# Documentation
 README.md
+docs/
+
+# Terraform and infrastructure
+terraform/
+terraform-deployer-keys
+
+# Generated files and logs
 /generated_notes
 /logs
+
+# Python cache and build artifacts
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 .pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Virtual environments
 .venv/
+.env/
+venv/
+env/
+
+# Environment files
 .env
 .env.*
-!/.env.example 
+!/.env.example
+
+# IDE and editor files
+.vscode/
+.idea/
+.cursor/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Development tools
+.pre-commit-config.yaml
+Makefile 

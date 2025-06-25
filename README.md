@@ -375,3 +375,21 @@ To build and run this service as a Docker container, follow these steps:
     make docker-run
     ```
     The application will be available at `http://localhost:8000`.
+
+## Infrastructure as Code (Terraform)
+
+All infrastructure for this project is managed using Terraform and is located in the `terraform/` directory at the root of the repository. The structure is as follows:
+
+```
+terraform/
+  modules/        # Reusable Terraform modules (e.g., vpc, ecs_service, neo4j, opensearch)
+  envs/           # Environment-specific configurations (e.g., prod, staging)
+    prod/
+    staging/
+```
+
+- Use `modules/` for generic, reusable building blocks.
+- Use `envs/` for environment-specific instantiations of modules and configuration.
+- State files and backend configuration are kept per environment in `envs/<env>/`.
+
+See `docs/devops_deployment_plan.md` for more details.
