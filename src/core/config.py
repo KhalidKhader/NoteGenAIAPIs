@@ -95,7 +95,7 @@ class Settings(BaseSettings):
     aws_access_key_id: Optional[str] = Field(default=None, description="AWS Access Key ID - Optional (not needed when running on AWS with IAM roles)")
     aws_secret_access_key: Optional[str] = Field(default=None, description="AWS Secret Access Key - Optional (not needed when running on AWS with IAM roles)")
     opensearch_endpoint: str = Field(
-        default="https://9tty40b80t5pqwdeqop6.ca-central-1.aoss.amazonaws.com",
+        default="https://vpc-notegenai-staging-search-hrrjaqryo42zvlg33vivxtubfy.ca-central-1.es.amazonaws.com:443",
         description="AWS OpenSearch endpoint"
     )
     opensearch_index: str = Field(default="medical-conversations", description="OpenSearch index name")

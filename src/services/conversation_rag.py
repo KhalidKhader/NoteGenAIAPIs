@@ -54,26 +54,17 @@ class ConversationRAGService:
                 model=settings.azure_openai_embedding_model
             )
             auth = await self._setup_aws_auth()
-            # Parse the OpenSearch endpoint to extract host and use proper HTTPS port 443
-            import urllib.parse
-            parsed_url = urllib.parse.urlparse(settings.opensearch_endpoint)
-            opensearch_host = parsed_url.hostname
-            
             self.opensearch_client = OpenSearch(
-                hosts=[{'host': opensearch_host, 'port': 443}],
+                hosts=[settings.opensearch_endpoint],
                 http_auth=auth,
                 use_ssl=True,
                 verify_certs=True,
                 connection_class=RequestsHttpConnection,
-                timeout=settings.opensearch_timeout,
-                scheme='https'
+                timeout=settings.opensearch_timeout
             )
             await self._test_connection()
-            # Configure vector store with proper HTTPS URL on port 443
-            opensearch_https_url = f"https://{opensearch_host}:443"
-            
             self.vector_store = OpenSearchVectorSearch(
-                opensearch_url=opensearch_https_url,
+                opensearch_url=settings.opensearch_endpoint,
                 index_name=settings.opensearch_index,
                 embedding_function=self.embeddings,
                 http_auth=auth,

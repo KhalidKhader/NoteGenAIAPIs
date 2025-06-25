@@ -21,7 +21,7 @@ resource "aws_ssm_parameter" "opensearch_endpoint" {
   name        = "/notegen-ai-api/${var.environment}/opensearch/endpoint"
   description = "OpenSearch endpoint for ${var.environment}"
   type        = "String"
-  value       = var.opensearch_endpoint
+  value       = "https://${var.opensearch_endpoint}:443"
 
   tags = merge(var.tags, {
     Name        = "opensearch-endpoint"
