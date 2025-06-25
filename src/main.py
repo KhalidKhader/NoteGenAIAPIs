@@ -76,4 +76,4 @@ async def startup_event():
 
 # Include routers
 app.include_router(health_router, prefix="/health", tags=["System Health"])
-app.include_router(production_router, tags=["Medical Note Generation"])
+app.include_router(production_router, tags=["Medical Note Generation"])# Updated for OIDC CI/CD test
