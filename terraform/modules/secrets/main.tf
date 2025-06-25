@@ -25,48 +25,84 @@ resource "aws_secretsmanager_secret_version" "neo4j" {
   }
 }
 
-# Azure OpenAI Secrets
-resource "aws_secretsmanager_secret" "azure_openai" {
-  name        = "${var.app_name}-${var.environment}-azure-openai"
-  description = "Azure OpenAI API credentials for ${var.app_name} ${var.environment}"
+# Azure OpenAI API Key Secret
+resource "aws_secretsmanager_secret" "azure_openai_api_key" {
+  name        = "${var.app_name}-${var.environment}-azure-openai-api-key"
+  description = "Azure OpenAI API key for ${var.app_name} ${var.environment}"
 
   tags = merge(var.tags, {
-    Name        = "${var.app_name}-${var.environment}-azure-openai"
+    Name        = "${var.app_name}-${var.environment}-azure-openai-api-key"
     Environment = var.environment
     Component   = "azure-openai"
   })
 }
 
-resource "aws_secretsmanager_secret_version" "azure_openai" {
-  secret_id     = aws_secretsmanager_secret.azure_openai.id
-  secret_string = jsonencode({
-    api_key              = var.azure_openai_api_key
-    embedding_api_key    = var.azure_openai_embedding_api_key
-  })
+resource "aws_secretsmanager_secret_version" "azure_openai_api_key" {
+  secret_id     = aws_secretsmanager_secret.azure_openai_api_key.id
+  secret_string = var.azure_openai_api_key
 
   lifecycle {
     ignore_changes = [secret_string]
   }
 }
 
-# LangFuse Secrets
-resource "aws_secretsmanager_secret" "langfuse" {
-  name        = "${var.app_name}-${var.environment}-langfuse"
-  description = "LangFuse observability credentials for ${var.app_name} ${var.environment}"
+# Azure OpenAI Embedding API Key Secret
+resource "aws_secretsmanager_secret" "azure_openai_embedding_api_key" {
+  name        = "${var.app_name}-${var.environment}-azure-openai-embedding-api-key"
+  description = "Azure OpenAI Embedding API key for ${var.app_name} ${var.environment}"
 
   tags = merge(var.tags, {
-    Name        = "${var.app_name}-${var.environment}-langfuse"
+    Name        = "${var.app_name}-${var.environment}-azure-openai-embedding-api-key"
+    Environment = var.environment
+    Component   = "azure-openai"
+  })
+}
+
+resource "aws_secretsmanager_secret_version" "azure_openai_embedding_api_key" {
+  secret_id     = aws_secretsmanager_secret.azure_openai_embedding_api_key.id
+  secret_string = var.azure_openai_embedding_api_key
+
+  lifecycle {
+    ignore_changes = [secret_string]
+  }
+}
+
+# LangFuse Secret Key
+resource "aws_secretsmanager_secret" "langfuse_secret_key" {
+  name        = "${var.app_name}-${var.environment}-langfuse-secret-key"
+  description = "LangFuse secret key for ${var.app_name} ${var.environment}"
+
+  tags = merge(var.tags, {
+    Name        = "${var.app_name}-${var.environment}-langfuse-secret-key"
     Environment = var.environment
     Component   = "langfuse"
   })
 }
 
-resource "aws_secretsmanager_secret_version" "langfuse" {
-  secret_id     = aws_secretsmanager_secret.langfuse.id
-  secret_string = jsonencode({
-    secret_key = var.langfuse_secret_key
-    public_key = var.langfuse_public_key
+resource "aws_secretsmanager_secret_version" "langfuse_secret_key" {
+  secret_id     = aws_secretsmanager_secret.langfuse_secret_key.id
+  secret_string = var.langfuse_secret_key
+
+  lifecycle {
+    ignore_changes = [secret_string]
+  }
+}
+
+# LangFuse Public Key
+resource "aws_secretsmanager_secret" "langfuse_public_key" {
+  name        = "${var.app_name}-${var.environment}-langfuse-public-key"
+  description = "LangFuse public key for ${var.app_name} ${var.environment}"
+
+  tags = merge(var.tags, {
+    Name        = "${var.app_name}-${var.environment}-langfuse-public-key"
+    Environment = var.environment
+    Component   = "langfuse"
   })
+}
+
+resource "aws_secretsmanager_secret_version" "langfuse_public_key" {
+  secret_id     = aws_secretsmanager_secret.langfuse_public_key.id
+  secret_string = var.langfuse_public_key
 
   lifecycle {
     ignore_changes = [secret_string]

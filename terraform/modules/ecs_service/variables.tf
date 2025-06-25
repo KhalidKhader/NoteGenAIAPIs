@@ -204,12 +204,15 @@ variable "azure_openai_embedding_model" {
   default     = "text-embedding-ada-002"
 }
 
-variable "azure_openai_secret_arn" {
-  description = "ARN of the Azure OpenAI secrets in AWS Secrets Manager"
+variable "azure_openai_api_key_secret_arn" {
+  description = "ARN of the Azure OpenAI API key secret in AWS Secrets Manager"
   type        = string
 }
 
-
+variable "azure_openai_embedding_api_key_secret_arn" {
+  description = "ARN of the Azure OpenAI Embedding API key secret in AWS Secrets Manager"
+  type        = string
+}
 
 # =============================================================================
 # LangFuse Configuration
@@ -221,8 +224,13 @@ variable "langfuse_host" {
   default     = "https://us.cloud.langfuse.com"
 }
 
-variable "langfuse_secret_arn" {
-  description = "ARN of the LangFuse secrets in AWS Secrets Manager"
+variable "langfuse_secret_key_secret_arn" {
+  description = "ARN of the LangFuse secret key in AWS Secrets Manager"
+  type        = string
+}
+
+variable "langfuse_public_key_secret_arn" {
+  description = "ARN of the LangFuse public key in AWS Secrets Manager"
   type        = string
 }
 

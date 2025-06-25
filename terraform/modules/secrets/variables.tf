@@ -10,7 +10,7 @@ variable "environment" {
 variable "app_name" {
   description = "Name of the application"
   type        = string
-  default     = "notegen-api"
+  default     = "notegen-ai-api"
 }
 
 variable "tags" {

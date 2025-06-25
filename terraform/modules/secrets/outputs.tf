@@ -8,15 +8,27 @@ output "neo4j_secret_arn" {
   sensitive   = true
 }
 
-output "azure_openai_secret_arn" {
-  description = "ARN of the Azure OpenAI secret"
-  value       = aws_secretsmanager_secret.azure_openai.arn
+output "azure_openai_api_key_secret_arn" {
+  description = "ARN of the Azure OpenAI API key secret"
+  value       = aws_secretsmanager_secret.azure_openai_api_key.arn
   sensitive   = true
 }
 
-output "langfuse_secret_arn" {
-  description = "ARN of the LangFuse secret"
-  value       = aws_secretsmanager_secret.langfuse.arn
+output "azure_openai_embedding_api_key_secret_arn" {
+  description = "ARN of the Azure OpenAI Embedding API key secret"
+  value       = aws_secretsmanager_secret.azure_openai_embedding_api_key.arn
+  sensitive   = true
+}
+
+output "langfuse_secret_key_secret_arn" {
+  description = "ARN of the LangFuse secret key"
+  value       = aws_secretsmanager_secret.langfuse_secret_key.arn
+  sensitive   = true
+}
+
+output "langfuse_public_key_secret_arn" {
+  description = "ARN of the LangFuse public key"
+  value       = aws_secretsmanager_secret.langfuse_public_key.arn
   sensitive   = true
 }
 
@@ -26,12 +38,22 @@ output "neo4j_secret_name" {
   value       = aws_secretsmanager_secret.neo4j.name
 }
 
-output "azure_openai_secret_name" {
-  description = "Name of the Azure OpenAI secret"
-  value       = aws_secretsmanager_secret.azure_openai.name
+output "azure_openai_api_key_secret_name" {
+  description = "Name of the Azure OpenAI API key secret"
+  value       = aws_secretsmanager_secret.azure_openai_api_key.name
 }
 
-output "langfuse_secret_name" {
-  description = "Name of the LangFuse secret"
-  value       = aws_secretsmanager_secret.langfuse.name
+output "azure_openai_embedding_api_key_secret_name" {
+  description = "Name of the Azure OpenAI Embedding API key secret"
+  value       = aws_secretsmanager_secret.azure_openai_embedding_api_key.name
+}
+
+output "langfuse_secret_key_secret_name" {
+  description = "Name of the LangFuse secret key"
+  value       = aws_secretsmanager_secret.langfuse_secret_key.name
+}
+
+output "langfuse_public_key_secret_name" {
+  description = "Name of the LangFuse public key"
+  value       = aws_secretsmanager_secret.langfuse_public_key.name
 } 

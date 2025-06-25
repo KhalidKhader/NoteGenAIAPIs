@@ -202,8 +202,10 @@ resource "aws_iam_role_policy" "ecs_execution_role_secrets_policy" {
           ]
           Resource = [
             var.neo4j_secret_arn,
-            var.azure_openai_secret_arn,
-            var.langfuse_secret_arn
+            var.azure_openai_api_key_secret_arn,
+            var.azure_openai_embedding_api_key_secret_arn,
+            var.langfuse_secret_key_secret_arn,
+            var.langfuse_public_key_secret_arn
           ]
         }
       ],
@@ -278,8 +280,10 @@ resource "aws_iam_role_policy" "ecs_task_policy" {
           ]
           Resource = [
             var.neo4j_secret_arn,
-            var.azure_openai_secret_arn,
-            var.langfuse_secret_arn
+            var.azure_openai_api_key_secret_arn,
+            var.azure_openai_embedding_api_key_secret_arn,
+            var.langfuse_secret_key_secret_arn,
+            var.langfuse_public_key_secret_arn
           ]
         }
       ],
@@ -455,7 +459,7 @@ resource "aws_ecs_task_definition" "app" {
           },
           {
             name      = "AZURE_OPENAI_API_KEY"
-            valueFrom = "${var.azure_openai_secret_arn}:api_key::"
+            valueFrom = var.azure_openai_api_key_secret_arn
           },
           {
             name      = "AZURE_OPENAI_ENDPOINT"
@@ -463,7 +467,7 @@ resource "aws_ecs_task_definition" "app" {
           },
           {
             name      = "AZURE_OPENAI_EMBEDDING_API_KEY"
-            valueFrom = "${var.azure_openai_secret_arn}:embedding_api_key::"
+            valueFrom = var.azure_openai_embedding_api_key_secret_arn
           },
           {
             name      = "AZURE_OPENAI_EMBEDDING_ENDPOINT"
@@ -471,11 +475,11 @@ resource "aws_ecs_task_definition" "app" {
           },
           {
             name      = "LANGFUSE_SECRET_KEY"
-            valueFrom = "${var.langfuse_secret_arn}:secret_key::"
+            valueFrom = var.langfuse_secret_key_secret_arn
           },
           {
             name      = "LANGFUSE_PUBLIC_KEY"
-            valueFrom = "${var.langfuse_secret_arn}:public_key::"
+            valueFrom = var.langfuse_public_key_secret_arn
           }
         ],
         # Additional secrets from input
