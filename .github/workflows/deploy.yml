@@ -301,4 +301,4 @@ jobs:
             exit 1
           else
             echo "⚠️ Could not find ALB for health check, skipping..."
-          fi 
+          fi # OIDC deployment fix - updated trust policy
