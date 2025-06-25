@@ -394,3 +394,4 @@ terraform/
 
 See `docs/devops_deployment_plan.md` for more details.
 # OIDC CI/CD Pipeline Ready
+# OIDC trust policy updated for multi-job support
