@@ -9,6 +9,7 @@ on:
     paths:
       - 'src/**'
       - 'terraform/**'
+      - 'aws/**'
       - 'Dockerfile'
       - 'pyproject.toml'
       - '.github/workflows/deploy.yml'
@@ -18,6 +19,7 @@ on:
     paths:
       - 'src/**'
       - 'terraform/**'
+      - 'aws/**'
       - 'Dockerfile'
       - 'pyproject.toml'
 
