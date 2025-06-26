@@ -46,6 +46,7 @@ resource "aws_secretsmanager_secret" "azure_openai_api_key" {
 }
 
 resource "aws_secretsmanager_secret_version" "azure_openai_api_key" {
+  count         = var.azure_openai_api_key != "" ? 1 : 0
   secret_id     = aws_secretsmanager_secret.azure_openai_api_key.id
   secret_string = var.azure_openai_api_key
 
@@ -71,6 +72,7 @@ resource "aws_secretsmanager_secret" "azure_openai_embedding_api_key" {
 }
 
 resource "aws_secretsmanager_secret_version" "azure_openai_embedding_api_key" {
+  count         = var.azure_openai_embedding_api_key != "" ? 1 : 0
   secret_id     = aws_secretsmanager_secret.azure_openai_embedding_api_key.id
   secret_string = var.azure_openai_embedding_api_key
 
