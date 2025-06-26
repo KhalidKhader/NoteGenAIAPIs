@@ -25,8 +25,6 @@ from src.core.config import settings
 from src.models.api_models import (
     EncounterRequestModel,
     JobAcknowledgementResponse,
-    GeneratedSection,
-    SectionGenerationResult
 )
 from src.services.conversation_rag import ConversationRAGService, get_conversation_rag_service
 from src.services.snomed_rag import SNOMEDRAGService, get_snomed_rag_service
