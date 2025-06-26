@@ -153,7 +153,7 @@ module "ecs_service" {
   notegen_api_base_url = var.notegen_api_base_url
 
   # Secret ARNs
-  neo4j_secret_arn                           = module.neo4j.password_secret_arn
+  neo4j_secret_arn                           = module.secrets.neo4j_password_secret_arn
   azure_openai_api_key_secret_arn            = module.secrets.azure_openai_api_key_secret_arn
   azure_openai_endpoint_secret_arn           = module.secrets.azure_openai_endpoint_secret_arn
   azure_openai_embedding_api_key_secret_arn  = module.secrets.azure_openai_embedding_api_key_secret_arn

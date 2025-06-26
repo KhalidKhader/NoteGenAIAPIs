@@ -2,7 +2,7 @@
 # Secrets Management for NoteGen AI APIs
 # =============================================================================
 
-# Neo4j Secrets
+# Neo4j Secrets - Plain string format for compatibility
 resource "aws_secretsmanager_secret" "neo4j" {
   name        = "${var.app_name}-${var.environment}-neo4j"
   description = "Neo4j database credentials for ${var.app_name} ${var.environment}"
@@ -20,9 +20,32 @@ resource "aws_secretsmanager_secret" "neo4j" {
 
 resource "aws_secretsmanager_secret_version" "neo4j" {
   secret_id     = aws_secretsmanager_secret.neo4j.id
-  secret_string = jsonencode({
-    password = var.neo4j_password
+  secret_string = var.neo4j_password  # Plain string instead of JSON
+
+  lifecycle {
+    ignore_changes = [secret_string]
+  }
+}
+
+# Neo4j Password Secret (separate for compatibility)
+resource "aws_secretsmanager_secret" "neo4j_password" {
+  name        = "${var.app_name}-${var.environment}-neo4j-password"
+  description = "Neo4j password for ${var.app_name} ${var.environment}"
+
+  tags = merge(var.tags, {
+    Name        = "${var.app_name}-${var.environment}-neo4j-password"
+    Environment = var.environment
+    Component   = "neo4j"
   })
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "aws_secretsmanager_secret_version" "neo4j_password" {
+  secret_id     = aws_secretsmanager_secret.neo4j_password.id
+  secret_string = var.neo4j_password
 
   lifecycle {
     ignore_changes = [secret_string]

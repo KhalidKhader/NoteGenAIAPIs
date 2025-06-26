@@ -463,7 +463,7 @@ resource "aws_ecs_task_definition" "app" {
         [
           {
             name      = "NEO4J_PASSWORD"
-            valueFrom = "${var.neo4j_secret_arn}:password::"
+            valueFrom = var.neo4j_secret_arn
           },
           {
             name      = "OPENSEARCH_USERNAME"

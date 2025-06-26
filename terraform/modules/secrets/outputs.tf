@@ -8,6 +8,12 @@ output "neo4j_secret_arn" {
   sensitive   = true
 }
 
+output "neo4j_password_secret_arn" {
+  description = "ARN of the Neo4j password secret"
+  value       = aws_secretsmanager_secret.neo4j_password.arn
+  sensitive   = true
+}
+
 output "azure_openai_api_key_secret_arn" {
   description = "ARN of the Azure OpenAI API key secret"
   value       = aws_secretsmanager_secret.azure_openai_api_key.arn
@@ -48,6 +54,11 @@ output "langfuse_public_key_secret_arn" {
 output "neo4j_secret_name" {
   description = "Name of the Neo4j secret"
   value       = aws_secretsmanager_secret.neo4j.name
+}
+
+output "neo4j_password_secret_name" {
+  description = "Name of the Neo4j password secret"
+  value       = aws_secretsmanager_secret.neo4j_password.name
 }
 
 output "azure_openai_api_key_secret_name" {
