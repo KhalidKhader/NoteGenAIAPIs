@@ -52,7 +52,7 @@ class NotegenAPIService:
         self,
         encounter_id: str,
         section_id: int,
-        note_content: str,
+        payload: Dict[str, Any],
         clinic_id: str,
         job_id: str,
         medical_logger: Optional[MedicalProcessingLogger] = None
@@ -63,7 +63,7 @@ class NotegenAPIService:
         Args:
             encounter_id: The encounter ID
             section_id: The section ID from NoteGen API backend
-            note_content: The generated content
+            payload: The complete payload to send
             clinic_id: The clinic ID
             job_id: Our internal job ID for tracking
             medical_logger: Logger for medical compliance
@@ -74,12 +74,8 @@ class NotegenAPIService:
         if not self._client:
             await self.initialize()
         
-        url = f"{self.base_url}/internal/encounters/{encounter_id}/notes"
-        
-        payload = {
-            "sectionId": section_id,
-            "noteContent": note_content
-        }
+        # url = f"{self.base_url}/internal/encounters/{encounter_id}/notes"
+        url = f"https://29a2-196-128-180-93.ngrok-free.app/internal/encounters/{encounter_id}/notes"
         
         headers = {
             "x-clinic-id": str(clinic_id),
@@ -96,7 +92,8 @@ class NotegenAPIService:
                     "clinic_id": clinic_id,
                     "job_id": job_id,
                     "url": url,
-                    "content_length": len(note_content)
+                    "status": payload.get("status"),
+                    "is_last_section": payload.get("lastSection", False)
                 }
             )
         
@@ -235,6 +232,7 @@ class NotegenAPIService:
         section_result: 'SectionGenerationResult',
         clinic_id: str,
         job_id: str,
+        is_last_section: bool = False,
         medical_logger: Optional[MedicalProcessingLogger] = None
     ) -> Dict[str, Any]:
         """
@@ -249,6 +247,7 @@ class NotegenAPIService:
             section_result: The SectionGenerationResult with status and content
             clinic_id: The clinic ID
             job_id: Our internal job ID for tracking
+            is_last_section: Indicates if this is the last section
             medical_logger: Logger for medical compliance
         
         Returns:
@@ -257,14 +256,16 @@ class NotegenAPIService:
         if not self._client:
             await self.initialize()
         
-        url = f"{self.base_url}/internal/encounters/{encounter_id}/notes"
-        
+        # url = f"{self.base_url}/internal/encounters/{encounter_id}/notes"
+        url = f"https://29a2-196-128-180-93.ngrok-free.app/internal/encounters/{encounter_id}/notes"
         # Prepare payload based on section result status
-        if section_result.status == "success":
+        if section_result.status == "SUCCESS":
             payload = {
                 "sectionId": section_id,
-                "noteContent": section_result.content,
-                "status": "success",
+                "content": section_result.content,
+                "errorMessage": "",
+                "status": "SUCCESS",
+                "lastSection": is_last_section,
                 "metadata": {
                     "attempt_count": section_result.attempt_count,
                     "processing_time": section_result.processing_time,
@@ -276,10 +277,12 @@ class NotegenAPIService:
         else:
             payload = {
                 "sectionId": section_id,
-                "noteContent": f"GENERATION_FAILED: {section_result.error_message}",
-                "status": "failed",
+                "content": "",
+                "errorMessage": section_result.errorMessage,
+                "status": "FAILED",
+                "lastSection": is_last_section,
                 "error": {
-                    "message": section_result.error_message,
+                    "message": section_result.errorMessage,
                     "trace": section_result.error_trace,
                     "attempt_count": section_result.attempt_count,
                     "processing_time": section_result.processing_time
@@ -311,7 +314,7 @@ class NotegenAPIService:
         return await self.send_generated_section(
             encounter_id=encounter_id,
             section_id=section_id,
-            note_content=payload["noteContent"],
+            payload=payload,
             clinic_id=clinic_id,
             job_id=job_id,
             medical_logger=medical_logger

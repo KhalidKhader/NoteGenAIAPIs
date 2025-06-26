@@ -22,9 +22,20 @@ run-example1:
 run-example2:
 	curl -X POST http://127.0.0.1:8000/generate-notes -H "Content-Type: application/json" -d @generated_notes/examples/example2.json
 
+
+run-example-prod:
+	curl -X POST http://notegen-ai-api-staging-alb-2046352778.ca-central-1.elb.amazonaws.com/generate-notes -H "Content-Type: application/json" -d @generated_notes/examples/example.json
+run-example1-prod:
+	curl -X POST http://notegen-ai-api-staging-alb-2046352778.ca-central-1.elb.amazonaws.com/generate-notes -H "Content-Type: application/json" -d @generated_notes/examples/example1.json
+run-example2-prod:
+	curl -X POST http://notegen-ai-api-staging-alb-2046352778.ca-central-1.elb.amazonaws.com/generate-notes -H "Content-Type: application/json" -d @generated_notes/examples/example2.json
+
 # Docker commands
 docker-build:
 	docker build -t notegen-ai-api .
 
 docker-run:
 	docker run -p 8000:8000 --env-file .env notegen-ai-api
+
+
+

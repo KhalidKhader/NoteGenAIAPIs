@@ -123,6 +123,5 @@
   "doctorId": "doc_123",
   "userId": 2,
   "clinicId": "2",
-  "language": "en",
-  "patientInfo": true
+  "language": "en"
 }

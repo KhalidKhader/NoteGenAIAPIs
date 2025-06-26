@@ -428,7 +428,7 @@ class MedicalSectionGenerator:
 
         # Create generation status
         generation_status = SectionGenerationStatus(
-            status="success" if not note_content.startswith("Error:") else "failed",
+            status="SUCCESS" if not note_content.startswith("Error:") else "FAILED",
             attempt_count=1,
             max_attempts=1,
             error_message=note_content if note_content.startswith("Error:") else None,
@@ -571,10 +571,11 @@ class MedicalSectionGenerator:
                     
                     # Return success result
                     return SectionGenerationResult(
-                        section_id=section_id,
+                        sectionId=section_id,
                         section_name=section_name,
-                        status="success",
+                        status="SUCCESS",
                         content=generated_section.content,
+                        errorMessage="",  # Empty on success
                         attempt_count=attempt,
                         processing_time=processing_time,
                         line_references=generated_section.line_references,
@@ -650,11 +651,11 @@ class MedicalSectionGenerator:
             )
         
         return SectionGenerationResult(
-            section_id=section_id,
+            sectionId=section_id,
             section_name=section_name,
-            status="failed",
-            content=final_trace,  # Return error trace as content for debugging
-            error_message=final_error,
+            status="FAILED",
+            content="",  # Empty content on failure
+            errorMessage=final_error,
             error_trace=final_trace,
             attempt_count=max_attempts,
             processing_time=processing_time

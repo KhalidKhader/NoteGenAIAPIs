@@ -115,7 +115,7 @@ class Settings(BaseSettings):
     # NoteGen API Service Integration Configuration
     # =============================================================================
     notegen_api_base_url: str = Field(
-        default="http://localhost:3000",
+        default="https://29a2-196-128-180-93.ngrok-free.app",
         description="Base URL for NoteGen API service backend integration",
         alias="notegen_api_base_url"
     )
