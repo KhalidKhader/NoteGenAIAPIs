@@ -102,23 +102,31 @@
         },
         {
           "name": "NEO4J_PASSWORD",
-          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-neo4j:password::"
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-neo4j-password-o4xkzI"
+        },
+        {
+          "name": "OPENSEARCH_USERNAME",
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-opensearch-username-Qp7bYY"
+        },
+        {
+          "name": "OPENSEARCH_PASSWORD",
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-opensearch-password-F4UaYe"
         },
         {
           "name": "AZURE_OPENAI_API_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-azure-openai-api-key"
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-azure-openai-api-key-gMSmxM"
         },
         {
           "name": "AZURE_OPENAI_EMBEDDING_API_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-azure-openai-embedding-api-key"
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-azure-openai-embedding-api-key-nybEXj"
         },
         {
           "name": "LANGFUSE_SECRET_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-langfuse-secret-key"
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-langfuse-secret-key-R65eAa"
         },
         {
           "name": "LANGFUSE_PUBLIC_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-langfuse-public-key"
+          "valueFrom": "arn:aws:secretsmanager:ca-central-1:ACCOUNT_ID:secret:notegen-ai-api-staging-langfuse-public-key-ipG1UU"
         }
       ],
       "logConfiguration": {

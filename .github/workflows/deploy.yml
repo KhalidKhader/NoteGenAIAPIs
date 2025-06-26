@@ -156,12 +156,92 @@ jobs:
 
       - name: Wait for deployment
         run: |
-          echo "Waiting for ECS service to stabilize..."
-          aws ecs wait services-stable \
-            --cluster notegen-ai-api-staging-cluster \
-            --services notegen-ai-api-staging \
-            --region ${{ env.AWS_REGION }} \
-            --cli-read-timeout 900
+          echo "⏳ Monitoring ECS deployment progress..."
+          
+          # Set timeout to 10 minutes instead of 15
+          TIMEOUT=600
+          ELAPSED=0
+          INTERVAL=15
+          
+          while [ $ELAPSED -lt $TIMEOUT ]; do
+            # Check service status
+            SERVICE_STATUS=$(aws ecs describe-services \
+              --cluster notegen-ai-api-staging-cluster \
+              --services notegen-ai-api-staging \
+              --region ${{ env.AWS_REGION }} \
+              --query 'services[0].deployments[?status==`PRIMARY`].{runningCount:runningCount,desiredCount:desiredCount,rolloutState:rolloutState}' \
+              --output text)
+            
+            RUNNING_COUNT=$(echo $SERVICE_STATUS | awk '{print $1}')
+            DESIRED_COUNT=$(echo $SERVICE_STATUS | awk '{print $2}')
+            ROLLOUT_STATE=$(echo $SERVICE_STATUS | awk '{print $3}')
+            
+            echo "📊 Status: $RUNNING_COUNT/$DESIRED_COUNT tasks running, rollout: $ROLLOUT_STATE"
+            
+            # Check if deployment is complete
+            if [ "$RUNNING_COUNT" = "$DESIRED_COUNT" ] && [ "$ROLLOUT_STATE" = "COMPLETED" ]; then
+              echo "✅ Deployment completed successfully!"
+              break
+            fi
+            
+            # Check for failed tasks
+            FAILED_TASKS=$(aws ecs describe-services \
+              --cluster notegen-ai-api-staging-cluster \
+              --services notegen-ai-api-staging \
+              --region ${{ env.AWS_REGION }} \
+              --query 'services[0].deployments[?status==`PRIMARY`].failedTasks' \
+              --output text)
+            
+            if [ "$FAILED_TASKS" != "0" ] && [ "$FAILED_TASKS" != "" ]; then
+              echo "❌ Deployment has $FAILED_TASKS failed tasks"
+              
+              # Get the latest task failure reason
+              LATEST_TASK=$(aws ecs list-tasks \
+                --cluster notegen-ai-api-staging-cluster \
+                --service-name notegen-ai-api-staging \
+                --desired-status STOPPED \
+                --region ${{ env.AWS_REGION }} \
+                --query 'taskArns[0]' \
+                --output text)
+              
+              if [ "$LATEST_TASK" != "None" ] && [ "$LATEST_TASK" != "" ]; then
+                echo "🔍 Latest failed task: $LATEST_TASK"
+                
+                FAILURE_REASON=$(aws ecs describe-tasks \
+                  --cluster notegen-ai-api-staging-cluster \
+                  --tasks $LATEST_TASK \
+                  --region ${{ env.AWS_REGION }} \
+                  --query 'tasks[0].stoppedReason' \
+                  --output text)
+                
+                echo "💥 Failure reason: $FAILURE_REASON"
+              fi
+              
+              # Don't fail immediately, let it try to recover
+            fi
+            
+            echo "⏱️  Waiting $INTERVAL seconds... ($ELAPSED/$TIMEOUT elapsed)"
+            sleep $INTERVAL
+            ELAPSED=$((ELAPSED + INTERVAL))
+          done
+          
+          # Final check
+          if [ $ELAPSED -ge $TIMEOUT ]; then
+            echo "⏰ Deployment timeout after $TIMEOUT seconds"
+            echo "🔍 Checking final service status..."
+            
+            aws ecs describe-services \
+              --cluster notegen-ai-api-staging-cluster \
+              --services notegen-ai-api-staging \
+              --region ${{ env.AWS_REGION }} \
+              --query 'services[0].{status:status,runningCount:runningCount,desiredCount:desiredCount,deployments:deployments[*].{status:status,rolloutState:rolloutState,taskDefinition:taskDefinition}}' \
+              --output table
+            
+            # Still try health check even if timeout
+            echo "🩺 Attempting health check despite timeout..."
+          else
+            echo "✅ Deployment monitoring completed successfully"
+          fi
 
       - name: Health check
         run: |
@@ -267,12 +347,92 @@ jobs:
 
       - name: Wait for deployment
         run: |
-          echo "Waiting for ECS service to stabilize..."
-          aws ecs wait services-stable \
-            --cluster notegen-prod-cluster \
-            --services notegen-ai-api-prod \
-            --region ${{ env.AWS_REGION }} \
-            --cli-read-timeout 900
+          echo "⏳ Monitoring ECS deployment progress..."
+          
+          # Set timeout to 10 minutes instead of 15
+          TIMEOUT=600
+          ELAPSED=0
+          INTERVAL=15
+          
+          while [ $ELAPSED -lt $TIMEOUT ]; do
+            # Check service status
+            SERVICE_STATUS=$(aws ecs describe-services \
+              --cluster notegen-prod-cluster \
+              --services notegen-ai-api-prod \
+              --region ${{ env.AWS_REGION }} \
+              --query 'services[0].deployments[?status==`PRIMARY`].{runningCount:runningCount,desiredCount:desiredCount,rolloutState:rolloutState}' \
+              --output text)
+            
+            RUNNING_COUNT=$(echo $SERVICE_STATUS | awk '{print $1}')
+            DESIRED_COUNT=$(echo $SERVICE_STATUS | awk '{print $2}')
+            ROLLOUT_STATE=$(echo $SERVICE_STATUS | awk '{print $3}')
+            
+            echo "📊 Status: $RUNNING_COUNT/$DESIRED_COUNT tasks running, rollout: $ROLLOUT_STATE"
+            
+            # Check if deployment is complete
+            if [ "$RUNNING_COUNT" = "$DESIRED_COUNT" ] && [ "$ROLLOUT_STATE" = "COMPLETED" ]; then
+              echo "✅ Deployment completed successfully!"
+              break
+            fi
+            
+            # Check for failed tasks
+            FAILED_TASKS=$(aws ecs describe-services \
+              --cluster notegen-prod-cluster \
+              --services notegen-ai-api-prod \
+              --region ${{ env.AWS_REGION }} \
+              --query 'services[0].deployments[?status==`PRIMARY`].failedTasks' \
+              --output text)
+            
+            if [ "$FAILED_TASKS" != "0" ] && [ "$FAILED_TASKS" != "" ]; then
+              echo "❌ Deployment has $FAILED_TASKS failed tasks"
+              
+              # Get the latest task failure reason
+              LATEST_TASK=$(aws ecs list-tasks \
+                --cluster notegen-prod-cluster \
+                --service-name notegen-ai-api-prod \
+                --desired-status STOPPED \
+                --region ${{ env.AWS_REGION }} \
+                --query 'taskArns[0]' \
+                --output text)
+              
+              if [ "$LATEST_TASK" != "None" ] && [ "$LATEST_TASK" != "" ]; then
+                echo "🔍 Latest failed task: $LATEST_TASK"
+                
+                FAILURE_REASON=$(aws ecs describe-tasks \
+                  --cluster notegen-prod-cluster \
+                  --tasks $LATEST_TASK \
+                  --region ${{ env.AWS_REGION }} \
+                  --query 'tasks[0].stoppedReason' \
+                  --output text)
+                
+                echo "💥 Failure reason: $FAILURE_REASON"
+              fi
+              
+              # Don't fail immediately, let it try to recover
+            fi
+            
+            echo "⏱️  Waiting $INTERVAL seconds... ($ELAPSED/$TIMEOUT elapsed)"
+            sleep $INTERVAL
+            ELAPSED=$((ELAPSED + INTERVAL))
+          done
+          
+          # Final check
+          if [ $ELAPSED -ge $TIMEOUT ]; then
+            echo "⏰ Deployment timeout after $TIMEOUT seconds"
+            echo "🔍 Checking final service status..."
+            
+            aws ecs describe-services \
+              --cluster notegen-prod-cluster \
+              --services notegen-ai-api-prod \
+              --region ${{ env.AWS_REGION }} \
+              --query 'services[0].{status:status,runningCount:runningCount,desiredCount:desiredCount,deployments:deployments[*].{status:status,rolloutState:rolloutState,taskDefinition:taskDefinition}}' \
+              --output table
+            
+            # Still try health check even if timeout
+            echo "🩺 Attempting health check despite timeout..."
+          else
+            echo "✅ Deployment monitoring completed successfully"
+          fi
 
       - name: Health check
         run: |

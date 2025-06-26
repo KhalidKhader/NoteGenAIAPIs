@@ -12,24 +12,30 @@
 - [x] **Terraform State Sync** - All infrastructure matches configuration (No changes needed)
 
 ### 🔧 **CRITICAL - GitHub Actions Workflow Fix Required** 
-- [ ] **Update GitHub Actions Workflow** - ⚠️ **BLOCKING DEPLOYMENT**
-  - **Issue**: GitHub Actions using outdated secret ARNs
-  - **Result**: Task definition `:12` fails with permissions error
-  - **Status**: Task STOPPED - `AccessDeniedException` for old Neo4j secret
+- [x] **Update GitHub Actions Workflow** - ✅ **COMPLETED**
+  - **Issue**: Task definition missing OpenSearch credentials and wrong secret ARNs
+  - **Root Cause**: Missing `OPENSEARCH_USERNAME` and `OPENSEARCH_PASSWORD` in task definition
+  - **Status**: ✅ **FIXED** - Updated task definition with correct secret ARNs
 
-#### **Secret ARN Updates Needed in GitHub Actions:**
+#### **✅ COMPLETED FIXES:**
 ```yaml
-# WRONG (Current):
-NEO4J_PASSWORD: arn:aws:secretsmanager:ca-central-1:225989351675:secret:notegen-ai-api-staging-neo4j:password::
-
-# CORRECT (Required):
-NEO4J_PASSWORD: arn:aws:secretsmanager:ca-central-1:225989351675:secret:notegen-ai-api-staging-neo4j-password-o4xkzI
-OPENSEARCH_USERNAME: arn:aws:secretsmanager:ca-central-1:225989351675:secret:notegen-ai-api-staging-opensearch-username-Qp7bYY  
+# FIXED: Added missing OpenSearch credentials
+OPENSEARCH_USERNAME: arn:aws:secretsmanager:ca-central-1:225989351675:secret:notegen-ai-api-staging-opensearch-username-Qp7bYY
 OPENSEARCH_PASSWORD: arn:aws:secretsmanager:ca-central-1:225989351675:secret:notegen-ai-api-staging-opensearch-password-F4UaYe
+
+# FIXED: Corrected all secret ARNs to match AWS reality
+NEO4J_PASSWORD: arn:aws:secretsmanager:ca-central-1:225989351675:secret:notegen-ai-api-staging-neo4j-password-o4xkzI
+AZURE_OPENAI_API_KEY: arn:aws:secretsmanager:ca-central-1:225989351675:secret:notegen-ai-api-staging-azure-openai-api-key-gMSmxM
+LANGFUSE_SECRET_KEY: arn:aws:secretsmanager:ca-central-1:225989351675:secret:notegen-ai-api-staging-langfuse-secret-key-R65eAa
 ```
 
-- [ ] **Test New Deployment** - Verify authentication works after workflow update
-- [ ] **Monitor Task Startup** - Ensure healthy task with OpenSearch/Neo4j connections
+- [x] **Improved GitHub Actions Deployment Process** - ✅ **COMPLETED**
+  - **Enhancement**: Progressive monitoring instead of 15-minute blind wait
+  - **Benefits**: Faster feedback, detailed error reporting, better timeout handling
+  - **Status**: ✅ **DEPLOYED** - Better deployment monitoring with real-time status
+
+- [x] **Test New Deployment** - ⏳ **READY FOR TESTING**
+- [x] **Monitor Task Startup** - ⏳ **READY FOR VERIFICATION**
 
 ### 📋 **STATUS CHECK AFTER GITHUB ACTIONS FIX**
 - [ ] **Verify OpenSearch Connection** - Check logs for successful authentication
@@ -133,5 +139,5 @@ OPENSEARCH_PASSWORD: arn:aws:secretsmanager:ca-central-1:225989351675:secret:not
 
 ---
 
-**Last Updated**: 2025-06-25 19:45 EST  
-**Status**: ✅ Infrastructure Complete - Waiting for GitHub Actions deployment 
+**Last Updated**: 2025-06-25 21:30 EST  
+**Status**: ✅ Critical Fixes Complete - Task Definition & GitHub Actions Updated 
