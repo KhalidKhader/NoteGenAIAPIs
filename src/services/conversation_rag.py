@@ -382,39 +382,41 @@ class ConversationRAGService:
     
     async def health_check(self) -> Dict[str, Any]:
         """Health check for medical system monitoring."""
-        try:
-            if not self._initialized:
-                await self.initialize()
-            opensearch_connected = False
-            opensearch_status = "unknown"
-            if self.opensearch_client:
-                try:
-                    if self.opensearch_client.ping():
-                        cluster_health = self.opensearch_client.cluster.health()
-                        opensearch_status = cluster_health.get('status', 'unknown')
-                        opensearch_connected = opensearch_status in ['green', 'yellow']
-                    else:
-                        opensearch_status = "ping_failed"
-                except Exception as conn_error:
-                    opensearch_status = f"connection_error: {str(conn_error)}"
-            is_healthy = opensearch_connected or (self.embeddings is not None)
-            return {
-                "service": "conversation_rag",
-                "status": "healthy" if is_healthy else "unhealthy",
-                "opensearch_connected": opensearch_connected,
-                "opensearch_status": opensearch_status,
-                "embeddings_initialized": self.embeddings is not None,
-                "vector_store_initialized": self.vector_store is not None
-            }
-        except Exception as e:
-            logger.error(f"Health check failed: {str(e)}")
+        if not self._initialized:
             return {
                 "service": "conversation_rag",
                 "status": "unhealthy",
-                "error": str(e),
-                "opensearch_connected": False,
-                "embeddings_initialized": False,
-                "vector_store_initialized": False
+                "reason": "Service not initialized"
+            }
+        
+        try:
+            opensearch_connected = False
+            opensearch_status = "unknown"
+            if self.opensearch_client and self.opensearch_client.ping():
+                cluster_health = self.opensearch_client.cluster.health()
+                opensearch_status = cluster_health.get('status', 'unknown')
+                opensearch_connected = opensearch_status in ['green', 'yellow']
+            elif self.opensearch_client:
+                opensearch_status = "ping_failed"
+
+            is_healthy = opensearch_connected and self.embeddings is not None
+            
+            return {
+                "service": "conversation_rag",
+                "status": "healthy" if is_healthy else "unhealthy",
+                "details": {
+                    "opensearch_connected": opensearch_connected,
+                    "opensearch_status": opensearch_status,
+                    "embeddings_initialized": self.embeddings is not None,
+                    "vector_store_initialized": self.vector_store is not None
+                }
+            }
+        except Exception as e:
+            logger.error(f"Health check encountered an error: {str(e)}")
+            return {
+                "service": "conversation_rag",
+                "status": "unhealthy",
+                "reason": f"Health check exception: {str(e)}"
             }
     
 

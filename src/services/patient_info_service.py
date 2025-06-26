@@ -206,7 +206,8 @@ class PatientInfoService:
         if not self.notegen_api._client:
             await self.notegen_api.initialize()
         
-        url = f"{self.notegen_api.base_url}/internal/encounters/{encounter_id}/patient"
+        # url = f"{self.notegen_api.base_url}/internal/encounters/{encounter_id}/patient-extracted"
+        url = f"https://29a2-196-128-180-93.ngrok-free.app/internal/encounters/{encounter_id}/patient-extracted"
         
         headers = {
             "x-clinic-id": str(clinic_id),
@@ -244,7 +245,7 @@ class PatientInfoService:
                         "INFO",
                         details={
                             "status_code": response.status_code,
-                            "endpoint": "internal/encounters/patient",
+                            "endpoint": "internal/encounters/patient-extracted",
                             "encounter_id": encounter_id,
                             "response_size": len(str(response_data)) if response_data else 0,
                             "clinic_id": clinic_id
@@ -264,7 +265,7 @@ class PatientInfoService:
                         "ERROR",
                         details={
                             "status_code": response.status_code,
-                            "endpoint": "internal/encounters/patient",
+                            "endpoint": "internal/encounters/patient-extracted",
                             "encounter_id": encounter_id,
                             "clinic_id": clinic_id,
                             "response_text": response.text[:500]  # Limit response text length

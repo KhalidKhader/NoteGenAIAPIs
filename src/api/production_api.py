@@ -203,6 +203,9 @@ async def _run_encounter_processing_pipeline(
                 json.dump(generation_result.model_dump(), f, indent=2, ensure_ascii=False)
 
             # D. Send to NoteGen API backend with status and content
+            # Determine if this is the last section
+            is_last_section = (i == len(request.sections) - 1)
+            
             # Send the section result (success or failure) to NoteGen API backend
             api_response = await notegen_api_service.send_section_result(
                 encounter_id=encounter_id,
@@ -210,10 +213,11 @@ async def _run_encounter_processing_pipeline(
                 section_result=generation_result,
                 clinic_id=request.clinicId,
                 job_id=job_id,
+                is_last_section=is_last_section,
                 medical_logger=medical_logger
             )
             
-            if generation_result.status == "success":
+            if generation_result.status == "SUCCESS":
                 # Add to context for next sections
                 generated_sections_context.append(f"Section: {section_name}\\nContent: {generation_result.content}")
                 
@@ -223,10 +227,11 @@ async def _run_encounter_processing_pipeline(
                         "INFO",
                         details={
                             "section_id": section_to_generate.id,
-                            "status": "success",
+                            "status": "SUCCESS",
                             "attempt_count": generation_result.attempt_count,
                             "processing_time": generation_result.processing_time,
                             "confidence_score": generation_result.confidence_score,
+                            "is_last_section": is_last_section,
                             "api_response": api_response
                         }
                     )
@@ -243,11 +248,12 @@ async def _run_encounter_processing_pipeline(
                     "ERROR",
                     details={
                         "section_id": section_to_generate.id,
-                        "status": "failed",
+                        "status": "FAILED",
                         "attempt_count": generation_result.attempt_count,
                         "processing_time": generation_result.processing_time,
-                        "error_message": generation_result.error_message,
+                        "error_message": generation_result.errorMessage,
                         "error_trace": generation_result.error_trace,
+                        "is_last_section": is_last_section,
                         "api_response": api_response
                     }
                 )

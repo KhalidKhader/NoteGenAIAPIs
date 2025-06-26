@@ -140,11 +140,11 @@ class SectionGenerationResult(BaseModel):
     Result of section generation including success/failure status.
     Used internally for processing and API responses.
     """
-    section_id: Union[str, int] = Field(..., description="Section ID from the request")
+    sectionId: Union[str, int] = Field(..., description="Section ID from the request")
     section_name: str = Field(..., description="Name of the section")
-    status: str = Field(..., description="'success' or 'failed'")
-    content: Optional[str] = Field(None, description="Generated content if successful")
-    error_message: Optional[str] = Field(None, description="Error message if failed")
+    status: str = Field(..., description="'SUCCESS' or 'FAILED'")
+    content: Optional[str] = Field(None, description="Generated content if successful, empty if failed")
+    errorMessage: Optional[str] = Field(None, description="Error message if failed, empty if successful")
     error_trace: Optional[str] = Field(None, description="Full error trace if failed")
     attempt_count: int = Field(default=0, description="Number of attempts made")
     processing_time: Optional[float] = Field(None, description="Time taken for generation in seconds")

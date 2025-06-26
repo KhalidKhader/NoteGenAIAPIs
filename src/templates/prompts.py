@@ -760,7 +760,7 @@ EXTRACT THE FOLLOWING INFORMATION:
 1. First name
 2. Last name
 3. Date of birth (format: YYYY-MM-DD, or null if not mentioned)
-4. Gender (male/female/other/null if not mentioned)
+4. Gender (MALE/FEMALE/OTHER/null if not mentioned)
 5. Recording consent (true if patient explicitly agreed to recording, false if declined, null if not discussed)
 
 INSTRUCTIONS:
@@ -780,11 +780,11 @@ Patient: "March 15th, 1985."
 
 Response:
 {{
-  "first_name": "Sarah",
-  "last_name": "Johnson", 
-  "date_of_birth": "1985-03-15",
-  "gender": null,
-  "recording_consent": true
+  "firstName": "Sarah",
+  "lastName": "Johnson", 
+  "dateOfBirth": "1985-03-15",
+  "gender": FEMALE,
+  "recordingConsent": true
 }}
 
 Example 2:
@@ -795,11 +795,11 @@ Patient: "No, I'd prefer not to be recorded."
 
 Response:
 {{
-  "first_name": "Robert",
-  "last_name": "Smith",
-  "date_of_birth": null,
-  "gender": "male",
-  "recording_consent": false
+  "firstName": "Robert",
+  "lastName": "Smith",
+  "dateOfBirth": null,
+  "gender": "MALE",
+  "recordingConsent": false
 }}
 
 CONVERSATION TRANSCRIPT:
@@ -835,11 +835,11 @@ Patient: "Le 15 mars 1985."
 
 Réponse:
 {{
-  "first_name": "Sarah",
-  "last_name": "Johnson",
-  "date_of_birth": "1985-03-15", 
-  "gender": null,
-  "recording_consent": true
+  "firstName": "Sarah",
+  "lastName": "Johnson",
+  "dateOfBirth": "1985-03-15", 
+  "gender": NULL,
+  "recordingConsent": true
 }}
 
 Exemple 2:
@@ -850,11 +850,11 @@ Patient: "Non, je préférerais ne pas être enregistré."
 
 Réponse:
 {{
-  "first_name": "Robert",
-  "last_name": "Smith",
-  "date_of_birth": null,
-  "gender": "masculin",
-  "recording_consent": false
+  "firstName": "Robert",
+  "lastName": "Smith",
+  "dateOfBirth": null,
+  "gender": "OTHER",
+  "recordingConsent": false
 }}
 
 TRANSCRIPTION DE CONVERSATION:

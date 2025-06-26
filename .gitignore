@@ -294,3 +294,6 @@ terraform-deployer-keys
 terraform/envs/staging/.terraform.lock.hcl
 .terraform/*
 **/.terraform/*
+tests
+snyk
+env_example
