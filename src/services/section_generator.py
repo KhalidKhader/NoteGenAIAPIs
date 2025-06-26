@@ -12,7 +12,7 @@ import uuid
 import json
 import traceback
 from datetime import datetime
-from typing import Dict, List, Optional, Any, Union
+from typing import Dict, List, Optional, Any, Union, Tuple
 
 from langchain_openai import AzureChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
@@ -145,7 +145,7 @@ class MedicalSectionGenerator:
         context: str, 
         langfuse_handler: Optional[Any] = None,
         conversation_id: Optional[str] = None
-    ) -> (float, Dict[str, Any]):
+    ) -> Tuple[float, Dict[str, Any]]:
         """Uses an LLM call to get a factual consistency score."""
         if not self.llm:
             return 0.5, {} # Default confidence, empty details

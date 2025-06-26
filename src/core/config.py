@@ -6,7 +6,7 @@ SOAP generation microservice.
 """
 
 from functools import lru_cache
-from typing import List, Optional
+from typing import List, Optional, Any
 
 from pydantic import ConfigDict, Field, field_validator
 from pydantic_settings import BaseSettings
@@ -22,6 +22,14 @@ class Settings(BaseSettings):
     app_version: str = Field(default="0.1.0", description="Application version")
     log_level: str = Field(default="INFO", description="Logging level")
     debug: bool = Field(default=False, description="Enable debug mode")
+
+    @field_validator("debug", mode="before")
+    @classmethod
+    def validate_debug_mode(cls, v: Any) -> bool:
+        """Allow flexible boolean validation for debug mode."""
+        if isinstance(v, str):
+            return v.lower() in ("true", "1", "yes", "on")
+        return bool(v)
 
     # =============================================================================
     # CORS Configuration

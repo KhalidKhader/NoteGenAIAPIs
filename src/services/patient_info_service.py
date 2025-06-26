@@ -8,14 +8,14 @@ using LLM and conversation RAG, then sends the data to NoteGen API backend.
 import json
 from typing import Dict, Any, Optional
 
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import HumanMessage, SystemMessage
 
 from src.core.logging import get_logger, MedicalProcessingLogger
 from src.core.config import settings
 from src.services.conversation_rag import ConversationRAGService
 from src.services.section_generator import MedicalSectionGenerator
 from src.services.notegen_api_service import NotegenAPIService
-from src.templates.prompts import PATIENT_INFO_EXTRACTION_PROMPT
+from src.templates.prompts import PATIENT_INFO_EXTRACTION_PROMPT, PATIENT_INFO_SYSTEM_PROMPT
 
 logger = get_logger(__name__)
 
@@ -125,6 +125,8 @@ class PatientInfoService:
         # Get the appropriate prompt for the language
         prompt = PATIENT_INFO_EXTRACTION_PROMPT[language]
         
+        system_prompt = PATIENT_INFO_SYSTEM_PROMPT
+        
         # Ensure section generator is initialized
         if not self.section_generator._initialized:
             await self.section_generator.initialize()
@@ -142,17 +144,22 @@ class PatientInfoService:
                     }
                 )
             
+            messages = [
+                SystemMessage(content=system_prompt),
+                HumanMessage(content=prompt.format(transcript=transcript_text)),
+            ]
+            
             # Create LLM call with Langfuse tracing
             if langfuse_handler:
                 response = await self.section_generator.llm.ainvoke(
-                    [HumanMessage(content=prompt.format(transcript=transcript_text))],
+                    messages,
                     config={"callbacks": [langfuse_handler]}
                 )
                 # Extract text from response
                 response_text = response.content.strip()
             else:
                 response = await self.section_generator.llm.agenerate(
-                    [[HumanMessage(content=prompt.format(transcript=transcript_text))]]
+                    [messages]
                 )
                 # Extract text from response
                 response_text = response.generations[0][0].text.strip()

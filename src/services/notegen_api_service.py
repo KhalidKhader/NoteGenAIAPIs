@@ -347,14 +347,3 @@ async def get_notegen_api_service() -> NotegenAPIService:
         _notegen_api_service = NotegenAPIService()
         await _notegen_api_service.initialize()
     return _notegen_api_service
-
-
-# Backward compatibility alias
-async def get_nestjs_integration_service() -> NotegenAPIService:
-    """
-    Backward compatibility alias for get_notegen_api_service.
-    
-    DEPRECATED: Use get_notegen_api_service() instead.
-    This function will be removed in a future version.
-    """
-    return await get_notegen_api_service() 

@@ -744,6 +744,14 @@ Text:
 # Patient Information Extraction Prompts
 # =============================================================================
 
+PATIENT_INFO_SYSTEM_PROMPT = (
+    "You are an expert AI assistant specializing in extracting structured "
+    "patient demographic information from medical transcripts. Your task is "
+    "to accurately identify and extract the requested information and format "
+    "it as a JSON object. Adhere strictly to the requested fields and format. "
+    "If information for a field is not present, use null."
+)
+
 PATIENT_INFO_EXTRACTION_PROMPT = {
     "en": """
 You are a medical information extraction specialist. Your task is to extract specific patient demographic information from a medical conversation transcript.
@@ -872,5 +880,6 @@ __all__ = [
     "FACTUAL_CONSISTENCY_VALIDATION_PROMPT",
     "SECTION_GENERATION_SYSTEM_PROMPT_TEMPLATE",
     "SECTION_GENERATION_USER_PROMPT_TEMPLATE",
+    "PATIENT_INFO_SYSTEM_PROMPT",
     "PATIENT_INFO_EXTRACTION_PROMPT",
 ]
