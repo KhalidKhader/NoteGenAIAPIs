@@ -74,8 +74,7 @@ class NotegenAPIService:
         if not self._client:
             await self.initialize()
         
-        # url = f"{self.base_url}/internal/encounters/{encounter_id}/notes"
-        url = f"https://29a2-196-128-180-93.ngrok-free.app/internal/encounters/{encounter_id}/notes"
+        url = f"{self.base_url}/internal/encounters/{encounter_id}/notes"
         
         headers = {
             "x-clinic-id": str(clinic_id),
@@ -256,8 +255,7 @@ class NotegenAPIService:
         if not self._client:
             await self.initialize()
         
-        # url = f"{self.base_url}/internal/encounters/{encounter_id}/notes"
-        url = f"https://29a2-196-128-180-93.ngrok-free.app/internal/encounters/{encounter_id}/notes"
+        url = f"{self.base_url}/internal/encounters/{encounter_id}/notes"
         # Prepare payload based on section result status
         if section_result.status == "SUCCESS":
             payload = {
