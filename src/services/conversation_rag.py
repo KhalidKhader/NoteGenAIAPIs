@@ -69,7 +69,8 @@ class ConversationRAGService:
                 model=settings.azure_openai_embedding_model
             )
             auth = await self._setup_aws_auth()
-            print("XXXXXXXXXXXXXXXXX ",auth," XXXXXXXXXXXXXXXXX")
+            print("XXXXXXXXXXXXXXXXX ",auth," XXXXXXXXYXXXXXXXXX")
+            print("XXXXXXXXXXXXXXXXX ",settings.opensearch_endpoint," XXXXXXXXYXXXXXXXXX")
             self.opensearch_client = OpenSearch(
                 hosts=[settings.opensearch_endpoint],
                 http_auth=auth,
@@ -100,10 +101,10 @@ class ConversationRAGService:
         """Setup authentication for OpenSearch."""
         
         # Check if OpenSearch username/password are provided (for Fine-Grained Access Control)
-        # if hasattr(settings, 'opensearch_username') and hasattr(settings, 'opensearch_password'):
-        #     logger.info("Using OpenSearch basic authentication (username/password)")
-        #     # return (settings.opensearch_username, settings.opensearch_password)
-        #     return('admin','NewSecurePassword123!')
+        if settings.opensearch_username and settings.opensearch_password:
+            logger.info("Using OpenSearch basic authentication (username/password)")
+            return (settings.opensearch_username, settings.opensearch_password)
+        
         # Fallback to AWS IAM authentication
         import boto3
         from opensearchpy import AWSV4SignerAuth
@@ -114,7 +115,7 @@ class ConversationRAGService:
             session = boto3.Session(
                 aws_access_key_id=settings.aws_access_key_id,
                 aws_secret_access_key=settings.aws_secret_access_key,
-                region_name='ca-central-1'
+                region_name=settings.aws_region
             )
         else:
             logger.info("Using default boto3 session (IAM roles or instance profile)")
@@ -124,8 +125,9 @@ class ConversationRAGService:
         if not credentials:
             raise ValueError("No AWS credentials found - ensure IAM roles are configured or provide explicit credentials")
         
-        # Use 'es' service for managed OpenSearch domains (not 'aoss' which is for serverless)
-        return AWSV4SignerAuth(credentials, 'ca-central-1', 'aoss')
+        # Use appropriate service identifier based on OpenSearch type
+        service = 'aoss' if settings.is_aoss else 'es'
+        return AWSV4SignerAuth(credentials, settings.aws_region, service)
     
     async def _test_connection(self):
         """

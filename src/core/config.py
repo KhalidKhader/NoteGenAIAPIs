@@ -109,6 +109,7 @@ class Settings(BaseSettings):
     # =============================================================================
     opensearch_endpoint: str = Field(
         default="https://9tty40b80t5pqwdeqop6.ca-central-1.aoss.amazonaws.com",
+        # default="https://vpc-notegenai-staging-search-hrrjaqryo42zvlg33vivxtubfy.ca-central-1.es.amazonaws.com:443",
         description="OpenSearch endpoint URL"
     )
     opensearch_port: int = Field(default=443, description="OpenSearch port")
