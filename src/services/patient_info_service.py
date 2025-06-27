@@ -219,7 +219,7 @@ class PatientInfoService:
         if not self.notegen_api._client:
             await self.notegen_api.initialize()
         
-        url = f"{self.notegen_api.base_url}/internal/encounters/{encounter_id}/patient-extracted"
+        url = f"{self.notegen_api.base_url}/{encounter_id}/patient-extracted"
         
         headers = {
             "x-clinic-id": str(clinic_id),
