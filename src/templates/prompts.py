@@ -761,14 +761,12 @@ EXTRACT THE FOLLOWING INFORMATION:
 2. Last name
 3. Date of birth (format: YYYY-MM-DD, or null if not mentioned)
 4. Gender (MALE/FEMALE/OTHER/null if not mentioned)
-5. Recording consent (true if patient explicitly agreed to recording, false if declined, null if not discussed)
 
 INSTRUCTIONS:
 - Only extract information that is explicitly mentioned in the conversation
 - Use null for any field that is not clearly stated
 - Be very careful with dates - only extract if clearly stated
 - For names, extract exactly as spoken (don't make assumptions)
-- For consent, only mark true if explicit agreement is given
 
 EXAMPLES:
 
@@ -783,8 +781,7 @@ Response:
   "firstName": "Sarah",
   "lastName": "Johnson", 
   "dateOfBirth": "1985-03-15",
-  "gender": FEMALE,
-  "recordingConsent": true
+  "gender": "FEMALE"
 }}
 
 Example 2:
@@ -798,8 +795,7 @@ Response:
   "firstName": "Robert",
   "lastName": "Smith",
   "dateOfBirth": null,
-  "gender": "MALE",
-  "recordingConsent": false
+  "gender": "MALE"
 }}
 
 CONVERSATION TRANSCRIPT:
@@ -815,15 +811,13 @@ EXTRAIRE LES INFORMATIONS SUIVANTES:
 1. Prénom
 2. Nom de famille
 3. Date de naissance (format: YYYY-MM-DD, ou null si non mentionné)
-4. Sexe (masculin/féminin/autre/null si non mentionné)
-5. Consentement d'enregistrement (true si le patient a explicitement accepté l'enregistrement, false si refusé, null si non discuté)
+4. Sexe (MALE/FEMALE/OTHER/null si non mentionné)
 
 INSTRUCTIONS:
 - Extraire seulement les informations explicitement mentionnées dans la conversation
 - Utiliser null pour tout champ qui n'est pas clairement énoncé
 - Être très prudent avec les dates - extraire seulement si clairement énoncé
 - Pour les noms, extraire exactement comme prononcé (ne pas faire d'hypothèses)
-- Pour le consentement, marquer true seulement si un accord explicite est donné
 
 EXEMPLES:
 
@@ -838,8 +832,7 @@ Réponse:
   "firstName": "Sarah",
   "lastName": "Johnson",
   "dateOfBirth": "1985-03-15", 
-  "gender": NULL,
-  "recordingConsent": true
+  "gender": "FEMALE"
 }}
 
 Exemple 2:
@@ -853,8 +846,7 @@ Réponse:
   "firstName": "Robert",
   "lastName": "Smith",
   "dateOfBirth": null,
-  "gender": "OTHER",
-  "recordingConsent": false
+  "gender": "MALE"
 }}
 
 TRANSCRIPTION DE CONVERSATION:
@@ -863,6 +855,36 @@ TRANSCRIPTION DE CONVERSATION:
 RÉPONSE (JSON seulement, pas d'explication):
 """
 }
+
+# =============================================================================
+# Recording Consent Detection Prompts
+# =============================================================================
+
+RECORDING_CONSENT_SYSTEM_PROMPT = (
+    "You are an AI assistant specialized in analyzing medical conversations. "
+    "Your task is to determine if a patient is giving explicit consent to "
+    "record the conversation. Respond with only 'CONSENT' if they do, and "
+    "'NO_CONSENT' if they do not."
+)
+
+RECORDING_CONSENT_USER_PROMPT_TEMPLATE = """
+Analyze the following text from a patient:
+"{patient_text}"
+
+Does this text contain a clear statement of consent to be recorded?
+
+Example 1:
+Patient text: "Yes, that's fine."
+Your response: CONSENT
+
+Example 2:
+Patient text: "I have a sore throat."
+Your response: NO_CONSENT
+
+Example 3:
+Patient text: "je suis d'accord pour l'enregistrement"
+Your response: CONSENT
+"""
 
 __all__ = [
     "PromptLanguage",
@@ -882,4 +904,6 @@ __all__ = [
     "SECTION_GENERATION_USER_PROMPT_TEMPLATE",
     "PATIENT_INFO_SYSTEM_PROMPT",
     "PATIENT_INFO_EXTRACTION_PROMPT",
+    "RECORDING_CONSENT_SYSTEM_PROMPT",
+    "RECORDING_CONSENT_USER_PROMPT_TEMPLATE",
 ]

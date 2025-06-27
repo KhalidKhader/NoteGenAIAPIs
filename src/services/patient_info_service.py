@@ -76,6 +76,16 @@ class PatientInfoService:
                 transcript_text, language, medical_logger, langfuse_handler, encounter_id
             )
             
+            # Find the consent chunk ID using the specialized RAG service method
+            consent_chunk_id = await self.conversation_rag.find_consent_chunk_id(
+                conversation_id=encounter_id,
+                language=language,
+                langfuse_handler=langfuse_handler
+            )
+            
+            # Add the consent information to the patient_info payload
+            patient_info["recordingConsentChunkId"] = consent_chunk_id
+            
             if medical_logger:
                 medical_logger.log(
                     "Patient information extracted successfully",
@@ -170,6 +180,9 @@ class PatientInfoService:
             
             patient_info = json.loads(response_text)
             
+            # The consent is now handled separately, so we ensure it's not in the base extraction
+            patient_info.pop("recordingConsent", None)
+            
             if medical_logger:
                 medical_logger.log(
                     "LLM extraction completed successfully",
@@ -206,8 +219,7 @@ class PatientInfoService:
         if not self.notegen_api._client:
             await self.notegen_api.initialize()
         
-        # url = f"{self.notegen_api.base_url}/internal/encounters/{encounter_id}/patient-extracted"
-        url = f"https://29a2-196-128-180-93.ngrok-free.app/internal/encounters/{encounter_id}/patient-extracted"
+        url = f"{self.notegen_api.base_url}/internal/encounters/{encounter_id}/patient-extracted"
         
         headers = {
             "x-clinic-id": str(clinic_id),

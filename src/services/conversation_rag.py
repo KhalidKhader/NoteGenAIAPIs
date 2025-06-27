@@ -13,11 +13,17 @@ from datetime import datetime
 from typing import Dict, List, Optional, Any
 
 from opensearchpy import OpenSearch, RequestsHttpConnection, NotFoundError
-from langchain_openai import AzureOpenAIEmbeddings
+from langchain_openai import AzureChatOpenAI, AzureOpenAIEmbeddings
 from langchain_community.vectorstores import OpenSearchVectorSearch
+from langchain.prompts import PromptTemplate, ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
 
 from src.core.config import settings
 from src.core.logging import get_logger, MedicalProcessingLogger
+from src.templates.prompts import (
+    RECORDING_CONSENT_SYSTEM_PROMPT,
+    RECORDING_CONSENT_USER_PROMPT_TEMPLATE
+)
 
 logger = get_logger(__name__)
 
@@ -37,6 +43,7 @@ class ConversationRAGService:
     def __init__(self):
         self.opensearch_client: Optional[OpenSearch] = None
         self.vector_store: Optional[OpenSearchVectorSearch] = None
+        self.llm: Optional[AzureChatOpenAI] = None
         self.embeddings: Optional[AzureOpenAIEmbeddings] = None
         self._initialized = False
     
@@ -46,6 +53,14 @@ class ConversationRAGService:
             return
         logger.info("Initializing Medical Conversation RAG Service with AWS OpenSearch")
         try:
+            self.llm = AzureChatOpenAI(
+                azure_endpoint=settings.azure_openai_endpoint,
+                api_key=settings.azure_openai_api_key,
+                api_version=settings.azure_openai_api_version,
+                deployment_name=settings.azure_openai_deployment_name,
+                model=settings.azure_openai_model,
+                temperature=0.0,
+            )
             self.embeddings = AzureOpenAIEmbeddings(
                 azure_endpoint=settings.azure_openai_embedding_endpoint,
                 api_key=settings.azure_openai_embedding_api_key,
@@ -153,6 +168,7 @@ class ConversationRAGService:
                             "properties": {
                                 "conversation_id": {"type": "keyword"},
                                 "chunk_id": {"type": "keyword"},
+                                "turn_ids": {"type": "keyword"},
                                 "chunk_index": {"type": "integer"},
                                 "line_numbers": {"type": "integer"},
                                 "speaker": {"type": "keyword"},
@@ -184,12 +200,18 @@ class ConversationRAGService:
             if not isinstance(item, dict):
                 logger.warning(f"Skipping invalid transcript item (not a dict) at index {i}: {item}")
                 continue
+
+            turn_id = item.get("id")
+            if not turn_id:
+                logger.warning(f"Skipping transcript item without 'id' at index {i}: {item}")
+                continue
             
             # Robustly find speaker and text
             speaker = next((key for key in item if key.lower() not in ["id", "line_number"]), None)
             
             if speaker and isinstance(item[speaker], str):
                 prepared_turns.append({
+                    "id": turn_id,
                     "line_number": i,
                     "speaker": speaker.strip(),
                     "text": item[speaker].strip()
@@ -224,7 +246,8 @@ class ConversationRAGService:
                 "content": chunk_content,
                 "line_numbers": [turn['line_number']],
                 "speaker": turn['speaker'],
-                "turn_preserved": True
+                "turn_preserved": True,
+                "id": turn.get("id")
             }
             chunks.append(chunk_data)
         
@@ -273,7 +296,11 @@ class ConversationRAGService:
         # 3. Store each chunk in OpenSearch
         document_ids = []
         for i, chunk_data in enumerate(chunks):
-            chunk_id = f"{conversation_id}_chunk_{i}"
+            chunk_id = chunk_data.get("id")
+            if not chunk_id:
+                logger.warning(f"Chunk at index {i} for conversation {conversation_id} has no ID, generating a fallback.")
+                chunk_id = f"{conversation_id}_chunk_{i}"
+
             chunk_metadata = {
                 "conversation_id": conversation_id,
                 "chunk_id": chunk_id,
@@ -284,6 +311,7 @@ class ConversationRAGService:
                 "created_at": datetime.utcnow().isoformat(),
                 "is_complete_conversation": False, # This is a chunk, not the full text
                 "speaker_turn_preserved": True,
+                "turn_ids": [chunk_id],
                 **(metadata or {})
             }
             
@@ -388,6 +416,69 @@ class ConversationRAGService:
             logger.error(f"Failed to retrieve chunks: {str(e)}")
             raise RuntimeError(f"RAG retrieval failed: {str(e)}")
     
+    async def find_consent_chunk_id(
+        self,
+        conversation_id: str,
+        language: str = 'en',
+        langfuse_handler: Optional[Any] = None
+    ) -> Optional[str]:
+        """
+        Finds the chunk_id of the turn where the patient gives consent to record, using an LLM for classification.
+        Searches patient's text for consent keywords in either English or French.
+        """
+        if not self._initialized or not self.llm:
+            await self.initialize()
+
+        consent_prompt = ChatPromptTemplate.from_messages([
+            ("system", RECORDING_CONSENT_SYSTEM_PROMPT),
+            ("human", RECORDING_CONSENT_USER_PROMPT_TEMPLATE)
+        ])
+        
+        consent_chain = consent_prompt | self.llm | StrOutputParser()
+        
+        try:
+            search_query = {
+                "size": 1000,
+                "query": {
+                    "bool": {
+                        "must": [
+                            {"term": {"metadata.conversation_id": conversation_id}},
+                            {"term": {"metadata.speaker": "patient"}}
+                        ]
+                    }
+                },
+                "_source": ["text", "content", "page_content", "metadata"]
+            }
+            response = self.opensearch_client.search(
+                index=settings.opensearch_index,
+                body=search_query
+            )
+
+            for hit in response['hits']['hits']:
+                source = hit['_source']
+                content = (source.get('content') or 
+                          source.get('text') or 
+                          source.get('page_content', ''))
+                
+                llm_response = await consent_chain.ainvoke(
+                    {"patient_text": content},
+                    config={"callbacks": [langfuse_handler]} if langfuse_handler else None
+                )
+                
+                if "CONSENT" in llm_response.upper():
+                    metadata = source.get('metadata', {})
+                    consent_chunk_id = metadata.get("chunk_id")
+                    if consent_chunk_id:
+                        logger.info(f"Found consent in chunk {consent_chunk_id} for conversation {conversation_id} using LLM")
+                        return consent_chunk_id
+            
+            logger.warning(f"Could not find a clear consent statement for conversation {conversation_id} using LLM.")
+            return None
+
+        except Exception as e:
+            logger.error(f"Failed to find consent chunk for conversation {conversation_id} using LLM: {str(e)}")
+            return None
+
     async def health_check(self) -> Dict[str, Any]:
         """Health check for medical system monitoring."""
         if not self._initialized:
