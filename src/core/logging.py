@@ -72,10 +72,6 @@ class DevelopmentFormatter(logging.Formatter):
 
 def setup_logging() -> None:
     """Configure application logging based on environment."""
-    # Create logs directory
-    log_dir = Path("logs")
-    log_dir.mkdir(exist_ok=True)
-    
     # Get environment
     environment = os.getenv('PY_ENV', 'development')
     
@@ -86,40 +82,19 @@ def setup_logging() -> None:
     # Clear existing handlers
     root_logger.handlers.clear()
     
-    # Configure based on environment
+    # Configure based on environment - terminal only, no file handlers
     if environment == 'production':
         # Production: JSON formatter for AWS CloudWatch
         console_handler = logging.StreamHandler(sys.stdout)
         console_formatter = JSONFormatter()
         console_handler.setFormatter(console_formatter)
         root_logger.addHandler(console_handler)
-        
-        # File handler with JSON formatting
-        file_handler = logging.handlers.RotatingFileHandler(
-            "logs/app.log",
-            maxBytes=10 * 1024 * 1024,  # 10MB
-            backupCount=30  # 30 days retention
-        )
-        file_formatter = JSONFormatter()
-        file_handler.setFormatter(file_formatter)
-        root_logger.addHandler(file_handler)
-        
     else:
         # Development: Readable formatter
         console_handler = logging.StreamHandler(sys.stdout)
         console_formatter = DevelopmentFormatter()
         console_handler.setFormatter(console_formatter)
         root_logger.addHandler(console_handler)
-        
-        # File handler with readable formatting for development
-        file_handler = logging.handlers.RotatingFileHandler(
-            "logs/app.log",
-            maxBytes=10 * 1024 * 1024,  # 10MB
-            backupCount=30  # 30 days retention
-        )
-        file_formatter = DevelopmentFormatter()
-        file_handler.setFormatter(file_formatter)
-        root_logger.addHandler(file_handler)
     
     # Set specific logger levels
     logging.getLogger("uvicorn").setLevel(logging.INFO)
@@ -185,15 +160,19 @@ class MedicalProcessingLogger:
     - Step-by-step processing logs
     - Medical data transformation tracking
     - Performance metrics
-    - File operation logging
-    - Structured JSON logging for analysis
+    - Terminal output for all processing details
+    - Structured JSON format for clarity
     """
     
-    def __init__(self, encounter_id: str, output_folder: Path):
+    def __init__(self, encounter_id: str, output_folder: Path = None):
         self.encounter_id = encounter_id
+        # Keep output_folder as attribute for compatibility with existing code,
+        # but don't actually create the folder
         self.output_folder = output_folder
-        self.processing_log_file = output_folder / "processing_log.txt"
-        self.detailed_log_file = output_folder / "detailed_processing.json"
+        
+        # Logger for terminal output
+        self.logger = logging.getLogger(f"medical_processing.{encounter_id}")
+        self.logger.setLevel(logging.DEBUG)
         
         # Processing state tracking
         self.start_time = time.time()
@@ -204,25 +183,26 @@ class MedicalProcessingLogger:
         self.file_operations = []
         self.log_entries = []
         
-        # Ensure output folder exists
-        self.output_folder.mkdir(parents=True, exist_ok=True)
-        
-        # Initialize log files
-        self._initialize_log_files()
+        # Initialize logs with header
+        self._initialize_logs()
     
-    def _initialize_log_files(self):
-        """Initialize log files with headers."""
-        with open(self.processing_log_file, 'w') as f:
-            f.write(f"MEDICAL AI PROCESSING LOG - Encounter {self.encounter_id}\n")
-            f.write(f"{'='*80}\n")
-            f.write(f"Started at: {datetime.utcnow().isoformat()}Z\n")
-            f.write(f"Output folder: {self.output_folder}\n\n")
+    def _initialize_logs(self):
+        """Initialize logs with headers."""
+        header = f"MEDICAL AI PROCESSING LOG - Encounter {self.encounter_id}\n"
+        separator = f"{'='*80}\n"
+        start_info = f"Started at: {datetime.utcnow().isoformat()}Z\n"
+        output_info = f"Output folder: {self.output_folder}\n"
         
-        # Initialize detailed JSON log
+        print(header + separator + start_info + output_info)
+        self.logger.info(f"MEDICAL AI PROCESSING LOG - Encounter {self.encounter_id}")
+        self.logger.info(f"Started at: {datetime.utcnow().isoformat()}Z")
+        self.logger.info(f"Output folder: {self.output_folder}")
+        
+        # Initialize detailed log structure in memory
         self.detailed_log = {
             "encounter_id": self.encounter_id,
             "processing_started_at": datetime.utcnow().isoformat(),
-            "output_folder": str(self.output_folder),
+            "output_folder": str(self.output_folder) if self.output_folder else "terminal_only",
             "processing_steps": [],
             "performance_metrics": {},
             "medical_mappings": {},
@@ -235,7 +215,7 @@ class MedicalProcessingLogger:
         }
     
     def log_step(self, step_name: str, details: str, data: Optional[Dict[str, Any]] = None):
-        """Log a processing step with full details."""
+        """Log a processing step with full details to terminal."""
         timestamp = datetime.utcnow().isoformat()
         step_info = {
             "step": step_name,
@@ -246,21 +226,19 @@ class MedicalProcessingLogger:
         
         self.processing_steps.append(step_info)
         
-        # Write to text log
-        with open(self.processing_log_file, 'a') as f:
-            f.write(f"[{timestamp}] STEP: {step_name}\n")
-            f.write(f"   DETAILS: {details}\n")
-            if data:
-                f.write(f"   DATA: {json.dumps(data, indent=2)}\n")
-            f.write("\n")
+        # Print to terminal
+        print(f"[{timestamp}] STEP: {step_name}")
+        print(f"   DETAILS: {details}")
+        if data:
+            print(f"   DATA: {json.dumps(data, indent=2)}")
+        print("")
         
-        # Update detailed JSON log
+        # Update detailed JSON log in memory
         self.detailed_log["processing_steps"].append(step_info)
-        self._save_detailed_log()
 
     
     def log_neo4j_mapping(self, original_term: str, snomed_result: Dict[str, Any]):
-        """Log a successful SNOMED mapping."""
+        """Log a successful SNOMED mapping to terminal."""
         
         mapping_details = {
             "original_term": original_term,
@@ -275,7 +253,7 @@ class MedicalProcessingLogger:
         )
 
     def log_section_generation(self, section_id: str, section_type: str, generation_result: Dict[str, Any]):
-        """Log the result of a SOAP section generation."""
+        """Log the result of a SOAP section generation to terminal."""
         
         generation_details = {
             "section_id": section_id,
@@ -296,28 +274,27 @@ class MedicalProcessingLogger:
         )
         
         self.detailed_log['section_generations'].append(generation_details)
-        self._save_detailed_log()
 
 
     def log(self, message: str, level: str = "INFO", **kwargs):
         """
-        Log a generic message to the processing log file.
+        Log a generic message to the terminal.
         This is useful for informational messages, warnings, or errors that are not
         part of a structured step.
         """
         timestamp = datetime.utcnow().isoformat()
         
-        log_message = f"[{timestamp}] [{level.upper()}] {message}\n"
+        log_message = f"[{timestamp}] [{level.upper()}] {message}"
+        
+        # Print to terminal
+        print(log_message)
         
         # Add details if provided
         if kwargs:
-            log_message += f"   Details: {json.dumps(kwargs, indent=2, default=str)}\n"
+            details = f"   Details: {json.dumps(kwargs, indent=2, default=str)}"
+            print(details)
         
-        self.output_folder.mkdir(parents=True, exist_ok=True)
-        with open(self.processing_log_file, 'a') as f:
-            f.write(log_message)
-        
-        # Add to detailed JSON log as well
+        # Add to detailed JSON log in memory
         self.detailed_log['processing_steps'].append({
             "step": "GENERIC_LOG",
             "timestamp": timestamp,
@@ -325,16 +302,8 @@ class MedicalProcessingLogger:
             "details": message,
             "data": kwargs
         })
-        self._save_detailed_log()
 
 
-    def _save_detailed_log(self):
-        """Save the detailed JSON log."""
-        self.output_folder.mkdir(parents=True, exist_ok=True)
-        with open(self.detailed_log_file, 'w', encoding='utf-8') as f:
-            json.dump(self.detailed_log, f, indent=2, ensure_ascii=False)
-
-
-def create_medical_logger(encounter_id: str, output_folder: Path) -> MedicalProcessingLogger:
+def create_medical_logger(encounter_id: str, output_folder: Path = None) -> MedicalProcessingLogger:
     """Factory function to create a medical logger."""
     return MedicalProcessingLogger(encounter_id, output_folder)

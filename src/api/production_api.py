@@ -46,12 +46,10 @@ async def _run_encounter_processing_pipeline(
     The main processing pipeline that runs in the background.
     """
     encounter_id = request.encounterId
-    output_dir = Path("generated_notes") / encounter_id
-    sections_dir = output_dir / "sections"
     
-    sections_dir.mkdir(parents=True, exist_ok=True)
-
-    medical_logger = create_medical_logger(encounter_id, output_dir)
+    # Create medical logger without folder creation
+    medical_logger = create_medical_logger(encounter_id)
+    
     production_jobs[job_id]['status'] = 'PROCESSING'
     
     # Create enhanced handler for the entire pipeline with medical context.
@@ -196,13 +194,7 @@ async def _run_encounter_processing_pipeline(
                 doctor_id=request.doctorId,
                 max_attempts=3
             )
-
-            # C. Save the generated section to a file (success or failure)
-            section_output_path = sections_dir / f"{section_name.replace(' ', '_')}.json"
-            with open(section_output_path, 'w', encoding='utf-8') as f:
-                json.dump(generation_result.model_dump(), f, indent=2, ensure_ascii=False)
-
-            # D. Send to NoteGen API backend with status and content
+            # C. Send to NoteGen API backend with status and content
             # Determine if this is the last section
             is_last_section = (i == len(request.sections) - 1)
             
