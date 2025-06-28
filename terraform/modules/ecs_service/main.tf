@@ -329,10 +329,10 @@ resource "aws_iam_role_policy" "ecs_task_policy" {
         {
           Effect = "Allow"
           Action = [
-            "aoss:APIAccessAll"
+            "aoss:*"
           ]
           Resource = [
-            "arn:aws:aoss:${var.aws_region}:${data.aws_caller_identity.current.account_id}:collection/notegen-ai-api-transcripts-${var.environment}"
+            "arn:aws:aoss:${var.aws_region}:${data.aws_caller_identity.current.account_id}:collection/*"
           ]
         }
       ]
@@ -403,7 +403,7 @@ resource "aws_ecs_task_definition" "app" {
           },
           {
             name  = "OPENSEARCH_ENDPOINT"
-            value = can(regex("^https?://", var.opensearch_endpoint)) ? var.opensearch_endpoint : "https://${var.opensearch_endpoint}"
+            value = var.opensearch_endpoint
           },
           {
             name  = "OPENSEARCH_INDEX"

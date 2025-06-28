@@ -7,11 +7,10 @@ resource "aws_opensearchserverless_collection" "main" {
 }
 
 resource "aws_opensearchserverless_vpc_endpoint" "main" {
-  count = var.allow_from_public == false && var.vpc_id != null ? 1 : 0
-
-  name       = "${var.collection_name}-vpce"
-  vpc_id     = var.vpc_id
-  subnet_ids = var.subnet_ids
+  name               = "${var.collection_name}-vpce"
+  vpc_id             = var.vpc_id
+  subnet_ids         = var.subnet_ids
+  security_group_ids = var.security_group_ids
 }
 
 resource "aws_opensearchserverless_security_policy" "main" {
@@ -27,7 +26,7 @@ resource "aws_opensearchserverless_security_policy" "main" {
         }
       ],
       AllowFromPublic = var.allow_from_public,
-      SourceVPCEs     = var.allow_from_public == false && var.vpc_id != null ? [aws_opensearchserverless_vpc_endpoint.main[0].id] : []
+      SourceVPCEs     = var.allow_from_public == false && var.vpc_id != null ? [aws_opensearchserverless_vpc_endpoint.main.id] : []
     }
   ])
 

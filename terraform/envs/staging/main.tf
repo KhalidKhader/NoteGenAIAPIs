@@ -115,6 +115,7 @@ module "ecs_service" {
   app_memory      = var.app_memory
   desired_count   = var.desired_count
   certificate_arn = var.certificate_arn
+  health_check_path = "/health/"
 
   # Application configuration
   log_level    = var.log_level
@@ -185,6 +186,7 @@ module "opensearchserverless" {
   allow_from_public = false
   vpc_id            = module.vpc.vpc_id
   subnet_ids        = module.vpc.private_subnet_ids
+  security_group_ids = [aws_security_group.opensearch_vpce.id]
 }
 
 # Standalone Access Policy to break module dependency cycle
@@ -211,4 +213,22 @@ resource "aws_opensearchserverless_access_policy" "main" {
   ])
 
   depends_on = [module.ecs_service, module.opensearchserverless]
+}
+
+resource "aws_security_group" "opensearch_vpce" {
+  name_prefix = "notegen-os-vpce-sg-"
+  description = "Security group for OpenSearch Serverless VPC Endpoint"
+  vpc_id      = module.vpc.vpc_id
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = [module.vpc.vpc_cidr]
+    description = "Allow HTTPS from within the VPC"
+  }
+
+  tags = {
+    Name = "notegen-opensearch-vpce-sg"
+  }
 } 

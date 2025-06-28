@@ -25,4 +25,10 @@ variable "subnet_ids" {
   description = "Subnet IDs for the VPC Endpoint"
   type        = list(string)
   default     = []
+}
+
+variable "security_group_ids" {
+  description = "Security Group IDs to associate with the VPC Endpoint"
+  type        = list(string)
+  default     = []
 } 
