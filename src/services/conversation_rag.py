@@ -489,25 +489,16 @@ class ConversationRAGService:
             }
         
         try:
-            # For AOSS, we'll check if we can access the index instead of cluster health
+            # For AOSS, we check if we can access the index
             opensearch_connected = False
             opensearch_status = "unknown"
             
-            if settings.is_aoss:
-                # For AOSS, check index existence instead of cluster health
-                if self.opensearch_client and self.opensearch_client.indices.exists(index=settings.opensearch_index):
-                    opensearch_status = "aoss_connected"
-                    opensearch_connected = True
-                else:
-                    opensearch_status = "aoss_index_not_found"
+            # Check index existence for AOSS
+            if self.opensearch_client and self.opensearch_client.indices.exists(index=settings.opensearch_index):
+                opensearch_status = "aoss_connected"
+                opensearch_connected = True
             else:
-                # Standard OpenSearch health check
-                if self.opensearch_client and self.opensearch_client.ping():
-                    cluster_health = self.opensearch_client.cluster.health()
-                    opensearch_status = cluster_health.get('status', 'unknown')
-                    opensearch_connected = opensearch_status in ['green', 'yellow']
-                else:
-                    opensearch_status = "ping_failed"
+                opensearch_status = "aoss_index_not_found"
             
             # Check other components
             embeddings_initialized = self.embeddings is not None
