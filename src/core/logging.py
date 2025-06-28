@@ -1,9 +1,8 @@
 """Enhanced logging configuration for NoteGen AI APIs.
 
 This module provides comprehensive logging capabilities including:
-- PII masking for patient data protection
-- JSON structured logging for observability
-- Audit logging for compliance
+- JSON structured logging for CloudWatch in production
+- Human-readable console logging for development
 - Contextual logging for request tracing
 """
 
@@ -20,48 +19,40 @@ from datetime import datetime
 from src.core.config import settings
 
 
-class JSONFormatter(logging.Formatter):
-    """JSON formatter for structured logging in production."""
+class CloudWatchJSONFormatter(logging.Formatter):
+    """JSON formatter specifically designed for AWS CloudWatch."""
     
-    def format(self, record: logging.LogRecord) -> str:
-        """Format log record as JSON."""
-        # Create log entry
-        log_entry = {
-            'timestamp': self.formatTime(record, self.datefmt),
-            'loglevel': record.levelname,
-            'logger': record.name,
-            'message': record.getMessage(),
-            'module': record.module,
-            'function': record.funcName,
-            'line': record.lineno,
-            'thread': record.thread,
-            'thread_name': record.threadName,
-            'call_trace': f"{record.pathname} L{record.lineno}"
+    def format(self, record):
+        """Format log record as a single-line JSON object for CloudWatch."""
+        log_object = {
+            "timestamp": self.formatTime(record, self.datefmt),
+            "level": record.levelname,
+            "logger": record.name,
+            "message": record.getMessage(),
+            "path": record.pathname,
+            "function": record.funcName,
+            "line": record.lineno
         }
-        
-        # Add task name if available (for async tasks)
-        if hasattr(record, 'taskName'):
-            log_entry['taskName'] = record.taskName
         
         # Add exception info if present
         if record.exc_info:
-            log_entry['exception'] = self.formatException(record.exc_info)
+            log_object['exception'] = self.formatException(record.exc_info)
         
-        # Add extra fields
-        if hasattr(record, '__dict__'):
-            for key, value in record.__dict__.items():
-                if key not in ['name', 'msg', 'args', 'levelname', 'levelno', 'pathname', 
-                              'filename', 'module', 'exc_info', 'exc_text', 'stack_info',
-                              'lineno', 'funcName', 'created', 'msecs', 'relativeCreated',
-                              'thread', 'threadName', 'processName', 'process', 'taskName']:
-                    log_entry[key] = value
+        # Add any extra attributes from the LogRecord
+        for key, value in record.__dict__.items():
+            if key not in ['args', 'asctime', 'created', 'exc_info', 'exc_text', 
+                          'filename', 'funcName', 'id', 'levelname', 'levelno', 
+                          'lineno', 'module', 'msecs', 'message', 'msg', 'name', 
+                          'pathname', 'process', 'processName', 'relativeCreated', 
+                          'stack_info', 'thread', 'threadName']:
+                log_object[key] = value
         
-        # Convert to JSON - single line for AWS CloudWatch
-        return json.dumps(log_entry, default=str, ensure_ascii=False, separators=(',', ':'))
+        # Return a single line JSON string
+        return json.dumps(log_object, default=str)
 
 
 class DevelopmentFormatter(logging.Formatter):
-    """Development formatter for readable console output."""
+    """Human-readable formatter for development environment."""
     
     def __init__(self):
         super().__init__(
@@ -70,7 +61,7 @@ class DevelopmentFormatter(logging.Formatter):
         )
 
 
-def setup_logging() -> None:
+def setup_logging():
     """Configure application logging based on environment."""
     # Get environment
     environment = os.getenv('PY_ENV', 'development')
@@ -80,23 +71,25 @@ def setup_logging() -> None:
     root_logger.setLevel(getattr(logging, settings.log_level))
     
     # Clear existing handlers
-    root_logger.handlers.clear()
+    for handler in root_logger.handlers[:]:
+        root_logger.removeHandler(handler)
     
-    # Configure based on environment - terminal only, no file handlers
+    # Create console handler
+    console_handler = logging.StreamHandler(sys.stdout)
+    
+    # Configure formatter based on environment
     if environment == 'production':
-        # Production: JSON formatter for AWS CloudWatch
-        console_handler = logging.StreamHandler(sys.stdout)
-        console_formatter = JSONFormatter()
-        console_handler.setFormatter(console_formatter)
-        root_logger.addHandler(console_handler)
+        # Use JSON formatter for CloudWatch in production
+        formatter = CloudWatchJSONFormatter()
     else:
-        # Development: Readable formatter
-        console_handler = logging.StreamHandler(sys.stdout)
-        console_formatter = DevelopmentFormatter()
-        console_handler.setFormatter(console_formatter)
-        root_logger.addHandler(console_handler)
+        # Use human-readable formatter for development
+        formatter = DevelopmentFormatter()
     
-    # Set specific logger levels
+    # Set formatter and add handler
+    console_handler.setFormatter(formatter)
+    root_logger.addHandler(console_handler)
+    
+    # Configure specific logger levels
     logging.getLogger("uvicorn").setLevel(logging.INFO)
     logging.getLogger("uvicorn.access").setLevel(logging.INFO)
     logging.getLogger("langchain").setLevel(logging.WARNING)
@@ -105,51 +98,23 @@ def setup_logging() -> None:
     logging.getLogger("openai").setLevel(logging.WARNING)
     logging.getLogger("httpx").setLevel(logging.WARNING)
     
-    # Medical-specific loggers
-    logging.getLogger("soap_generation").setLevel(logging.INFO)
-    logging.getLogger("rag_retrieval").setLevel(logging.INFO)
-    logging.getLogger("pattern_learning").setLevel(logging.INFO)
+    # Ensure all loggers use our handler in production
+    if environment == 'production':
+        for logger_name in ["uvicorn", "uvicorn.access", "uvicorn.error", 
+                           "fastapi", "opensearch", "httpx"]:
+            logger = logging.getLogger(logger_name)
+            # Remove any existing handlers
+            for handler in logger.handlers[:]:
+                logger.removeHandler(handler)
+            # Use our JSON formatter
+            logger.addHandler(console_handler)
+            # Don't propagate to avoid duplicate logs
+            logger.propagate = False
 
 
-class ContextualLogger:
-    """Logger with contextual information for request tracing."""
-    
-    def __init__(self, name: str):
-        """Initialize contextual logger."""
-        self.logger = logging.getLogger(name)
-        self._context: Dict[str, Any] = {}
-    
-    def _log_with_context(self, level: int, message: str, *args, **kwargs) -> None:
-        """Log message with context."""
-        extra = kwargs.get('extra', {})
-        extra.update(self._context)
-        kwargs['extra'] = extra
-        self.logger.log(level, message, *args, **kwargs)
-    
-    def debug(self, message: str, *args, **kwargs) -> None:
-        """Log debug message with context."""
-        self._log_with_context(logging.DEBUG, message, *args, **kwargs)
-    
-    def info(self, message: str, *args, **kwargs) -> None:
-        """Log info message with context."""
-        self._log_with_context(logging.INFO, message, *args, **kwargs)
-    
-    def warning(self, message: str, *args, **kwargs) -> None:
-        """Log warning message with context."""
-        self._log_with_context(logging.WARNING, message, *args, **kwargs)
-    
-    def error(self, message: str, *args, **kwargs) -> None:
-        """Log error message with context."""
-        self._log_with_context(logging.ERROR, message, *args, **kwargs)
-    
-    def critical(self, message: str, *args, **kwargs) -> None:
-        """Log critical message with context."""
-        self._log_with_context(logging.CRITICAL, message, *args, **kwargs)
-
-
-def get_logger(name: str) -> ContextualLogger:
-    """Get contextual logger instance."""
-    return ContextualLogger(name)
+def get_logger(name):
+    """Get a logger with the specified name."""
+    return logging.getLogger(name)
 
 
 class MedicalProcessingLogger:
@@ -161,85 +126,90 @@ class MedicalProcessingLogger:
     - Medical data transformation tracking
     - Performance metrics
     - Terminal output for all processing details
-    - Structured JSON format for clarity
+    - JSON format for CloudWatch in production
     """
     
-    def __init__(self, encounter_id: str, output_folder: Path = None):
+    def __init__(self, encounter_id, output_folder=None):
         self.encounter_id = encounter_id
-        # Keep output_folder as attribute for compatibility with existing code,
-        # but don't actually create the folder
-        self.output_folder = output_folder
-        
-        # Logger for terminal output
+        self.output_folder = output_folder  # Kept for compatibility
         self.logger = logging.getLogger(f"medical_processing.{encounter_id}")
-        self.logger.setLevel(logging.DEBUG)
-        
-        # Processing state tracking
         self.start_time = time.time()
+        
+        # In-memory storage for processing data
         self.processing_steps = []
-        self.performance_metrics = {}
         self.medical_mappings = {}
-        self.doctor_preferences_applied = {}
-        self.file_operations = []
-        self.log_entries = []
-        
-        # Initialize logs with header
-        self._initialize_logs()
-    
-    def _initialize_logs(self):
-        """Initialize logs with headers."""
-        header = f"MEDICAL AI PROCESSING LOG - Encounter {self.encounter_id}\n"
-        separator = f"{'='*80}\n"
-        start_info = f"Started at: {datetime.utcnow().isoformat()}Z\n"
-        output_info = f"Output folder: {self.output_folder}\n"
-        
-        print(header + separator + start_info + output_info)
-        self.logger.info(f"MEDICAL AI PROCESSING LOG - Encounter {self.encounter_id}")
-        self.logger.info(f"Started at: {datetime.utcnow().isoformat()}Z")
-        self.logger.info(f"Output folder: {self.output_folder}")
-        
-        # Initialize detailed log structure in memory
         self.detailed_log = {
-            "encounter_id": self.encounter_id,
+            "encounter_id": encounter_id,
             "processing_started_at": datetime.utcnow().isoformat(),
-            "output_folder": str(self.output_folder) if self.output_folder else "terminal_only",
-            "processing_steps": [],
-            "performance_metrics": {},
-            "medical_mappings": {},
-            "doctor_preferences": {},
-            "file_operations": [],
-            "azure_openai_calls": [],
-            "neo4j_queries": [],
-            "conversation_storage": {},
-            "section_generations": []
+            "steps": []
         }
+        
+        # Log initialization
+        self._log_initialization()
     
-    def log_step(self, step_name: str, details: str, data: Optional[Dict[str, Any]] = None):
-        """Log a processing step with full details to terminal."""
+    def _log_initialization(self):
+        """Log initialization message."""
+        environment = os.getenv('PY_ENV', 'development')
+        
+        if environment == 'production':
+            # JSON format for CloudWatch
+            log_data = {
+                "event_type": "PROCESSING_START",
+                "encounter_id": self.encounter_id,
+                "timestamp": datetime.utcnow().isoformat(),
+                "message": f"Starting medical processing for encounter {self.encounter_id}"
+            }
+            print(json.dumps(log_data))
+        else:
+            # Human-readable format for development
+            print(f"\n{'='*80}")
+            print(f"MEDICAL PROCESSING: Encounter {self.encounter_id}")
+            print(f"Started at: {datetime.utcnow().isoformat()}")
+            print(f"{'='*80}\n")
+        
+        # Also log through standard logger
+        self.logger.info(f"Starting medical processing for encounter {self.encounter_id}")
+    
+    def log_step(self, step_name, details, data=None):
+        """Log a processing step."""
         timestamp = datetime.utcnow().isoformat()
+        environment = os.getenv('PY_ENV', 'development')
+        
+        # Store step info
         step_info = {
             "step": step_name,
             "timestamp": timestamp,
             "details": details,
             "data": data or {}
         }
-        
         self.processing_steps.append(step_info)
+        self.detailed_log["steps"].append(step_info)
         
-        # Print to terminal
-        print(f"[{timestamp}] STEP: {step_name}")
-        print(f"   DETAILS: {details}")
-        if data:
-            print(f"   DATA: {json.dumps(data, indent=2)}")
-        print("")
+        if environment == 'production':
+            # JSON format for CloudWatch
+            log_data = {
+                "event_type": "PROCESSING_STEP",
+                "step": step_name,
+                "encounter_id": self.encounter_id,
+                "timestamp": timestamp,
+                "message": details
+            }
+            if data:
+                log_data["data"] = data
+            print(json.dumps(log_data, default=str))
+        else:
+            # Human-readable format for development
+            print(f"[{timestamp}] STEP: {step_name}")
+            print(f"   DETAILS: {details}")
+            if data:
+                print(f"   DATA: {json.dumps(data, indent=2)}")
+            print("")
         
-        # Update detailed JSON log in memory
-        self.detailed_log["processing_steps"].append(step_info)
-
+        # Also log through standard logger
+        self.logger.info(f"{step_name}: {details}")
     
-    def log_neo4j_mapping(self, original_term: str, snomed_result: Dict[str, Any]):
-        """Log a successful SNOMED mapping to terminal."""
-        
+    def log_neo4j_mapping(self, original_term, snomed_result):
+        """Log a successful SNOMED mapping."""
         mapping_details = {
             "original_term": original_term,
             **snomed_result
@@ -251,10 +221,9 @@ class MedicalProcessingLogger:
             f"Mapped '{original_term}' -> '{snomed_result.get('preferred_term')}' (SNOMED: {snomed_result.get('snomed_concept_id')})",
             mapping_details
         )
-
-    def log_section_generation(self, section_id: str, section_type: str, generation_result: Dict[str, Any]):
-        """Log the result of a SOAP section generation to terminal."""
-        
+    
+    def log_section_generation(self, section_id, section_type, generation_result):
+        """Log the result of a section generation."""
         generation_details = {
             "section_id": section_id,
             "section_type": section_type,
@@ -263,8 +232,7 @@ class MedicalProcessingLogger:
             "snomed_mappings_applied": len(generation_result.get("snomed_mappings", [])),
             "confidence_score": generation_result.get("confidence_score"),
             "processing_duration": generation_result.get("processing_metadata", {}).get("duration"),
-            "status": "COMPLETED" if not generation_result.get("content", "").startswith("Error:") else "FAILED",
-            "timestamp": datetime.utcnow().isoformat()
+            "status": "COMPLETED" if not generation_result.get("content", "").startswith("Error:") else "FAILED"
         }
         
         self.log_step(
@@ -272,38 +240,35 @@ class MedicalProcessingLogger:
             f"Generated {section_type} section (ID: {section_id}) - {generation_details['content_length']} chars, {generation_details['line_references_found']} line refs",
             generation_details
         )
-        
-        self.detailed_log['section_generations'].append(generation_details)
-
-
-    def log(self, message: str, level: str = "INFO", **kwargs):
-        """
-        Log a generic message to the terminal.
-        This is useful for informational messages, warnings, or errors that are not
-        part of a structured step.
-        """
+    
+    def log(self, message, level="INFO", **kwargs):
+        """Log a generic message."""
         timestamp = datetime.utcnow().isoformat()
+        environment = os.getenv('PY_ENV', 'development')
         
-        log_message = f"[{timestamp}] [{level.upper()}] {message}"
+        if environment == 'production':
+            # JSON format for CloudWatch
+            log_data = {
+                "event_type": "LOG_MESSAGE",
+                "level": level.upper(),
+                "encounter_id": self.encounter_id,
+                "timestamp": timestamp,
+                "message": message
+            }
+            if kwargs:
+                log_data["details"] = kwargs
+            print(json.dumps(log_data, default=str))
+        else:
+            # Human-readable format for development
+            print(f"[{timestamp}] [{level.upper()}] {message}")
+            if kwargs:
+                print(f"   Details: {json.dumps(kwargs, indent=2, default=str)}")
         
-        # Print to terminal
-        print(log_message)
-        
-        # Add details if provided
-        if kwargs:
-            details = f"   Details: {json.dumps(kwargs, indent=2, default=str)}"
-            print(details)
-        
-        # Add to detailed JSON log in memory
-        self.detailed_log['processing_steps'].append({
-            "step": "GENERIC_LOG",
-            "timestamp": timestamp,
-            "level": level.upper(),
-            "details": message,
-            "data": kwargs
-        })
+        # Also log through standard logger
+        log_method = getattr(self.logger, level.lower(), self.logger.info)
+        log_method(message, extra=kwargs)
 
 
-def create_medical_logger(encounter_id: str, output_folder: Path = None) -> MedicalProcessingLogger:
+def create_medical_logger(encounter_id, output_folder=None):
     """Factory function to create a medical logger."""
     return MedicalProcessingLogger(encounter_id, output_folder)

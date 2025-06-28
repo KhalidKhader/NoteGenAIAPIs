@@ -43,8 +43,6 @@ async def lifespan(app: FastAPI):
 
     # Shutdown
     logger.info("Shutting down NoteGen AI APIs - Medical Template Extraction System")
-
-    
     logger.info("All medical encounters completed, system shutdown complete")
 
 # Create FastAPI application for medical use
