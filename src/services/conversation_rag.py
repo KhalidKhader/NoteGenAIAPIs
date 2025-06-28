@@ -160,8 +160,7 @@ class ConversationRAGService:
                             "dimension": 1536,
                             "method": {
                                 "name": "hnsw",
-                                "space_type": "cosinesimil",
-                                "engine": "faiss"
+                                "space_type": "cosinesimil"
                             }
                         },
                         "metadata": {
