@@ -105,8 +105,9 @@ class Settings(BaseSettings):
     aws_region: str = Field(default="ca-central-1", description="AWS region for services like OpenSearch")
     
     # =============================================================================
-    # OpenSearch Configuration
+    # OpenSearch Serverless (AOSS) Configuration
     # =============================================================================
+    # Only OpenSearch Serverless (AOSS) is supported. Classic domain settings are not used.
     opensearch_endpoint: str = Field(
         default="https://9tty40b80t5pqwdeqop6.ca-central-1.aoss.amazonaws.com",
         # default="https://vpc-notegenai-staging-search-hrrjaqryo42zvlg33vivxtubfy.ca-central-1.es.amazonaws.com:443",
@@ -115,9 +116,6 @@ class Settings(BaseSettings):
     opensearch_port: int = Field(default=443, description="OpenSearch port")
     opensearch_index: str = Field(default="medical-conversations", description="OpenSearch index name")
     opensearch_timeout: int = Field(default=300, description="OpenSearch timeout in seconds")
-    opensearch_username: Optional[str] = Field(default=None, description="OpenSearch username for basic authentication")
-    opensearch_password: Optional[str] = Field(default=None, description="OpenSearch password for basic authentication")
-    is_aoss: bool = Field(default=True, description="Flag to indicate if the OpenSearch instance is an AWS OpenSearch Serverless instance")
 
     # =============================================================================
     # NoteGen API Service Integration Configuration

@@ -76,22 +76,10 @@ variable "neo4j_memory" {
 }
 
 # OpenSearch Configuration
-variable "opensearch_instance_type" {
-  description = "Instance type for OpenSearch cluster"
+variable "opensearch_index" {
+  description = "OpenSearch index name"
   type        = string
-  default     = "t3.medium.search"
-}
-
-variable "opensearch_instance_count" {
-  description = "Number of instances in OpenSearch cluster"
-  type        = number
-  default     = 2
-}
-
-variable "opensearch_volume_size" {
-  description = "Size of EBS volumes for OpenSearch in GB"
-  type        = number
-  default     = 50
+  default     = "medical-conversations"
 }
 
 # =============================================================================
@@ -114,12 +102,6 @@ variable "cors_origins" {
   description = "CORS origins for the application"
   type        = string
   default     = "https://app.notegen.ai,https://api.notegen.ai"
-}
-
-variable "opensearch_index" {
-  description = "OpenSearch index name"
-  type        = string
-  default     = "medical-conversations"
 }
 
 variable "neo4j_user" {

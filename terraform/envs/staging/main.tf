@@ -55,24 +55,6 @@ module "vpc" {
   }
 }
 
-# OpenSearch Module
-module "opensearch" {
-  source = "../../modules/opensearch"
-
-  environment    = var.environment
-  domain_name    = "notegenai-${var.environment}-search"
-  instance_type  = var.opensearch_instance_type
-  instance_count = var.opensearch_instance_count
-  volume_size    = var.opensearch_volume_size
-
-  vpc_id     = module.vpc.vpc_id
-  subnet_ids = [module.vpc.private_subnet_ids[0]] # Use only first subnet for single instance
-
-  tags = {
-    Project = "notegen-ai"
-  }
-}
-
 # Neo4j Module
 module "neo4j" {
   source = "../../modules/neo4j"
@@ -100,7 +82,7 @@ module "parameters" {
 
   # Infrastructure endpoints from Terraform outputs
   neo4j_bolt_uri      = module.neo4j.neo4j_bolt_uri
-  opensearch_endpoint = module.opensearch.domain_endpoint
+  opensearch_endpoint = module.opensearchserverless.collection_endpoint
 
   # Azure OpenAI endpoints from variables (these are managed externally)
   azure_openai_endpoint           = var.azure_openai_endpoint
@@ -113,17 +95,18 @@ module "parameters" {
     Project = "notegen-ai"
   }
 
-  depends_on = [module.neo4j, module.opensearch]
+  depends_on = [module.neo4j, module.opensearchserverless]
 }
 
 # ECS Service Module
 module "ecs_service" {
   source = "../../modules/ecs_service"
 
-  environment  = var.environment
-  app_name     = "notegen-ai-api"
-  cluster_name = "notegen-ai-api-${var.environment}-cluster"
-  vpc_id       = module.vpc.vpc_id
+  environment    = var.environment
+  aws_region     = var.aws_region
+  app_name       = "notegen-ai-api"
+  cluster_name   = "notegen-ai-api-${var.environment}-cluster"
+  vpc_id         = module.vpc.vpc_id
   subnet_ids     = module.vpc.private_subnet_ids # ECS tasks should be in private subnets
   alb_subnet_ids = module.vpc.public_subnet_ids  # ALB should be in public subnets
 
@@ -139,10 +122,8 @@ module "ecs_service" {
   cors_origins = var.cors_origins
 
   # OpenSearch configuration
-  opensearch_endpoint = module.opensearch.domain_endpoint
+  opensearch_endpoint = module.opensearchserverless.collection_endpoint
   opensearch_index    = var.opensearch_index
-  opensearch_username_secret_arn = module.opensearch.username_secret_arn
-  opensearch_password_secret_arn = module.opensearch.password_secret_arn
 
   # Neo4j configuration
   neo4j_uri      = module.neo4j.neo4j_bolt_uri
@@ -163,14 +144,14 @@ module "ecs_service" {
 
   # Grant access to OpenSearch secret initially
   secrets_arns = [
-    module.opensearch.password_secret_arn
+    # module.opensearchserverless.collection_endpoint_secret_arn
   ]
 
   tags = {
     Project = "notegen-ai"
   }
 
-  depends_on = [module.vpc, module.secrets, module.opensearch, module.neo4j, module.parameters]
+  depends_on = [module.vpc, module.secrets, module.neo4j, module.parameters]
 }
 
 # =============================================================================
@@ -195,4 +176,39 @@ module "github_oidc" {
   }
 
   depends_on = [module.ecs_service]
+}
+
+module "opensearchserverless" {
+  source          = "../../modules/opensearchserverless"
+  collection_name = "notegen-transcripts-stg"
+  description     = "Serverless collection for NoteGen AI - ${var.environment}"
+  allow_from_public = false
+  vpc_id            = module.vpc.vpc_id
+  subnet_ids        = module.vpc.private_subnet_ids
+}
+
+# Standalone Access Policy to break module dependency cycle
+resource "aws_opensearchserverless_access_policy" "main" {
+  name        = "${module.opensearchserverless.collection_name}-access"
+  type        = "data"
+  description = "Allow ECS tasks to access the collection"
+  policy      = jsonencode([
+    {
+      Rules = [
+        {
+          ResourceType = "collection",
+          Resource     = ["collection/${module.opensearchserverless.collection_name}"],
+          Permission   = ["aoss:*"]
+        },
+        {
+          ResourceType = "index",
+          Resource     = ["index/${module.opensearchserverless.collection_name}/*"],
+          Permission   = ["aoss:*"]
+        }
+      ],
+      Principal = [module.ecs_service.task_role_arn]
+    }
+  ])
+
+  depends_on = [module.ecs_service, module.opensearchserverless]
 } 

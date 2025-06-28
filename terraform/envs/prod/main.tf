@@ -59,21 +59,15 @@ module "vpc" {
 }
 
 # OpenSearch Module
-module "opensearch" {
-  source = "../../modules/opensearch"
+# (Removed classic OpenSearch module and all related variables/outputs)
 
-  environment     = var.environment
-  domain_name     = "notegenai-${var.environment}-search"
-  instance_type   = var.opensearch_instance_type
-  instance_count  = var.opensearch_instance_count
-  volume_size     = var.opensearch_volume_size
-  
-  vpc_id     = module.vpc.vpc_id
-  subnet_ids = module.vpc.private_subnet_ids
-
-  tags = {
-    Project = "notegen-ai"
-  }
+# OpenSearch Serverless (AOSS) Module
+module "opensearchserverless" {
+  source           = "../../modules/opensearchserverless"
+  collection_name  = "notegen-ai-api-transcripts-${var.environment}"
+  description      = "Serverless collection for NoteGen AI - Production"
+  allowed_principals = ["*"] # TODO: Replace with ECS task role ARN
+  allow_from_public  = false
 }
 
 # ECS Service Module
@@ -81,6 +75,7 @@ module "ecs_service" {
   source = "../../modules/ecs_service"
 
   environment  = var.environment
+  aws_region   = var.aws_region
   cluster_name = "notegen-ai-api-${var.environment}-cluster"
   vpc_id       = module.vpc.vpc_id
   subnet_ids   = module.vpc.private_subnet_ids
@@ -96,9 +91,9 @@ module "ecs_service" {
   debug                    = var.debug
   cors_origins            = var.cors_origins
 
-  # OpenSearch configuration
-  opensearch_endpoint = module.opensearch.domain_endpoint
-  opensearch_index   = var.opensearch_index
+  # (Serverless OpenSearch configuration will be added here)
+  opensearch_index = var.opensearch_index
+  opensearch_endpoint = module.opensearchserverless.collection_endpoint
 
   # Neo4j configuration
   neo4j_uri      = module.neo4j.neo4j_bolt_uri
@@ -117,9 +112,8 @@ module "ecs_service" {
   langfuse_secret_key_secret_arn             = module.secrets.langfuse_secret_key_secret_arn
   langfuse_public_key_secret_arn             = module.secrets.langfuse_public_key_secret_arn
 
-  # Grant access to OpenSearch and Neo4j secrets
+  # Grant access to Neo4j secrets only
   secrets_arns = [
-    module.opensearch.password_secret_arn,
     module.neo4j.password_secret_arn
   ]
 
@@ -127,7 +121,7 @@ module "ecs_service" {
     Project = "notegen-ai"
   }
 
-  depends_on = [module.vpc, module.secrets, module.opensearch, module.neo4j, module.parameters]
+  # (Removed depends_on for module.opensearch)
 }
 
 # Neo4j Module
@@ -157,7 +151,7 @@ module "parameters" {
   
   # Infrastructure endpoints from Terraform outputs
   neo4j_bolt_uri               = module.neo4j.neo4j_bolt_uri
-  opensearch_endpoint          = module.opensearch.domain_endpoint
+  opensearch_endpoint          = module.opensearchserverless.collection_endpoint
   
   # Azure OpenAI endpoints from variables (these are managed externally)
   azure_openai_endpoint        = var.azure_openai_endpoint
@@ -170,5 +164,5 @@ module "parameters" {
     Project = "notegen-ai"
   }
 
-  depends_on = [module.neo4j, module.opensearch]
+  depends_on = [module.neo4j]
 } 

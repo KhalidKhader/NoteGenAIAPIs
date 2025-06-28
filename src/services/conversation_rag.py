@@ -11,6 +11,7 @@ Features:
 """
 from datetime import datetime
 from typing import Dict, List, Optional, Any
+from urllib.parse import urlparse
 
 from opensearchpy import OpenSearch, RequestsHttpConnection, NotFoundError
 from langchain_openai import AzureChatOpenAI, AzureOpenAIEmbeddings
@@ -30,15 +31,16 @@ logger = get_logger(__name__)
 
 class ConversationRAGService:
     """
-    Medical Conversation RAG Service using AWS OpenSearch.
+    Medical Conversation RAG Service using AWS OpenSearch Serverless (AOSS).
     
     Features:
-    - AWS OpenSearch vector database for medical transcript storage
+    - AWS OpenSearch Serverless (AOSS) vector database for medical transcript storage
     - Strict conversation isolation by conversation_id
     - Line number preservation for medical traceability
     - Semantic chunking for long encounters (2+ hours)
     - Encryption for sensitive medical data
     - Canadian data residency compliance
+    - Only supports IAM authentication (no basic auth)
     """
     def __init__(self):
         self.opensearch_client: Optional[OpenSearch] = None
@@ -69,8 +71,14 @@ class ConversationRAGService:
                 model=settings.azure_openai_embedding_model
             )
             auth = await self._setup_aws_auth()
+
+            # Parse the OpenSearch endpoint URL
+            parsed_url = urlparse(settings.opensearch_endpoint)
+            host = parsed_url.hostname
+            port = parsed_url.port or 443
+
             self.opensearch_client = OpenSearch(
-                hosts=[settings.opensearch_endpoint],
+                hosts=[{'host': host, 'port': port}],
                 http_auth=auth,
                 use_ssl=True,
                 verify_certs=True,
@@ -96,35 +104,15 @@ class ConversationRAGService:
             raise RuntimeError(f"Medical RAG initialization failed: {str(e)}")
     
     async def _setup_aws_auth(self):
-        """Setup authentication for OpenSearch."""
-        
-        # Check if OpenSearch username/password are provided (for Fine-Grained Access Control)
-        if settings.opensearch_username and settings.opensearch_password:
-            logger.info("Using OpenSearch basic authentication (username/password)")
-            return (settings.opensearch_username, settings.opensearch_password)
-        
-        # Fallback to AWS IAM authentication
+        """Setup authentication for OpenSearch Serverless (AOSS) only."""
         import boto3
         from opensearchpy import AWSV4SignerAuth
-        
-        # Check if explicit credentials are provided in settings
-        # if settings.aws_access_key_id and settings.aws_secret_access_key:
-        #     logger.info("Using explicit AWS credentials from settings")
-        #     session = boto3.Session(
-        #         aws_access_key_id=settings.aws_access_key_id,
-        #         aws_secret_access_key=settings.aws_secret_access_key,
-        #         region_name=settings.aws_region
-        #     )
-        # else:
-        #     logger.info("Using default boto3 session (IAM roles or instance profile)")
-        #     session = boto3.Session()
         session = boto3.Session()
         credentials = session.get_credentials()
         if not credentials:
             raise ValueError("No AWS credentials found - ensure IAM roles are configured or provide explicit credentials")
-        
-        # Use appropriate service identifier based on OpenSearch type
-        service = 'aoss' if settings.is_aoss else 'es'
+        # Always use 'aoss' for OpenSearch Serverless
+        service = 'aoss'
         return AWSV4SignerAuth(credentials, settings.aws_region, service)
     
     async def _test_connection(self):

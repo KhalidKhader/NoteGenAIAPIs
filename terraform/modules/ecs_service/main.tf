@@ -202,8 +202,6 @@ resource "aws_iam_role_policy" "ecs_execution_role_secrets_policy" {
           ]
           Resource = [
             var.neo4j_secret_arn,
-            var.opensearch_username_secret_arn,
-            var.opensearch_password_secret_arn,
             var.azure_openai_api_key_secret_arn,
             var.azure_openai_endpoint_secret_arn,
             var.azure_openai_embedding_api_key_secret_arn,
@@ -284,8 +282,6 @@ resource "aws_iam_role_policy" "ecs_task_policy" {
           ]
           Resource = [
             var.neo4j_secret_arn,
-            var.opensearch_username_secret_arn,
-            var.opensearch_password_secret_arn,
             var.azure_openai_api_key_secret_arn,
             var.azure_openai_endpoint_secret_arn,
             var.azure_openai_embedding_api_key_secret_arn,
@@ -305,7 +301,7 @@ resource "aws_iam_role_policy" "ecs_task_policy" {
           Resource = var.secrets_arns
         }
       ] : [],
-      # Parameter Store permissions
+      # Parameter Store permissions for all required parameters
       length(var.parameter_arns) > 0 ? [
         {
           Effect = "Allow"
@@ -328,14 +324,16 @@ resource "aws_iam_role_policy" "ecs_task_policy" {
           Resource = "*"
         }
       ],
-      # OpenSearch permissions for AWS IAM authentication
+      # OpenSearch Serverless (AOSS) permissions for collection
       [
         {
           Effect = "Allow"
           Action = [
-            "es:*"
+            "aoss:APIAccessAll"
           ]
-          Resource = "arn:aws:es:ca-central-1:225989351675:domain/notegenai-staging-search/*"
+          Resource = [
+            "arn:aws:aoss:${var.aws_region}:${data.aws_caller_identity.current.account_id}:collection/notegen-ai-api-transcripts-${var.environment}"
+          ]
         }
       ]
     )
@@ -405,7 +403,7 @@ resource "aws_ecs_task_definition" "app" {
           },
           {
             name  = "OPENSEARCH_ENDPOINT"
-            value = var.opensearch_endpoint
+            value = "https://${var.opensearch_endpoint}"
           },
           {
             name  = "OPENSEARCH_INDEX"
@@ -464,14 +462,6 @@ resource "aws_ecs_task_definition" "app" {
           {
             name      = "NEO4J_PASSWORD"
             valueFrom = var.neo4j_secret_arn
-          },
-          {
-            name      = "OPENSEARCH_USERNAME"
-            valueFrom = var.opensearch_username_secret_arn
-          },
-          {
-            name      = "OPENSEARCH_PASSWORD"
-            valueFrom = var.opensearch_password_secret_arn
           },
           {
             name      = "AZURE_OPENAI_API_KEY"

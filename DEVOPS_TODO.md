@@ -1,6 +1,17 @@
 # DevOps TODO List - NoteGen AI APIs
 
-## ✅ **ALL ISSUES RESOLVED - SYSTEM FULLY OPERATIONAL**
+## 🔄 **NEW ISSUE IDENTIFIED - REQUIRES ATTENTION**
+
+### **🚨 CRITICAL - GitHub Actions ECS Permissions**
+- **Issue**: GitHub Actions role lacks ECS permissions for deployment verification
+- **Error**: `AccessDeniedException: User: arn:aws:sts::225989351675:assumed-role/notegen-ai-api-staging-github-actions-role/GitHubActions-Deploy-Staging is not authorized to perform: ecs:ListTasks`
+- **Impact**: Deployment succeeds but CI/CD verification fails
+- **Status**: 🔴 **NEEDS FIX** - Terraform IAM policy update required
+- **Priority**: HIGH - Affects deployment automation
+
+---
+
+## ✅ **PREVIOUS ISSUES RESOLVED - SYSTEM OPERATIONAL**
 
 ### **🎉 FINAL STATUS**
 - **✅ OpenSearch Authentication**: WORKING - Multiple successful 200 requests
@@ -62,4 +73,28 @@
 
 **Both OpenSearch and Neo4j connectivity issues have been completely resolved. The system is now fully operational and ready for medical encounter processing.**
 
-**No further DevOps intervention required - all systems green! 🟢** 
+**Core systems operational - GitHub Actions permissions need updating! 🟡**
+
+---
+
+## **🔧 PENDING FIXES**
+
+### **GitHub Actions ECS Permissions** 🔴
+**Location**: `terraform/modules/github_oidc/main.tf`
+**Action Required**: Add ECS permissions to GitHub Actions role policy
+**Specific Permissions Needed**:
+```json
+{
+    "Effect": "Allow",
+    "Action": [
+        "ecs:ListTasks",
+        "ecs:DescribeTasks",
+        "ecs:DescribeServices"
+    ],
+    "Resource": [
+        "arn:aws:ecs:ca-central-1:225989351675:cluster/notegen-ai-api-staging-cluster",
+        "arn:aws:ecs:ca-central-1:225989351675:cluster/notegen-ai-api-staging-cluster/*"
+    ]
+}
+```
+**Expected Outcome**: GitHub Actions can verify deployment status without AccessDeniedException 

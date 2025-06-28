@@ -123,24 +123,14 @@ variable "cors_origins" {
 # OpenSearch Configuration
 # =============================================================================
 
-variable "opensearch_endpoint" {
-  description = "AWS OpenSearch endpoint URL"
-  type        = string
-}
-
 variable "opensearch_index" {
   description = "OpenSearch index name"
   type        = string
   default     = "medical-conversations"
 }
 
-variable "opensearch_username_secret_arn" {
-  description = "ARN of the OpenSearch username secret in AWS Secrets Manager"
-  type        = string
-}
-
-variable "opensearch_password_secret_arn" {
-  description = "ARN of the OpenSearch password secret in AWS Secrets Manager"
+variable "opensearch_endpoint" {
+  description = "OpenSearch Serverless collection endpoint URL"
   type        = string
 }
 
@@ -280,4 +270,9 @@ variable "additional_secrets" {
     valueFrom = string
   }))
   default = []
+}
+
+variable "aws_region" {
+  description = "AWS region for resource construction (used for AOSS ARN)"
+  type        = string
 } 

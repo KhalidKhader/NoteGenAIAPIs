@@ -88,10 +88,6 @@ resource "aws_security_group" "efs" {
 resource "random_password" "neo4j_password" {
   length  = 16
   special = true
-  
-  lifecycle {
-    ignore_changes = [result]
-  }
 }
 
 # Store Neo4j password in Secrets Manager

@@ -9,3 +9,7 @@ You make the following common mistakes:
 4- terraform is used for 1 time / infra build 
 
 5- github workflow / actions and task definitions under aws is what is used for code deployment. 
+
+6- When working with AWS and configuring applications secrets should go to secrets manager, non-secrets go to param store. 
+
+7- keep any configs that are timeouts, etc. in task definition to allow dev to optimize or change these, such as logging level. 

@@ -65,24 +65,7 @@ output "neo4j_bolt_uri" {
   value       = module.neo4j.neo4j_bolt_uri
 }
 
-# OpenSearch Outputs
-output "opensearch_endpoint" {
-  description = "OpenSearch domain endpoint"
-  value       = module.opensearch.domain_endpoint
-}
-
-output "opensearch_kibana_endpoint" {
-  description = "OpenSearch Kibana endpoint"
-  value       = module.opensearch.kibana_endpoint
-}
-
-# Secrets Manager ARNs
-output "opensearch_password_secret_arn" {
-  description = "ARN of OpenSearch password secret"
-  value       = module.opensearch.password_secret_arn
-  sensitive   = true
-}
-
+# Neo4j Outputs
 output "neo4j_password_secret_arn" {
   description = "ARN of Neo4j password secret"
   value       = module.neo4j.password_secret_arn
