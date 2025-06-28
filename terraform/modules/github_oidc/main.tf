@@ -107,24 +107,32 @@ data "aws_iam_policy_document" "github_actions_staging_policy" {
     resources = ["*"]
   }
 
-  # ECS permissions for staging
+  # ECS permissions for staging (scoped)
   statement {
     effect = "Allow"
     actions = [
       "ecs:RegisterTaskDefinition",
-      "ecs:ListTaskDefinitions",
       "ecs:DescribeTaskDefinition",
       "ecs:DescribeServices",
       "ecs:DescribeTasks",
-      "ecs:ListTasks",
       "ecs:UpdateService",
-      "ecs:DescribeClusters"
+      "ecs:DescribeClusters",
+      "ecs:ListTasks"
     ]
     resources = [
       "arn:aws:ecs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:cluster/${var.ecs_cluster_name}",
       "arn:aws:ecs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:service/${var.ecs_cluster_name}/${var.ecs_service_name}",
-      "arn:aws:ecs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:task-definition/${var.app_name}-${var.environment}:*"
+      "arn:aws:ecs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:task-definition/${var.app_name}-${var.environment}:*",
+      "arn:aws:ecs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:container-instance/${var.ecs_cluster_name}/*",
+      "arn:aws:ecs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:task/${var.ecs_cluster_name}/*"
     ]
+  }
+
+  # ECS permissions that require wildcard resource
+  statement {
+    effect    = "Allow"
+    actions   = ["ecs:ListTaskDefinitions"]
+    resources = ["*"]
   }
 
   # ECS wait permissions

@@ -21,7 +21,7 @@ resource "aws_ssm_parameter" "opensearch_endpoint" {
   name        = "/notegen-ai-api/${var.environment}/opensearch/endpoint"
   description = "OpenSearch endpoint for ${var.environment}"
   type        = "String"
-  value       = "https://${var.opensearch_endpoint}"
+  value       = can(regex("^https?://", var.opensearch_endpoint)) ? var.opensearch_endpoint : "https://${var.opensearch_endpoint}"
 
   tags = merge(var.tags, {
     Name        = "opensearch-endpoint"

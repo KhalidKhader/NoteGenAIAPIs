@@ -297,3 +297,4 @@ terraform/envs/staging/.terraform.lock.hcl
 tests
 snyk
 env_example
+terraform/envs/staging/tfplan

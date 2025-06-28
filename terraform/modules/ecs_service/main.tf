@@ -403,7 +403,7 @@ resource "aws_ecs_task_definition" "app" {
           },
           {
             name  = "OPENSEARCH_ENDPOINT"
-            value = "https://${var.opensearch_endpoint}"
+            value = can(regex("^https?://", var.opensearch_endpoint)) ? var.opensearch_endpoint : "https://${var.opensearch_endpoint}"
           },
           {
             name  = "OPENSEARCH_INDEX"
