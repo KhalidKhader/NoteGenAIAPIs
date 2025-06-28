@@ -85,7 +85,6 @@ class ConversationRAGService:
                 connection_class=RequestsHttpConnection,
                 timeout=settings.opensearch_timeout
             )
-            await self._test_connection()
             self.vector_store = OpenSearchVectorSearch(
                 opensearch_url=settings.opensearch_endpoint,
                 index_name=settings.opensearch_index,
@@ -115,34 +114,6 @@ class ConversationRAGService:
         service = 'aoss'
         return AWSV4SignerAuth(credentials, settings.aws_region, service)
     
-    async def _test_connection(self):
-        """
-        Test OpenSearch connection.
-        This test is lenient for Serverless (AOSS) and will not raise an exception
-        for auth errors during startup. This allows the service to start even if
-        IAM data access policies are not yet correctly configured.
-        """
-        try:
-            # This is the standard health check for OpenSearch domains.
-            # It's expected to fail with a 404 for OpenSearch Serverless (AOSS).
-            cluster_health = self.opensearch_client.cluster.health()
-            if cluster_health['status'] not in ['green', 'yellow']:
-                logger.warning(f"OpenSearch cluster status: {cluster_health['status']}")
-            else:
-                logger.info("OpenSearch connection verified via health check.")
-        except NotFoundError:
-            # This is the expected path for AOSS.
-            logger.info("Health check endpoint not found, which is normal for AWS OpenSearch Serverless (AOSS).")
-            # We will not perform a fallback check here to avoid startup failures due to IAM policies.
-            # The connection will be tested implicitly by the first actual operation.
-            logger.info("Skipping fallback connection test to allow startup with potentially pending IAM permissions.")
-        except Exception as e:
-            # Catch other potential exceptions during the health check.
-            logger.warning(
-                f"An unexpected error occurred during OpenSearch health check: {e}. "
-                "The service will continue to start, but OpenSearch operations may fail.",
-                exc_info=True
-            )
     
     async def _create_index(self) -> None:
         """Create OpenSearch index for medical conversations."""
