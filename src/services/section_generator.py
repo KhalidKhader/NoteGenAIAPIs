@@ -17,8 +17,10 @@ from typing import Dict, List, Optional, Any, Union, Tuple
 from langchain_openai import AzureChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
 
+import json_repair
+
 from src.core.config import settings
-from src.core.logging import get_logger, MedicalProcessingLogger
+from src.core.logging import logger
 from src.core.observability import (
     track_medical_generation_metrics,
     add_medical_score,
@@ -36,9 +38,6 @@ from src.templates.prompts import (
 from src.services.conversation_rag import get_conversation_rag_service
 from src.services.snomed_rag import get_snomed_rag_service
 from src.services.pattern_learning import get_pattern_learning_service
-
-logger = get_logger(__name__)
-
 
 class MedicalSectionGenerator:
     """
@@ -178,7 +177,7 @@ class MedicalSectionGenerator:
         self,
         text: str,
         language: str = "en",
-        medical_logger: Optional[MedicalProcessingLogger] = None,
+        medical_logger: Optional[Any] = None,
         langfuse_handler: Optional[Any] = None,
         conversation_id: Optional[str] = None,
     ) -> List[str]:
@@ -187,11 +186,8 @@ class MedicalSectionGenerator:
             await self.initialize()
 
         if medical_logger:
-            medical_logger.log_step(
-                "LLM_TERM_EXTRACTION_START",
-                f"Starting medical term extraction from text (length: {len(text)})",
-                {"text_length": len(text), "language": language}
-            )
+            details={"text_length": len(text), "language": language}
+            medical_logger.info(f"LLM_TERM_EXTRACTION_START Starting medical term extraction from text  details={details}")
 
         system_prompt = MEDICAL_TERM_EXTRACTION_SYSTEM_PROMPT
         
@@ -229,22 +225,15 @@ class MedicalSectionGenerator:
             terms = [str(term) for term in extracted_terms]
 
             if medical_logger:
-                medical_logger.log_step(
-                    "LLM_TERM_EXTRACTION_COMPLETED",
-                    f"Extracted {len(terms)} medical terms using LLM.",
-                    {"terms_extracted": len(terms), "sample_terms": terms[:10]}
-                )
+                details={"terms_extracted": len(terms), "sample_terms": terms[:10]}
+                medical_logger.info(f"LLM_TERM_EXTRACTION_COMPLETED Extracted {len(terms)} medical terms using LLM. details={details}")
             
             return terms
         
         except Exception as e:
             logger.error(f"Failed to extract medical terms with LLM: {str(e)}")
             if medical_logger:
-                medical_logger.log_step(
-                    "LLM_TERM_EXTRACTION_FAILED",
-                    f"Failed to extract medical terms with LLM: {str(e)}",
-                    {"error": str(e)}
-                )
+                medical_logger.info(f"LLM_TERM_EXTRACTION_FAILED: Failed to extract medical terms with LLM: {str(e)}")
             return []
 
     async def generate_section_with_context(
@@ -258,7 +247,7 @@ class MedicalSectionGenerator:
         doctor_preferences: Dict[str, str],
         full_transcript: List[Dict[str, Any]],
         previous_sections_context: str = "",
-        medical_logger: Optional[MedicalProcessingLogger] = None,
+        medical_logger: Optional[Any] = None,
         langfuse_handler: Optional[Any] = None,
         conversation_id: Optional[str] = None,
         doctor_id: Optional[str] = None,
@@ -319,15 +308,31 @@ class MedicalSectionGenerator:
                 config={"callbacks": [langfuse_handler]} if langfuse_handler else None
             )
             content = llm_response.content
+            logger.info(f"LLM response: {content}")
             
             # Clean and parse the JSON response
-            cleaned_content = content.strip().strip("`").strip("json").strip()
-            
+            def parse_json(text):
+                try:
+                    repaired = json_repair.loads(text)
+                    if isinstance(repaired, dict):
+                        return repaired
+                    elif isinstance(repaired, list) and repaired:
+                        return repaired[-1]  # Last item in list
+                    else:
+                        logger.warning(f"Parsed JSON is not dict or non-empty list: {repaired}")
+                        return None
+                except Exception as e:
+                    logger.error(f"Failed to parse JSON: {e}")
+                    return None
+
+            # Example usage
+            cleaned_content = parse_json(content)
+            logger.info(f"Cleaned content: {cleaned_content}")
             try:
-                response_data = json.loads(cleaned_content)
-                note_content = response_data.get("noteContent", "")
+                # response_data = json.loads(cleaned_content)
+                note_content = cleaned_content.get("noteContent", "")
                 
-                raw_references = response_data.get("lineReferences", [])
+                raw_references = cleaned_content.get("lineReferences", [])
                 
                 if raw_references:
                     if isinstance(raw_references[0], int):
@@ -455,7 +460,7 @@ class MedicalSectionGenerator:
         )
 
         if medical_logger:
-            medical_logger.log_section_generation(final_section.section_id, section_name, final_section.dict())
+            medical_logger.info(f'{final_section.section_id}, {section_name}, {final_section.dict()}')
             
         return final_section
 
@@ -493,11 +498,12 @@ class MedicalSectionGenerator:
         doctor_preferences: Dict[str, str],
         full_transcript: List[Dict[str, Any]],
         previous_sections_context: str = "",
-        medical_logger: Optional[MedicalProcessingLogger] = None,
+        medical_logger: Optional[Any] = None,
         langfuse_handler: Optional[Any] = None,
         conversation_id: Optional[str] = None,
         doctor_id: Optional[str] = None,
-        max_attempts: int = 3
+        max_attempts: int = 3,
+        logger: Optional[Any] = None
     ) -> SectionGenerationResult:
         """
         Generate a section with retry logic and comprehensive error handling.
@@ -515,25 +521,19 @@ class MedicalSectionGenerator:
         last_error_trace = None
         
         if medical_logger:
-            medical_logger.log(
-                f"Starting section generation with retry logic for '{section_name}' (max {max_attempts} attempts)",
-                "INFO",
-                details={
+            details={
                     "section_id": section_id,
                     "section_name": section_name,
                     "template_id": template_id,
                     "max_attempts": max_attempts
                 }
-            )
+            medical_logger.info(f"Starting section generation with retry logic for '{section_name}' (max {max_attempts} attempts), details={details}")
         
         for attempt in range(1, max_attempts + 1):
             try:
                 if medical_logger:
-                    medical_logger.log(
-                        f"Attempt {attempt}/{max_attempts} for section '{section_name}'",
-                        "DEBUG",
-                        details={"attempt": attempt, "section_id": section_id}
-                    )
+                    details={"attempt": attempt, "section_id": section_id}
+                    medical_logger.info(f"Attempt {attempt}/{max_attempts} for section {section_name}, details={details}")
                 
                 # Call the original generation method
                 generated_section = await self.generate_section_with_context(
@@ -557,17 +557,14 @@ class MedicalSectionGenerator:
                     processing_time = time.time() - start_time
                     
                     if medical_logger:
-                        medical_logger.log(
-                            f"Section '{section_name}' generated successfully on attempt {attempt}",
-                            "INFO",
-                            details={
+                        details={
                                 "section_id": section_id,
                                 "attempt": attempt,
                                 "processing_time": processing_time,
                                 "content_length": len(generated_section.content),
                                 "confidence_score": generated_section.confidence_score
                             }
-                        )
+                        medical_logger.info(f"Section {section_name} generated successfully on attempt {attempt}, details={details}")
                     
                     # Return success result
                     return SectionGenerationResult(
@@ -591,15 +588,12 @@ class MedicalSectionGenerator:
                     last_error_trace = error_msg
                     
                     if medical_logger:
-                        medical_logger.log(
-                            f"Section '{section_name}' generation failed on attempt {attempt}: {error_msg}",
-                            "WARNING",
-                            details={
+                        details={
                                 "section_id": section_id,
                                 "attempt": attempt,
                                 "error": error_msg
                             }
-                        )
+                        medical_logger.error(f"Section {section_name} generation failed on attempt {attempt}: {error_msg}, details={details}")
                 
             except Exception as e:
                 # Unexpected exception during generation
@@ -609,27 +603,19 @@ class MedicalSectionGenerator:
                 last_error_trace = error_trace
                 
                 if medical_logger:
-                    medical_logger.log(
-                        f"Exception during section '{section_name}' generation on attempt {attempt}",
-                        "ERROR",
-                        details={
+                    details={
                             "section_id": section_id,
                             "attempt": attempt,
                             "error": error_msg,
                             "trace": error_trace
                         }
-                    )
+                    medical_logger.error(f"Exception during section '{section_name}' generation on attempt {attempt}, details={details}")
             
             # Wait before retry (except on last attempt)
             if attempt < max_attempts:
                 wait_time = min(2 ** (attempt - 1), 10)  # Exponential backoff, max 10 seconds
                 if medical_logger:
-                    medical_logger.log(
-                        f"Waiting {wait_time} seconds before retry attempt {attempt + 1}",
-                        "DEBUG",
-                        details={"wait_time": wait_time, "next_attempt": attempt + 1}
-                    )
-                
+                    medical_logger.warning(f"Waiting {wait_time} seconds before retry attempt {attempt + 1}")
                 await asyncio.sleep(wait_time)
         
         # All attempts failed - return failure result
@@ -638,17 +624,14 @@ class MedicalSectionGenerator:
         final_trace = last_error_trace or "No detailed error trace available"
         
         if medical_logger:
-            medical_logger.log(
-                f"Section '{section_name}' generation failed after {max_attempts} attempts",
-                "ERROR",
-                details={
+            details={
                     "section_id": section_id,
                     "total_attempts": max_attempts,
                     "total_processing_time": processing_time,
                     "final_error": final_error,
                     "error_trace": final_trace
                 }
-            )
+            medical_logger.error(f"Section '{section_name}' generation failed after {max_attempts} attempts, details={details}")
         
         return SectionGenerationResult(
             sectionId=section_id,

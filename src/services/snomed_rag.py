@@ -15,7 +15,7 @@ from typing import Dict, List, Optional, Any
 from neo4j import AsyncGraphDatabase, AsyncDriver
 
 from src.core.config import settings
-from src.core.logging import get_logger, MedicalProcessingLogger
+from src.core.logging import logger
 from src.templates.queries import (
     SNOMED_TERM_SEARCH_FRENCH,
     SNOMED_TERM_SEARCH_ENGLISH,
@@ -24,9 +24,6 @@ from src.templates.queries import (
     SNOMED_EXACT_MATCH_QUERY,
     SNOMED_SEMANTIC_SEARCH_QUERY
 )
-
-logger = get_logger(__name__)
-
 
 class SNOMEDRAGService:
     """
@@ -84,7 +81,7 @@ class SNOMEDRAGService:
         self, 
         medical_terms: List[str], 
         language: str = "en",
-        medical_logger: Optional[MedicalProcessingLogger] = None
+        medical_logger: Optional[Any] = None
     ) -> List[Dict[str, Any]]:
         """
         Get SNOMED mappings for medical terms using Neo4j GraphRAG.
@@ -107,16 +104,13 @@ class SNOMEDRAGService:
         logger.info(f"Getting SNOMED mappings for {len(medical_terms)} terms in language: {language}")
         
         if medical_logger:
-            medical_logger.log_step(
-                "NEO4J_SNOMED_MAPPING_START",
-                f"Starting SNOMED mapping for {len(medical_terms)} medical terms",
-                {
-                    "medical_terms": medical_terms,
-                    "language": language,
-                    "database": "NEO4J_SNOMED_CANADIAN_EDITION",
-                    "query_strategy": "EXACT_MATCH_THEN_CONTAINS_THEN_SEMANTIC"
-                }
-            )
+            details = {
+                "medical_terms": medical_terms,
+                "language": language,
+                "database": "NEO4J_SNOMED_CANADIAN_EDITION",
+                "query_strategy": "EXACT_MATCH_THEN_CONTAINS_THEN_SEMANTIC"
+            }
+            medical_logger.info(f"NEO4J_SNOMED_MAPPING_START Starting SNOMED mapping for {len(medical_terms)} medical terms, details={details}")
         
         try:
             mappings = []
@@ -124,35 +118,28 @@ class SNOMEDRAGService:
             async with self.driver.session(database=settings.neo4j_database) as session:
                 for i, term in enumerate(medical_terms):
                     if medical_logger:
-                        medical_logger.log_step(
-                            "NEO4J_TERM_QUERY_START",
-                            f"Querying Neo4j for term '{term}' ({i+1}/{len(medical_terms)})",
-                            {
-                                "term": term,
-                                "term_index": i + 1,
-                                "total_terms": len(medical_terms),
-                                "language": language
-                            }
-                        )
+                        details = {
+                            "term": term,
+                            "term_index": i + 1,
+                            "total_terms": len(medical_terms),
+                            "language": language
+                        }
+                        medical_logger.info(f"NEO4J_TERM_QUERY_START Querying Neo4j for term '{term}' ({i+1}/{len(medical_terms)}), details={details}")
                     
                     term_mappings = await self._search_snomed_term(session, term, language, medical_logger)
                     mappings.extend(term_mappings)
                     
                     if medical_logger:
                         for mapping in term_mappings:
-                            medical_logger.log_neo4j_mapping(term, mapping)
+                            medical_logger.info(f"{term}, {mapping}")
             
             if medical_logger:
-                medical_logger.log_step(
-                    "NEO4J_SNOMED_MAPPING_COMPLETED",
-                    f"SNOMED mapping completed: {len(mappings)} mappings found",
-                    {
-                        "total_mappings_found": len(mappings),
+                details={"total_mappings_found": len(mappings),
                         "terms_processed": len(medical_terms),
                         "success_rate": len(mappings) / len(medical_terms) if medical_terms else 0,
                         "database": "NEO4J_SNOMED_CANADIAN_EDITION"
                     }
-                )
+                medical_logger.info(f"NEO4J_SNOMED_MAPPING_COMPLETED SNOMED mapping completed: {len(mappings)} mappings found, details={details}")
             
             logger.info(f"Found {len(mappings)} SNOMED mappings")
             return mappings
@@ -160,11 +147,8 @@ class SNOMEDRAGService:
         except Exception as e:
             logger.error(f"Failed to get SNOMED mappings: {str(e)}")
             if medical_logger:
-                medical_logger.log_step(
-                    "NEO4J_SNOMED_MAPPING_FAILED",
-                    f"SNOMED mapping failed: {str(e)}",
-                    {"error": str(e), "terms": medical_terms}
-                )
+                details = {"error": str(e), "terms": medical_terms}
+                medical_logger.error(f"NEO4J_SNOMED_MAPPING_FAILED SNOMED mapping failed: {str(e)}, details={details}")
             raise RuntimeError(f"SNOMED mapping failed: {str(e)}")
 
     async def _search_snomed_term(
@@ -172,7 +156,7 @@ class SNOMEDRAGService:
         session, 
         term: str, 
         language: str,
-        medical_logger: Optional[MedicalProcessingLogger] = None
+        medical_logger: Optional[Any] = None
     ) -> List[Dict[str, Any]]:
         """Search for a single term in SNOMED using appropriate language query."""
         
@@ -182,80 +166,56 @@ class SNOMEDRAGService:
         try:
             # Try exact match first
             if medical_logger:
-                medical_logger.log_step(
-                    "NEO4J_EXACT_MATCH_QUERY",
-                    f"Trying exact match for term '{term}' in Neo4j SNOMED",
-                    {"term": term, "query_type": "EXACT_MATCH"}
-                )
+                details = {"term": term, "query_type": "EXACT_MATCH"}
+                medical_logger.info(f"NEO4J_EXACT_MATCH_QUERY Trying exact match for term '{term}' in Neo4j SNOMED, details={details}")
             
             exact_result = await session.run(SNOMED_EXACT_MATCH_QUERY, term=term.lower())
             exact_records = await exact_result.data()
             
             if exact_records:
                 if medical_logger:
-                    medical_logger.log_step(
-                        "NEO4J_EXACT_MATCH_SUCCESS",
-                        f"Found {len(exact_records)} exact matches for '{term}'",
-                        {"term": term, "matches_found": len(exact_records), "match_type": "EXACT"}
-                    )
+                    details = {"term": term, "matches_found": len(exact_records), "match_type": "EXACT"}
+                    medical_logger.info(f"NEO4J_EXACT_MATCH_SUCCESS Found {len(exact_records)} exact matches for '{term}', details={details}")
                 return self._format_snomed_records(exact_records, term, "exact")
             
             # If no exact match, try contains search
             if medical_logger:
-                medical_logger.log_step(
-                    "NEO4J_CONTAINS_SEARCH_QUERY",
-                    f"No exact match found, trying contains search for '{term}'",
-                    {"term": term, "query_type": "CONTAINS", "language": language}
-                )
+                details = {"term": term, "query_type": "CONTAINS", "language": language}
+                medical_logger.info(f"NEO4J_CONTAINS_SEARCH_QUERY No exact match found, trying contains search for '{term}', details={details}")
             
             result = await session.run(query, term=term.lower())
             records = await result.data()
             
             if records:
                 if medical_logger:
-                    medical_logger.log_step(
-                        "NEO4J_CONTAINS_SEARCH_SUCCESS",
-                        f"Found {len(records)} contains matches for '{term}'",
-                        {"term": term, "matches_found": len(records), "match_type": "CONTAINS"}
-                    )
+                    details = {"term": term, "matches_found": len(records), "match_type": "CONTAINS"}
+                    medical_logger.info(f"NEO4J_CONTAINS_SEARCH_SUCCESS Found {len(records)} contains matches for '{term}', details={details}")
                 return self._format_snomed_records(records, term, "contains")
             
             # If still no results, try semantic search
             if medical_logger:
-                medical_logger.log_step(
-                    "NEO4J_SEMANTIC_SEARCH_QUERY",
-                    f"No contains match found, trying semantic search for '{term}'",
-                    {"term": term, "query_type": "SEMANTIC"}
-                )
+                details = {"term": term, "query_type": "SEMANTIC"}
+                medical_logger.info(f"NEO4J_SEMANTIC_SEARCH_QUERY No contains match found, trying semantic search for '{term}', details={details}")
             
             semantic_result = await session.run(SNOMED_SEMANTIC_SEARCH_QUERY, term=term.lower())
             semantic_records = await semantic_result.data()
             
             if semantic_records:
                 if medical_logger:
-                    medical_logger.log_step(
-                        "NEO4J_SEMANTIC_SEARCH_SUCCESS",
-                        f"Found {len(semantic_records)} semantic matches for '{term}'",
-                        {"term": term, "matches_found": len(semantic_records), "match_type": "SEMANTIC"}
-                    )
+                    details = {"term": term, "matches_found": len(semantic_records), "match_type": "SEMANTIC"}
+                    medical_logger.info(f"NEO4J_SEMANTIC_SEARCH_SUCCESS Found {len(semantic_records)} semantic matches for '{term}', details={details}")
             else:
                 if medical_logger:
-                    medical_logger.log_step(
-                        "NEO4J_NO_MATCHES_FOUND",
-                        f"No SNOMED matches found for term '{term}' in any search type",
-                        {"term": term, "searches_attempted": ["EXACT", "CONTAINS", "SEMANTIC"]}
-                    )
+                    details = {"term": term, "searches_attempted": ["EXACT", "CONTAINS", "SEMANTIC"]}
+                    medical_logger.warning(f"NEO4J_NO_MATCHES_FOUND No SNOMED matches found for term '{term}' in any search type, details={details}")
             
             return self._format_snomed_records(semantic_records, term, "semantic")
             
         except Exception as e:
             logger.warning(f"Failed to search SNOMED for term '{term}': {str(e)}")
             if medical_logger:
-                medical_logger.log_step(
-                    "NEO4J_SEARCH_ERROR",
-                    f"Neo4j search failed for term '{term}': {str(e)}",
-                    {"term": term, "error": str(e)}
-                )
+                details = {"term": term, "error": str(e)}
+                medical_logger.error(f"NEO4J_SEARCH_ERROR Neo4j search failed for term '{term}': {str(e)}, details={details}")
             return []
 
     def _get_query_for_language(self, language: str) -> str:

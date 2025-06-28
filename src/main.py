@@ -21,14 +21,14 @@ except ImportError:
     pass  # dotenv not available, use system environment
 
 from src.core.config import settings
-from src.core.logging import setup_logging, get_logger
-
+# from src.core.logging import setup_logging, get_logger
+from src.core.logging import logger 
 from src.api.health import router as health_router
 from src.api.production_api import router as production_router
 
 # Setup medical-grade logging
-setup_logging()
-logger = get_logger(__name__)
+# setup_logging()
+# logger = get_logger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -74,6 +74,18 @@ async def startup_event():
 
 # Include routers
 app.include_router(health_router, prefix="/health", tags=["System Health"])
-app.include_router(production_router, tags=["Medical Note Generation"])# Updated for OIDC CI/CD test
+app.include_router(production_router, tags=["Medical Note Generation"])
+json_data = {
+        "event_type": "SERVICE_STARTED",
+        "message": "NoteGen AI Service started successfully.",
+        "details": {
+            "service_name": "NoteGen AI Service",
+            "service_version": "1.0.0",
+            "service_status": "active"
+        }
+    }
+logger.info(f"This is a test {json_data}")
+
+# Updated for OIDC CI/CD test
 # OIDC deployment fix applied
 # Final OIDC test with permissive policy
