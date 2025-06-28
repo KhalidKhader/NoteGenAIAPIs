@@ -69,8 +69,6 @@ class ConversationRAGService:
                 model=settings.azure_openai_embedding_model
             )
             auth = await self._setup_aws_auth()
-            print("XXXXXXXXXXXXXXXXX ",auth," XXXXXXXXYXXXXXXXXX")
-            print("XXXXXXXXXXXXXXXXX ",settings.opensearch_endpoint," XXXXXXXXYXXXXXXXXX")
             self.opensearch_client = OpenSearch(
                 hosts=[settings.opensearch_endpoint],
                 http_auth=auth,
@@ -110,17 +108,17 @@ class ConversationRAGService:
         from opensearchpy import AWSV4SignerAuth
         
         # Check if explicit credentials are provided in settings
-        if settings.aws_access_key_id and settings.aws_secret_access_key:
-            logger.info("Using explicit AWS credentials from settings")
-            session = boto3.Session(
-                aws_access_key_id=settings.aws_access_key_id,
-                aws_secret_access_key=settings.aws_secret_access_key,
-                region_name=settings.aws_region
-            )
-        else:
-            logger.info("Using default boto3 session (IAM roles or instance profile)")
-            session = boto3.Session()
-        
+        # if settings.aws_access_key_id and settings.aws_secret_access_key:
+        #     logger.info("Using explicit AWS credentials from settings")
+        #     session = boto3.Session(
+        #         aws_access_key_id=settings.aws_access_key_id,
+        #         aws_secret_access_key=settings.aws_secret_access_key,
+        #         region_name=settings.aws_region
+        #     )
+        # else:
+        #     logger.info("Using default boto3 session (IAM roles or instance profile)")
+        #     session = boto3.Session()
+        session = boto3.Session()
         credentials = session.get_credentials()
         if not credentials:
             raise ValueError("No AWS credentials found - ensure IAM roles are configured or provide explicit credentials")
@@ -500,37 +498,48 @@ class ConversationRAGService:
             return {
                 "service": "conversation_rag",
                 "status": "unhealthy",
-                "reason": "Service not initialized"
+                "details": "Service not initialized"
             }
         
         try:
+            # For AOSS, we'll check if we can access the index instead of cluster health
             opensearch_connected = False
             opensearch_status = "unknown"
-            if self.opensearch_client and self.opensearch_client.ping():
-                cluster_health = self.opensearch_client.cluster.health()
-                opensearch_status = cluster_health.get('status', 'unknown')
-                opensearch_connected = opensearch_status in ['green', 'yellow']
-            elif self.opensearch_client:
-                opensearch_status = "ping_failed"
-
-            is_healthy = opensearch_connected and self.embeddings is not None
+            
+            if settings.is_aoss:
+                # For AOSS, check index existence instead of cluster health
+                if self.opensearch_client and self.opensearch_client.indices.exists(index=settings.opensearch_index):
+                    opensearch_status = "aoss_connected"
+                    opensearch_connected = True
+                else:
+                    opensearch_status = "aoss_index_not_found"
+            else:
+                # Standard OpenSearch health check
+                if self.opensearch_client and self.opensearch_client.ping():
+                    cluster_health = self.opensearch_client.cluster.health()
+                    opensearch_status = cluster_health.get('status', 'unknown')
+                    opensearch_connected = opensearch_status in ['green', 'yellow']
+                else:
+                    opensearch_status = "ping_failed"
+            
+            # Check other components
+            embeddings_initialized = self.embeddings is not None
+            vector_store_initialized = self.vector_store is not None
+            
+            # Format the details string (keep the working format)
+            details = f"OpenSearch Status: {opensearch_status}, OpenSearch Connected: {opensearch_connected}, Embeddings: {'initialized' if embeddings_initialized else 'not initialized'}, Vector Store: {'initialized' if vector_store_initialized else 'not initialized'}"
             
             return {
                 "service": "conversation_rag",
-                "status": "healthy" if is_healthy else "unhealthy",
-                "details": {
-                    "opensearch_connected": opensearch_connected,
-                    "opensearch_status": opensearch_status,
-                    "embeddings_initialized": self.embeddings is not None,
-                    "vector_store_initialized": self.vector_store is not None
-                }
+                "status": "healthy" if opensearch_connected and embeddings_initialized and vector_store_initialized else "unhealthy",
+                "details": details
             }
+            
         except Exception as e:
-            logger.error(f"Health check encountered an error: {str(e)}")
             return {
                 "service": "conversation_rag",
                 "status": "unhealthy",
-                "reason": f"Health check exception: {str(e)}"
+                "details": f"Health check failed: {str(e)}"
             }
     
 

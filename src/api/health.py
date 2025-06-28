@@ -53,11 +53,18 @@ async def detailed_health_check() -> HealthCheckResponse:
                 service = await factory()
                 health_result = await service.health_check()
                 is_healthy = health_result.get("status") == "healthy"
-                details = health_result.get("details", "Service operational" if is_healthy else "Service check failed")
+                
+                # Ensure details is a string
+                details = health_result.get("details", "")
+                if isinstance(details, dict):
+                    details = "; ".join(f"{k}: {v}" for k, v in details.items())
+                elif details is None:
+                    details = "Service check completed"
+                
                 services.append(ServiceStatus(
                     service_name=service_name,
                     status="healthy" if is_healthy else "unhealthy",
-                    details=details
+                    details=str(details)
                 ))
             except Exception as e:
                 services.append(ServiceStatus(
