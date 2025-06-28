@@ -11,6 +11,7 @@ import json
 import logging
 import logging.handlers
 import sys
+import os
 from pathlib import Path
 from typing import Any, Dict, Optional
 import time
@@ -20,21 +21,22 @@ from src.core.config import settings
 
 
 class JSONFormatter(logging.Formatter):
-    """JSON formatter for structured logging."""
+    """JSON formatter for structured logging in production."""
     
     def format(self, record: logging.LogRecord) -> str:
         """Format log record as JSON."""
         # Create log entry
         log_entry = {
             'timestamp': self.formatTime(record, self.datefmt),
-            'level': record.levelname,
+            'loglevel': record.levelname,
             'logger': record.name,
             'message': record.getMessage(),
             'module': record.module,
             'function': record.funcName,
             'line': record.lineno,
             'thread': record.thread,
-            'thread_name': record.threadName
+            'thread_name': record.threadName,
+            'call_trace': f"{record.pathname} L{record.lineno}"
         }
         
         # Add task name if available (for async tasks)
@@ -54,15 +56,28 @@ class JSONFormatter(logging.Formatter):
                               'thread', 'threadName', 'processName', 'process', 'taskName']:
                     log_entry[key] = value
         
-        # Convert to JSON
-        return json.dumps(log_entry, default=str, ensure_ascii=False)
+        # Convert to JSON - single line for AWS CloudWatch
+        return json.dumps(log_entry, default=str, ensure_ascii=False, separators=(',', ':'))
+
+
+class DevelopmentFormatter(logging.Formatter):
+    """Development formatter for readable console output."""
+    
+    def __init__(self):
+        super().__init__(
+            fmt='%(asctime)s loglevel=%(levelname)-6s logger=%(name)s %(funcName)s() L%(lineno)-4d %(message)s call_trace=%(pathname)s L%(lineno)-4d',
+            datefmt='%Y-%m-%d %H:%M:%S'
+        )
 
 
 def setup_logging() -> None:
-    """Configure application logging."""
+    """Configure application logging based on environment."""
     # Create logs directory
     log_dir = Path("logs")
     log_dir.mkdir(exist_ok=True)
+    
+    # Get environment
+    environment = os.getenv('PY_ENV', 'development')
     
     # Get root logger
     root_logger = logging.getLogger()
@@ -71,22 +86,40 @@ def setup_logging() -> None:
     # Clear existing handlers
     root_logger.handlers.clear()
     
-    # Console handler with JSON formatting
-    console_handler = logging.StreamHandler(sys.stdout)
-    console_formatter = JSONFormatter()
-    console_handler.setFormatter(console_formatter)
-    root_logger.addHandler(console_handler)
-    
-    # File handler - always enabled for medical compliance
-    file_handler = logging.handlers.RotatingFileHandler(
-        "logs/app.log",
-        maxBytes=10 * 1024 * 1024,  # 10MB
-        backupCount=30  # 30 days retention
-    )
-    
-    file_formatter = JSONFormatter()
-    file_handler.setFormatter(file_formatter)
-    root_logger.addHandler(file_handler)
+    # Configure based on environment
+    if environment == 'production':
+        # Production: JSON formatter for AWS CloudWatch
+        console_handler = logging.StreamHandler(sys.stdout)
+        console_formatter = JSONFormatter()
+        console_handler.setFormatter(console_formatter)
+        root_logger.addHandler(console_handler)
+        
+        # File handler with JSON formatting
+        file_handler = logging.handlers.RotatingFileHandler(
+            "logs/app.log",
+            maxBytes=10 * 1024 * 1024,  # 10MB
+            backupCount=30  # 30 days retention
+        )
+        file_formatter = JSONFormatter()
+        file_handler.setFormatter(file_formatter)
+        root_logger.addHandler(file_handler)
+        
+    else:
+        # Development: Readable formatter
+        console_handler = logging.StreamHandler(sys.stdout)
+        console_formatter = DevelopmentFormatter()
+        console_handler.setFormatter(console_formatter)
+        root_logger.addHandler(console_handler)
+        
+        # File handler with readable formatting for development
+        file_handler = logging.handlers.RotatingFileHandler(
+            "logs/app.log",
+            maxBytes=10 * 1024 * 1024,  # 10MB
+            backupCount=30  # 30 days retention
+        )
+        file_formatter = DevelopmentFormatter()
+        file_handler.setFormatter(file_formatter)
+        root_logger.addHandler(file_handler)
     
     # Set specific logger levels
     logging.getLogger("uvicorn").setLevel(logging.INFO)
@@ -180,7 +213,7 @@ class MedicalProcessingLogger:
     def _initialize_log_files(self):
         """Initialize log files with headers."""
         with open(self.processing_log_file, 'w') as f:
-            f.write(f"🏥 MEDICAL AI PROCESSING LOG - Encounter {self.encounter_id}\n")
+            f.write(f"MEDICAL AI PROCESSING LOG - Encounter {self.encounter_id}\n")
             f.write(f"{'='*80}\n")
             f.write(f"Started at: {datetime.utcnow().isoformat()}Z\n")
             f.write(f"Output folder: {self.output_folder}\n\n")
@@ -215,10 +248,10 @@ class MedicalProcessingLogger:
         
         # Write to text log
         with open(self.processing_log_file, 'a') as f:
-            f.write(f"[{timestamp}] 🔄 {step_name}\n")
-            f.write(f"   📋 {details}\n")
+            f.write(f"[{timestamp}] STEP: {step_name}\n")
+            f.write(f"   DETAILS: {details}\n")
             if data:
-                f.write(f"   📊 Data: {json.dumps(data, indent=2)}\n")
+                f.write(f"   DATA: {json.dumps(data, indent=2)}\n")
             f.write("\n")
         
         # Update detailed JSON log
@@ -237,7 +270,7 @@ class MedicalProcessingLogger:
         
         self.log_step(
             "NEO4J_SNOMED_MAPPING",
-            f"Mapped '{original_term}' → '{snomed_result.get('preferred_term')}' (SNOMED: {snomed_result.get('snomed_concept_id')})",
+            f"Mapped '{original_term}' -> '{snomed_result.get('preferred_term')}' (SNOMED: {snomed_result.get('snomed_concept_id')})",
             mapping_details
         )
 
@@ -274,16 +307,7 @@ class MedicalProcessingLogger:
         """
         timestamp = datetime.utcnow().isoformat()
         
-        # Determine emoji based on level
-        emoji_map = {
-            "INFO": "✅",
-            "WARNING": "⚠️",
-            "ERROR": "❌",
-            "DEBUG": "🐞",
-        }
-        emoji = emoji_map.get(level.upper(), "ℹ️")
-        
-        log_message = f"[{timestamp}] {emoji} [{level.upper()}] {message}\n"
+        log_message = f"[{timestamp}] [{level.upper()}] {message}\n"
         
         # Add details if provided
         if kwargs:

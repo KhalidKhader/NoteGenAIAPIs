@@ -6,10 +6,13 @@ using prompts provided by the NestJS backend. It integrates with RAG services fo
 medical accuracy and maintains line-number referencing for traceability.
 """
 
+import asyncio
 import time
 import uuid
 import json
-from typing import Dict, List, Optional, Any, Union
+import traceback
+from datetime import datetime
+from typing import Dict, List, Optional, Any, Union, Tuple
 
 from langchain_openai import AzureChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
@@ -21,7 +24,7 @@ from src.core.observability import (
     add_medical_score,
     create_medical_trace_context
 )
-from src.models.api_models import LineReference
+from src.models.api_models import LineReference, SectionGenerationStatus, SectionGenerationResult
 from src.models.api_models import GeneratedSection
 from src.templates.prompts import (
     FACTUAL_CONSISTENCY_VALIDATION_PROMPT,
@@ -142,7 +145,7 @@ class MedicalSectionGenerator:
         context: str, 
         langfuse_handler: Optional[Any] = None,
         conversation_id: Optional[str] = None
-    ) -> (float, Dict[str, Any]):
+    ) -> Tuple[float, Dict[str, Any]]:
         """Uses an LLM call to get a factual consistency score."""
         if not self.llm:
             return 0.5, {} # Default confidence, empty details
@@ -423,6 +426,16 @@ class MedicalSectionGenerator:
                 )
         
 
+        # Create generation status
+        generation_status = SectionGenerationStatus(
+            status="SUCCESS" if not note_content.startswith("Error:") else "FAILED",
+            attempt_count=1,
+            max_attempts=1,
+            error_message=note_content if note_content.startswith("Error:") else None,
+            error_trace=note_content if note_content.startswith("Error:") else None,
+            last_attempt_time=datetime.now()
+        )
+
         final_section = GeneratedSection(
             section_id=f"section_{uuid.uuid4().hex[:8]}",
             template_id=template_id,
@@ -437,7 +450,8 @@ class MedicalSectionGenerator:
                 "model_name": self.llm.model_name if self.llm else "unknown",
                 "context_chars_used": len(conversation_context_text),
                 "factual_consistency_details": consistency_details
-            }
+            },
+            generation_status=generation_status
         )
 
         if medical_logger:
@@ -467,6 +481,186 @@ class MedicalSectionGenerator:
             previous_sections=prev_sections_text
         )
     
+    async def generate_section_with_retry(
+        self,
+        section_id: Union[str, int],
+        template_id: str,
+        section_name: str,
+        section_prompt: str,
+        language: str,
+        conversation_context_text: str,
+        snomed_context: List[Dict[str, Any]],
+        doctor_preferences: Dict[str, str],
+        full_transcript: List[Dict[str, Any]],
+        previous_sections_context: str = "",
+        medical_logger: Optional[MedicalProcessingLogger] = None,
+        langfuse_handler: Optional[Any] = None,
+        conversation_id: Optional[str] = None,
+        doctor_id: Optional[str] = None,
+        max_attempts: int = 3
+    ) -> SectionGenerationResult:
+        """
+        Generate a section with retry logic and comprehensive error handling.
+        
+        This method implements the 3-attempt retry pattern:
+        - Attempt 1-3: Try to generate the section
+        - On failure: Log error, wait briefly, retry
+        - After max attempts: Return failure result with error details
+        - On success: Return success result with generated content
+        
+        Returns SectionGenerationResult with status, content, and error details.
+        """
+        start_time = time.time()
+        last_error = None
+        last_error_trace = None
+        
+        if medical_logger:
+            medical_logger.log(
+                f"Starting section generation with retry logic for '{section_name}' (max {max_attempts} attempts)",
+                "INFO",
+                details={
+                    "section_id": section_id,
+                    "section_name": section_name,
+                    "template_id": template_id,
+                    "max_attempts": max_attempts
+                }
+            )
+        
+        for attempt in range(1, max_attempts + 1):
+            try:
+                if medical_logger:
+                    medical_logger.log(
+                        f"Attempt {attempt}/{max_attempts} for section '{section_name}'",
+                        "DEBUG",
+                        details={"attempt": attempt, "section_id": section_id}
+                    )
+                
+                # Call the original generation method
+                generated_section = await self.generate_section_with_context(
+                    template_id=template_id,
+                    section_name=section_name,
+                    section_prompt=section_prompt,
+                    language=language,
+                    conversation_context_text=conversation_context_text,
+                    snomed_context=snomed_context,
+                    doctor_preferences=doctor_preferences,
+                    full_transcript=full_transcript,
+                    previous_sections_context=previous_sections_context,
+                    medical_logger=medical_logger,
+                    langfuse_handler=langfuse_handler,
+                    conversation_id=conversation_id,
+                    doctor_id=doctor_id
+                )
+                
+                # Check if generation was successful (not an error message)
+                if not generated_section.content.startswith("Error:"):
+                    processing_time = time.time() - start_time
+                    
+                    if medical_logger:
+                        medical_logger.log(
+                            f"Section '{section_name}' generated successfully on attempt {attempt}",
+                            "INFO",
+                            details={
+                                "section_id": section_id,
+                                "attempt": attempt,
+                                "processing_time": processing_time,
+                                "content_length": len(generated_section.content),
+                                "confidence_score": generated_section.confidence_score
+                            }
+                        )
+                    
+                    # Return success result
+                    return SectionGenerationResult(
+                        sectionId=section_id,
+                        section_name=section_name,
+                        status="SUCCESS",
+                        content=generated_section.content,
+                        errorMessage="",  # Empty on success
+                        attempt_count=attempt,
+                        processing_time=processing_time,
+                        line_references=generated_section.line_references,
+                        snomed_mappings=generated_section.snomed_mappings,
+                        confidence_score=generated_section.confidence_score,
+                        language=generated_section.language,
+                        processing_metadata=generated_section.processing_metadata
+                    )
+                else:
+                    # Generation returned an error message
+                    error_msg = generated_section.content
+                    last_error = f"Generation failed on attempt {attempt}: {error_msg}"
+                    last_error_trace = error_msg
+                    
+                    if medical_logger:
+                        medical_logger.log(
+                            f"Section '{section_name}' generation failed on attempt {attempt}: {error_msg}",
+                            "WARNING",
+                            details={
+                                "section_id": section_id,
+                                "attempt": attempt,
+                                "error": error_msg
+                            }
+                        )
+                
+            except Exception as e:
+                # Unexpected exception during generation
+                error_msg = str(e)
+                error_trace = traceback.format_exc()
+                last_error = f"Exception on attempt {attempt}: {error_msg}"
+                last_error_trace = error_trace
+                
+                if medical_logger:
+                    medical_logger.log(
+                        f"Exception during section '{section_name}' generation on attempt {attempt}",
+                        "ERROR",
+                        details={
+                            "section_id": section_id,
+                            "attempt": attempt,
+                            "error": error_msg,
+                            "trace": error_trace
+                        }
+                    )
+            
+            # Wait before retry (except on last attempt)
+            if attempt < max_attempts:
+                wait_time = min(2 ** (attempt - 1), 10)  # Exponential backoff, max 10 seconds
+                if medical_logger:
+                    medical_logger.log(
+                        f"Waiting {wait_time} seconds before retry attempt {attempt + 1}",
+                        "DEBUG",
+                        details={"wait_time": wait_time, "next_attempt": attempt + 1}
+                    )
+                
+                await asyncio.sleep(wait_time)
+        
+        # All attempts failed - return failure result
+        processing_time = time.time() - start_time
+        final_error = last_error or f"All {max_attempts} attempts failed for section '{section_name}'"
+        final_trace = last_error_trace or "No detailed error trace available"
+        
+        if medical_logger:
+            medical_logger.log(
+                f"Section '{section_name}' generation failed after {max_attempts} attempts",
+                "ERROR",
+                details={
+                    "section_id": section_id,
+                    "total_attempts": max_attempts,
+                    "total_processing_time": processing_time,
+                    "final_error": final_error,
+                    "error_trace": final_trace
+                }
+            )
+        
+        return SectionGenerationResult(
+            sectionId=section_id,
+            section_name=section_name,
+            status="FAILED",
+            content="",  # Empty content on failure
+            errorMessage=final_error,
+            error_trace=final_trace,
+            attempt_count=max_attempts,
+            processing_time=processing_time
+        )
+
     async def health_check(self) -> Dict[str, Any]:
         """Health check for medical system monitoring."""
         if not self._initialized:

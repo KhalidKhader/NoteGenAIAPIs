@@ -9,6 +9,7 @@ from .conversation_rag import ConversationRAGService, get_conversation_rag_servi
 from .pattern_learning import PatternLearningService, get_pattern_learning_service
 from .snomed_rag import SNOMEDRAGService, get_snomed_rag_service
 from .section_generator import MedicalSectionGenerator, get_section_generator_service, get_soap_generator_service
+from .patient_info_service import PatientInfoService, get_patient_info_service
 
 __all__ = [
     "ConversationRAGService",
@@ -20,4 +21,6 @@ __all__ = [
     "MedicalSectionGenerator",
     "get_section_generator_service",
     "get_soap_generator_service",  # Backward compatibility
+    "PatientInfoService",
+    "get_patient_info_service",
 ]

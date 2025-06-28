@@ -16,7 +16,7 @@ azure_openai_embedding_endpoint = "https://notegen-openai-eastca.openai.azure.co
 opensearch_index = "medical-conversations"
 
 # NoteGen API Configuration
-notegen_api_base_url = "https://9134-196-159-22-237.ngrok-free.app"
+notegen_api_base_url = "https://29a2-196-128-180-93.ngrok-free.app"
 
 # LangFuse Configuration
 langfuse_secret_key = "sk-lf-d00defd1-f91f-4eff-a46f-c493e0240b79"

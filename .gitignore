@@ -260,6 +260,7 @@ cache/
 .langfuse/
 
 # Model files (too large for git)
+models/
 *.model
 *.pkl
 *.joblib
@@ -293,3 +294,6 @@ terraform-deployer-keys
 terraform/envs/staging/.terraform.lock.hcl
 .terraform/*
 **/.terraform/*
+tests
+snyk
+env_example

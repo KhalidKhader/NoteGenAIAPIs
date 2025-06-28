@@ -740,6 +740,152 @@ Text:
 ---
 """
 
+# =============================================================================
+# Patient Information Extraction Prompts
+# =============================================================================
+
+PATIENT_INFO_SYSTEM_PROMPT = (
+    "You are an expert AI assistant specializing in extracting structured "
+    "patient demographic information from medical transcripts. Your task is "
+    "to accurately identify and extract the requested information and format "
+    "it as a JSON object. Adhere strictly to the requested fields and format. "
+    "If information for a field is not present, use null."
+)
+
+PATIENT_INFO_EXTRACTION_PROMPT = {
+    "en": """
+You are a medical information extraction specialist. Your task is to extract specific patient demographic information from a medical conversation transcript.
+
+EXTRACT THE FOLLOWING INFORMATION:
+1. First name
+2. Last name
+3. Date of birth (format: YYYY-MM-DD, or null if not mentioned)
+4. Gender (MALE/FEMALE/OTHER/null if not mentioned)
+
+INSTRUCTIONS:
+- Only extract information that is explicitly mentioned in the conversation
+- Use null for any field that is not clearly stated
+- Be very careful with dates - only extract if clearly stated
+- For names, extract exactly as spoken (don't make assumptions)
+
+EXAMPLES:
+
+Example 1:
+Doctor: "Good morning, Mrs. Sarah Johnson. I see you're here for your annual checkup."
+Patient: "Yes, that's right. And yes, I'm okay with you recording this session."
+Doctor: "Thank you. Can you confirm your date of birth for our records?"
+Patient: "March 15th, 1985."
+
+Response:
+{{
+  "firstName": "Sarah",
+  "lastName": "Johnson", 
+  "dateOfBirth": "1985-03-15",
+  "gender": "FEMALE"
+}}
+
+Example 2:
+Doctor: "Hello Mr. Robert Smith, how are you feeling today?"
+Patient: "I'm doing well, doctor."
+Doctor: "I need to record our session today, is that alright?"
+Patient: "No, I'd prefer not to be recorded."
+
+Response:
+{{
+  "firstName": "Robert",
+  "lastName": "Smith",
+  "dateOfBirth": null,
+  "gender": "MALE"
+}}
+
+CONVERSATION TRANSCRIPT:
+{transcript}
+
+RESPONSE (JSON only, no explanation):
+""",
+    
+    "fr": """
+Vous êtes un spécialiste de l'extraction d'informations médicales. Votre tâche est d'extraire des informations démographiques spécifiques du patient à partir d'une transcription de conversation médicale.
+
+EXTRAIRE LES INFORMATIONS SUIVANTES:
+1. Prénom
+2. Nom de famille
+3. Date de naissance (format: YYYY-MM-DD, ou null si non mentionné)
+4. Sexe (MALE/FEMALE/OTHER/null si non mentionné)
+
+INSTRUCTIONS:
+- Extraire seulement les informations explicitement mentionnées dans la conversation
+- Utiliser null pour tout champ qui n'est pas clairement énoncé
+- Être très prudent avec les dates - extraire seulement si clairement énoncé
+- Pour les noms, extraire exactement comme prononcé (ne pas faire d'hypothèses)
+
+EXEMPLES:
+
+Exemple 1:
+Docteur: "Bonjour Madame Sarah Johnson. Je vois que vous êtes ici pour votre examen annuel."
+Patient: "Oui, c'est exact. Et oui, je suis d'accord pour que vous enregistriez cette session."
+Docteur: "Merci. Pouvez-vous confirmer votre date de naissance pour nos dossiers?"
+Patient: "Le 15 mars 1985."
+
+Réponse:
+{{
+  "firstName": "Sarah",
+  "lastName": "Johnson",
+  "dateOfBirth": "1985-03-15", 
+  "gender": "FEMALE"
+}}
+
+Exemple 2:
+Docteur: "Bonjour Monsieur Robert Smith, comment vous sentez-vous aujourd'hui?"
+Patient: "Je vais bien, docteur."
+Docteur: "Je dois enregistrer notre session aujourd'hui, est-ce que ça va?"
+Patient: "Non, je préférerais ne pas être enregistré."
+
+Réponse:
+{{
+  "firstName": "Robert",
+  "lastName": "Smith",
+  "dateOfBirth": null,
+  "gender": "MALE"
+}}
+
+TRANSCRIPTION DE CONVERSATION:
+{transcript}
+
+RÉPONSE (JSON seulement, pas d'explication):
+"""
+}
+
+# =============================================================================
+# Recording Consent Detection Prompts
+# =============================================================================
+
+RECORDING_CONSENT_SYSTEM_PROMPT = (
+    "You are an AI assistant specialized in analyzing medical conversations. "
+    "Your task is to determine if a patient is giving explicit consent to "
+    "record the conversation. Respond with only 'CONSENT' if they do, and "
+    "'NO_CONSENT' if they do not."
+)
+
+RECORDING_CONSENT_USER_PROMPT_TEMPLATE = """
+Analyze the following text from a patient:
+"{patient_text}"
+
+Does this text contain a clear statement of consent to be recorded?
+
+Example 1:
+Patient text: "Yes, that's fine."
+Your response: CONSENT
+
+Example 2:
+Patient text: "I have a sore throat."
+Your response: NO_CONSENT
+
+Example 3:
+Patient text: "je suis d'accord pour l'enregistrement"
+Your response: CONSENT
+"""
+
 __all__ = [
     "PromptLanguage",
     "SOAPSectionType", 
@@ -756,4 +902,8 @@ __all__ = [
     "FACTUAL_CONSISTENCY_VALIDATION_PROMPT",
     "SECTION_GENERATION_SYSTEM_PROMPT_TEMPLATE",
     "SECTION_GENERATION_USER_PROMPT_TEMPLATE",
+    "PATIENT_INFO_SYSTEM_PROMPT",
+    "PATIENT_INFO_EXTRACTION_PROMPT",
+    "RECORDING_CONSENT_SYSTEM_PROMPT",
+    "RECORDING_CONSENT_USER_PROMPT_TEMPLATE",
 ]

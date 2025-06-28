@@ -13,11 +13,17 @@ from datetime import datetime
 from typing import Dict, List, Optional, Any
 
 from opensearchpy import OpenSearch, RequestsHttpConnection, NotFoundError
-from langchain_openai import AzureOpenAIEmbeddings
+from langchain_openai import AzureChatOpenAI, AzureOpenAIEmbeddings
 from langchain_community.vectorstores import OpenSearchVectorSearch
+from langchain.prompts import PromptTemplate, ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
 
 from src.core.config import settings
 from src.core.logging import get_logger, MedicalProcessingLogger
+from src.templates.prompts import (
+    RECORDING_CONSENT_SYSTEM_PROMPT,
+    RECORDING_CONSENT_USER_PROMPT_TEMPLATE
+)
 
 logger = get_logger(__name__)
 
@@ -37,6 +43,7 @@ class ConversationRAGService:
     def __init__(self):
         self.opensearch_client: Optional[OpenSearch] = None
         self.vector_store: Optional[OpenSearchVectorSearch] = None
+        self.llm: Optional[AzureChatOpenAI] = None
         self.embeddings: Optional[AzureOpenAIEmbeddings] = None
         self._initialized = False
     
@@ -46,6 +53,14 @@ class ConversationRAGService:
             return
         logger.info("Initializing Medical Conversation RAG Service with AWS OpenSearch")
         try:
+            self.llm = AzureChatOpenAI(
+                azure_endpoint=settings.azure_openai_endpoint,
+                api_key=settings.azure_openai_api_key,
+                api_version=settings.azure_openai_api_version,
+                deployment_name=settings.azure_openai_deployment_name,
+                model=settings.azure_openai_model,
+                temperature=0.0,
+            )
             self.embeddings = AzureOpenAIEmbeddings(
                 azure_endpoint=settings.azure_openai_embedding_endpoint,
                 api_key=settings.azure_openai_embedding_api_key,
@@ -84,7 +99,7 @@ class ConversationRAGService:
         """Setup authentication for OpenSearch."""
         
         # Check if OpenSearch username/password are provided (for Fine-Grained Access Control)
-        if hasattr(settings, 'opensearch_username') and hasattr(settings, 'opensearch_password'):
+        if settings.opensearch_username and settings.opensearch_password:
             logger.info("Using OpenSearch basic authentication (username/password)")
             return (settings.opensearch_username, settings.opensearch_password)
         
@@ -93,40 +108,53 @@ class ConversationRAGService:
         from opensearchpy import AWSV4SignerAuth
         
         # Check if explicit credentials are provided in settings
-        if settings.aws_access_key_id and settings.aws_secret_access_key:
-            logger.info("Using explicit AWS credentials from settings")
-            session = boto3.Session(
-                aws_access_key_id=settings.aws_access_key_id,
-                aws_secret_access_key=settings.aws_secret_access_key,
-                region_name='ca-central-1'
-            )
-        else:
-            logger.info("Using default boto3 session (IAM roles or instance profile)")
-            session = boto3.Session()
-        
+        # if settings.aws_access_key_id and settings.aws_secret_access_key:
+        #     logger.info("Using explicit AWS credentials from settings")
+        #     session = boto3.Session(
+        #         aws_access_key_id=settings.aws_access_key_id,
+        #         aws_secret_access_key=settings.aws_secret_access_key,
+        #         region_name=settings.aws_region
+        #     )
+        # else:
+        #     logger.info("Using default boto3 session (IAM roles or instance profile)")
+        #     session = boto3.Session()
+        session = boto3.Session()
         credentials = session.get_credentials()
         if not credentials:
             raise ValueError("No AWS credentials found - ensure IAM roles are configured or provide explicit credentials")
         
-        # Use 'es' service for managed OpenSearch domains (not 'aoss' which is for serverless)
-        return AWSV4SignerAuth(credentials, 'ca-central-1', 'es')
+        # Use appropriate service identifier based on OpenSearch type
+        service = 'aoss' if settings.is_aoss else 'es'
+        return AWSV4SignerAuth(credentials, settings.aws_region, service)
     
     async def _test_connection(self):
-        """Test OpenSearch connection."""
+        """
+        Test OpenSearch connection.
+        This test is lenient for Serverless (AOSS) and will not raise an exception
+        for auth errors during startup. This allows the service to start even if
+        IAM data access policies are not yet correctly configured.
+        """
         try:
+            # This is the standard health check for OpenSearch domains.
+            # It's expected to fail with a 404 for OpenSearch Serverless (AOSS).
             cluster_health = self.opensearch_client.cluster.health()
             if cluster_health['status'] not in ['green', 'yellow']:
                 logger.warning(f"OpenSearch cluster status: {cluster_health['status']}")
+            else:
+                logger.info("OpenSearch connection verified via health check.")
         except NotFoundError:
-            logger.info("Health check not found, falling back to listing indices (normal for some permissions).")
-            try:
-                indices = self.opensearch_client.cat.indices(format='json')
-                logger.info(f"OpenSearch connection verified - found {len(indices)} indices")
-            except Exception as conn_error:
-                raise RuntimeError(f"OpenSearch connection failed on fallback check: {conn_error}")
+            # This is the expected path for AOSS.
+            logger.info("Health check endpoint not found, which is normal for AWS OpenSearch Serverless (AOSS).")
+            # We will not perform a fallback check here to avoid startup failures due to IAM policies.
+            # The connection will be tested implicitly by the first actual operation.
+            logger.info("Skipping fallback connection test to allow startup with potentially pending IAM permissions.")
         except Exception as e:
-            logger.error(f"An unexpected error occurred during OpenSearch health check: {e}", exc_info=True)
-            raise RuntimeError(f"OpenSearch connection failed: {e}")
+            # Catch other potential exceptions during the health check.
+            logger.warning(
+                f"An unexpected error occurred during OpenSearch health check: {e}. "
+                "The service will continue to start, but OpenSearch operations may fail.",
+                exc_info=True
+            )
     
     async def _create_index(self) -> None:
         """Create OpenSearch index for medical conversations."""
@@ -153,6 +181,7 @@ class ConversationRAGService:
                             "properties": {
                                 "conversation_id": {"type": "keyword"},
                                 "chunk_id": {"type": "keyword"},
+                                "turn_ids": {"type": "keyword"},
                                 "chunk_index": {"type": "integer"},
                                 "line_numbers": {"type": "integer"},
                                 "speaker": {"type": "keyword"},
@@ -184,12 +213,18 @@ class ConversationRAGService:
             if not isinstance(item, dict):
                 logger.warning(f"Skipping invalid transcript item (not a dict) at index {i}: {item}")
                 continue
+
+            turn_id = item.get("id")
+            if not turn_id:
+                logger.warning(f"Skipping transcript item without 'id' at index {i}: {item}")
+                continue
             
             # Robustly find speaker and text
             speaker = next((key for key in item if key.lower() not in ["id", "line_number"]), None)
             
             if speaker and isinstance(item[speaker], str):
                 prepared_turns.append({
+                    "id": turn_id,
                     "line_number": i,
                     "speaker": speaker.strip(),
                     "text": item[speaker].strip()
@@ -224,7 +259,8 @@ class ConversationRAGService:
                 "content": chunk_content,
                 "line_numbers": [turn['line_number']],
                 "speaker": turn['speaker'],
-                "turn_preserved": True
+                "turn_preserved": True,
+                "id": turn.get("id")
             }
             chunks.append(chunk_data)
         
@@ -273,7 +309,11 @@ class ConversationRAGService:
         # 3. Store each chunk in OpenSearch
         document_ids = []
         for i, chunk_data in enumerate(chunks):
-            chunk_id = f"{conversation_id}_chunk_{i}"
+            chunk_id = chunk_data.get("id")
+            if not chunk_id:
+                logger.warning(f"Chunk at index {i} for conversation {conversation_id} has no ID, generating a fallback.")
+                chunk_id = f"{conversation_id}_chunk_{i}"
+
             chunk_metadata = {
                 "conversation_id": conversation_id,
                 "chunk_id": chunk_id,
@@ -284,6 +324,7 @@ class ConversationRAGService:
                 "created_at": datetime.utcnow().isoformat(),
                 "is_complete_conversation": False, # This is a chunk, not the full text
                 "speaker_turn_preserved": True,
+                "turn_ids": [chunk_id],
                 **(metadata or {})
             }
             
@@ -388,41 +429,117 @@ class ConversationRAGService:
             logger.error(f"Failed to retrieve chunks: {str(e)}")
             raise RuntimeError(f"RAG retrieval failed: {str(e)}")
     
+    async def find_consent_chunk_id(
+        self,
+        conversation_id: str,
+        language: str = 'en',
+        langfuse_handler: Optional[Any] = None
+    ) -> Optional[str]:
+        """
+        Finds the chunk_id of the turn where the patient gives consent to record, using an LLM for classification.
+        Searches patient's text for consent keywords in either English or French.
+        """
+        if not self._initialized or not self.llm:
+            await self.initialize()
+
+        consent_prompt = ChatPromptTemplate.from_messages([
+            ("system", RECORDING_CONSENT_SYSTEM_PROMPT),
+            ("human", RECORDING_CONSENT_USER_PROMPT_TEMPLATE)
+        ])
+        
+        consent_chain = consent_prompt | self.llm | StrOutputParser()
+        
+        try:
+            search_query = {
+                "size": 1000,
+                "query": {
+                    "bool": {
+                        "must": [
+                            {"term": {"metadata.conversation_id": conversation_id}},
+                            {"term": {"metadata.speaker": "patient"}}
+                        ]
+                    }
+                },
+                "_source": ["text", "content", "page_content", "metadata"]
+            }
+            response = self.opensearch_client.search(
+                index=settings.opensearch_index,
+                body=search_query
+            )
+
+            for hit in response['hits']['hits']:
+                source = hit['_source']
+                content = (source.get('content') or 
+                          source.get('text') or 
+                          source.get('page_content', ''))
+                
+                llm_response = await consent_chain.ainvoke(
+                    {"patient_text": content},
+                    config={"callbacks": [langfuse_handler]} if langfuse_handler else None
+                )
+                
+                if "CONSENT" in llm_response.upper():
+                    metadata = source.get('metadata', {})
+                    consent_chunk_id = metadata.get("chunk_id")
+                    if consent_chunk_id:
+                        logger.info(f"Found consent in chunk {consent_chunk_id} for conversation {conversation_id} using LLM")
+                        return consent_chunk_id
+            
+            logger.warning(f"Could not find a clear consent statement for conversation {conversation_id} using LLM.")
+            return None
+
+        except Exception as e:
+            logger.error(f"Failed to find consent chunk for conversation {conversation_id} using LLM: {str(e)}")
+            return None
+
     async def health_check(self) -> Dict[str, Any]:
         """Health check for medical system monitoring."""
-        try:
-            if not self._initialized:
-                await self.initialize()
-            opensearch_connected = False
-            opensearch_status = "unknown"
-            if self.opensearch_client:
-                try:
-                    if self.opensearch_client.ping():
-                        cluster_health = self.opensearch_client.cluster.health()
-                        opensearch_status = cluster_health.get('status', 'unknown')
-                        opensearch_connected = opensearch_status in ['green', 'yellow']
-                    else:
-                        opensearch_status = "ping_failed"
-                except Exception as conn_error:
-                    opensearch_status = f"connection_error: {str(conn_error)}"
-            is_healthy = opensearch_connected or (self.embeddings is not None)
-            return {
-                "service": "conversation_rag",
-                "status": "healthy" if is_healthy else "unhealthy",
-                "opensearch_connected": opensearch_connected,
-                "opensearch_status": opensearch_status,
-                "embeddings_initialized": self.embeddings is not None,
-                "vector_store_initialized": self.vector_store is not None
-            }
-        except Exception as e:
-            logger.error(f"Health check failed: {str(e)}")
+        if not self._initialized:
             return {
                 "service": "conversation_rag",
                 "status": "unhealthy",
-                "error": str(e),
-                "opensearch_connected": False,
-                "embeddings_initialized": False,
-                "vector_store_initialized": False
+                "details": "Service not initialized"
+            }
+        
+        try:
+            # For AOSS, we'll check if we can access the index instead of cluster health
+            opensearch_connected = False
+            opensearch_status = "unknown"
+            
+            if settings.is_aoss:
+                # For AOSS, check index existence instead of cluster health
+                if self.opensearch_client and self.opensearch_client.indices.exists(index=settings.opensearch_index):
+                    opensearch_status = "aoss_connected"
+                    opensearch_connected = True
+                else:
+                    opensearch_status = "aoss_index_not_found"
+            else:
+                # Standard OpenSearch health check
+                if self.opensearch_client and self.opensearch_client.ping():
+                    cluster_health = self.opensearch_client.cluster.health()
+                    opensearch_status = cluster_health.get('status', 'unknown')
+                    opensearch_connected = opensearch_status in ['green', 'yellow']
+                else:
+                    opensearch_status = "ping_failed"
+            
+            # Check other components
+            embeddings_initialized = self.embeddings is not None
+            vector_store_initialized = self.vector_store is not None
+            
+            # Format the details string (keep the working format)
+            details = f"OpenSearch Status: {opensearch_status}, OpenSearch Connected: {opensearch_connected}, Embeddings: {'initialized' if embeddings_initialized else 'not initialized'}, Vector Store: {'initialized' if vector_store_initialized else 'not initialized'}"
+            
+            return {
+                "service": "conversation_rag",
+                "status": "healthy" if opensearch_connected and embeddings_initialized and vector_store_initialized else "unhealthy",
+                "details": details
+            }
+            
+        except Exception as e:
+            return {
+                "service": "conversation_rag",
+                "status": "unhealthy",
+                "details": f"Health check failed: {str(e)}"
             }
     
 

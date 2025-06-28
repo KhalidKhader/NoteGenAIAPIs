@@ -6,7 +6,7 @@ SOAP generation microservice.
 """
 
 from functools import lru_cache
-from typing import List, Optional
+from typing import List, Optional, Any
 
 from pydantic import ConfigDict, Field, field_validator
 from pydantic_settings import BaseSettings
@@ -22,6 +22,14 @@ class Settings(BaseSettings):
     app_version: str = Field(default="0.1.0", description="Application version")
     log_level: str = Field(default="INFO", description="Logging level")
     debug: bool = Field(default=False, description="Enable debug mode")
+
+    @field_validator("debug", mode="before")
+    @classmethod
+    def validate_debug_mode(cls, v: Any) -> bool:
+        """Allow flexible boolean validation for debug mode."""
+        if isinstance(v, str):
+            return v.lower() in ("true", "1", "yes", "on")
+        return bool(v)
 
     # =============================================================================
     # CORS Configuration
@@ -94,20 +102,28 @@ class Settings(BaseSettings):
     # =============================================================================
     aws_access_key_id: Optional[str] = Field(default=None, description="AWS Access Key ID - Optional (not needed when running on AWS with IAM roles)")
     aws_secret_access_key: Optional[str] = Field(default=None, description="AWS Secret Access Key - Optional (not needed when running on AWS with IAM roles)")
+    aws_region: str = Field(default="ca-central-1", description="AWS region for services like OpenSearch")
+    
+    # =============================================================================
+    # OpenSearch Configuration
+    # =============================================================================
     opensearch_endpoint: str = Field(
-        default="https://vpc-notegenai-staging-search-hrrjaqryo42zvlg33vivxtubfy.ca-central-1.es.amazonaws.com:443",
-        description="AWS OpenSearch endpoint"
+        default="https://9tty40b80t5pqwdeqop6.ca-central-1.aoss.amazonaws.com",
+        # default="https://vpc-notegenai-staging-search-hrrjaqryo42zvlg33vivxtubfy.ca-central-1.es.amazonaws.com:443",
+        description="OpenSearch endpoint URL"
     )
+    opensearch_port: int = Field(default=443, description="OpenSearch port")
     opensearch_index: str = Field(default="medical-conversations", description="OpenSearch index name")
     opensearch_timeout: int = Field(default=300, description="OpenSearch timeout in seconds")
     opensearch_username: Optional[str] = Field(default=None, description="OpenSearch username for basic authentication")
     opensearch_password: Optional[str] = Field(default=None, description="OpenSearch password for basic authentication")
+    is_aoss: bool = Field(default=True, description="Flag to indicate if the OpenSearch instance is an AWS OpenSearch Serverless instance")
 
     # =============================================================================
     # NoteGen API Service Integration Configuration
     # =============================================================================
     notegen_api_base_url: str = Field(
-        default="http://localhost:3000",
+        default="https://demo.notegen.ai/internal/encounters",  
         description="Base URL for NoteGen API service backend integration",
         alias="notegen_api_base_url"
     )

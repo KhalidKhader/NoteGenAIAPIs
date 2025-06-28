@@ -1,1316 +1,1325 @@
 {
-  "sections": [
-    {
-      "id": 1,
-      "templateId": 1,
-      "name": "Subjective",
-      "prompt": "Synthesize all patient-reported information into a clinical narrative. Include the chief complaint, history of present illness (HPI), review of systems (ROS), and any relevant past medical, family, or social history mentioned. Focus on the patient's direct statements and experiences.",
-      "order": 1,
-      "createdAt": "2025-06-17T15:40:05.000Z",
-      "updatedAt": "2025-06-17T15:40:05.000Z"
-    },
-    {
-      "id": 2,
-      "templateId": 1,
-      "name": "Objective",
-      "prompt": "Document all objective, measurable, and observable findings from the encounter. This includes vital signs, physical examination findings, laboratory results, and any other diagnostic data mentioned by the provider. Avoid any subjective patient statements.",
-      "order": 2,
-      "createdAt": "2025-06-17T15:40:05.000Z",
-      "updatedAt": "2025-06-17T15:40:05.000Z"
-    },
-    {
-      "id": 3,
-      "templateId": 1,
-      "name": "Assessment",
-      "prompt": "Formulate a list of clinical impressions, diagnoses, or differential diagnoses based on the synthesis of the subjective and objective information. Each assessment point should be a concise clinical statement.",
-      "order": 3,
-      "createdAt": "2025-06-17T15:40:05.000Z",
-      "updatedAt": "2025-06-17T15:40:05.000Z"
-    },
-    {
-      "id": 4,
-      "templateId": 1,
-      "name": "Plan",
-      "prompt": "Outline the complete management plan discussed during the encounter. Include all orders for medications (with dosage and frequency), laboratory tests, imaging studies, referrals to other specialists, patient education, and follow-up instructions.",
-      "order": 4,
-      "createdAt": "2025-06-17T15:40:05.000Z",
-      "updatedAt": "2025-06-17T15:40:05.000Z"
-    },
-    {
-      "id": 5,
-      "templateId": 2,
-      "name": "Patient_Summary",
-      "prompt": "Create a brief summary of the visit for the patient in simple, easy-to-understand language. Include the main reason for the visit, key findings, and the most important follow-up actions.",
-      "order": 1,
-      "createdAt": "2025-06-17T15:40:05.000Z",
-      "updatedAt": "2025-06-17T15:40:05.000Z"
-    },
-    {
-      "id": 6,
-      "templateId": 2,
-      "name": "Referral_Note",
-      "prompt": "Generate a formal referral note to a specialist. State the reason for referral, summarize pertinent history and findings, and list the specific questions to be addressed by the consultant.",
-      "order": 2,
-      "createdAt": "2025-06-17T15:40:05.000Z",
-      "updatedAt": "2025-06-17T15:40:05.000Z"
-    },
-    {
-      "id": 7,
-      "templateId": 3,
-      "name": "Billing_Codes",
-      "prompt": "Based on the encounter, list potential CPT and ICD-10 billing codes for the services rendered and diagnoses made. This is for suggestion purposes only.",
-      "order": 1,
-      "createdAt": "2025-06-17T15:53:39.000Z",
-      "updatedAt": "2025-06-17T15:53:39.000Z"
-    }
-  ],
-  "encounterId": "123edfhhhhkjhg",
-  "encounterTranscript": [
-    {
-      "id": "A123",
-      "doctor": "Bonjour, bienvenue! Qu'est-ce qui vous amène aujourd'hui?"
-    },
-    {
-      "id": "A123",
-      "patient": "Bonjour docteur. J’ai plusieurs petits problèmes ces derniers jours… Mais surtout, j’ai mal à la gorge depuis environ cinq jours maintenant."
-    },
-    {
-      "id": "A123",
-      "doctor": "D'accord, merci pour cette information. Est-ce que la douleur est constante ou varie-t-elle selon les moments de la journée?"
-    },
-    {
-      "id": "A123",
-      "patient": "Elle est assez constante, mais elle empire quand je déglutis ou quand je parle beaucoup."
-    },
-    {
-      "id": "A123",
-      "doctor": "Est-ce que vous avez noté d'autres symptômes en lien avec cela? Par exemple, avez-vous de la fièvre, des frissons, une toux, ou des maux de tête?"
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, j’ai eu un peu de fièvre, je dirais autour de 38 degrés, et aussi une toux sèche. Pas de maux de tête, mais j’ai vraiment mal à la gorge."
-    },
-    {
-      "id": "A123",
-      "doctor": "Depuis combien de temps avez-vous de la fièvre?"
-    },
-    {
-      "id": "A123",
-      "patient": "Environ trois jours. Hier soir, j’avais un peu plus chaud que d’habitude, mais je n’ai pas pris ma température à ce moment-là."
-    },
-    {
-      "id": "A123",
-      "doctor": "Avez-vous remarqué si votre voix est devenue rauque ou si vous avez des difficultés à respirer?"
-    },
-    {
-      "id": "A123",
-      "patient": "Non, ma voix est normale, et je respire bien. Mais j’ai du mal à avaler sans ressentir une douleur vive."
-    },
-    {
-      "id": "A123",
-      "doctor": "Avez-vous observé si vos ganglions sont enflés ou sensibles au toucher?"
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, effectivement, j’ai touché mon cou hier et ça faisait mal de presser sous ma mâchoire."
-    },
-    {
-      "id": "A123",
-      "doctor": "Parfait, merci pour ces précisions. Avez-vous été en contact récemment avec quelqu’un qui était malade ou qui présentait des symptômes semblables?"
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, justement. Ma conjointe a eu un rhume il y a une dizaine de jours. Elle tousse encore un peu, mais semble aller mieux."
-    },
-    {
-      "id": "A123",
-      "doctor": "Est-ce que vous avez eu des étourdissements, de la fatigue inhabituelle, des nausées ou des courbatures?"
-    },
-    {
-      "id": "A123",
-      "patient": "De la fatigue, oui. Je me sens plus fatigué que d'habitude, mais pas de nausées ni d’étourdissements. Juste une sensation de malaise général."
-    },
-    {
-      "id": "A123",
-      "doctor": "Avez-vous des antécédents médicaux importants dont je devrais être informé? Par exemple, êtes-vous diabétique, asthmatique ou suivez-vous un traitement régulier?"
-    },
-    {
-      "id": "A123",
-      "patient": "Non, je n'ai pas d’antécédents particuliers. Je suis en bonne santé habituellement. Je prends juste un supplément de vitamine D en hiver."
-    },
-    {
-      "id": "A123",
-      "doctor": "Très bien. Vous fumez ou utilisez des produits inhalants comme la vape ou la marijuana?"
-    },
-    {
-      "id": "A123",
-      "patient": "Non, je ne fume pas et je n’utilise aucun produit inhalant."
-    },
-    {
-      "id": "A123",
-      "doctor": "Quel est votre niveau d’exposition à la pollution ou aux allergènes au travail ou à la maison?"
-    },
-    {
-      "id": "A123",
-      "patient": "Je travaille dans un bureau, donc pas d’exposition particulière. À la maison, c’est plutôt propre, mais on a un chat. Je ne sais pas si ça peut jouer un rôle…"
-    },
-    {
-      "id": "A123",
-      "doctor": "Possible, mais les chats peuvent causer des allergies, pas nécessairement une infection virale. Bon, je vais vérifier votre gorge et prendre votre température."
-    },
-    {
-      "id": "A123",
-      "doctor": "Voulez-vous bien ouvrir la bouche et dire ‘aaah’ pendant que je regarde?"
-    },
-    {
-      "id": "A123",
-      "patient": "Aaaaah…"
-    },
-    {
-      "id": "A123",
-      "doctor": "Je vois que vos amygdales sont rouge foncé, avec quelques traces blanchâtres. Il y a aussi un léger gonflement."
-    },
-    {
-      "id": "A123",
-      "doctor": "Maintenant, penchez légèrement la tête en arrière, s’il vous plaît. Je vais palper vos ganglions lymphatiques pour vérifier s'ils sont enflés."
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, ça fait mal ici, sous la mâchoire gauche."
-    },
-    {
-      "id": "A123",
-      "doctor": "C’est bien ce que je pensais. Ils sont modérément enflés, ce qui arrive souvent lors d’une infection virale."
-    },
-    {
-      "id": "A123",
-      "doctor": "Je vais aussi vérifier votre température corporelle. Veuillez rester immobile un instant."
-    },
-    {
-      "id": "A123",
-      "patient": "D'accord."
-    },
-    {
-      "id": "A123",
-      "doctor": "Votre température est à 38,5 degrés Celsius. Cela correspond bien à une fièvre légère."
-    },
-    {
-      "id": "A123",
-      "doctor": "À première vue, je crois que vous souffrez probablement d'une pharyngite virale. Ce type d’infection est souvent causé par des virus comme les rhinovirus ou les coronavirus."
-    },
-    {
-      "id": "A123",
-      "patient": "Est-ce que c’est contagieux? Je dois savoir parce que je travaille avec des enfants."
-    },
-    {
-      "id": "A123",
-      "doctor": "Oui, certainement. Les infections virales se transmettent facilement par les gouttelettes respiratoires. Je vous conseille d’éviter les contacts étroits tant que vous avez de la fièvre et des symptômes actifs."
-    },
-    {
-      "id": "A123",
-      "doctor": "Avez-vous une pharmacie à proximité? Nous allons pouvoir discuter de traitements symptomatiques."
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, il y en a une à côté de chez moi."
-    },
-    {
-      "id": "A123",
-      "doctor": "Parfait. Je vais vous recommander du paracétamol pour réduire la fièvre et soulager la douleur. Vous pouvez en prendre 500 mg toutes les quatre à six heures, sans dépasser 4 grammes par jour."
-    },
-    {
-      "id": "A123",
-      "doctor": "Vous pouvez aussi utiliser des pastilles pour la gorge ou faire des bains de bouche avec de l’eau tiède et du sel."
-    },
-    {
-      "id": "A123",
-      "patient": "Des bains de bouche? Comment je dois faire exactement?"
-    },
-    {
-      "id": "A123",
-      "doctor": "Mélangez une tasse d’eau tiède avec une demi-cuillère à thé de sel. Gargarisez-vous avec cette solution deux à trois fois par jour."
-    },
-    {
-      "id": "A123",
-      "doctor": "Buvez beaucoup d’eau ou de tisanes pour garder la gorge hydratée. Évitez les boissons alcoolisées, caféinées ou trop chaudes."
-    },
-    {
-      "id": "A123",
-      "patient": "Et concernant la toux? Elle m’empêche de dormir la nuit."
-    },
-    {
-      "id": "A123",
-      "doctor": "Pour la toux sèche, vous pouvez essayer un sirop pour la toux en vente libre contenant de la dextrométhorphane. Mais attention à respecter la dose indiquée."
-    },
-    {
-      "id": "A123",
-      "doctor": "Si la toux persiste plus de sept à dix jours ou devient productive (avec du mucus), revenez me voir. On pourrait envisager d’autres causes comme une bronchite ou une infection bactérienne secondaire."
-    },
-    {
-      "id": "A123",
-      "patient": "Y a-t-il une chance que ce soit une angine streptococcique?"
-    },
-    {
-      "id": "A123",
-      "doctor": "C’est possible, mais moins probable sans certains autres symptômes typiques comme des maux de tête intenses, des vomissements, ou une absence totale de toux."
-    },
-    {
-      "id": "A123",
-      "doctor": "On pourrait faire un test rapide pour le streptocoque si votre état empire ou si vous ne voyez aucune amélioration dans les prochains jours."
-    },
-    {
-      "id": "A123",
-      "patient": "Donc pas besoin d’antibiotiques pour le moment?"
-    },
-    {
-      "id": "A123",
-      "doctor": "Exactement. Les antibiotiques ne fonctionnent pas contre les virus. Les utiliser inutilement peut contribuer à la résistance aux antibiotiques."
-    },
-    {
-      "id": "A123",
-      "doctor": "Par contre, si vous développez de la difficulté à respirer, une forte fièvre qui ne descend pas, ou si vous perdez du poids rapidement, revenez immédiatement."
-    },
-    {
-      "id": "A123",
-      "patient": "Entendu. Et pour la fatigue? Elle est énorme…"
-    },
-    {
-      "id": "A123",
-      "doctor": "C’est tout à fait normal avec une infection virale. Le corps dépense beaucoup d’énergie pour combattre l’agent pathogène. Reposez-vous autant que possible."
-    },
-    {
-      "id": "A123",
-      "doctor": "Évitez les activités physiques intenses jusqu’à ce que vous vous sentiez mieux. Mangez léger, privilégiez les soupes, les fruits et les liquides."
-    },
-    {
-      "id": "A123",
-      "patient": "Et si je veux reprendre le travail, quand pensez-vous que ce serait raisonnable?"
-    },
-    {
-      "id": "A123",
-      "doctor": "Idéalement, attendez d’être sans fièvre pendant au moins 24 heures sans avoir recours à des médicaments, et que vos symptômes soient bien atténués."
-    },
-    {
-      "id": "A123",
-      "doctor": "Ce serait prudent de prendre au moins trois à cinq jours de repos complet si possible."
-    },
-    {
-      "id": "A123",
-      "patient": "Merci docteur, je vais suivre vos conseils."
-    },
-    {
-      "id": "A123",
-      "doctor": "Parfait! Si jamais vous avez des questions après votre départ, appelez-moi ou envoyez-moi un message via le portail sécurisé de notre clinique."
-    },
-    {
-      "id": "A123",
-      "doctor": "Et n’hésitez pas à revenir si vous sentez que quelque chose ne va pas ou si les symptômes persistent plus de dix jours."
-    },
-    {
-      "id": "A123",
-      "patient": "Merci beaucoup pour votre patience et vos explications claires. J’apprécie vraiment."
-    },
-    {
-      "id": "A123",
-      "doctor": "Pas de problème, c’est un plaisir de vous aider. Prenez soin de vous et à très bientôt!"
-    },
-    {
-      "id": "A123",
-      "doctor": "Bonjour, bienvenue! Qu'est-ce qui vous amène aujourd'hui?"
-    },
-    {
-      "id": "A123",
-      "patient": "Bonjour docteur. J’ai plusieurs petits problèmes ces derniers jours… Mais surtout, j’ai mal à la gorge depuis environ cinq jours maintenant."
-    },
-    {
-      "id": "A123",
-      "doctor": "D'accord, merci pour cette information. Est-ce que la douleur est constante ou varie-t-elle selon les moments de la journée?"
-    },
-    {
-      "id": "A123",
-      "patient": "Elle est assez constante, mais elle empire quand je déglutis ou quand je parle beaucoup."
-    },
-    {
-      "id": "A123",
-      "doctor": "Est-ce que vous avez noté d'autres symptômes en lien avec cela? Par exemple, avez-vous de la fièvre, des frissons, une toux, ou des maux de tête?"
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, j’ai eu un peu de fièvre, je dirais autour de 38 degrés, et aussi une toux sèche. Pas de maux de tête, mais j’ai vraiment mal à la gorge."
-    },
-    {
-      "id": "A123",
-      "doctor": "Depuis combien de temps avez-vous de la fièvre?"
-    },
-    {
-      "id": "A123",
-      "patient": "Environ trois jours. Hier soir, j’avais un peu plus chaud que d’habitude, mais je n’ai pas pris ma température à ce moment-là."
-    },
-    {
-      "id": "A123",
-      "doctor": "Avez-vous remarqué si votre voix est devenue rauque ou si vous avez des difficultés à respirer?"
-    },
-    {
-      "id": "A123",
-      "patient": "Non, ma voix est normale, et je respire bien. Mais j’ai du mal à avaler sans ressentir une douleur vive."
-    },
-    {
-      "id": "A123",
-      "doctor": "Avez-vous observé si vos ganglions sont enflés ou sensibles au toucher?"
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, effectivement, j’ai touché mon cou hier et ça faisait mal de presser sous ma mâchoire."
-    },
-    {
-      "id": "A123",
-      "doctor": "Parfait, merci pour ces précisions. Avez-vous été en contact récemment avec quelqu’un qui était malade ou qui présentait des symptômes semblables?"
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, justement. Ma conjointe a eu un rhume il y a une dizaine de jours. Elle tousse encore un peu, mais semble aller mieux."
-    },
-    {
-      "id": "A123",
-      "doctor": "Est-ce que vous avez eu des étourdissements, de la fatigue inhabituelle, des nausées ou des courbatures?"
-    },
-    {
-      "id": "A123",
-      "patient": "De la fatigue, oui. Je me sens plus fatigué que d'habitude, mais pas de nausées ni d’étourdissements. Juste une sensation de malaise général."
-    },
-    {
-      "id": "A123",
-      "doctor": "Avez-vous des antécédents médicaux importants dont je devrais être informé? Par exemple, êtes-vous diabétique, asthmatique ou suivez-vous un traitement régulier?"
-    },
-    {
-      "id": "A123",
-      "patient": "Non, je n'ai pas d’antécédents particuliers. Je suis en bonne santé habituellement. Je prends juste un supplément de vitamine D en hiver."
-    },
-    {
-      "id": "A123",
-      "doctor": "Très bien. Vous fumez ou utilisez des produits inhalants comme la vape ou la marijuana?"
-    },
-    {
-      "id": "A123",
-      "patient": "Non, je ne fume pas et je n’utilise aucun produit inhalant."
-    },
-    {
-      "id": "A123",
-      "doctor": "Quel est votre niveau d’exposition à la pollution ou aux allergènes au travail ou à la maison?"
-    },
-    {
-      "id": "A123",
-      "patient": "Je travaille dans un bureau, donc pas d’exposition particulière. À la maison, c’est plutôt propre, mais on a un chat. Je ne sais pas si ça peut jouer un rôle…"
-    },
-    {
-      "id": "A123",
-      "doctor": "Possible, mais les chats peuvent causer des allergies, pas nécessairement une infection virale. Bon, je vais vérifier votre gorge et prendre votre température."
-    },
-    {
-      "id": "A123",
-      "doctor": "Voulez-vous bien ouvrir la bouche et dire ‘aaah’ pendant que je regarde?"
-    },
-    {
-      "id": "A123",
-      "patient": "Aaaaah…"
-    },
-    {
-      "id": "A123",
-      "doctor": "Je vois que vos amygdales sont rouge foncé, avec quelques traces blanchâtres. Il y a aussi un léger gonflement."
-    },
-    {
-      "id": "A123",
-      "doctor": "Maintenant, penchez légèrement la tête en arrière, s’il vous plaît. Je vais palper vos ganglions lymphatiques pour vérifier s'ils sont enflés."
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, ça fait mal ici, sous la mâchoire gauche."
-    },
-    {
-      "id": "A123",
-      "doctor": "C’est bien ce que je pensais. Ils sont modérément enflés, ce qui arrive souvent lors d’une infection virale."
-    },
-    {
-      "id": "A123",
-      "doctor": "Je vais aussi vérifier votre température corporelle. Veuillez rester immobile un instant."
-    },
-    {
-      "id": "A123",
-      "patient": "D'accord."
-    },
-    {
-      "id": "A123",
-      "doctor": "Votre température est à 38,5 degrés Celsius. Cela correspond bien à une fièvre légère."
-    },
-    {
-      "id": "A123",
-      "doctor": "À première vue, je crois que vous souffrez probablement d'une pharyngite virale. Ce type d’infection est souvent causé par des virus comme les rhinovirus ou les coronavirus."
-    },
-    {
-      "id": "A123",
-      "patient": "Est-ce que c’est contagieux? Je dois savoir parce que je travaille avec des enfants."
-    },
-    {
-      "id": "A123",
-      "doctor": "Oui, certainement. Les infections virales se transmettent facilement par les gouttelettes respiratoires. Je vous conseille d’éviter les contacts étroits tant que vous avez de la fièvre et des symptômes actifs."
-    },
-    {
-      "id": "A123",
-      "doctor": "Avez-vous une pharmacie à proximité? Nous allons pouvoir discuter de traitements symptomatiques."
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, il y en a une à côté de chez moi."
-    },
-    {
-      "id": "A123",
-      "doctor": "Parfait. Je vais vous recommander du paracétamol pour réduire la fièvre et soulager la douleur. Vous pouvez en prendre 500 mg toutes les quatre à six heures, sans dépasser 4 grammes par jour."
-    },
-    {
-      "id": "A123",
-      "doctor": "Vous pouvez aussi utiliser des pastilles pour la gorge ou faire des bains de bouche avec de l’eau tiède et du sel."
-    },
-    {
-      "id": "A123",
-      "patient": "Des bains de bouche? Comment je dois faire exactement?"
-    },
-    {
-      "id": "A123",
-      "doctor": "Mélangez une tasse d’eau tiède avec une demi-cuillère à thé de sel. Gargarisez-vous avec cette solution deux à trois fois par jour."
-    },
-    {
-      "id": "A123",
-      "doctor": "Buvez beaucoup d’eau ou de tisanes pour garder la gorge hydratée. Évitez les boissons alcoolisées, caféinées ou trop chaudes."
-    },
-    {
-      "id": "A123",
-      "patient": "Et concernant la toux? Elle m’empêche de dormir la nuit."
-    },
-    {
-      "id": "A123",
-      "doctor": "Pour la toux sèche, vous pouvez essayer un sirop pour la toux en vente libre contenant de la dextrométhorphane. Mais attention à respecter la dose indiquée."
-    },
-    {
-      "id": "A123",
-      "doctor": "Si la toux persiste plus de sept à dix jours ou devient productive (avec du mucus), revenez me voir. On pourrait envisager d’autres causes comme une bronchite ou une infection bactérienne secondaire."
-    },
-    {
-      "id": "A123",
-      "patient": "Y a-t-il une chance que ce soit une angine streptococcique?"
-    },
-    {
-      "id": "A123",
-      "doctor": "C’est possible, mais moins probable sans certains autres symptômes typiques comme des maux de tête intenses, des vomissements, ou une absence totale de toux."
-    },
-    {
-      "id": "A123",
-      "doctor": "On pourrait faire un test rapide pour le streptocoque si votre état empire ou si vous ne voyez aucune amélioration dans les prochains jours."
-    },
-    {
-      "id": "A123",
-      "patient": "Donc pas besoin d’antibiotiques pour le moment?"
-    },
-    {
-      "id": "A123",
-      "doctor": "Exactement. Les antibiotiques ne fonctionnent pas contre les virus. Les utiliser inutilement peut contribuer à la résistance aux antibiotiques."
-    },
-    {
-      "id": "A123",
-      "doctor": "Par contre, si vous développez de la difficulté à respirer, une forte fièvre qui ne descend pas, ou si vous perdez du poids rapidement, revenez immédiatement."
-    },
-    {
-      "id": "A123",
-      "patient": "Entendu. Et pour la fatigue? Elle est énorme…"
-    },
-    {
-      "id": "A123",
-      "doctor": "C’est tout à fait normal avec une infection virale. Le corps dépense beaucoup d’énergie pour combattre l’agent pathogène. Reposez-vous autant que possible."
-    },
-    {
-      "id": "A123",
-      "doctor": "Évitez les activités physiques intenses jusqu’à ce que vous vous sentiez mieux. Mangez léger, privilégiez les soupes, les fruits et les liquides."
-    },
-    {
-      "id": "A123",
-      "patient": "Et si je veux reprendre le travail, quand pensez-vous que ce serait raisonnable?"
-    },
-    {
-      "id": "A123",
-      "doctor": "Idéalement, attendez d’être sans fièvre pendant au moins 24 heures sans avoir recours à des médicaments, et que vos symptômes soient bien atténués."
-    },
-    {
-      "id": "A123",
-      "doctor": "Ce serait prudent de prendre au moins trois à cinq jours de repos complet si possible."
-    },
-    {
-      "id": "A123",
-      "patient": "Merci docteur, je vais suivre vos conseils."
-    },
-    {
-      "id": "A123",
-      "doctor": "Parfait! Si jamais vous avez des questions après votre départ, appelez-moi ou envoyez-moi un message via le portail sécurisé de notre clinique."
-    },
-    {
-      "id": "A123",
-      "doctor": "Et n’hésitez pas à revenir si vous sentez que quelque chose ne va pas ou si les symptômes persistent plus de dix jours."
-    },
-    {
-      "id": "A123",
-      "patient": "Merci beaucoup pour votre patience et vos explications claires. J’apprécie vraiment."
-    },
-    {
-      "id": "A123",
-      "doctor": "Pas de problème, c’est un plaisir de vous aider. Prenez soin de vous et à très bientôt!"
-    },
-    {
-      "id": "A123",
-      "doctor": "Bonjour, bienvenue! Qu'est-ce qui vous amène aujourd'hui?"
-    },
-    {
-      "id": "A123",
-      "patient": "Bonjour docteur. J’ai plusieurs petits problèmes ces derniers jours… Mais surtout, j’ai mal à la gorge depuis environ cinq jours maintenant."
-    },
-    {
-      "id": "A123",
-      "doctor": "D'accord, merci pour cette information. Est-ce que la douleur est constante ou varie-t-elle selon les moments de la journée?"
-    },
-    {
-      "id": "A123",
-      "patient": "Elle est assez constante, mais elle empire quand je déglutis ou quand je parle beaucoup."
-    },
-    {
-      "id": "A123",
-      "doctor": "Est-ce que vous avez noté d'autres symptômes en lien avec cela? Par exemple, avez-vous de la fièvre, des frissons, une toux, ou des maux de tête?"
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, j’ai eu un peu de fièvre, je dirais autour de 38 degrés, et aussi une toux sèche. Pas de maux de tête, mais j’ai vraiment mal à la gorge."
-    },
-    {
-      "id": "A123",
-      "doctor": "Depuis combien de temps avez-vous de la fièvre?"
-    },
-    {
-      "id": "A123",
-      "patient": "Environ trois jours. Hier soir, j’avais un peu plus chaud que d’habitude, mais je n’ai pas pris ma température à ce moment-là."
-    },
-    {
-      "id": "A123",
-      "doctor": "Avez-vous remarqué si votre voix est devenue rauque ou si vous avez des difficultés à respirer?"
-    },
-    {
-      "id": "A123",
-      "patient": "Non, ma voix est normale, et je respire bien. Mais j’ai du mal à avaler sans ressentir une douleur vive."
-    },
-    {
-      "id": "A123",
-      "doctor": "Avez-vous observé si vos ganglions sont enflés ou sensibles au toucher?"
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, effectivement, j’ai touché mon cou hier et ça faisait mal de presser sous ma mâchoire."
-    },
-    {
-      "id": "A123",
-      "doctor": "Parfait, merci pour ces précisions. Avez-vous été en contact récemment avec quelqu’un qui était malade ou qui présentait des symptômes semblables?"
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, justement. Ma conjointe a eu un rhume il y a une dizaine de jours. Elle tousse encore un peu, mais semble aller mieux."
-    },
-    {
-      "id": "A123",
-      "doctor": "Est-ce que vous avez eu des étourdissements, de la fatigue inhabituelle, des nausées ou des courbatures?"
-    },
-    {
-      "id": "A123",
-      "patient": "De la fatigue, oui. Je me sens plus fatigué que d'habitude, mais pas de nausées ni d’étourdissements. Juste une sensation de malaise général."
-    },
-    {
-      "id": "A123",
-      "doctor": "Avez-vous des antécédents médicaux importants dont je devrais être informé? Par exemple, êtes-vous diabétique, asthmatique ou suivez-vous un traitement régulier?"
-    },
-    {
-      "id": "A123",
-      "patient": "Non, je n'ai pas d’antécédents particuliers. Je suis en bonne santé habituellement. Je prends juste un supplément de vitamine D en hiver."
-    },
-    {
-      "id": "A123",
-      "doctor": "Très bien. Vous fumez ou utilisez des produits inhalants comme la vape ou la marijuana?"
-    },
-    {
-      "id": "A123",
-      "patient": "Non, je ne fume pas et je n’utilise aucun produit inhalant."
-    },
-    {
-      "id": "A123",
-      "doctor": "Quel est votre niveau d’exposition à la pollution ou aux allergènes au travail ou à la maison?"
-    },
-    {
-      "id": "A123",
-      "patient": "Je travaille dans un bureau, donc pas d’exposition particulière. À la maison, c’est plutôt propre, mais on a un chat. Je ne sais pas si ça peut jouer un rôle…"
-    },
-    {
-      "id": "A123",
-      "doctor": "Possible, mais les chats peuvent causer des allergies, pas nécessairement une infection virale. Bon, je vais vérifier votre gorge et prendre votre température."
-    },
-    {
-      "id": "A123",
-      "doctor": "Voulez-vous bien ouvrir la bouche et dire ‘aaah’ pendant que je regarde?"
-    },
-    {
-      "id": "A123",
-      "patient": "Aaaaah…"
-    },
-    {
-      "id": "A123",
-      "doctor": "Je vois que vos amygdales sont rouge foncé, avec quelques traces blanchâtres. Il y a aussi un léger gonflement."
-    },
-    {
-      "id": "A123",
-      "doctor": "Maintenant, penchez légèrement la tête en arrière, s’il vous plaît. Je vais palper vos ganglions lymphatiques pour vérifier s'ils sont enflés."
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, ça fait mal ici, sous la mâchoire gauche."
-    },
-    {
-      "id": "A123",
-      "doctor": "C’est bien ce que je pensais. Ils sont modérément enflés, ce qui arrive souvent lors d’une infection virale."
-    },
-    {
-      "id": "A123",
-      "doctor": "Je vais aussi vérifier votre température corporelle. Veuillez rester immobile un instant."
-    },
-    {
-      "id": "A123",
-      "patient": "D'accord."
-    },
-    {
-      "id": "A123",
-      "doctor": "Votre température est à 38,5 degrés Celsius. Cela correspond bien à une fièvre légère."
-    },
-    {
-      "id": "A123",
-      "doctor": "À première vue, je crois que vous souffrez probablement d'une pharyngite virale. Ce type d’infection est souvent causé par des virus comme les rhinovirus ou les coronavirus."
-    },
-    {
-      "id": "A123",
-      "patient": "Est-ce que c’est contagieux? Je dois savoir parce que je travaille avec des enfants."
-    },
-    {
-      "id": "A123",
-      "doctor": "Oui, certainement. Les infections virales se transmettent facilement par les gouttelettes respiratoires. Je vous conseille d’éviter les contacts étroits tant que vous avez de la fièvre et des symptômes actifs."
-    },
-    {
-      "id": "A123",
-      "doctor": "Avez-vous une pharmacie à proximité? Nous allons pouvoir discuter de traitements symptomatiques."
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, il y en a une à côté de chez moi."
-    },
-    {
-      "id": "A123",
-      "doctor": "Parfait. Je vais vous recommander du paracétamol pour réduire la fièvre et soulager la douleur. Vous pouvez en prendre 500 mg toutes les quatre à six heures, sans dépasser 4 grammes par jour."
-    },
-    {
-      "id": "A123",
-      "doctor": "Vous pouvez aussi utiliser des pastilles pour la gorge ou faire des bains de bouche avec de l’eau tiède et du sel."
-    },
-    {
-      "id": "A123",
-      "patient": "Des bains de bouche? Comment je dois faire exactement?"
-    },
-    {
-      "id": "A123",
-      "doctor": "Mélangez une tasse d’eau tiède avec une demi-cuillère à thé de sel. Gargarisez-vous avec cette solution deux à trois fois par jour."
-    },
-    {
-      "id": "A123",
-      "doctor": "Buvez beaucoup d’eau ou de tisanes pour garder la gorge hydratée. Évitez les boissons alcoolisées, caféinées ou trop chaudes."
-    },
-    {
-      "id": "A123",
-      "patient": "Et concernant la toux? Elle m’empêche de dormir la nuit."
-    },
-    {
-      "id": "A123",
-      "doctor": "Pour la toux sèche, vous pouvez essayer un sirop pour la toux en vente libre contenant de la dextrométhorphane. Mais attention à respecter la dose indiquée."
-    },
-    {
-      "id": "A123",
-      "doctor": "Si la toux persiste plus de sept à dix jours ou devient productive (avec du mucus), revenez me voir. On pourrait envisager d’autres causes comme une bronchite ou une infection bactérienne secondaire."
-    },
-    {
-      "id": "A123",
-      "patient": "Y a-t-il une chance que ce soit une angine streptococcique?"
-    },
-    {
-      "id": "A123",
-      "doctor": "C’est possible, mais moins probable sans certains autres symptômes typiques comme des maux de tête intenses, des vomissements, ou une absence totale de toux."
-    },
-    {
-      "id": "A123",
-      "doctor": "On pourrait faire un test rapide pour le streptocoque si votre état empire ou si vous ne voyez aucune amélioration dans les prochains jours."
-    },
-    {
-      "id": "A123",
-      "patient": "Donc pas besoin d’antibiotiques pour le moment?"
-    },
-    {
-      "id": "A123",
-      "doctor": "Exactement. Les antibiotiques ne fonctionnent pas contre les virus. Les utiliser inutilement peut contribuer à la résistance aux antibiotiques."
-    },
-    {
-      "id": "A123",
-      "doctor": "Par contre, si vous développez de la difficulté à respirer, une forte fièvre qui ne descend pas, ou si vous perdez du poids rapidement, revenez immédiatement."
-    },
-    {
-      "id": "A123",
-      "patient": "Entendu. Et pour la fatigue? Elle est énorme…"
-    },
-    {
-      "id": "A123",
-      "doctor": "C’est tout à fait normal avec une infection virale. Le corps dépense beaucoup d’énergie pour combattre l’agent pathogène. Reposez-vous autant que possible."
-    },
-    {
-      "id": "A123",
-      "doctor": "Évitez les activités physiques intenses jusqu’à ce que vous vous sentiez mieux. Mangez léger, privilégiez les soupes, les fruits et les liquides."
-    },
-    {
-      "id": "A123",
-      "patient": "Et si je veux reprendre le travail, quand pensez-vous que ce serait raisonnable?"
-    },
-    {
-      "id": "A123",
-      "doctor": "Idéalement, attendez d’être sans fièvre pendant au moins 24 heures sans avoir recours à des médicaments, et que vos symptômes soient bien atténués."
-    },
-    {
-      "id": "A123",
-      "doctor": "Ce serait prudent de prendre au moins trois à cinq jours de repos complet si possible."
-    },
-    {
-      "id": "A123",
-      "patient": "Merci docteur, je vais suivre vos conseils."
-    },
-    {
-      "id": "A123",
-      "doctor": "Parfait! Si jamais vous avez des questions après votre départ, appelez-moi ou envoyez-moi un message via le portail sécurisé de notre clinique."
-    },
-    {
-      "id": "A123",
-      "doctor": "Et n’hésitez pas à revenir si vous sentez que quelque chose ne va pas ou si les symptômes persistent plus de dix jours."
-    },
-    {
-      "id": "A123",
-      "patient": "Merci beaucoup pour votre patience et vos explications claires. J’apprécie vraiment."
-    },
-    {
-      "id": "A123",
-      "doctor": "Pas de problème, c’est un plaisir de vous aider. Prenez soin de vous et à très bientôt!"
-    },
-    {
-      "id": "A123",
-      "doctor": "Bonjour, bienvenue! Qu'est-ce qui vous amène aujourd'hui?"
-    },
-    {
-      "id": "A123",
-      "patient": "Bonjour docteur. J’ai plusieurs petits problèmes ces derniers jours… Mais surtout, j’ai mal à la gorge depuis environ cinq jours maintenant."
-    },
-    {
-      "id": "A123",
-      "doctor": "D'accord, merci pour cette information. Est-ce que la douleur est constante ou varie-t-elle selon les moments de la journée?"
-    },
-    {
-      "id": "A123",
-      "patient": "Elle est assez constante, mais elle empire quand je déglutis ou quand je parle beaucoup."
-    },
-    {
-      "id": "A123",
-      "doctor": "Est-ce que vous avez noté d'autres symptômes en lien avec cela? Par exemple, avez-vous de la fièvre, des frissons, une toux, ou des maux de tête?"
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, j’ai eu un peu de fièvre, je dirais autour de 38 degrés, et aussi une toux sèche. Pas de maux de tête, mais j’ai vraiment mal à la gorge."
-    },
-    {
-      "id": "A123",
-      "doctor": "Depuis combien de temps avez-vous de la fièvre?"
-    },
-    {
-      "id": "A123",
-      "patient": "Environ trois jours. Hier soir, j’avais un peu plus chaud que d’habitude, mais je n’ai pas pris ma température à ce moment-là."
-    },
-    {
-      "id": "A123",
-      "doctor": "Avez-vous remarqué si votre voix est devenue rauque ou si vous avez des difficultés à respirer?"
-    },
-    {
-      "id": "A123",
-      "patient": "Non, ma voix est normale, et je respire bien. Mais j’ai du mal à avaler sans ressentir une douleur vive."
-    },
-    {
-      "id": "A123",
-      "doctor": "Avez-vous observé si vos ganglions sont enflés ou sensibles au toucher?"
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, effectivement, j’ai touché mon cou hier et ça faisait mal de presser sous ma mâchoire."
-    },
-    {
-      "id": "A123",
-      "doctor": "Parfait, merci pour ces précisions. Avez-vous été en contact récemment avec quelqu’un qui était malade ou qui présentait des symptômes semblables?"
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, justement. Ma conjointe a eu un rhume il y a une dizaine de jours. Elle tousse encore un peu, mais semble aller mieux."
-    },
-    {
-      "id": "A123",
-      "doctor": "Est-ce que vous avez eu des étourdissements, de la fatigue inhabituelle, des nausées ou des courbatures?"
-    },
-    {
-      "id": "A123",
-      "patient": "De la fatigue, oui. Je me sens plus fatigué que d'habitude, mais pas de nausées ni d’étourdissements. Juste une sensation de malaise général."
-    },
-    {
-      "id": "A123",
-      "doctor": "Avez-vous des antécédents médicaux importants dont je devrais être informé? Par exemple, êtes-vous diabétique, asthmatique ou suivez-vous un traitement régulier?"
-    },
-    {
-      "id": "A123",
-      "patient": "Non, je n'ai pas d’antécédents particuliers. Je suis en bonne santé habituellement. Je prends juste un supplément de vitamine D en hiver."
-    },
-    {
-      "id": "A123",
-      "doctor": "Très bien. Vous fumez ou utilisez des produits inhalants comme la vape ou la marijuana?"
-    },
-    {
-      "id": "A123",
-      "patient": "Non, je ne fume pas et je n’utilise aucun produit inhalant."
-    },
-    {
-      "id": "A123",
-      "doctor": "Quel est votre niveau d’exposition à la pollution ou aux allergènes au travail ou à la maison?"
-    },
-    {
-      "id": "A123",
-      "patient": "Je travaille dans un bureau, donc pas d’exposition particulière. À la maison, c’est plutôt propre, mais on a un chat. Je ne sais pas si ça peut jouer un rôle…"
-    },
-    {
-      "id": "A123",
-      "doctor": "Possible, mais les chats peuvent causer des allergies, pas nécessairement une infection virale. Bon, je vais vérifier votre gorge et prendre votre température."
-    },
-    {
-      "id": "A123",
-      "doctor": "Voulez-vous bien ouvrir la bouche et dire ‘aaah’ pendant que je regarde?"
-    },
-    {
-      "id": "A123",
-      "patient": "Aaaaah…"
-    },
-    {
-      "id": "A123",
-      "doctor": "Je vois que vos amygdales sont rouge foncé, avec quelques traces blanchâtres. Il y a aussi un léger gonflement."
-    },
-    {
-      "id": "A123",
-      "doctor": "Maintenant, penchez légèrement la tête en arrière, s’il vous plaît. Je vais palper vos ganglions lymphatiques pour vérifier s'ils sont enflés."
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, ça fait mal ici, sous la mâchoire gauche."
-    },
-    {
-      "id": "A123",
-      "doctor": "C’est bien ce que je pensais. Ils sont modérément enflés, ce qui arrive souvent lors d’une infection virale."
-    },
-    {
-      "id": "A123",
-      "doctor": "Je vais aussi vérifier votre température corporelle. Veuillez rester immobile un instant."
-    },
-    {
-      "id": "A123",
-      "patient": "D'accord."
-    },
-    {
-      "id": "A123",
-      "doctor": "Votre température est à 38,5 degrés Celsius. Cela correspond bien à une fièvre légère."
-    },
-    {
-      "id": "A123",
-      "doctor": "À première vue, je crois que vous souffrez probablement d'une pharyngite virale. Ce type d’infection est souvent causé par des virus comme les rhinovirus ou les coronavirus."
-    },
-    {
-      "id": "A123",
-      "patient": "Est-ce que c’est contagieux? Je dois savoir parce que je travaille avec des enfants."
-    },
-    {
-      "id": "A123",
-      "doctor": "Oui, certainement. Les infections virales se transmettent facilement par les gouttelettes respiratoires. Je vous conseille d’éviter les contacts étroits tant que vous avez de la fièvre et des symptômes actifs."
-    },
-    {
-      "id": "A123",
-      "doctor": "Avez-vous une pharmacie à proximité? Nous allons pouvoir discuter de traitements symptomatiques."
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, il y en a une à côté de chez moi."
-    },
-    {
-      "id": "A123",
-      "doctor": "Parfait. Je vais vous recommander du paracétamol pour réduire la fièvre et soulager la douleur. Vous pouvez en prendre 500 mg toutes les quatre à six heures, sans dépasser 4 grammes par jour."
-    },
-    {
-      "id": "A123",
-      "doctor": "Vous pouvez aussi utiliser des pastilles pour la gorge ou faire des bains de bouche avec de l’eau tiède et du sel."
-    },
-    {
-      "id": "A123",
-      "patient": "Des bains de bouche? Comment je dois faire exactement?"
-    },
-    {
-      "id": "A123",
-      "doctor": "Mélangez une tasse d’eau tiède avec une demi-cuillère à thé de sel. Gargarisez-vous avec cette solution deux à trois fois par jour."
-    },
-    {
-      "id": "A123",
-      "doctor": "Buvez beaucoup d’eau ou de tisanes pour garder la gorge hydratée. Évitez les boissons alcoolisées, caféinées ou trop chaudes."
-    },
-    {
-      "id": "A123",
-      "patient": "Et concernant la toux? Elle m’empêche de dormir la nuit."
-    },
-    {
-      "id": "A123",
-      "doctor": "Pour la toux sèche, vous pouvez essayer un sirop pour la toux en vente libre contenant de la dextrométhorphane. Mais attention à respecter la dose indiquée."
-    },
-    {
-      "id": "A123",
-      "doctor": "Si la toux persiste plus de sept à dix jours ou devient productive (avec du mucus), revenez me voir. On pourrait envisager d’autres causes comme une bronchite ou une infection bactérienne secondaire."
-    },
-    {
-      "id": "A123",
-      "patient": "Y a-t-il une chance que ce soit une angine streptococcique?"
-    },
-    {
-      "id": "A123",
-      "doctor": "C’est possible, mais moins probable sans certains autres symptômes typiques comme des maux de tête intenses, des vomissements, ou une absence totale de toux."
-    },
-    {
-      "id": "A123",
-      "doctor": "On pourrait faire un test rapide pour le streptocoque si votre état empire ou si vous ne voyez aucune amélioration dans les prochains jours."
-    },
-    {
-      "id": "A123",
-      "patient": "Donc pas besoin d’antibiotiques pour le moment?"
-    },
-    {
-      "id": "A123",
-      "doctor": "Exactement. Les antibiotiques ne fonctionnent pas contre les virus. Les utiliser inutilement peut contribuer à la résistance aux antibiotiques."
-    },
-    {
-      "id": "A123",
-      "doctor": "Par contre, si vous développez de la difficulté à respirer, une forte fièvre qui ne descend pas, ou si vous perdez du poids rapidement, revenez immédiatement."
-    },
-    {
-      "id": "A123",
-      "patient": "Entendu. Et pour la fatigue? Elle est énorme…"
-    },
-    {
-      "id": "A123",
-      "doctor": "C’est tout à fait normal avec une infection virale. Le corps dépense beaucoup d’énergie pour combattre l’agent pathogène. Reposez-vous autant que possible."
-    },
-    {
-      "id": "A123",
-      "doctor": "Évitez les activités physiques intenses jusqu’à ce que vous vous sentiez mieux. Mangez léger, privilégiez les soupes, les fruits et les liquides."
-    },
-    {
-      "id": "A123",
-      "patient": "Et si je veux reprendre le travail, quand pensez-vous que ce serait raisonnable?"
-    },
-    {
-      "id": "A123",
-      "doctor": "Idéalement, attendez d’être sans fièvre pendant au moins 24 heures sans avoir recours à des médicaments, et que vos symptômes soient bien atténués."
-    },
-    {
-      "id": "A123",
-      "doctor": "Ce serait prudent de prendre au moins trois à cinq jours de repos complet si possible."
-    },
-    {
-      "id": "A123",
-      "patient": "Merci docteur, je vais suivre vos conseils."
-    },
-    {
-      "id": "A123",
-      "doctor": "Parfait! Si jamais vous avez des questions après votre départ, appelez-moi ou envoyez-moi un message via le portail sécurisé de notre clinique."
-    },
-    {
-      "id": "A123",
-      "doctor": "Et n’hésitez pas à revenir si vous sentez que quelque chose ne va pas ou si les symptômes persistent plus de dix jours."
-    },
-    {
-      "id": "A123",
-      "patient": "Merci beaucoup pour votre patience et vos explications claires. J’apprécie vraiment."
-    },
-    {
-      "id": "A123",
-      "doctor": "Pas de problème, c’est un plaisir de vous aider. Prenez soin de vous et à très bientôt!"
-    },
-    {
-      "id": "A123",
-      "doctor": "Bonjour, bienvenue! Qu'est-ce qui vous amène aujourd'hui?"
-    },
-    {
-      "id": "A123",
-      "patient": "Bonjour docteur. J’ai plusieurs petits problèmes ces derniers jours… Mais surtout, j’ai mal à la gorge depuis environ cinq jours maintenant."
-    },
-    {
-      "id": "A123",
-      "doctor": "D'accord, merci pour cette information. Est-ce que la douleur est constante ou varie-t-elle selon les moments de la journée?"
-    },
-    {
-      "id": "A123",
-      "patient": "Elle est assez constante, mais elle empire quand je déglutis ou quand je parle beaucoup."
-    },
-    {
-      "id": "A123",
-      "doctor": "Est-ce que vous avez noté d'autres symptômes en lien avec cela? Par exemple, avez-vous de la fièvre, des frissons, une toux, ou des maux de tête?"
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, j’ai eu un peu de fièvre, je dirais autour de 38 degrés, et aussi une toux sèche. Pas de maux de tête, mais j’ai vraiment mal à la gorge."
-    },
-    {
-      "id": "A123",
-      "doctor": "Depuis combien de temps avez-vous de la fièvre?"
-    },
-    {
-      "id": "A123",
-      "patient": "Environ trois jours. Hier soir, j’avais un peu plus chaud que d’habitude, mais je n’ai pas pris ma température à ce moment-là."
-    },
-    {
-      "id": "A123",
-      "doctor": "Avez-vous remarqué si votre voix est devenue rauque ou si vous avez des difficultés à respirer?"
-    },
-    {
-      "id": "A123",
-      "patient": "Non, ma voix est normale, et je respire bien. Mais j’ai du mal à avaler sans ressentir une douleur vive."
-    },
-    {
-      "id": "A123",
-      "doctor": "Avez-vous observé si vos ganglions sont enflés ou sensibles au toucher?"
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, effectivement, j’ai touché mon cou hier et ça faisait mal de presser sous ma mâchoire."
-    },
-    {
-      "id": "A123",
-      "doctor": "Parfait, merci pour ces précisions. Avez-vous été en contact récemment avec quelqu’un qui était malade ou qui présentait des symptômes semblables?"
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, justement. Ma conjointe a eu un rhume il y a une dizaine de jours. Elle tousse encore un peu, mais semble aller mieux."
-    },
-    {
-      "id": "A123",
-      "doctor": "Est-ce que vous avez eu des étourdissements, de la fatigue inhabituelle, des nausées ou des courbatures?"
-    },
-    {
-      "id": "A123",
-      "patient": "De la fatigue, oui. Je me sens plus fatigué que d'habitude, mais pas de nausées ni d’étourdissements. Juste une sensation de malaise général."
-    },
-    {
-      "id": "A123",
-      "doctor": "Avez-vous des antécédents médicaux importants dont je devrais être informé? Par exemple, êtes-vous diabétique, asthmatique ou suivez-vous un traitement régulier?"
-    },
-    {
-      "id": "A123",
-      "patient": "Non, je n'ai pas d’antécédents particuliers. Je suis en bonne santé habituellement. Je prends juste un supplément de vitamine D en hiver."
-    },
-    {
-      "id": "A123",
-      "doctor": "Très bien. Vous fumez ou utilisez des produits inhalants comme la vape ou la marijuana?"
-    },
-    {
-      "id": "A123",
-      "patient": "Non, je ne fume pas et je n’utilise aucun produit inhalant."
-    },
-    {
-      "id": "A123",
-      "doctor": "Quel est votre niveau d’exposition à la pollution ou aux allergènes au travail ou à la maison?"
-    },
-    {
-      "id": "A123",
-      "patient": "Je travaille dans un bureau, donc pas d’exposition particulière. À la maison, c’est plutôt propre, mais on a un chat. Je ne sais pas si ça peut jouer un rôle…"
-    },
-    {
-      "id": "A123",
-      "doctor": "Possible, mais les chats peuvent causer des allergies, pas nécessairement une infection virale. Bon, je vais vérifier votre gorge et prendre votre température."
-    },
-    {
-      "id": "A123",
-      "doctor": "Voulez-vous bien ouvrir la bouche et dire ‘aaah’ pendant que je regarde?"
-    },
-    {
-      "id": "A123",
-      "patient": "Aaaaah…"
-    },
-    {
-      "id": "A123",
-      "doctor": "Je vois que vos amygdales sont rouge foncé, avec quelques traces blanchâtres. Il y a aussi un léger gonflement."
-    },
-    {
-      "id": "A123",
-      "doctor": "Maintenant, penchez légèrement la tête en arrière, s’il vous plaît. Je vais palper vos ganglions lymphatiques pour vérifier s'ils sont enflés."
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, ça fait mal ici, sous la mâchoire gauche."
-    },
-    {
-      "id": "A123",
-      "doctor": "C’est bien ce que je pensais. Ils sont modérément enflés, ce qui arrive souvent lors d’une infection virale."
-    },
-    {
-      "id": "A123",
-      "doctor": "Je vais aussi vérifier votre température corporelle. Veuillez rester immobile un instant."
-    },
-    {
-      "id": "A123",
-      "patient": "D'accord."
-    },
-    {
-      "id": "A123",
-      "doctor": "Votre température est à 38,5 degrés Celsius. Cela correspond bien à une fièvre légère."
-    },
-    {
-      "id": "A123",
-      "doctor": "À première vue, je crois que vous souffrez probablement d'une pharyngite virale. Ce type d’infection est souvent causé par des virus comme les rhinovirus ou les coronavirus."
-    },
-    {
-      "id": "A123",
-      "patient": "Est-ce que c’est contagieux? Je dois savoir parce que je travaille avec des enfants."
-    },
-    {
-      "id": "A123",
-      "doctor": "Oui, certainement. Les infections virales se transmettent facilement par les gouttelettes respiratoires. Je vous conseille d’éviter les contacts étroits tant que vous avez de la fièvre et des symptômes actifs."
-    },
-    {
-      "id": "A123",
-      "doctor": "Avez-vous une pharmacie à proximité? Nous allons pouvoir discuter de traitements symptomatiques."
-    },
-    {
-      "id": "A123",
-      "patient": "Oui, il y en a une à côté de chez moi."
-    },
-    {
-      "id": "A123",
-      "doctor": "Parfait. Je vais vous recommander du paracétamol pour réduire la fièvre et soulager la douleur. Vous pouvez en prendre 500 mg toutes les quatre à six heures, sans dépasser 4 grammes par jour."
-    },
-    {
-      "id": "A123",
-      "doctor": "Vous pouvez aussi utiliser des pastilles pour la gorge ou faire des bains de bouche avec de l’eau tiède et du sel."
-    },
-    {
-      "id": "A123",
-      "patient": "Des bains de bouche? Comment je dois faire exactement?"
-    },
-    {
-      "id": "A123",
-      "doctor": "Mélangez une tasse d’eau tiède avec une demi-cuillère à thé de sel. Gargarisez-vous avec cette solution deux à trois fois par jour."
-    },
-    {
-      "id": "A123",
-      "doctor": "Buvez beaucoup d’eau ou de tisanes pour garder la gorge hydratée. Évitez les boissons alcoolisées, caféinées ou trop chaudes."
-    },
-    {
-      "id": "A123",
-      "patient": "Et concernant la toux? Elle m’empêche de dormir la nuit."
-    },
-    {
-      "id": "A123",
-      "doctor": "Pour la toux sèche, vous pouvez essayer un sirop pour la toux en vente libre contenant de la dextrométhorphane. Mais attention à respecter la dose indiquée."
-    },
-    {
-      "id": "A123",
-      "doctor": "Si la toux persiste plus de sept à dix jours ou devient productive (avec du mucus), revenez me voir. On pourrait envisager d’autres causes comme une bronchite ou une infection bactérienne secondaire."
-    },
-    {
-      "id": "A123",
-      "patient": "Y a-t-il une chance que ce soit une angine streptococcique?"
-    },
-    {
-      "id": "A123",
-      "doctor": "C’est possible, mais moins probable sans certains autres symptômes typiques comme des maux de tête intenses, des vomissements, ou une absence totale de toux."
-    },
-    {
-      "id": "A123",
-      "doctor": "On pourrait faire un test rapide pour le streptocoque si votre état empire ou si vous ne voyez aucune amélioration dans les prochains jours."
-    },
-    {
-      "id": "A123",
-      "patient": "Donc pas besoin d’antibiotiques pour le moment?"
-    },
-    {
-      "id": "A123",
-      "doctor": "Exactement. Les antibiotiques ne fonctionnent pas contre les virus. Les utiliser inutilement peut contribuer à la résistance aux antibiotiques."
-    },
-    {
-      "id": "A123",
-      "doctor": "Par contre, si vous développez de la difficulté à respirer, une forte fièvre qui ne descend pas, ou si vous perdez du poids rapidement, revenez immédiatement."
-    },
-    {
-      "id": "A123",
-      "patient": "Entendu. Et pour la fatigue? Elle est énorme…"
-    },
-    {
-      "id": "A123",
-      "doctor": "C’est tout à fait normal avec une infection virale. Le corps dépense beaucoup d’énergie pour combattre l’agent pathogène. Reposez-vous autant que possible."
-    },
-    {
-      "id": "A123",
-      "doctor": "Évitez les activités physiques intenses jusqu’à ce que vous vous sentiez mieux. Mangez léger, privilégiez les soupes, les fruits et les liquides."
-    },
-    {
-      "id": "A123",
-      "patient": "Et si je veux reprendre le travail, quand pensez-vous que ce serait raisonnable?"
-    },
-    {
-      "id": "A123",
-      "doctor": "Idéalement, attendez d’être sans fièvre pendant au moins 24 heures sans avoir recours à des médicaments, et que vos symptômes soient bien atténués."
-    },
-    {
-      "id": "A123",
-      "doctor": "Ce serait prudent de prendre au moins trois à cinq jours de repos complet si possible."
-    },
-    {
-      "id": "A123",
-      "patient": "Merci docteur, je vais suivre vos conseils."
-    },
-    {
-      "id": "A123",
-      "doctor": "Parfait! Si jamais vous avez des questions après votre départ, appelez-moi ou envoyez-moi un message via le portail sécurisé de notre clinique."
-    },
-    {
-      "id": "A123",
-      "doctor": "Et n’hésitez pas à revenir si vous sentez que quelque chose ne va pas ou si les symptômes persistent plus de dix jours."
-    },
-    {
-      "id": "A123",
-      "patient": "Merci beaucoup pour votre patience et vos explications claires. J’apprécie vraiment."
-    },
-    {
-      "id": "A123",
-      "doctor": "Pas de problème, c’est un plaisir de vous aider. Prenez soin de vous et à très bientôt!"
-    }
-  
-  ],
-  "systemPrompt": "You are an experienced medical professional tasked with creating a structured and clinically sound summary of a medical encounter. Use formal medical language and a professional, objective tone. Your summary must:   - Be strictly based on the transcript and context provided.   - Be written in passive voice.   - Contain no assumptions, interpretations, or personal opinions.   - Avoid offering advice or recommendations.   - Be formatted in the appropriate language used in the transcript (English or Canadian French).   - Exclude repetition of previously generated sections.   - Adhere to proper clinical writing standards (SOAP style, if applicable).   - Do not mention 'transcript' in the note, only use the information from the transcript.  If there is no clinically relevant new content, return a clinically neutral note such as:   - No additional clinical impressions could be determined based on the available information.  **Language Requirements:**   - generate the note in the language of the transcript, english. **Content Constraints:**   - Do not include repeated information from <Previously Generated Sections>.   - Do not fabricate or infer any symptoms or diagnoses.   - Do not list absence of symptoms (e.g., do not write no fever reported).   - Do not mention the transcript or that information was missing.   - Use passive voice and clinical tone throughout.  Return your output as a **valid JSON object** with one property: noteContent, containing markdown-formatted text.",
-  "doctorId": "doc_123",
-  "userId": 2,
-  "clinicId": "2",
-  "language": "fr"
-}
+    "sections": [
+      {
+        "id": 12345,
+        "templateId": 1543,
+        "name": "Subjective",
+        "prompt": "Synthesize all patient-reported information into a clinical narrative. Include the chief complaint, history of present illness (HPI), review of systems (ROS), and any relevant past medical, family, or social history mentioned. Focus on the patient's direct statements and experiences.",
+        "order": 1,
+        "createdAt": "2025-06-17T15:40:05.000Z",
+        "updatedAt": "2025-06-17T15:40:05.000Z"
+      },
+      {
+        "id": 2456,
+        "templateId": 76541,
+        "name": "Objective",
+        "prompt": "Document all objective, measurable, and observable findings from the encounter. This includes vital signs, physical examination findings, laboratory results, and any other diagnostic data mentioned by the provider. Avoid any subjective patient statements.",
+        "order": 2,
+        "createdAt": "2025-06-17T15:40:05.000Z",
+        "updatedAt": "2025-06-17T15:40:05.000Z"
+      },
+      {
+        "id": 7653,
+        "templateId": 765431,
+        "name": "Assessment",
+        "prompt": "Formulate a list of clinical impressions, diagnoses, or differential diagnoses based on the synthesis of the subjective and objective information. Each assessment point should be a concise clinical statement.",
+        "order": 3,
+        "createdAt": "2025-06-17T15:40:05.000Z",
+        "updatedAt": "2025-06-17T15:40:05.000Z"
+      },
+      {
+        "id": 4345,
+        "templateId": 6541,
+        "name": "Plan",
+        "prompt": "Outline the complete management plan discussed during the encounter. Include all orders for medications (with dosage and frequency), laboratory tests, imaging studies, referrals to other specialists, patient education, and follow-up instructions.",
+        "order": 4,
+        "createdAt": "2025-06-17T15:40:05.000Z",
+        "updatedAt": "2025-06-17T15:40:05.000Z"
+      },
+      {
+        "id": 6545,
+        "templateId": 5672,
+        "name": "Patient_Summary",
+        "prompt": "Create a brief summary of the visit for the patient in simple, easy-to-understand language. Include the main reason for the visit, key findings, and the most important follow-up actions.",
+        "order": 17654,
+        "createdAt": "2025-06-17T15:40:05.000Z",
+        "updatedAt": "2025-06-17T15:40:05.000Z"
+      },
+      {
+        "id": 67654,
+        "templateId": 2,
+        "name": "Referral_Note",
+        "prompt": "Generate a formal referral note to a specialist. State the reason for referral, summarize pertinent history and findings, and list the specific questions to be addressed by the consultant.",
+        "order": 2,
+        "createdAt": "2025-06-17T15:40:05.000Z",
+        "updatedAt": "2025-06-17T15:40:05.000Z"
+      },
+      {
+        "id": 7654,
+        "templateId": 3654,
+        "name": "Billing_Codes",
+        "prompt": "Based on the encounter, list potential CPT and ICD-10 billing codes for the services rendered and diagnoses made. This is for suggestion purposes only.",
+        "order": 1,
+        "createdAt": "2025-06-17T15:53:39.000Z",
+        "updatedAt": "2025-06-17T15:53:39.000Z"
+      }
+    ],
+    "encounterId": "qwert",
+    "encounterTranscript": [
+      {
+        "id": "A12wedrft3",
+        "doctor": "Bonjour, bienvenue! Qu'est-ce qui vous amène aujourd'hui?"
+      },
+      {
+        "id": "A32123",
+        "patient": "Bonjour docteur. J’ai plusieurs petits problèmes ces derniers jours… Mais surtout, j’ai mal à la gorge depuis environ cinq jours maintenant."
+      },
+      {
+        "id": "3123e433rfg",
+        "doctor": "Êtes-vous d'accord pour enregistrer la conversation ?"
+      },
+      {
+        "id": "3efr4321fdserfg",
+        "patient": "oui, je consens à enregistrer la conversation., Je suis né le 12 juillet 2013, j'ai 12 ans"
+      },
+      {
+        "id": "Asdfg123",
+        "doctor": "D'accord, merci pour cette information. Est-ce que la douleur est constante ou varie-t-elle selon les moments de la journée?"
+      },
+      {
+        "id": "A1gfd23",
+        "patient": "Elle est assez constante, mais elle empire quand je déglutis ou quand je parle beaucoup."
+      },
+      {
+        "id": "A1sdfg23",
+        "doctor": "Est-ce que vous avez noté d'autres symptômes en lien avec cela? Par exemple, avez-vous de la fièvre, des frissons, une toux, ou des maux de tête?"
+      },
+      {
+        "id": "A123",
+        "patient": "Oui, j’ai eu un peu de fièvre, je dirais autour de 38 degrés, et aussi une toux sèche. Pas de maux de tête, mais j’ai vraiment mal à la gorge."
+      },
+      {
+        "id": "A1cvb23",
+        "doctor": "Depuis combien de temps avez-vous de la fièvre?"
+      },
+      {
+        "id": "A1xcfg23",
+        "patient": "Environ trois jours. Hier soir, j’avais un peu plus chaud que d’habitude, mais je n’ai pas pris ma température à ce moment-là."
+      },
+      {
+        "id": "A1hgf23",
+        "doctor": "Avez-vous remarqué si votre voix est devenue rauque ou si vous avez des difficultés à respirer?"
+      },
+      {
+        "id": "A12hgf3",
+        "patient": "Non, ma voix est normale, et je respire bien. Mais j’ai du mal à avaler sans ressentir une douleur vive."
+      },
+      {
+        "id": "A123hgfd",
+        "doctor": "Avez-vous observé si vos ganglions sont enflés ou sensibles au toucher?"
+      },
+      {
+        "id": "A12gfd3",
+        "patient": "Oui, effectivement, j’ai touché mon cou hier et ça faisait mal de presser sous ma mâchoire."
+      },
+      {
+        "id": "Abv123",
+        "doctor": "Parfait, merci pour ces précisions. Avez-vous été en contact récemment avec quelqu’un qui était malade ou qui présentait des symptômes semblables?"
+      },
+      {
+        "id": "Agfd123",
+        "patient": "Oui, justement. Ma conjointe a eu un rhume il y a une dizaine de jours. Elle tousse encore un peu, mais semble aller mieux."
+      },
+      {
+        "id": "Arfghj123",
+        "doctor": "Est-ce que vous avez eu des étourdissements, de la fatigue inhabituelle, des nausées ou des courbatures?"
+      },
+      {
+        "id": "A1hgfre23",
+        "patient": "De la fatigue, oui. Je me sens plus fatigué que d'habitude, mais pas de nausées ni d’étourdissements. Juste une sensation de malaise général."
+      },
+      {
+        "id": "A1rtgh23",
+        "doctor": "Avez-vous des antécédents médicaux importants dont je devrais être informé? Par exemple, êtes-vous diabétique, asthmatique ou suivez-vous un traitement régulier?"
+      },
+      {
+        "id": "A1gfd23",
+        "patient": "Non, je n'ai pas d’antécédents particuliers. Je suis en bonne santé habituellement. Je prends juste un supplément de vitamine D en hiver."
+      },
+      {
+        "id": "Arty123",
+        "doctor": "Très bien. Vous fumez ou utilisez des produits inhalants comme la vape ou la marijuana?"
+      },
+      {
+        "id": "A1ytr23",
+        "patient": "Non, je ne fume pas et je n’utilise aucun produit inhalant."
+      },
+      {
+        "id": "A1gfd23",
+        "doctor": "Quel est votre niveau d’exposition à la pollution ou aux allergènes au travail ou à la maison?"
+      },
+      {
+        "id": "A12gfd3",
+        "patient": "Je travaille dans un bureau, donc pas d’exposition particulière. À la maison, c’est plutôt propre, mais on a un chat. Je ne sais pas si ça peut jouer un rôle…"
+      },
+      {
+        "id": "A12tre3",
+        "doctor": "Possible, mais les chats peuvent causer des allergies, pas nécessairement une infection virale. Bon, je vais vérifier votre gorge et prendre votre température."
+      },
+      {
+        "id": "A1bvc23",
+        "doctor": "Voulez-vous bien ouvrir la bouche et dire ‘aaah’ pendant que je regarde?"
+      },
+      {
+        "id": "A1265r4efg3",
+        "patient": "Aaaaah…"
+      },
+      {
+        "id": "A154erfg23",
+        "doctor": "Je vois que vos amygdales sont rouge foncé, avec quelques traces blanchâtres. Il y a aussi un léger gonflement."
+      },
+      {
+        "id": "A154edfg23",
+        "doctor": "Maintenant, penchez légèrement la tête en arrière, s’il vous plaît. Je vais palper vos ganglions lymphatiques pour vérifier s'ils sont enflés."
+      },
+      {
+        "id": "A1456ygf23",
+        "patient": "Oui, ça fait mal ici, sous la mâchoire gauche."
+      },
+      {
+        "id": "A45tgf123",
+        "doctor": "C’est bien ce que je pensais. Ils sont modérément enflés, ce qui arrive souvent lors d’une infection virale."
+      },
+      {
+        "id": "A45tygfd23",
+        "doctor": "Je vais aussi vérifier votre température corporelle. Veuillez rester immobile un instant."
+      },
+      {
+        "id": "A1245tfd3",
+        "patient": "D'accord."
+      },
+      {
+        "id": "A145rtfd23",
+        "doctor": "Votre température est à 38,5 degrés Celsius. Cela correspond bien à une fièvre légère."
+      },
+      {
+        "id": "A43edf123",
+        "doctor": "À première vue, je crois que vous souffrez probablement d'une pharyngite virale. Ce type d’infection est souvent causé par des virus comme les rhinovirus ou les coronavirus."
+      },
+      {
+        "id": "A43edfg123",
+        "patient": "Est-ce que c’est contagieux? Je dois savoir parce que je travaille avec des enfants."
+      },
+      {
+        "id": "A45tgfd123",
+        "doctor": "Oui, certainement. Les infections virales se transmettent facilement par les gouttelettes respiratoires. Je vous conseille d’éviter les contacts étroits tant que vous avez de la fièvre et des symptômes actifs."
+      },
+      {
+        "id": "A143edf23",
+        "doctor": "Avez-vous une pharmacie à proximité? Nous allons pouvoir discuter de traitements symptomatiques."
+      },
+      {
+        "id": "A1456yhbv23",
+        "patient": "Oui, il y en a une à côté de chez moi."
+      },
+      {
+        "id": "A156y23",
+        "doctor": "Parfait. Je vais vous recommander du paracétamol pour réduire la fièvre et soulager la douleur. Vous pouvez en prendre 500 mg toutes les quatre à six heures, sans dépasser 4 grammes par jour."
+      },
+      {
+        "id": "A156y23",
+        "doctor": "Vous pouvez aussi utiliser des pastilles pour la gorge ou faire des bains de bouche avec de l’eau tiède et du sel."
+      },
+      {
+        "id": "A45t56y123",
+        "patient": "Des bains de bouche? Comment je dois faire exactement?"
+      },
+      {
+        "id": "A1456tr23",
+        "doctor": "Mélangez une tasse d’eau tiède avec une demi-cuillère à thé de sel. Gargarisez-vous avec cette solution deux à trois fois par jour."
+      },
+      {
+        "id": "A143wedf23",
+        "doctor": "Buvez beaucoup d’eau ou de tisanes pour garder la gorge hydratée. Évitez les boissons alcoolisées, caféinées ou trop chaudes."
+      },
+      {
+        "id": "Aokij123",
+        "patient": "Et concernant la toux? Elle m’empêche de dormir la nuit."
+      },
+      {
+        "id": "Aoiu123",
+        "doctor": "Pour la toux sèche, vous pouvez essayer un sirop pour la toux en vente libre contenant de la dextrométhorphane. Mais attention à respecter la dose indiquée."
+      },
+      {
+        "id": "A12oiu3",
+        "doctor": "Si la toux persiste plus de sept à dix jours ou devient productive (avec du mucus), revenez me voir. On pourrait envisager d’autres causes comme une bronchite ou une infection bactérienne secondaire."
+      },
+      {
+        "id": "A12iu3",
+        "patient": "Y a-t-il une chance que ce soit une angine streptococcique?"
+      },
+      {
+        "id": "A1iuy23",
+        "doctor": "C’est possible, mais moins probable sans certains autres symptômes typiques comme des maux de tête intenses, des vomissements, ou une absence totale de toux."
+      },
+      {
+        "id": "A1iuy23",
+        "doctor": "On pourrait faire un test rapide pour le streptocoque si votre état empire ou si vous ne voyez aucune amélioration dans les prochains jours."
+      },
+      {
+        "id": "A12iuy3",
+        "patient": "Donc pas besoin d’antibiotiques pour le moment?"
+      },
+      {
+        "id": "Aiuy123",
+        "doctor": "Exactement. Les antibiotiques ne fonctionnent pas contre les virus. Les utiliser inutilement peut contribuer à la résistance aux antibiotiques."
+      },
+      {
+        "id": "A1iuy23",
+        "doctor": "Par contre, si vous développez de la difficulté à respirer, une forte fièvre qui ne descend pas, ou si vous perdez du poids rapidement, revenez immédiatement."
+      },
+      {
+        "id": "A1iuy23",
+        "patient": "Entendu. Et pour la fatigue? Elle est énorme…"
+      },
+      {
+        "id": "A12iuy3",
+        "doctor": "C’est tout à fait normal avec une infection virale. Le corps dépense beaucoup d’énergie pour combattre l’agent pathogène. Reposez-vous autant que possible."
+      },
+      {
+        "id": "A1iuy23",
+        "doctor": "Évitez les activités physiques intenses jusqu’à ce que vous vous sentiez mieux. Mangez léger, privilégiez les soupes, les fruits et les liquides."
+      },
+      {
+        "id": "Aiuuyty123",
+        "patient": "Et si je veux reprendre le travail, quand pensez-vous que ce serait raisonnable?"
+      },
+      {
+        "id": "Ai67uuy123",
+        "doctor": "Idéalement, attendez d’être sans fièvre pendant au moins 24 heures sans avoir recours à des médicaments, et que vos symptômes soient bien atténués."
+      },
+      {
+        "id": "A9876123",
+        "doctor": "Ce serait prudent de prendre au moins trois à cinq jours de repos complet si possible."
+      },
+      {
+        "id": "A1237654",
+        "patient": "Merci docteur, je vais suivre vos conseils."
+      },
+      {
+        "id": "A156y23",
+        "doctor": "Parfait! Si jamais vous avez des questions après votre départ, appelez-moi ou envoyez-moi un message via le portail sécurisé de notre clinique."
+      },
+      {
+        "id": "A1uytr23",
+        "doctor": "Et n’hésitez pas à revenir si vous sentez que quelque chose ne va pas ou si les symptômes persistent plus de dix jours."
+      },
+      {
+        "id": "A1uytr23",
+        "patient": "Merci beaucoup pour votre patience et vos explications claires. J’apprécie vraiment."
+      },
+      {
+        "id": "A1mnbv23",
+        "doctor": "Pas de problème, c’est un plaisir de vous aider. Prenez soin de vous et à très bientôt!"
+      },
+      {
+        "id": "A12bvc3",
+        "doctor": "Bonjour, bienvenue! Qu'est-ce qui vous amène aujourd'hui?"
+      },
+      {
+        "id": "A12hgf3",
+        "patient": "Bonjour docteur. J’ai plusieurs petits problèmes ces derniers jours… Mais surtout, j’ai mal à la gorge depuis environ cinq jours maintenant."
+      },
+      {
+        "id": "A1ytr23",
+        "doctor": "D'accord, merci pour cette information. Est-ce que la douleur est constante ou varie-t-elle selon les moments de la journée?"
+      },
+      {
+        "id": "A165rfgb23",
+        "patient": "Elle est assez constante, mais elle empire quand je déglutis ou quand je parle beaucoup."
+      },
+      {
+        "id": "A1ytghgf23",
+        "doctor": "Est-ce que vous avez noté d'autres symptômes en lien avec cela? Par exemple, avez-vous de la fièvre, des frissons, une toux, ou des maux de tête?"
+      },
+      {
+        "id": "Ahgfd123",
+        "patient": "Oui, j’ai eu un peu de fièvre, je dirais autour de 38 degrés, et aussi une toux sèche. Pas de maux de tête, mais j’ai vraiment mal à la gorge."
+      },
+      {
+        "id": "A12jhgfd3",
+        "doctor": "Depuis combien de temps avez-vous de la fièvre?"
+      },
+      {
+        "id": "A1hgf23",
+        "patient": "Environ trois jours. Hier soir, j’avais un peu plus chaud que d’habitude, mais je n’ai pas pris ma température à ce moment-là."
+      },
+      {
+        "id": "A1uyt23",
+        "doctor": "Avez-vous remarqué si votre voix est devenue rauque ou si vous avez des difficultés à respirer?"
+      },
+      {
+        "id": "A12iuyt3",
+        "patient": "Non, ma voix est normale, et je respire bien. Mais j’ai du mal à avaler sans ressentir une douleur vive."
+      },
+      {
+        "id": "A1uytr23",
+        "doctor": "Avez-vous observé si vos ganglions sont enflés ou sensibles au toucher?"
+      },
+      {
+        "id": "A165423",
+        "patient": "Oui, effectivement, j’ai touché mon cou hier et ça faisait mal de presser sous ma mâchoire."
+      },
+      {
+        "id": "A1uytr23",
+        "doctor": "Parfait, merci pour ces précisions. Avez-vous été en contact récemment avec quelqu’un qui était malade ou qui présentait des symptômes semblables?"
+      },
+      {
+        "id": "Aiuyt23",
+        "patient": "Oui, justement. Ma conjointe a eu un rhume il y a une dizaine de jours. Elle tousse encore un peu, mais semble aller mieux."
+      },
+      {
+        "id": "A1jhg23",
+        "doctor": "Est-ce que vous avez eu des étourdissements, de la fatigue inhabituelle, des nausées ou des courbatures?"
+      },
+      {
+        "id": "A1jhg23",
+        "patient": "De la fatigue, oui. Je me sens plus fatigué que d'habitude, mais pas de nausées ni d’étourdissements. Juste une sensation de malaise général."
+      },
+      {
+        "id": "A1uyt23",
+        "doctor": "Avez-vous des antécédents médicaux importants dont je devrais être informé? Par exemple, êtes-vous diabétique, asthmatique ou suivez-vous un traitement régulier?"
+      },
+      {
+        "id": "A1iuyt23",
+        "patient": "Non, je n'ai pas d’antécédents particuliers. Je suis en bonne santé habituellement. Je prends juste un supplément de vitamine D en hiver."
+      },
+      {
+        "id": "A1uytr23",
+        "doctor": "Très bien. Vous fumez ou utilisez des produits inhalants comme la vape ou la marijuana?"
+      },
+      {
+        "id": "A12uyhtr3",
+        "patient": "Non, je ne fume pas et je n’utilise aucun produit inhalant."
+      },
+      {
+        "id": "A12jhg3",
+        "doctor": "Quel est votre niveau d’exposition à la pollution ou aux allergènes au travail ou à la maison?"
+      },
+      {
+        "id": "A12uytr3",
+        "patient": "Je travaille dans un bureau, donc pas d’exposition particulière. À la maison, c’est plutôt propre, mais on a un chat. Je ne sais pas si ça peut jouer un rôle…"
+      },
+      {
+        "id": "A12uyt3",
+        "doctor": "Possible, mais les chats peuvent causer des allergies, pas nécessairement une infection virale. Bon, je vais vérifier votre gorge et prendre votre température."
+      },
+      {
+        "id": "A123uytr",
+        "doctor": "Voulez-vous bien ouvrir la bouche et dire ‘aaah’ pendant que je regarde?"
+      },
+      {
+        "id": "A123iuytr",
+        "patient": "Aaaaah…"
+      },
+      {
+        "id": "A12uytr3",
+        "doctor": "Je vois que vos amygdales sont rouge foncé, avec quelques traces blanchâtres. Il y a aussi un léger gonflement."
+      },
+      {
+        "id": "Ajhgf123",
+        "doctor": "Maintenant, penchez légèrement la tête en arrière, s’il vous plaît. Je vais palper vos ganglions lymphatiques pour vérifier s'ils sont enflés."
+      },
+      {
+        "id": "A12uytr3",
+        "patient": "Oui, ça fait mal ici, sous la mâchoire gauche."
+      },
+      {
+        "id": "A123uytr",
+        "doctor": "C’est bien ce que je pensais. Ils sont modérément enflés, ce qui arrive souvent lors d’une infection virale."
+      },
+      {
+        "id": "A12uytr3",
+        "doctor": "Je vais aussi vérifier votre température corporelle. Veuillez rester immobile un instant."
+      },
+      {
+        "id": "A12hgf3",
+        "patient": "D'accord."
+      },
+      {
+        "id": "A1hytr23",
+        "doctor": "Votre température est à 38,5 degrés Celsius. Cela correspond bien à une fièvre légère."
+      },
+      {
+        "id": "Aytr123",
+        "doctor": "À première vue, je crois que vous souffrez probablement d'une pharyngite virale. Ce type d’infection est souvent causé par des virus comme les rhinovirus ou les coronavirus."
+      },
+      {
+        "id": "Auytr123",
+        "patient": "Est-ce que c’est contagieux? Je dois savoir parce que je travaille avec des enfants."
+      },
+      {
+        "id": "uytrA123",
+        "doctor": "Oui, certainement. Les infections virales se transmettent facilement par les gouttelettes respiratoires. Je vous conseille d’éviter les contacts étroits tant que vous avez de la fièvre et des symptômes actifs."
+      },
+      {
+        "id": "A1uytre23",
+        "doctor": "Avez-vous une pharmacie à proximité? Nous allons pouvoir discuter de traitements symptomatiques."
+      },
+      {
+        "id": "A1yt23",
+        "patient": "Oui, il y en a une à côté de chez moi."
+      },
+      {
+        "id": "A123jhgfr",
+        "doctor": "Parfait. Je vais vous recommander du paracétamol pour réduire la fièvre et soulager la douleur. Vous pouvez en prendre 500 mg toutes les quatre à six heures, sans dépasser 4 grammes par jour."
+      },
+      {
+        "id": "A12ytr3",
+        "doctor": "Vous pouvez aussi utiliser des pastilles pour la gorge ou faire des bains de bouche avec de l’eau tiède et du sel."
+      },
+      {
+        "id": "A1htr23",
+        "patient": "Des bains de bouche? Comment je dois faire exactement?"
+      },
+      {
+        "id": "A1ht23",
+        "doctor": "Mélangez une tasse d’eau tiède avec une demi-cuillère à thé de sel. Gargarisez-vous avec cette solution deux à trois fois par jour."
+      },
+      {
+        "id": "A12ytre3",
+        "doctor": "Buvez beaucoup d’eau ou de tisanes pour garder la gorge hydratée. Évitez les boissons alcoolisées, caféinées ou trop chaudes."
+      },
+      {
+        "id": "Ahgf123",
+        "patient": "Et concernant la toux? Elle m’empêche de dormir la nuit."
+      },
+      {
+        "id": "A1tre23",
+        "doctor": "Pour la toux sèche, vous pouvez essayer un sirop pour la toux en vente libre contenant de la dextrométhorphane. Mais attention à respecter la dose indiquée."
+      },
+      {
+        "id": "A12uytr3",
+        "doctor": "Si la toux persiste plus de sept à dix jours ou devient productive (avec du mucus), revenez me voir. On pourrait envisager d’autres causes comme une bronchite ou une infection bactérienne secondaire."
+      },
+      {
+        "id": "A12ytre3",
+        "patient": "Y a-t-il une chance que ce soit une angine streptococcique?"
+      },
+      {
+        "id": "A1223453",
+        "doctor": "C’est possible, mais moins probable sans certains autres symptômes typiques comme des maux de tête intenses, des vomissements, ou une absence totale de toux."
+      },
+      {
+        "id": "A43123",
+        "doctor": "On pourrait faire un test rapide pour le streptocoque si votre état empire ou si vous ne voyez aucune amélioration dans les prochains jours."
+      },
+      {
+        "id": "A123453",
+        "patient": "Donc pas besoin d’antibiotiques pour le moment?"
+      },
+      {
+        "id": "A125433",
+        "doctor": "Exactement. Les antibiotiques ne fonctionnent pas contre les virus. Les utiliser inutilement peut contribuer à la résistance aux antibiotiques."
+      },
+      {
+        "id": "A12erg3",
+        "doctor": "Par contre, si vous développez de la difficulté à respirer, une forte fièvre qui ne descend pas, ou si vous perdez du poids rapidement, revenez immédiatement."
+      },
+      {
+        "id": "A1gfd23",
+        "patient": "Entendu. Et pour la fatigue? Elle est énorme…"
+      },
+      {
+        "id": "A1ertg23",
+        "doctor": "C’est tout à fait normal avec une infection virale. Le corps dépense beaucoup d’énergie pour combattre l’agent pathogène. Reposez-vous autant que possible."
+      },
+      {
+        "id": "A123gfd",
+        "doctor": "Évitez les activités physiques intenses jusqu’à ce que vous vous sentiez mieux. Mangez léger, privilégiez les soupes, les fruits et les liquides."
+      },
+      {
+        "id": "A123tre",
+        "patient": "Et si je veux reprendre le travail, quand pensez-vous que ce serait raisonnable?"
+      },
+      {
+        "id": "A12gf3",
+        "doctor": "Idéalement, attendez d’être sans fièvre pendant au moins 24 heures sans avoir recours à des médicaments, et que vos symptômes soient bien atténués."
+      },
+      {
+        "id": "A34rt123",
+        "doctor": "Ce serait prudent de prendre au moins trois à cinq jours de repos complet si possible."
+      },
+      {
+        "id": "A1rt3",
+        "patient": "Merci docteur, je vais suivre vos conseils."
+      },
+      {
+        "id": "A12tre3",
+        "doctor": "Parfait! Si jamais vous avez des questions après votre départ, appelez-moi ou envoyez-moi un message via le portail sécurisé de notre clinique."
+      },
+      {
+        "id": "A1gfd23",
+        "doctor": "Et n’hésitez pas à revenir si vous sentez que quelque chose ne va pas ou si les symptômes persistent plus de dix jours."
+      },
+      {
+        "id": "A12ertg3",
+        "patient": "Merci beaucoup pour votre patience et vos explications claires. J’apprécie vraiment."
+      },
+      {
+        "id": "A1fd23",
+        "doctor": "Pas de problème, c’est un plaisir de vous aider. Prenez soin de vous et à très bientôt!"
+      },
+      {
+        "id": "Agfgfdd123",
+        "doctor": "Bonjour, bienvenue! Qu'est-ce qui vous amène aujourd'hui?"
+      },
+      {
+        "id": "A12gfd3",
+        "patient": "Bonjour docteur. J’ai plusieurs petits problèmes ces derniers jours… Mais surtout, j’ai mal à la gorge depuis environ cinq jours maintenant."
+      },
+      {
+        "id": "A12gtrfe3",
+        "doctor": "D'accord, merci pour cette information. Est-ce que la douleur est constante ou varie-t-elle selon les moments de la journée?"
+      },
+      {
+        "id": "A1tre23",
+        "patient": "Elle est assez constante, mais elle empire quand je déglutis ou quand je parle beaucoup."
+      },
+      {
+        "id": "A1tfre23",
+        "doctor": "Est-ce que vous avez noté d'autres symptômes en lien avec cela? Par exemple, avez-vous de la fièvre, des frissons, une toux, ou des maux de tête?"
+      },
+      {
+        "id": "345treA123",
+        "patient": "Oui, j’ai eu un peu de fièvre, je dirais autour de 38 degrés, et aussi une toux sèche. Pas de maux de tête, mais j’ai vraiment mal à la gorge."
+      },
+      {
+        "id": "A123",
+        "doctor": "Depuis combien de temps avez-vous de la fièvre?"
+      },
+      {
+        "id": "4r3A123",
+        "patient": "Environ trois jours. Hier soir, j’avais un peu plus chaud que d’habitude, mais je n’ai pas pris ma température à ce moment-là."
+      },
+      {
+        "id": "A1tgrfe23",
+        "doctor": "Avez-vous remarqué si votre voix est devenue rauque ou si vous avez des difficultés à respirer?"
+      },
+      {
+        "id": "A12grfe3",
+        "patient": "Non, ma voix est normale, et je respire bien. Mais j’ai du mal à avaler sans ressentir une douleur vive."
+      },
+      {
+        "id": "A1gtrfe23",
+        "doctor": "Avez-vous observé si vos ganglions sont enflés ou sensibles au toucher?"
+      },
+      {
+        "id": "A1gtrfe23",
+        "patient": "Oui, effectivement, j’ai touché mon cou hier et ça faisait mal de presser sous ma mâchoire."
+      },
+      {
+        "id": "A126hg54f3",
+        "doctor": "Parfait, merci pour ces précisions. Avez-vous été en contact récemment avec quelqu’un qui était malade ou qui présentait des symptômes semblables?"
+      },
+      {
+        "id": "Agrfe123",
+        "patient": "Oui, justement. Ma conjointe a eu un rhume il y a une dizaine de jours. Elle tousse encore un peu, mais semble aller mieux."
+      },
+      {
+        "id": "A1grfe23",
+        "doctor": "Est-ce que vous avez eu des étourdissements, de la fatigue inhabituelle, des nausées ou des courbatures?"
+      },
+      {
+        "id": "A123tgrfe",
+        "patient": "De la fatigue, oui. Je me sens plus fatigué que d'habitude, mais pas de nausées ni d’étourdissements. Juste une sensation de malaise général."
+      },
+      {
+        "id": "A1grfe23",
+        "doctor": "Avez-vous des antécédents médicaux importants dont je devrais être informé? Par exemple, êtes-vous diabétique, asthmatique ou suivez-vous un traitement régulier?"
+      },
+      {
+        "id": "grfeA123",
+        "patient": "Non, je n'ai pas d’antécédents particuliers. Je suis en bonne santé habituellement. Je prends juste un supplément de vitamine D en hiver."
+      },
+      {
+        "id": "A12grfe3",
+        "doctor": "Très bien. Vous fumez ou utilisez des produits inhalants comme la vape ou la marijuana?"
+      },
+      {
+        "id": "A1grfe23",
+        "patient": "Non, je ne fume pas et je n’utilise aucun produit inhalant."
+      },
+      {
+        "id": "A1tgrfe23",
+        "doctor": "Quel est votre niveau d’exposition à la pollution ou aux allergènes au travail ou à la maison?"
+      },
+      {
+        "id": "A1grfe23",
+        "patient": "Je travaille dans un bureau, donc pas d’exposition particulière. À la maison, c’est plutôt propre, mais on a un chat. Je ne sais pas si ça peut jouer un rôle…"
+      },
+      {
+        "id": "A1gtrf23",
+        "doctor": "Possible, mais les chats peuvent causer des allergies, pas nécessairement une infection virale. Bon, je vais vérifier votre gorge et prendre votre température."
+      },
+      {
+        "id": "A12gtrfe3",
+        "doctor": "Voulez-vous bien ouvrir la bouche et dire ‘aaah’ pendant que je regarde?"
+      },
+      {
+        "id": "Atgrfe123",
+        "patient": "Aaaaah…"
+      },
+      {
+        "id": "A123tgrf",
+        "doctor": "Je vois que vos amygdales sont rouge foncé, avec quelques traces blanchâtres. Il y a aussi un léger gonflement."
+      },
+      {
+        "id": "A1tgrf23",
+        "doctor": "Maintenant, penchez légèrement la tête en arrière, s’il vous plaît. Je vais palper vos ganglions lymphatiques pour vérifier s'ils sont enflés."
+      },
+      {
+        "id": "A1gtrfe23",
+        "patient": "Oui, ça fait mal ici, sous la mâchoire gauche."
+      },
+      {
+        "id": "A12gtrf3",
+        "doctor": "C’est bien ce que je pensais. Ils sont modérément enflés, ce qui arrive souvent lors d’une infection virale."
+      },
+      {
+        "id": "A1grfe23",
+        "doctor": "Je vais aussi vérifier votre température corporelle. Veuillez rester immobile un instant."
+      },
+      {
+        "id": "A123grfe",
+        "patient": "D'accord."
+      },
+      {
+        "id": "A1gtrfe23",
+        "doctor": "Votre température est à 38,5 degrés Celsius. Cela correspond bien à une fièvre légère."
+      },
+      {
+        "id": "A12tgrf3",
+        "doctor": "À première vue, je crois que vous souffrez probablement d'une pharyngite virale. Ce type d’infection est souvent causé par des virus comme les rhinovirus ou les coronavirus."
+      },
+      {
+        "id": "A12tgrfe3",
+        "patient": "Est-ce que c’est contagieux? Je dois savoir parce que je travaille avec des enfants."
+      },
+      {
+        "id": "Abtrve123",
+        "doctor": "Oui, certainement. Les infections virales se transmettent facilement par les gouttelettes respiratoires. Je vous conseille d’éviter les contacts étroits tant que vous avez de la fièvre et des symptômes actifs."
+      },
+      {
+        "id": "Abtrv123",
+        "doctor": "Avez-vous une pharmacie à proximité? Nous allons pouvoir discuter de traitements symptomatiques."
+      },
+      {
+        "id": "A1btrve23",
+        "patient": "Oui, il y en a une à côté de chez moi."
+      },
+      {
+        "id": "A1gtrfe23",
+        "doctor": "Parfait. Je vais vous recommander du paracétamol pour réduire la fièvre et soulager la douleur. Vous pouvez en prendre 500 mg toutes les quatre à six heures, sans dépasser 4 grammes par jour."
+      },
+      {
+        "id": "Atgrf123",
+        "doctor": "Vous pouvez aussi utiliser des pastilles pour la gorge ou faire des bains de bouche avec de l’eau tiède et du sel."
+      },
+      {
+        "id": "A1trfe23",
+        "patient": "Des bains de bouche? Comment je dois faire exactement?"
+      },
+      {
+        "id": "A1btrv23",
+        "doctor": "Mélangez une tasse d’eau tiède avec une demi-cuillère à thé de sel. Gargarisez-vous avec cette solution deux à trois fois par jour."
+      },
+      {
+        "id": "A1tbvrc23",
+        "doctor": "Buvez beaucoup d’eau ou de tisanes pour garder la gorge hydratée. Évitez les boissons alcoolisées, caféinées ou trop chaudes."
+      },
+      {
+        "id": "Atbgrfe123",
+        "patient": "Et concernant la toux? Elle m’empêche de dormir la nuit."
+      },
+      {
+        "id": "Abtrvf123",
+        "doctor": "Pour la toux sèche, vous pouvez essayer un sirop pour la toux en vente libre contenant de la dextrométhorphane. Mais attention à respecter la dose indiquée."
+      },
+      {
+        "id": "Atr123",
+        "doctor": "Si la toux persiste plus de sept à dix jours ou devient productive (avec du mucus), revenez me voir. On pourrait envisager d’autres causes comme une bronchite ou une infection bactérienne secondaire."
+      },
+      {
+        "id": "A12btrv3",
+        "patient": "Y a-t-il une chance que ce soit une angine streptococcique?"
+      },
+      {
+        "id": "trfeA123",
+        "doctor": "C’est possible, mais moins probable sans certains autres symptômes typiques comme des maux de tête intenses, des vomissements, ou une absence totale de toux."
+      },
+      {
+        "id": "A12gtrfe3",
+        "doctor": "On pourrait faire un test rapide pour le streptocoque si votre état empire ou si vous ne voyez aucune amélioration dans les prochains jours."
+      },
+      {
+        "id": "tgrfeA123",
+        "patient": "Donc pas besoin d’antibiotiques pour le moment?"
+      },
+      {
+        "id": "Abtvr23",
+        "doctor": "Exactement. Les antibiotiques ne fonctionnent pas contre les virus. Les utiliser inutilement peut contribuer à la résistance aux antibiotiques."
+      },
+      {
+        "id": "A12btvrc3",
+        "doctor": "Par contre, si vous développez de la difficulté à respirer, une forte fièvre qui ne descend pas, ou si vous perdez du poids rapidement, revenez immédiatement."
+      },
+      {
+        "id": "A1bytvr23",
+        "patient": "Entendu. Et pour la fatigue? Elle est énorme…"
+      },
+      {
+        "id": "Atbr3",
+        "doctor": "C’est tout à fait normal avec une infection virale. Le corps dépense beaucoup d’énergie pour combattre l’agent pathogène. Reposez-vous autant que possible."
+      },
+      {
+        "id": "btrv123",
+        "doctor": "Évitez les activités physiques intenses jusqu’à ce que vous vous sentiez mieux. Mangez léger, privilégiez les soupes, les fruits et les liquides."
+      },
+      {
+        "id": "btrfA123",
+        "patient": "Et si je veux reprendre le travail, quand pensez-vous que ce serait raisonnable?"
+      },
+      {
+        "id": "Aytbgrf123",
+        "doctor": "Idéalement, attendez d’être sans fièvre pendant au moins 24 heures sans avoir recours à des médicaments, et que vos symptômes soient bien atténués."
+      },
+      {
+        "id": "A1btvr23",
+        "doctor": "Ce serait prudent de prendre au moins trois à cinq jours de repos complet si possible."
+      },
+      {
+        "id": "A12ybtvr3",
+        "patient": "Merci docteur, je vais suivre vos conseils."
+      },
+      {
+        "id": "A1btvr23",
+        "doctor": "Parfait! Si jamais vous avez des questions après votre départ, appelez-moi ou envoyez-moi un message via le portail sécurisé de notre clinique."
+      },
+      {
+        "id": "A12btvrce3",
+        "doctor": "Et n’hésitez pas à revenir si vous sentez que quelque chose ne va pas ou si les symptômes persistent plus de dix jours."
+      },
+      {
+        "id": "A123btrvfe",
+        "patient": "Merci beaucoup pour votre patience et vos explications claires. J’apprécie vraiment."
+      },
+      {
+        "id": "A1btvrfe23",
+        "doctor": "Pas de problème, c’est un plaisir de vous aider. Prenez soin de vous et à très bientôt!"
+      },
+      {
+        "id": "btrvfA123",
+        "doctor": "Bonjour, bienvenue! Qu'est-ce qui vous amène aujourd'hui?"
+      },
+      {
+        "id": "A1bytvr23",
+        "patient": "Bonjour docteur. J’ai plusieurs petits problèmes ces derniers jours… Mais surtout, j’ai mal à la gorge depuis environ cinq jours maintenant."
+      },
+      {
+        "id": "btvrA123",
+        "doctor": "D'accord, merci pour cette information. Est-ce que la douleur est constante ou varie-t-elle selon les moments de la journée?"
+      },
+      {
+        "id": "A123btvrc",
+        "patient": "Elle est assez constante, mais elle empire quand je déglutis ou quand je parle beaucoup."
+      },
+      {
+        "id": "btvrcA123",
+        "doctor": "Est-ce que vous avez noté d'autres symptômes en lien avec cela? Par exemple, avez-vous de la fièvre, des frissons, une toux, ou des maux de tête?"
+      },
+      {
+        "id": "A123btvrce",
+        "patient": "Oui, j’ai eu un peu de fièvre, je dirais autour de 38 degrés, et aussi une toux sèche. Pas de maux de tête, mais j’ai vraiment mal à la gorge."
+      },
+      {
+        "id": "A12btvr3",
+        "doctor": "Depuis combien de temps avez-vous de la fièvre?"
+      },
+      {
+        "id": "A1bgvf23",
+        "patient": "Environ trois jours. Hier soir, j’avais un peu plus chaud que d’habitude, mais je n’ai pas pris ma température à ce moment-là."
+      },
+      {
+        "id": "Amjnhbg123",
+        "doctor": "Avez-vous remarqué si votre voix est devenue rauque ou si vous avez des difficultés à respirer?"
+      },
+      {
+        "id": "A1munybt23",
+        "patient": "Non, ma voix est normale, et je respire bien. Mais j’ai du mal à avaler sans ressentir une douleur vive."
+      },
+      {
+        "id": "A12nybtv3",
+        "doctor": "Avez-vous observé si vos ganglions sont enflés ou sensibles au toucher?"
+      },
+      {
+        "id": "Abtvrce123",
+        "patient": "Oui, effectivement, j’ai touché mon cou hier et ça faisait mal de presser sous ma mâchoire."
+      },
+      {
+        "id": "A1btvrce23",
+        "doctor": "Parfait, merci pour ces précisions. Avez-vous été en contact récemment avec quelqu’un qui était malade ou qui présentait des symptômes semblables?"
+      },
+      {
+        "id": "A12btvrce3",
+        "patient": "Oui, justement. Ma conjointe a eu un rhume il y a une dizaine de jours. Elle tousse encore un peu, mais semble aller mieux."
+      },
+      {
+        "id": "A1vtrce23",
+        "doctor": "Est-ce que vous avez eu des étourdissements, de la fatigue inhabituelle, des nausées ou des courbatures?"
+      },
+      {
+        "id": "A12btvrc3",
+        "patient": "De la fatigue, oui. Je me sens plus fatigué que d'habitude, mais pas de nausées ni d’étourdissements. Juste une sensation de malaise général."
+      },
+      {
+        "id": "A1vrce23",
+        "doctor": "Avez-vous des antécédents médicaux importants dont je devrais être informé? Par exemple, êtes-vous diabétique, asthmatique ou suivez-vous un traitement régulier?"
+      },
+      {
+        "id": "A1vtrce23",
+        "patient": "Non, je n'ai pas d’antécédents particuliers. Je suis en bonne santé habituellement. Je prends juste un supplément de vitamine D en hiver."
+      },
+      {
+        "id": "A12rf4d33",
+        "doctor": "Très bien. Vous fumez ou utilisez des produits inhalants comme la vape ou la marijuana?"
+      },
+      {
+        "id": "A1w23e23",
+        "patient": "Non, je ne fume pas et je n’utilise aucun produit inhalant."
+      },
+      {
+        "id": "A12123w3",
+        "doctor": "Quel est votre niveau d’exposition à la pollution ou aux allergènes au travail ou à la maison?"
+      },
+      {
+        "id": "A543123",
+        "patient": "Je travaille dans un bureau, donc pas d’exposition particulière. À la maison, c’est plutôt propre, mais on a un chat. Je ne sais pas si ça peut jouer un rôle…"
+      },
+      {
+        "id": "A12rty3",
+        "doctor": "Possible, mais les chats peuvent causer des allergies, pas nécessairement une infection virale. Bon, je vais vérifier votre gorge et prendre votre température."
+      },
+      {
+        "id": "5435tyg",
+        "doctor": "Voulez-vous bien ouvrir la bouche et dire ‘aaah’ pendant que je regarde?"
+      },
+      {
+        "id": "A123A12CCCA1233A123",
+        "patient": "Aaaaah…"
+      },
+      {
+        "id": "A1A12CCCA1233A12323",
+        "doctor": "Je vois que vos amygdales sont rouge foncé, avec quelques traces blanchâtres. Il y a aussi un léger gonflement."
+      },
+      {
+        "id": "A12CCCA1233A123",
+        "doctor": "Maintenant, penchez légèrement la tête en arrière, s’il vous plaît. Je vais palper vos ganglions lymphatiques pour vérifier s'ils sont enflés."
+      },
+      {
+        "id": "A12CCCA1233",
+        "patient": "Oui, ça fait mal ici, sous la mâchoire gauche."
+      },
+      {
+        "id": "ACCCA123123",
+        "doctor": "C’est bien ce que je pensais. Ils sont modérément enflés, ce qui arrive souvent lors d’une infection virale."
+      },
+      {
+        "id": "A12CCCA1233",
+        "doctor": "Je vais aussi vérifier votre température corporelle. Veuillez rester immobile un instant."
+      },
+      {
+        "id": "CCCA123A123",
+        "patient": "D'accord."
+      },
+      {
+        "id": "CCCA123",
+        "doctor": "Votre température est à 38,5 degrés Celsius. Cela correspond bien à une fièvre légère."
+      },
+      {
+        "id": "AA12gfzxcvbnmA1233123",
+        "doctor": "À première vue, je crois que vous souffrez probablement d'une pharyngite virale. Ce type d’infection est souvent causé par des virus comme les rhinovirus ou les coronavirus."
+      },
+      {
+        "id": "A123A12gfzxcvbnmA1233",
+        "patient": "Est-ce que c’est contagieux? Je dois savoir parce que je travaille avec des enfants."
+      },
+      {
+        "id": "A12A12gfzxcvbnmA12333",
+        "doctor": "Oui, certainement. Les infections virales se transmettent facilement par les gouttelettes respiratoires. Je vous conseille d’éviter les contacts étroits tant que vous avez de la fièvre et des symptômes actifs."
+      },
+      {
+        "id": "A12gfzxcvbnmA1233",
+        "doctor": "Avez-vous une pharmacie à proximité? Nous allons pouvoir discuter de traitements symptomatiques."
+      },
+      {
+        "id": "A123zxcvbnmA123",
+        "patient": "Oui, il y en a une à côté de chez moi."
+      },
+      {
+        "id": "A12zxcvbnmA1233",
+        "doctor": "Parfait. Je vais vous recommander du paracétamol pour réduire la fièvre et soulager la douleur. Vous pouvez en prendre 500 mg toutes les quatre à six heures, sans dépasser 4 grammes par jour."
+      },
+      {
+        "id": "A1zxcvbnmA12323",
+        "doctor": "Vous pouvez aussi utiliser des pastilles pour la gorge ou faire des bains de bouche avec de l’eau tiède et du sel."
+      },
+      {
+        "id": "AzxcvbnmA123123",
+        "patient": "Des bains de bouche? Comment je dois faire exactement?"
+      },
+      {
+        "id": "zxcvbnmA123A123",
+        "doctor": "Mélangez une tasse d’eau tiède avec une demi-cuillère à thé de sel. Gargarisez-vous avec cette solution deux à trois fois par jour."
+      },
+      {
+        "id": "zxcvbnmA123",
+        "doctor": "Buvez beaucoup d’eau ou de tisanes pour garder la gorge hydratée. Évitez les boissons alcoolisées, caféinées ou trop chaudes."
+      },
+      {
+        "id": "A12xcvbA1233",
+        "patient": "Et concernant la toux? Elle m’empêche de dormir la nuit."
+      },
+      {
+        "id": "A1xcvbA12323",
+        "doctor": "Pour la toux sèche, vous pouvez essayer un sirop pour la toux en vente libre contenant de la dextrométhorphane. Mais attention à respecter la dose indiquée."
+      },
+      {
+        "id": "xcvbA123A123",
+        "doctor": "Si la toux persiste plus de sept à dix jours ou devient productive (avec du mucus), revenez me voir. On pourrait envisager d’autres causes comme une bronchite ou une infection bactérienne secondaire."
+      },
+      {
+        "id": "xcvbA123",
+        "patient": "Y a-t-il une chance que ce soit une angine streptococcique?"
+      },
+      {
+        "id": "A123",
+        "doctor": "C’est possible, mais moins probable sans certains autres symptômes typiques comme des maux de tête intenses, des vomissements, ou une absence totale de toux."
+      },
+      {
+        "id": "A12A12A123A13",
+        "doctor": "On pourrait faire un test rapide pour le streptocoque si votre état empire ou si vous ne voyez aucune amélioration dans les prochains jours."
+      },
+      {
+        "id": "A1A12A123A123",
+        "patient": "Donc pas besoin d’antibiotiques pour le moment?"
+      },
+      {
+        "id": "AA12A123A1123",
+        "doctor": "Exactement. Les antibiotiques ne fonctionnent pas contre les virus. Les utiliser inutilement peut contribuer à la résistance aux antibiotiques."
+      },
+      {
+        "id": "A12A123A1A123",
+        "doctor": "Par contre, si vous développez de la difficulté à respirer, une forte fièvre qui ne descend pas, ou si vous perdez du poids rapidement, revenez immédiatement."
+      },
+      {
+        "id": "A123A12A123A165423vt3",
+        "patient": "Entendu. Et pour la fatigue? Elle est énorme…"
+      },
+      {
+        "id": "A12A12A123A165423vt33",
+        "doctor": "C’est tout à fait normal avec une infection virale. Le corps dépense beaucoup d’énergie pour combattre l’agent pathogène. Reposez-vous autant que possible."
+      },
+      {
+        "id": "A1A12A123A165423vt323",
+        "doctor": "Évitez les activités physiques intenses jusqu’à ce que vous vous sentiez mieux. Mangez léger, privilégiez les soupes, les fruits et les liquides."
+      },
+      {
+        "id": "AA12A123A165423vt3123",
+        "patient": "Et si je veux reprendre le travail, quand pensez-vous que ce serait raisonnable?"
+      },
+      {
+        "id": "A12A123A165423vt3A123",
+        "doctor": "Idéalement, attendez d’être sans fièvre pendant au moins 24 heures sans avoir recours à des médicaments, et que vos symptômes soient bien atténués."
+      },
+      {
+        "id": "A12A123A165423vt3",
+        "doctor": "Ce serait prudent de prendre au moins trois à cinq jours de repos complet si possible."
+      },
+      {
+        "id": "A123A123A165423",
+        "patient": "Merci docteur, je vais suivre vos conseils."
+      },
+      {
+        "id": "A1A123A16542323",
+        "doctor": "Parfait! Si jamais vous avez des questions après votre départ, appelez-moi ou envoyez-moi un message via le portail sécurisé de notre clinique."
+      },
+      {
+        "id": "A123A165423A123",
+        "doctor": "Et n’hésitez pas à revenir si vous sentez que quelque chose ne va pas ou si les symptômes persistent plus de dix jours."
+      },
+      {
+        "id": "A123A165423",
+        "patient": "Merci beaucoup pour votre patience et vos explications claires. J’apprécie vraiment."
+      },
+      {
+        "id": "A12A1654233",
+        "doctor": "Pas de problème, c’est un plaisir de vous aider. Prenez soin de vous et à très bientôt!"
+      },
+      {
+        "id": "A1A16542323",
+        "doctor": "Bonjour, bienvenue! Qu'est-ce qui vous amène aujourd'hui?"
+      },
+      {
+        "id": "AA165423123",
+        "patient": "Bonjour docteur. J’ai plusieurs petits problèmes ces derniers jours… Mais surtout, j’ai mal à la gorge depuis environ cinq jours maintenant."
+      },
+      {
+        "id": "A165423A123",
+        "doctor": "D'accord, merci pour cette information. Est-ce que la douleur est constante ou varie-t-elle selon les moments de la journée?"
+      },
+      {
+        "id": "A123",
+        "patient": "Elle est assez constante, mais elle empire quand je déglutis ou quand je parle beaucoup."
+      },
+      {
+        "id": "A165423",
+        "doctor": "Est-ce que vous avez noté d'autres symptômes en lien avec cela? Par exemple, avez-vous de la fièvre, des frissons, une toux, ou des maux de tête?"
+      },
+      {
+        "id": "A1654323",
+        "patient": "Oui, j’ai eu un peu de fièvre, je dirais autour de 38 degrés, et aussi une toux sèche. Pas de maux de tête, mais j’ai vraiment mal à la gorge."
+      },
+      {
+        "id": "A14523",
+        "doctor": "Depuis combien de temps avez-vous de la fièvre?"
+      },
+      {
+        "id": "Adfg123",
+        "patient": "Environ trois jours. Hier soir, j’avais un peu plus chaud que d’habitude, mais je n’ai pas pris ma température à ce moment-là."
+      },
+      {
+        "id": "A1gfd23",
+        "doctor": "Avez-vous remarqué si votre voix est devenue rauque ou si vous avez des difficultés à respirer?"
+      },
+      {
+        "id": "A12354re",
+        "patient": "Non, ma voix est normale, et je respire bien. Mais j’ai du mal à avaler sans ressentir une douleur vive."
+      },
+      {
+        "id": "A1254re3",
+        "doctor": "Avez-vous observé si vos ganglions sont enflés ou sensibles au toucher?"
+      },
+      {
+        "id": "A54re123",
+        "patient": "Oui, effectivement, j’ai touché mon cou hier et ça faisait mal de presser sous ma mâchoire."
+      },
+      {
+        "id": "54reA123",
+        "doctor": "Parfait, merci pour ces précisions. Avez-vous été en contact récemment avec quelqu’un qui était malade ou qui présentait des symptômes semblables?"
+      },
+      {
+        "id": "456yA123",
+        "patient": "Oui, justement. Ma conjointe a eu un rhume il y a une dizaine de jours. Elle tousse encore un peu, mais semble aller mieux."
+      },
+      {
+        "id": "54reA123",
+        "doctor": "Est-ce que vous avez eu des étourdissements, de la fatigue inhabituelle, des nausées ou des courbatures?"
+      },
+      {
+        "id": "gtrA123",
+        "patient": "De la fatigue, oui. Je me sens plus fatigué que d'habitude, mais pas de nausées ni d’étourdissements. Juste une sensation de malaise général."
+      },
+      {
+        "id": "76ytrA123",
+        "doctor": "Avez-vous des antécédents médicaux importants dont je devrais être informé? Par exemple, êtes-vous diabétique, asthmatique ou suivez-vous un traitement régulier?"
+      },
+      {
+        "id": "A7654123",
+        "patient": "Non, je n'ai pas d’antécédents particuliers. Je suis en bonne santé habituellement. Je prends juste un supplément de vitamine D en hiver."
+      },
+      {
+        "id": "876A123",
+        "doctor": "Très bien. Vous fumez ou utilisez des produits inhalants comme la vape ou la marijuana?"
+      },
+      {
+        "id": "34A123",
+        "patient": "Non, je ne fume pas et je n’utilise aucun produit inhalant."
+      },
+      {
+        "id": "4e3wA123",
+        "doctor": "Quel est votre niveau d’exposition à la pollution ou aux allergènes au travail ou à la maison?"
+      },
+      {
+        "id": "54e3wA123",
+        "patient": "Je travaille dans un bureau, donc pas d’exposition particulière. À la maison, c’est plutôt propre, mais on a un chat. Je ne sais pas si ça peut jouer un rôle…"
+      },
+      {
+        "id": "4tA123",
+        "doctor": "Possible, mais les chats peuvent causer des allergies, pas nécessairement une infection virale. Bon, je vais vérifier votre gorge et prendre votre température."
+      },
+      {
+        "id": "e45tA123",
+        "doctor": "Voulez-vous bien ouvrir la bouche et dire ‘aaah’ pendant que je regarde?"
+      },
+      {
+        "id": "dfA123",
+        "patient": "Aaaaah…"
+      },
+      {
+        "id": "56yA123",
+        "doctor": "Je vois que vos amygdales sont rouge foncé, avec quelques traces blanchâtres. Il y a aussi un léger gonflement."
+      },
+      {
+        "id": "56yuA123",
+        "doctor": "Maintenant, penchez légèrement la tête en arrière, s’il vous plaît. Je vais palper vos ganglions lymphatiques pour vérifier s'ils sont enflés."
+      },
+      {
+        "id": "5tyA123",
+        "patient": "Oui, ça fait mal ici, sous la mâchoire gauche."
+      },
+      {
+        "id": "345tA123",
+        "doctor": "C’est bien ce que je pensais. Ils sont modérément enflés, ce qui arrive souvent lors d’une infection virale."
+      },
+      {
+        "id": "A123gfd",
+        "doctor": "Je vais aussi vérifier votre température corporelle. Veuillez rester immobile un instant."
+      },
+      {
+        "id": "A12jhg3",
+        "patient": "D'accord."
+      },
+      {
+        "id": "A1kjh23",
+        "doctor": "Votre température est à 38,5 degrés Celsius. Cela correspond bien à une fièvre légère."
+      },
+      {
+        "id": "A1jhg23",
+        "doctor": "À première vue, je crois que vous souffrez probablement d'une pharyngite virale. Ce type d’infection est souvent causé par des virus comme les rhinovirus ou les coronavirus."
+      },
+      {
+        "id": "A1h23",
+        "patient": "Est-ce que c’est contagieux? Je dois savoir parce que je travaille avec des enfants."
+      },
+      {
+        "id": "A12fgh3",
+        "doctor": "Oui, certainement. Les infections virales se transmettent facilement par les gouttelettes respiratoires. Je vous conseille d’éviter les contacts étroits tant que vous avez de la fièvre et des symptômes actifs."
+      },
+      {
+        "id": "Aghhbv123",
+        "doctor": "Avez-vous une pharmacie à proximité? Nous allons pouvoir discuter de traitements symptomatiques."
+      },
+      {
+        "id": "A156y23",
+        "patient": "Oui, il y en a une à côté de chez moi."
+      },
+      {
+        "id": "vt",
+        "doctor": "Parfait. Je vais vous recommander du paracétamol pour réduire la fièvre et soulager la douleur. Vous pouvez en prendre 500 mg toutes les quatre à six heures, sans dépasser 4 grammes par jour."
+      },
+      {
+        "id": "xerctv",
+        "doctor": "Vous pouvez aussi utiliser des pastilles pour la gorge ou faire des bains de bouche avec de l’eau tiède et du sel."
+      },
+      {
+        "id": "wxecr",
+        "patient": "Des bains de bouche? Comment je dois faire exactement?"
+      },
+      {
+        "id": "9kj",
+        "doctor": "Mélangez une tasse d’eau tiède avec une demi-cuillère à thé de sel. Gargarisez-vous avec cette solution deux à trois fois par jour."
+      },
+      {
+        "id": "9k8",
+        "doctor": "Buvez beaucoup d’eau ou de tisanes pour garder la gorge hydratée. Évitez les boissons alcoolisées, caféinées ou trop chaudes."
+      },
+      {
+        "id": "7j8u",
+        "patient": "Et concernant la toux? Elle m’empêche de dormir la nuit."
+      },
+      {
+        "id": "6h7j",
+        "doctor": "Pour la toux sèche, vous pouvez essayer un sirop pour la toux en vente libre contenant de la dextrométhorphane. Mais attention à respecter la dose indiquée."
+      },
+      {
+        "id": "g56h7",
+        "doctor": "Si la toux persiste plus de sept à dix jours ou devient productive (avec du mucus), revenez me voir. On pourrait envisager d’autres causes comme une bronchite ou une infection bactérienne secondaire."
+      },
+      {
+        "id": "3dec4v",
+        "patient": "Y a-t-il une chance que ce soit une angine streptococcique?"
+      },
+      {
+        "id": "4f5g",
+        "doctor": "C’est possible, mais moins probable sans certains autres symptômes typiques comme des maux de tête intenses, des vomissements, ou une absence totale de toux."
+      },
+      {
+        "id": "A123",
+        "doctor": "On pourrait faire un test rapide pour le streptocoque si votre état empire ou si vous ne voyez aucune amélioration dans les prochains jours."
+      },
+      {
+        "id": "g5fre",
+        "patient": "Donc pas besoin d’antibiotiques pour le moment?"
+      },
+      {
+        "id": "6hgtrf",
+        "doctor": "Exactement. Les antibiotiques ne fonctionnent pas contre les virus. Les utiliser inutilement peut contribuer à la résistance aux antibiotiques."
+      },
+      {
+        "id": "6h7j",
+        "doctor": "Par contre, si vous développez de la difficulté à respirer, une forte fièvre qui ne descend pas, ou si vous perdez du poids rapidement, revenez immédiatement."
+      },
+      {
+        "id": "g6h7j",
+        "patient": "Entendu. Et pour la fatigue? Elle est énorme…"
+      },
+      {
+        "id": "4f5g6h",
+        "doctor": "C’est tout à fait normal avec une infection virale. Le corps dépense beaucoup d’énergie pour combattre l’agent pathogène. Reposez-vous autant que possible."
+      },
+      {
+        "id": "34fg5",
+        "doctor": "Évitez les activités physiques intenses jusqu’à ce que vous vous sentiez mieux. Mangez léger, privilégiez les soupes, les fruits et les liquides."
+      },
+      {
+        "id": "5gf4dews",
+        "patient": "Et si je veux reprendre le travail, quand pensez-vous que ce serait raisonnable?"
+      },
+      {
+        "id": "6gf",
+        "doctor": "Idéalement, attendez d’être sans fièvre pendant au moins 24 heures sans avoir recours à des médicaments, et que vos symptômes soient bien atténués."
+      },
+      {
+        "id": "34fg",
+        "doctor": "Ce serait prudent de prendre au moins trois à cinq jours de repos complet si possible."
+      },
+      {
+        "id": "yutvc",
+        "patient": "Merci docteur, je vais suivre vos conseils."
+      },
+      {
+        "id": "65rf",
+        "doctor": "Parfait! Si jamais vous avez des questions après votre départ, appelez-moi ou envoyez-moi un message via le portail sécurisé de notre clinique."
+      },
+      {
+        "id": "xcvb",
+        "doctor": "Et n’hésitez pas à revenir si vous sentez que quelque chose ne va pas ou si les symptômes persistent plus de dix jours."
+      },
+      {
+        "id": "asdfgwe",
+        "patient": "Merci beaucoup pour votre patience et vos explications claires. J’apprécie vraiment."
+      },
+      {
+        "id": "asdf",
+        "doctor": "Pas de problème, c’est un plaisir de vous aider. Prenez soin de vous et à très bientôt!"
+      }
+    
+    ],
+    "systemPrompt": "You are an experienced medical professional tasked with creating a structured and clinically sound summary of a medical encounter. Use formal medical language and a professional, objective tone. Your summary must:   - Be strictly based on the transcript and context provided.   - Be written in passive voice.   - Contain no assumptions, interpretations, or personal opinions.   - Avoid offering advice or recommendations.   - Be formatted in the appropriate language used in the transcript (English or Canadian French).   - Exclude repetition of previously generated sections.   - Adhere to proper clinical writing standards (SOAP style, if applicable).   - Do not mention 'transcript' in the note, only use the information from the transcript.  If there is no clinically relevant new content, return a clinically neutral note such as:   - No additional clinical impressions could be determined based on the available information.  **Language Requirements:**   - generate the note in the language of the transcript, english. **Content Constraints:**   - Do not include repeated information from <Previously Generated Sections>.   - Do not fabricate or infer any symptoms or diagnoses.   - Do not list absence of symptoms (e.g., do not write no fever reported).   - Do not mention the transcript or that information was missing.   - Use passive voice and clinical tone throughout.  Return your output as a **valid JSON object** with one property: noteContent, containing markdown-formatted text.",
+    "doctorId": "23ertgfds",
+    "userId": 212345,
+    "clinicId": "2wert",
+    "language": "fr",
+    "patientInfo": true
+  }

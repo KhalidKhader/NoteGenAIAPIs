@@ -34,18 +34,18 @@ logger = get_logger(__name__)
 async def lifespan(app: FastAPI):
     """Manage application lifespan events."""
     # Startup
-    logger.info("🏥 Starting NoteGen AI APIs - Medical Template Extraction System")
-    logger.info("📋 Story Requirements: Multi-template + Long encounters + Line referencing + Multilingual + Hallucination prevention")
-    logger.info("🔒 Medical compliance: HIPAA/PIPEDA ready with Canadian data residency")    
-    logger.info("🚀 System ready for medical encounter processing")
+    logger.info("Starting NoteGen AI APIs - Medical Template Extraction System")
+    logger.info("Story Requirements: Multi-template + Long encounters + Line referencing + Multilingual + Hallucination prevention")
+    logger.info("Medical compliance: HIPAA/PIPEDA ready with Canadian data residency")    
+    logger.info("System ready for medical encounter processing")
     
     yield
 
     # Shutdown
-    logger.info("🏥 Shutting down NoteGen AI APIs - Medical Template Extraction System")
+    logger.info("Shutting down NoteGen AI APIs - Medical Template Extraction System")
 
     
-    logger.info("✅ All medical encounters completed, system shutdown complete")
+    logger.info("All medical encounters completed, system shutdown complete")
 
 # Create FastAPI application for medical use
 app = FastAPI(
@@ -71,8 +71,8 @@ app.add_middleware(
 @app.on_event("startup")
 async def startup_event():
     """Application startup event."""
-    logger.info("🚀 Starting NoteGen AI Service...")
-    logger.info("✅ Service started successfully.")
+    logger.info("Starting NoteGen AI Service...")
+    logger.info("Service started successfully.")
 
 # Include routers
 app.include_router(health_router, prefix="/health", tags=["System Health"])

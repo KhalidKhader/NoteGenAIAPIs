@@ -1,126 +1,136 @@
 {
-  "sections": [
-    {
-      "id": "1",
-      "templateId": "1",
-      "name": "Subjective",
-      "prompt": "Extract only the patient-reported symptoms, complaints, and relevant history from the transcript. Examples:-Intermittent headaches for the past week were reported. -The patient described chest pain radiating to the left arm.  -A history of smoking for 20 years was noted.  -Fatigue and shortness of breath on exertion were experienced.  -The patient reported recent weight loss over the last month.",
-      "order": 1,
-      "createdAt": "2025-06-17T15:40:05.000Z",
-      "updatedAt": "2025-06-17T15:40:05.000Z"
-    },
-    {
-      "id": "2",
-      "templateId": "1",
-      "name": "Objective",
-      "prompt": "Summarize only physical exam results, vital signs, and test results from the transcript.Examples:-Blood pressure measured at 138/86 mmHg.-Bilateral wheezes were auscultated in the lung bases.-Heart rate recorded at 92 beats per minute.-Oxygen saturation was 95% on room air.-Laboratory tests showed elevated white blood cell count.",
-      "order": 2,
-      "createdAt": "2025-06-17T15:40:05.000Z",
-      "updatedAt": "2025-06-17T15:40:05.000Z"
-    },
-    {
-      "id": "3",
-      "templateId": "1",
-      "name": "Assessment",
-      "prompt": "Generate a concise list of diagnoses or clinical impressions based on the subjective and objective mentions in the transcript.Examples:-Hypertension was identified based on elevated blood pressure readings and history.-Acute bronchitis was suspected due to productive cough and wheezing.-Type 2 diabetes mellitus was considered given elevated glucose levels.-Anxiety disorder was assessed based on reported symptoms and history.-Osteoarthritis of the knee was diagnosed following joint pain and exam findings.",
-      "order": 3,
-      "createdAt": "2025-06-17T15:40:05.000Z",
-      "updatedAt": "2025-06-17T15:40:05.000Z"
-    },
-    {
-      "id": "4",
-      "templateId": "1",
-      "name": "Plan",
-      "prompt": "List only the recommended next steps, including medications, tests, referrals, or follow-up instructions discussed in the transcript.Examples:-Lisinopril 10mg daily was prescribed.-A chest X-ray was ordered to evaluate lung pathology.-Referral to cardiology was arranged for further assessment.-The patient was advised to follow a low-sodium diet.-Follow-up appointment scheduled in two weeks.",
-      "order": 4,
-      "createdAt": "2025-06-17T15:40:05.000Z",
-      "updatedAt": "2025-06-17T15:40:05.000Z"
-    },
-    {
-      "id": "5",
-      "templateId": "2",
-      "name": "Visit - 1",
-      "prompt": "say hello world",
-      "order": 1,
-      "createdAt": "2025-06-17T15:40:05.000Z",
-      "updatedAt": "2025-06-17T15:40:05.000Z"
-    },
-    {
-      "id": "6",
-      "templateId": "2",
-      "name": "Visit - 2",
-      "prompt": "say hi",
-      "order": 2,
-      "createdAt": "2025-06-17T15:40:05.000Z",
-      "updatedAt": "2025-06-17T15:40:05.000Z"
-    },
-    {
-      "id": "7",
-      "templateId": "3",
-      "name": "Section 1",
-      "prompt": "say hola elmundo",
-      "order": 1,
-      "createdAt": "2025-06-17T15:53:39.000Z",
-      "updatedAt": "2025-06-17T15:53:39.000Z"
-    }
-  ],
-  "encounterId": "123edfg",
-  "encounterTranscript": [
-    {
-      "id": "A123",
-      "doctor": "Hi, what brings you in today?"
-    },
-    {
-      "id": "A123",
-      "patient": "I've been having a sore throat for the past three days."
-    },
-    {
-      "id": "A123",
-      "doctor": "Do you have any other symptoms like fever or cough?"
-    },
-    {
-      "id": "A123",
-      "patient": "Yes, I've had a mild fever and a dry cough."
-    },
-    {
-      "id": "A123",
-      "doctor": "Have you had any trouble swallowing or swollen glands?"
-    },
-    {
-      "id": "A123",
-      "patient": "Yes, it hurts a bit when I swallow, and I think my neck feels a bit swollen."
-    },
-    {
-      "id": "A123",
-      "doctor": "Have you been in contact with anyone who was sick recently?"
-    },
-    {
-      "id": "A123",
-      "patient": "My roommate had a cold last week."
-    },
-    {
-      "id": "A123",
-      "doctor": "Alright. I'm going to take a look at your throat and check your temperature."
-    },
-    {
-      "id": "A123",
-      "doctor": "Your temperature is 100.8°F, and your throat looks red with some swelling of the tonsils."
-    },
-    {
-      "id": "A123",
-      "doctor": "It looks like a viral pharyngitis. I'll recommend rest, fluids, and over-the-counter pain relievers. If it gets worse in a few days, come back for a strep test."
-    },
-    {
-      "id": "A123",
-      "patient": "Got it, thank you."
-    },
-    {
-      "id": "A123",
-      "doctor": "You're welcome. Feel better soon!"
-    }
-  ],
-  "systemPrompt": "You are an experienced medical professional tasked with creating a structured and clinically sound summary of a medical encounter. Use formal medical language and a professional, objective tone. Your summary must:   - Be strictly based on the transcript and context provided.   - Be written in passive voice.   - Contain no assumptions, interpretations, or personal opinions.   - Avoid offering advice or recommendations.   - Be formatted in the appropriate language used in the transcript (English or Canadian French).   - Exclude repetition of previously generated sections.   - Adhere to proper clinical writing standards (SOAP style, if applicable).   - Do not mention 'transcript' in the note, only use the information from the transcript.  If there is no clinically relevant new content, return a clinically neutral note such as:   - No additional clinical impressions could be determined based on the available information.  **Language Requirements:**   - generate the note in the language of the transcript, english. **Content Constraints:**   - Do not include repeated information from <Previously Generated Sections>.   - Do not fabricate or infer any symptoms or diagnoses.   - Do not list absence of symptoms (e.g., do not write no fever reported).   - Do not mention the transcript or that information was missing.   - Use passive voice and clinical tone throughout.  Return your output as a **valid JSON object** with one property: noteContent, containing markdown-formatted text.",
-  "doctorId": "doc_123",
-  "userId": 2,
-  "clinicId": "2"
-}
+    "sections": [
+      {
+        "id": "ert1",
+        "templateId": "wee1",
+        "name": "Subjective",
+        "prompt": "Extract only the patient-reported symptoms, complaints, and relevant history from the transcript. Examples:-Intermittent headaches for the past week were reported. -The patient described chest pain radiating to the left arm.  -A history of smoking for 20 years was noted.  -Fatigue and shortness of breath on exertion were experienced.  -The patient reported recent weight loss over the last month.",
+        "order": 1,
+        "createdAt": "2025-06-17T15:40:05.000Z",
+        "updatedAt": "2025-06-17T15:40:05.000Z"
+      },
+      {
+        "id": "sdfg2",
+        "templateId": "1345tr",
+        "name": "Objective",
+        "prompt": "Summarize only physical exam results, vital signs, and test results from the transcript.Examples:-Blood pressure measured at 138/86 mmHg.-Bilateral wheezes were auscultated in the lung bases.-Heart rate recorded at 92 beats per minute.-Oxygen saturation was 95% on room air.-Laboratory tests showed elevated white blood cell count.",
+        "order": 2,
+        "createdAt": "2025-06-17T15:40:05.000Z",
+        "updatedAt": "2025-06-17T15:40:05.000Z"
+      },
+      {
+        "id": "3ff",
+        "templateId": "1ddf",
+        "name": "Assessment",
+        "prompt": "Generate a concise list of diagnoses or clinical impressions based on the subjective and objective mentions in the transcript.Examples:-Hypertension was identified based on elevated blood pressure readings and history.-Acute bronchitis was suspected due to productive cough and wheezing.-Type 2 diabetes mellitus was considered given elevated glucose levels.-Anxiety disorder was assessed based on reported symptoms and history.-Osteoarthritis of the knee was diagnosed following joint pain and exam findings.",
+        "order": 3,
+        "createdAt": "2025-06-17T15:40:05.000Z",
+        "updatedAt": "2025-06-17T15:40:05.000Z"
+      },
+      {
+        "id": "ert4",
+        "templateId": "ert1",
+        "name": "Plan",
+        "prompt": "List only the recommended next steps, including medications, tests, referrals, or follow-up instructions discussed in the transcript.Examples:-Lisinopril 10mg daily was prescribed.-A chest X-ray was ordered to evaluate lung pathology.-Referral to cardiology was arranged for further assessment.-The patient was advised to follow a low-sodium diet.-Follow-up appointment scheduled in two weeks.",
+        "order": 4,
+        "createdAt": "2025-06-17T15:40:05.000Z",
+        "updatedAt": "2025-06-17T15:40:05.000Z"
+      },
+      {
+        "id": "ert5",
+        "templateId": "2wer",
+        "name": "Visit - 1",
+        "prompt": "say hello world",
+        "order": 1,
+        "createdAt": "2025-06-17T15:40:05.000Z",
+        "updatedAt": "2025-06-17T15:40:05.000Z"
+      },
+      {
+        "id": "df6",
+        "templateId": "sdfg2",
+        "name": "Visit - 2",
+        "prompt": "say hi",
+        "order": 2,
+        "createdAt": "2025-06-17T15:40:05.000Z",
+        "updatedAt": "2025-06-17T15:40:05.000Z"
+      },
+      {
+        "id": "7sdf",
+        "templateId": "ert3",
+        "name": "Section 1",
+        "prompt": "say hola elmundo",
+        "order": 1,
+        "createdAt": "2025-06-17T15:53:39.000Z",
+        "updatedAt": "2025-06-17T15:53:39.000Z"
+      }
+    ],
+    "encounterId": "zxcv",
+    "encounterTranscript": [
+      {
+        "id": "Agfds",
+        "doctor": "Hi, what brings you in today?"
+      },
+      {
+        "id": "gr4",
+        "patient": "I've been having a sore throat for the past three days., Im Khalid Khader I born in 10 july 2012"
+      },
+      {
+        "id": "34rfd",
+        "doctor": "Do you have any other symptoms like fever or cough?"
+      },
+      {
+        "id": "3erffredg",
+        "patient": "Yes, I've had a mild fever and a dry cough."
+      },
+      {
+        "id": "3erfg",
+        "doctor": "Are you consent to record the converstaion?."
+      },
+      {
+        "id": "3efrfdserfg",
+        "patient": "Yes, Im consent to record the converstaion."
+      },
+      {
+        "id": "3erfghy",
+        "doctor": "Have you had any trouble swallowing or swollen glands?"
+      },
+      {
+        "id": "345tfd",
+        "patient": "Yes, it hurts a bit when I swallow, and I think my neck feels a bit swollen."
+      },
+      {
+        "id": "xcf",
+        "doctor": "Have you been in contact with anyone who was sick recently?"
+      },
+      {
+        "id": "asdc",
+        "patient": "My roommate had a cold last week."
+      },
+      {
+        "id": "xcvfr",
+        "doctor": "Alright. I'm going to take a look at your throat and check your temperature."
+      },
+      {
+        "id": "wedc",
+        "doctor": "Your temperature is 100.8°F, and your throat looks red with some swelling of the tonsils."
+      },
+      {
+        "id": "wxfr",
+        "doctor": "It looks like a viral pharyngitis. I'll recommend rest, fluids, and over-the-counter pain relievers. If it gets worse in a few days, come back for a strep test."
+      },
+      {
+        "id": "sdf",
+        "patient": "Got it, thank you."
+      },
+      {
+        "id": "sdfrew",
+        "doctor": "You're welcome. Feel better soon!"
+      }
+    ],
+    "systemPrompt": "You are an experienced medical professional tasked with creating a structured and clinically sound summary of a medical encounter. Use formal medical language and a professional, objective tone. Your summary must:   - Be strictly based on the transcript and context provided.   - Be written in passive voice.   - Contain no assumptions, interpretations, or personal opinions.   - Avoid offering advice or recommendations.   - Be formatted in the appropriate language used in the transcript (English or Canadian French).   - Exclude repetition of previously generated sections.   - Adhere to proper clinical writing standards (SOAP style, if applicable).   - Do not mention 'transcript' in the note, only use the information from the transcript.  If there is no clinically relevant new content, return a clinically neutral note such as:   - No additional clinical impressions could be determined based on the available information.  **Language Requirements:**   - generate the note in the language of the transcript, english. **Content Constraints:**   - Do not include repeated information from <Previously Generated Sections>.   - Do not fabricate or infer any symptoms or diagnoses.   - Do not list absence of symptoms (e.g., do not write no fever reported).   - Do not mention the transcript or that information was missing.   - Use passive voice and clinical tone throughout.  Return your output as a **valid JSON object** with one property: noteContent, containing markdown-formatted text.",
+    "doctorId": "1adffgds",
+    "userId": 332,
+    "clinicId": "2234565tghj",
+    "patientInfo": true,
+    "language": "en"
+  }
