@@ -35,8 +35,8 @@ from src.templates.prompts import (
     SECTION_GENERATION_SYSTEM_PROMPT_TEMPLATE,
     SECTION_GENERATION_USER_PROMPT_TEMPLATE,
 )
-from src.services.conversation_rag import get_conversation_rag_service
-from src.services.snomed_rag import get_snomed_rag_service
+from src.services.opensearch_rag import get_conversation_rag_service
+from src.services.neo4j_snomed_rag import get_snomed_rag_service
 from src.services.pattern_learning import get_pattern_learning_service
 
 class MedicalSectionGenerator:
