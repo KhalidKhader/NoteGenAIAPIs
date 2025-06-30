@@ -12,6 +12,9 @@ Features:
 from datetime import datetime
 from typing import Dict, List, Optional, Any
 from urllib.parse import urlparse
+import boto3
+import json
+import asyncio
 
 from opensearchpy import OpenSearch, RequestsHttpConnection, NotFoundError
 from langchain_openai import AzureChatOpenAI, AzureOpenAIEmbeddings
@@ -47,6 +50,7 @@ class ConversationRAGService:
         self.llm: Optional[AzureChatOpenAI] = None
         self.embeddings: Optional[AzureOpenAIEmbeddings] = None
         self._initialized = False
+        self.current_collection: Optional[str] = None
     
     async def initialize(self) -> None:
         """Initialize the medical conversation RAG service with AWS OpenSearch."""
@@ -103,7 +107,6 @@ class ConversationRAGService:
     
     async def _setup_aws_auth(self):
         """Setup authentication for OpenSearch Serverless (AOSS) only."""
-        import boto3
         from opensearchpy import AWSV4SignerAuth
         session = boto3.Session()
         credentials = session.get_credentials()
@@ -113,7 +116,295 @@ class ConversationRAGService:
         service = 'aoss'
         return AWSV4SignerAuth(credentials, settings.aws_region, service)
     
+    async def create_tenant_collection(self, collection_name: str, clinic_id: str) -> Dict[str, Any]:
+        """Create a new tenant collection with all required policies."""
+        if not self._initialized:
+            await self.initialize()
+
+        try:
+            aoss = boto3.client('opensearchserverless', region_name=settings.aws_region)
+            
+            # Generate short policy names (max 32 chars)
+            policy_prefix = collection_name[:20]  # Leave room for suffixes
+            
+            # 1. Create encryption policy (if not exists)
+            encryption_policy = {
+                "Rules": [{
+                    "ResourceType": "collection",
+                    "Resource": [f"collection/{collection_name}"]
+                }],
+                "AWSOwnedKey": True
+            }
+            
+            try:
+                aoss.create_security_policy(
+                    name=f"{policy_prefix}-enc",
+                    policy=json.dumps(encryption_policy),
+                    type='encryption',
+                    description=f'Encryption policy for {collection_name}'
+                )
+                logger.info(f"Created encryption policy for {collection_name}")
+            except aoss.exceptions.ConflictException:
+                logger.info(f"Encryption policy already exists for {collection_name}")
+            
+            # 2. Create network policy (if not exists)
+            network_policy = [{
+                "Description": f"Network policy for {collection_name}",
+                "Rules": [
+                    {
+                        "ResourceType": "collection",
+                        "Resource": [f"collection/{collection_name}"]
+                    }
+                ],
+                "AllowFromPublic": True
+            }]
+            
+            try:
+                aoss.create_security_policy(
+                    name=f"{policy_prefix}-net",
+                    policy=json.dumps(network_policy),
+                    type='network',
+                    description=f'Network policy for {collection_name}'
+                )
+                logger.info(f"Created network policy for {collection_name}")
+            except aoss.exceptions.ConflictException:
+                logger.info(f"Network policy already exists for {collection_name}")
+            
+            # 3. Create data access policy (if not exists)
+            # Get caller identity for proper ARN
+            sts = boto3.client('sts')
+            account_id = sts.get_caller_identity()['Account']
+            
+            data_policy = [{
+                "Rules": [
+                    {
+                        "Resource": [
+                            f"index/{collection_name}/*"
+                        ],
+                        "Permission": [
+                            "aoss:CreateIndex",
+                            "aoss:DeleteIndex",
+                            "aoss:UpdateIndex",
+                            "aoss:DescribeIndex",
+                            "aoss:ReadDocument",
+                            "aoss:WriteDocument"
+                        ],
+                        "ResourceType": "index"
+                    },
+                    {
+                        "Resource": [
+                            f"collection/{collection_name}"
+                        ],
+                        "Permission": [
+                            "aoss:CreateCollectionItems",
+                            "aoss:DeleteCollectionItems",
+                            "aoss:UpdateCollectionItems",
+                            "aoss:DescribeCollectionItems"
+                        ],
+                        "ResourceType": "collection"
+                    }
+                ],
+                "Principal": [
+                    f"arn:aws:iam::{account_id}:root"  # Grant access to the entire AWS account
+                ]
+            }]
+            
+            try:
+                aoss.create_access_policy(
+                    name=f"te-{policy_prefix}",
+                    policy=json.dumps(data_policy),
+                    type='data',
+                    description=f'Data access policy for {collection_name}'
+                )
+                logger.info(f"Created access policy for {collection_name}")
+            except aoss.exceptions.ConflictException:
+                logger.info(f"Access policy already exists for {collection_name}")
+            
+            # 4. Create collection
+            try:
+                response = aoss.create_collection(
+                    name=collection_name,
+                    type='VECTORSEARCH',
+                    description=f'Tenant collection for clinic {clinic_id}'
+                )
+                
+                collection_id = response['createCollectionDetail']['id']
+                logger.info(f"Created collection {collection_name}")
+                
+                # 5. Wait for collection to be active
+                max_attempts = 20  # Increased from 10
+                delay_seconds = 30
+                
+                for attempt in range(max_attempts):
+                    try:
+                        status_response = aoss.batch_get_collection(ids=[collection_id])
+                        collection_details = status_response['collectionDetails'][0]
+                        status = collection_details['status']
+                        
+                        logger.info(f"Collection {collection_name} status: {status}. Attempt {attempt + 1}/{max_attempts}")
+                        
+                        if status == 'ACTIVE':
+                            logger.info(f"Collection {collection_name} is now active")
+                            
+                            # Create OpenSearch client for the new collection
+                            collection_endpoint = collection_details.get('collectionEndpoint')
+                            if not collection_endpoint:
+                                raise Exception("Collection endpoint not available")
+                            
+                            # Create index with vector mapping
+                            index_name = collection_name
+                            index_mapping = {
+                                "mappings": {
+                                    "properties": {
+                                        "text": {"type": "text", "analyzer": "standard"},
+                                        "vector_field": {
+                                            "type": "knn_vector",
+                                            "dimension": 1536,
+                                            "method": {
+                                                "name": "hnsw",
+                                                "space_type": "cosinesimil",
+                                                "parameters": {
+                                                    "ef_construction": 512,
+                                                    "m": 16
+                                                }
+                                            }
+                                        },
+                                        "metadata": {
+                                            "type": "object",
+                                            "properties": {
+                                                "conversation_id": {"type": "keyword"},
+                                                "chunk_id": {"type": "keyword"},
+                                                "turn_ids": {"type": "keyword"},
+                                                "chunk_index": {"type": "integer"},
+                                                "line_numbers": {"type": "integer"},
+                                                "speaker": {"type": "keyword"},
+                                                "doctor_id": {"type": "keyword"},
+                                                "language": {"type": "keyword"},
+                                                "created_at": {"type": "date"},
+                                                "is_complete_conversation": {"type": "boolean"},
+                                                "speaker_turn_preserved": {"type": "boolean"}
+                                            }
+                                        }
+                                    }
+                                },
+                                "settings": {
+                                    "index": {
+                                        "number_of_shards": 3,
+                                        "number_of_replicas": 2,
+                                        "refresh_interval": "10s"
+                                    }
+                                }
+                            }
+                            
+                            try:
+                                if not collection_endpoint:
+                                    raise Exception("Collection endpoint not available")
+                                client = OpenSearch(
+                                    hosts=[{'host': collection_endpoint.replace('https://', ''), 'port': 443}],
+                                    http_auth=self._get_aws_auth(),
+                                    use_ssl=True,
+                                    verify_certs=True,
+                                    connection_class=RequestsHttpConnection,
+                                    timeout=30
+                                )
+                                
+                                if not client.indices.exists(index=index_name):
+                                    client.indices.create(
+                                        index=index_name,
+                                        body=index_mapping
+                                    )
+                                    logger.info(f"Created vector index for collection {collection_name}")
+                                else:
+                                    logger.info(f"Vector index already exists for collection {collection_name}")
+                            except Exception as e:
+                                logger.error(f"Failed to create vector index: {str(e)}")
+                            
+                            return {
+                                'collection_id': collection_id,
+                                'status': 'ACTIVE',
+                                'endpoint': collection_endpoint
+                            }
+                        
+                        elif status == 'FAILED':
+                            raise Exception(f"Collection creation failed with status: {status}")
+                        elif status == 'DELETED':
+                            raise Exception(f"Collection was deleted during creation")
+                        
+                        # If not active yet, wait and try again
+                        logger.info(f"Waiting {delay_seconds} seconds before next check...")
+                        await asyncio.sleep(delay_seconds)
+                        
+                    except Exception as e:
+                        if "collection_id" not in str(e):  # If not a normal "not active yet" case
+                            logger.error(f"Error checking collection status: {str(e)}")
+                        await asyncio.sleep(delay_seconds)
+                
+                # If we get here, check one last time if the collection exists and is usable
+                try:
+                    final_check = aoss.batch_get_collection(ids=[collection_id])
+                    if final_check['collectionDetails'][0]['status'] == 'ACTIVE':
+                        collection_endpoint = final_check['collectionDetails'][0].get('collectionEndpoint')
+                        return {
+                            'collection_id': collection_id,
+                            'status': 'ACTIVE',
+                            'endpoint': collection_endpoint
+                        }
+                except Exception:
+                    pass
+                
+                # If we get here, the collection exists but we timed out waiting for ACTIVE status
+                return {
+                    'collection_id': collection_id,
+                    'status': 'CREATING',
+                    'message': 'Collection created but not yet active. Please check AWS console for status.',
+                    'endpoint': 'Not yet available'
+                }
+                
+            except aoss.exceptions.ConflictException:
+                logger.error(f"Collection {collection_name} already exists")
+                raise Exception(f"Collection {collection_name} already exists")
+            
+        except Exception as e:
+            error_msg = f"Failed to create tenant collection {collection_name}: {str(e)}"
+            logger.error(error_msg)
+            raise Exception(error_msg)
     
+    async def set_current_collection(self, collection_name: str) -> None:
+        """Set the current collection for operations."""
+        if not self._initialized:
+            await self.initialize()
+        
+        try:
+            # Create AWS OpenSearch Serverless client to check collection existence
+            aoss = boto3.client('opensearchserverless', region_name=settings.aws_region)
+            
+            # List collections to check if the requested one exists
+            collections = aoss.list_collections()
+            collection_names = [c['name'] for c in collections.get('collectionSummaries', [])]
+            
+            if collection_name not in collection_names:
+                error_msg = f"Collection '{collection_name}' does not exist. Please provide a valid clinic collection name."
+                logger.error(error_msg)
+                raise ValueError(error_msg)
+            
+            if collection_name != self.current_collection:
+                self.current_collection = collection_name
+                self.vector_store = OpenSearchVectorSearch(
+                    opensearch_url=settings.opensearch_endpoint,
+                    index_name=collection_name,
+                    embedding_function=self.embeddings,
+                    http_auth=await self._setup_aws_auth(),
+                    timeout=settings.opensearch_timeout,
+                    use_ssl=True,
+                    verify_certs=True,
+                    connection_class=RequestsHttpConnection
+                )
+                logger.info(f"Switched to collection: {collection_name}")
+        except Exception as e:
+            error_msg = f"Failed to set collection: {str(e)}"
+            logger.error(error_msg)
+            raise ValueError(error_msg)
+
     async def _create_index(self) -> None:
         """Create OpenSearch index for medical conversations."""
         try:

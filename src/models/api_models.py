@@ -94,8 +94,14 @@ class EncounterRequestModel(BaseModel):
         default=False,
         description="Flag to extract and send patient demographic information."
     )
+    collection_name: str = Field(
+        ...,
+        min_length=1,
+        max_length=28,
+        description="Name of the OpenSearch collection to use for storing data. Must be provided to identify the clinic's collection."
+    )
 
-    @field_validator('encounterId', 'doctorId', 'clinicId')
+    @field_validator('encounterId', 'doctorId', 'clinicId', 'collection_name')
     @classmethod
     def validate_not_empty(cls, v: str, info: ValidationInfo):
         if not v or not v.strip():
@@ -199,4 +205,39 @@ class LineReference(BaseModel):
     end_char: int = Field(..., description="End character position in line")
     text: str = Field(..., description="Referenced text from transcript")
     speaker: Optional[str] = Field(None, description="Speaker (Doctor/Patient)")
-    confidence: float = Field(default=1.0, description="Reference accuracy confidence") 
+    confidence: float = Field(default=1.0, description="Reference accuracy confidence")
+
+class TenantCollectionRequest(BaseModel):
+    """Request model for tenant collection creation."""
+    collection_name: str = Field(
+        ...,
+        min_length=3,
+        max_length=28,
+        description="Name of the collection to create. Must start with a lowercase letter and contain only lowercase letters, numbers, and hyphens."
+    )
+    clinic_id: str = Field(
+        ...,
+        min_length=1,
+        description="Unique identifier for the clinic"
+    )
+
+    @field_validator('collection_name')
+    @classmethod
+    def validate_collection_name(cls, v: str) -> str:
+        """Validate collection name according to AWS OpenSearch requirements."""
+        # Convert to lowercase
+        v = v.lower()
+        
+        # Must start with a letter
+        if not v[0].isalpha():
+            raise ValueError("Collection name must start with a lowercase letter")
+            
+        # Must contain only lowercase letters, numbers, and hyphens
+        if not all(c.islower() or c.isdigit() or c == '-' for c in v):
+            raise ValueError("Collection name must contain only lowercase letters, numbers, and hyphens")
+            
+        # Must not end with a hyphen
+        if v.endswith('-'):
+            raise ValueError("Collection name must not end with a hyphen")
+            
+        return v 

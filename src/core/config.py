@@ -116,6 +116,7 @@ class Settings(BaseSettings):
     opensearch_port: int = Field(default=443, description="OpenSearch port")
     opensearch_index: str = Field(default="medical-conversations", description="OpenSearch index name")
     opensearch_timeout: int = Field(default=300, description="OpenSearch timeout in seconds")
+    opensearch_collection_prefix: str = Field(default="t_", description="Prefix for tenant collection names")
 
     # =============================================================================
     # NoteGen API Service Integration Configuration

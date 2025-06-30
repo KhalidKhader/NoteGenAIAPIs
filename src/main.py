@@ -25,10 +25,7 @@ from src.core.config import settings
 from src.core.logging import logger 
 from src.api.health import router as health_router
 from src.api.production_api import router as production_router
-
-# Setup medical-grade logging
-# setup_logging()
-# logger = get_logger(__name__)
+from src.api.tenant import router as tenant_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -75,6 +72,7 @@ async def startup_event():
 # Include routers
 app.include_router(health_router, prefix="/health", tags=["System Health"])
 app.include_router(production_router, tags=["Medical Note Generation"])
+app.include_router(tenant_router, prefix="/api/v1", tags=["Tenant Management"])
 json_data = {
         "event_type": "SERVICE_STARTED",
         "message": "NoteGen AI Service started successfully.",
@@ -85,7 +83,3 @@ json_data = {
         }
     }
 logger.info(f"This is a test {json_data}")
-
-# Updated for OIDC CI/CD test
-# OIDC deployment fix applied
-# Final OIDC test with permissive policy

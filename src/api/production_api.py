@@ -26,11 +26,11 @@ from src.models.api_models import (
     EncounterRequestModel,
     JobAcknowledgementResponse,
 )
-from src.services.opensearch_rag import ConversationRAGService, get_conversation_rag_service
-from src.services.neo4j_snomed_rag import SNOMEDRAGService, get_snomed_rag_service
-from src.services.azure_openai import MedicalSectionGenerator, get_soap_generator_service
-from src.services.notegen_api import NotegenAPIService, get_notegen_api_service
-from src.services.patient_info import PatientInfoService, get_patient_info_service
+from src.services.opensearch.opensearch_rag import ConversationRAGService, get_conversation_rag_service
+from src.services.neo4j.service import SNOMEDRAGService, get_snomed_rag_service
+from src.services.openai.azure_openai import MedicalSectionGenerator, get_soap_generator_service
+from src.services.notegen.notegen_api import NotegenAPIService, get_notegen_api_service
+from src.services.notegen.patient_info import PatientInfoService, get_patient_info_service
 
 router = APIRouter()
 
@@ -77,6 +77,17 @@ async def _run_encounter_processing_pipeline(
         section_generator: MedicalSectionGenerator = await get_soap_generator_service()
         notegen_api_service: NotegenAPIService = await get_notegen_api_service()
         
+        # Set the current collection for the tenant
+        try:
+            await convo_rag.set_current_collection(request.collection_name)
+            logger.info(f"Set current collection to: {request.collection_name}")
+        except Exception as e:
+            error_msg = f"Failed to set collection {request.collection_name}. Please ensure a valid clinic collection name is provided. Error: {str(e)}"
+            logger.error(error_msg)
+            production_jobs[job_id]['status'] = 'FAILED'
+            production_jobs[job_id]['error'] = error_msg
+            raise HTTPException(status_code=404, detail=error_msg)
+
         # Get patient info service if needed
         patient_info_service: PatientInfoService = None
         if request.patientInfo:
@@ -304,3 +315,4 @@ async def get_job_status(job_id: str):
     if not job:
         raise HTTPException(status_code=404, detail="Job not found")
     return job
+
