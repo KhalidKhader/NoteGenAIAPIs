@@ -11,8 +11,6 @@ PRODUCTION-READY endpoints for medical conversation processing:
 
 Handles ANY section type dynamically based on prompts array - not just SOAP!
 """
-
-import json
 import uuid
 from pathlib import Path
 from typing import Dict, Any
@@ -26,11 +24,11 @@ from src.models.api_models import (
     EncounterRequestModel,
     JobAcknowledgementResponse,
 )
-from src.services.conversation_rag import ConversationRAGService, get_conversation_rag_service
+from src.services.opensearch_rag import ConversationRAGService, get_conversation_rag_service
 from src.services.snomed_rag import SNOMEDRAGService, get_snomed_rag_service
-from src.services.section_generator import MedicalSectionGenerator, get_soap_generator_service
-from src.services.notegen_api_service import NotegenAPIService, get_notegen_api_service
-from src.services.patient_info_service import PatientInfoService, get_patient_info_service
+from src.services.azure_openai import MedicalSectionGenerator, get_soap_generator_service
+from src.services.notegen_api import NotegenAPIService, get_notegen_api_service
+from src.services.patient_info import PatientInfoService, get_patient_info_service
 
 router = APIRouter()
 

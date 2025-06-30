@@ -15,9 +15,9 @@ from src.models.api_models import (
     ServiceStatus,
     MedicalComplianceStatus
 )
-from src.services.conversation_rag import get_conversation_rag_service
+from src.services.opensearch_rag import get_conversation_rag_service
 from src.services.snomed_rag import get_snomed_rag_service
-from src.services.section_generator import get_soap_generator_service
+from src.services.azure_openai import get_soap_generator_service
 from src.services.pattern_learning import get_pattern_learning_service
 
 router = APIRouter()

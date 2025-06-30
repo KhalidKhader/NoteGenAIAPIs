@@ -13,10 +13,10 @@ from datetime import datetime
 from typing import Dict, List, Optional, Any
 from urllib.parse import urlparse
 
-from opensearchpy import OpenSearch, RequestsHttpConnection, NotFoundError
+from opensearchpy import OpenSearch, RequestsHttpConnection
 from langchain_openai import AzureChatOpenAI, AzureOpenAIEmbeddings
 from langchain_community.vectorstores import OpenSearchVectorSearch
-from langchain.prompts import PromptTemplate, ChatPromptTemplate
+from langchain.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
 from src.core.config import settings

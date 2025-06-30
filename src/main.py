@@ -21,14 +21,9 @@ except ImportError:
     pass  # dotenv not available, use system environment
 
 from src.core.config import settings
-# from src.core.logging import setup_logging, get_logger
 from src.core.logging import logger 
 from src.api.health import router as health_router
 from src.api.production_api import router as production_router
-
-# Setup medical-grade logging
-# setup_logging()
-# logger = get_logger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

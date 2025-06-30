@@ -12,9 +12,9 @@ from langchain_core.messages import HumanMessage, SystemMessage
 
 from src.core.logging import logger
 from src.core.config import settings
-from src.services.conversation_rag import ConversationRAGService
-from src.services.section_generator import MedicalSectionGenerator
-from src.services.notegen_api_service import NotegenAPIService
+from src.services.opensearch_rag import ConversationRAGService
+from src.services.azure_openai import MedicalSectionGenerator
+from src.services.notegen_api import NotegenAPIService
 from src.templates.prompts import PATIENT_INFO_EXTRACTION_PROMPT, PATIENT_INFO_SYSTEM_PROMPT
 
 class PatientInfoService:
@@ -288,9 +288,9 @@ async def get_patient_info_service() -> PatientInfoService:
     """Get the global patient info service instance."""
     global _patient_info_service
     if _patient_info_service is None:
-        from src.services.conversation_rag import get_conversation_rag_service
-        from src.services.section_generator import get_soap_generator_service
-        from src.services.notegen_api_service import get_notegen_api_service
+        from src.services.opensearch_rag import get_conversation_rag_service
+        from src.services.azure_openai import get_soap_generator_service
+        from src.services.notegen_api import get_notegen_api_service
         
         conversation_rag = await get_conversation_rag_service()
         section_generator = await get_soap_generator_service()
