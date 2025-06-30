@@ -19,7 +19,7 @@ from typing import Dict, Any
 
 from fastapi import APIRouter, HTTPException, BackgroundTasks
 
-from src.core.logging import get_logger, create_medical_logger
+from src.core.logging import logger
 from src.core.observability import get_langfuse_handler, flush_langfuse_data
 from src.core.config import settings
 from src.models.api_models import (
@@ -33,7 +33,6 @@ from src.services.notegen_api_service import NotegenAPIService, get_notegen_api_
 from src.services.patient_info_service import PatientInfoService, get_patient_info_service
 
 router = APIRouter()
-logger = get_logger(__name__)
 
 # In-memory job tracking
 production_jobs: Dict[str, Dict[str, Any]] = {}
@@ -41,17 +40,15 @@ production_jobs: Dict[str, Dict[str, Any]] = {}
 async def _run_encounter_processing_pipeline(
     request: EncounterRequestModel,
     job_id: str,
+    logger
 ):
     """
     The main processing pipeline that runs in the background.
     """
     encounter_id = request.encounterId
-    output_dir = Path("generated_notes") / encounter_id
-    sections_dir = output_dir / "sections"
     
-    sections_dir.mkdir(parents=True, exist_ok=True)
-
-    medical_logger = create_medical_logger(encounter_id, output_dir)
+    # Create medical logger without folder creation
+    
     production_jobs[job_id]['status'] = 'PROCESSING'
     
     # Create enhanced handler for the entire pipeline with medical context.
@@ -72,7 +69,7 @@ async def _run_encounter_processing_pipeline(
     )
     
     try:
-        medical_logger.log(f"Starting processing pipeline for job {job_id}", "INFO", details={"encounter_id": encounter_id})
+        logger.info(f"Starting processing pipeline for job {job_id} , encounter_id = {encounter_id}")
 
         # STEP 1 & 2: Get service instances
         convo_rag: ConversationRAGService = await get_conversation_rag_service()
@@ -86,51 +83,46 @@ async def _run_encounter_processing_pipeline(
             patient_info_service = await get_patient_info_service()
 
         # STEP 3: Store conversation and get chunk IDs
-        medical_logger.log("Storing and chunking conversation.", "INFO")
+        logger.info("Storing and chunking conversation.")
         await convo_rag.store_and_chunk_conversation(
             encounterTranscript=request.encounterTranscript,
             conversation_id=encounter_id,
             doctor_id=request.doctorId,
             language=request.language,
-            medical_logger=medical_logger
+            logger=logger
         )
         
         # STEP 3.1: Extract and send patient info if requested
         if request.patientInfo and patient_info_service:
-            medical_logger.log("Extracting patient information.", "INFO")
+            logger.info("Extracting patient information.")
             patient_info_result = await patient_info_service.extract_and_send_patient_info(
                 encounter_id=encounter_id,
                 encounter_transcript=request.encounterTranscript,
                 language=request.language,
                 clinic_id=request.clinicId,
-                medical_logger=medical_logger,
+                logger=logger,
                 langfuse_handler=langfuse_handler
             )
             
             if patient_info_result.get("success"):
-                medical_logger.log(
-                    "Patient information extraction workflow completed successfully",
-                    "INFO",
-                    details={
+                details={
                         "encounter_id": encounter_id,
                         "extracted_fields": list(patient_info_result.get("patient_info", {}).keys()),
                         "api_response_status": patient_info_result.get("api_response", {}).get("success"),
                         "nestjs_endpoint": "internal/encounters/patient"
-                    }
-                )
+                        }
+                logger.info(f"Patient information extraction workflow completed successfully {details}")
             else:
-                medical_logger.log(
-                    f"Patient information extraction workflow failed: {patient_info_result.get('error')}",
-                    "ERROR",
-                    details={
+                details={
                         "encounter_id": encounter_id,
                         "error": patient_info_result.get('error'),
                         "nestjs_endpoint": "internal/encounters/patient"
-                    }
-                )
+                        }
+                
+                logger.error(f"Patient information extraction workflow failed: {patient_info_result.get('error')} details = {details}")
 
         # STEP 4: Extract all medical terms from the full conversation once
-        medical_logger.log("Extracting all medical terms from full transcript for SNOMED mapping.", "INFO")
+        logger.info("Extracting all medical terms from full transcript for SNOMED mapping.")
         
         # Correctly parse the speaker-aware transcript into a simple string for term extraction
         transcript_lines = []
@@ -144,39 +136,36 @@ async def _run_encounter_processing_pipeline(
         all_medical_terms = await section_generator.extract_medical_terms_with_llm(
             full_transcript_text, 
             request.language, 
-            medical_logger,
+            logger,
             langfuse_handler=langfuse_handler,
             conversation_id=encounter_id
         )
         
         # STEP 5: Get comprehensive SNOMED context once
         snomed_context = await snomed_rag.get_snomed_mappings_for_terms(
-            all_medical_terms, request.language, medical_logger
+            all_medical_terms, request.language, logger
         )
-        medical_logger.log(f"Retrieved {len(snomed_context)} SNOMED codes for the entire encounter.", "INFO")
+        logger.info(f"Retrieved {len(snomed_context)} SNOMED codes for the entire encounter.")
 
         # STEP 6: Check for doctor preferences and log them
         doctor_preferences = request.doctor_preferences
         if doctor_preferences:
-            medical_logger.log(
-                f"Found {len(doctor_preferences)} preferences for doctor {request.doctorId}.",
-                "INFO",
-                details=doctor_preferences
-            )
+            logger.info(
+                f"Found {len(doctor_preferences)} preferences for doctor {request.doctorId}. details={doctor_preferences}")
         else:
-            medical_logger.log(f"No specific preferences found for doctor {request.doctorId}.", "INFO")
+            logger.warning(f"No specific preferences found for doctor {request.doctorId}.")
 
         # STEP 7: Process each section with retry logic
         generated_sections_context = []
         for i, section_to_generate in enumerate(request.sections):
             section_name = section_to_generate.name
-            medical_logger.log(f"Starting generation for section {i+1}/{len(request.sections)}: '{section_name}'", "INFO")
+            logger.info(f"Starting generation for section {i+1}/{len(request.sections)}: '{section_name}'")
 
             # A. Retrieve relevant context from conversation RAG
             retrieval_query = f"Information for {section_name}: {section_to_generate.prompt}"
             context_chunks = await convo_rag.retrieve_relevant_chunks(encounter_id, retrieval_query)
             context_text = "\\n".join([chunk['content'] for chunk in context_chunks])
-            medical_logger.log(f"Retrieved {len(context_chunks)} chunks for '{section_name}'.", "DEBUG")
+            logger.warning(f"Retrieved {len(context_chunks)} chunks for '{section_name}'.")
 
             # B. Generate the section with built-in retry logic
             generation_result = await section_generator.generate_section_with_retry(
@@ -190,19 +179,13 @@ async def _run_encounter_processing_pipeline(
                 doctor_preferences=doctor_preferences,
                 full_transcript=request.encounterTranscript,
                 previous_sections_context="\\n---\\n".join(generated_sections_context),
-                medical_logger=medical_logger,
+                logger=logger,
                 langfuse_handler=langfuse_handler,
                 conversation_id=encounter_id,
                 doctor_id=request.doctorId,
                 max_attempts=3
             )
-
-            # C. Save the generated section to a file (success or failure)
-            section_output_path = sections_dir / f"{section_name.replace(' ', '_')}.json"
-            with open(section_output_path, 'w', encoding='utf-8') as f:
-                json.dump(generation_result.model_dump(), f, indent=2, ensure_ascii=False)
-
-            # D. Send to NoteGen API backend with status and content
+            # C. Send to NoteGen API backend with status and content
             # Determine if this is the last section
             is_last_section = (i == len(request.sections) - 1)
             
@@ -214,7 +197,7 @@ async def _run_encounter_processing_pipeline(
                 clinic_id=request.clinicId,
                 job_id=job_id,
                 is_last_section=is_last_section,
-                medical_logger=medical_logger
+                logger=logger
             )
             
             if generation_result.status == "SUCCESS":
@@ -222,10 +205,7 @@ async def _run_encounter_processing_pipeline(
                 generated_sections_context.append(f"Section: {section_name}\\nContent: {generation_result.content}")
                 
                 if api_response.get("success"):
-                    medical_logger.log(
-                        f"Successfully sent section '{section_name}' to NoteGen API backend",
-                        "INFO",
-                        details={
+                    details={
                             "section_id": section_to_generate.id,
                             "status": "SUCCESS",
                             "attempt_count": generation_result.attempt_count,
@@ -234,19 +214,11 @@ async def _run_encounter_processing_pipeline(
                             "is_last_section": is_last_section,
                             "api_response": api_response
                         }
-                    )
+                    logger.info(f"Successfully sent section '{section_name}' to NoteGen API backend details= {details}")
                 else:
-                    medical_logger.log(
-                        f"Failed to send successful section '{section_name}' to NoteGen API backend: {api_response.get('error')}",
-                        "ERROR",
-                        details=api_response
-                    )
+                    logger.error(f"Failed to send successful section '{section_name}' to NoteGen API backend: {api_response.get('error')} details={api_response}")
             else:
-                # Section generation failed
-                medical_logger.log(
-                    f"Section '{section_name}' generation failed after {generation_result.attempt_count} attempts",
-                    "ERROR",
-                    details={
+                details={
                         "section_id": section_to_generate.id,
                         "status": "FAILED",
                         "attempt_count": generation_result.attempt_count,
@@ -256,18 +228,18 @@ async def _run_encounter_processing_pipeline(
                         "is_last_section": is_last_section,
                         "api_response": api_response
                     }
-                )
+                # Section generation failed
+                logger.error(f"Section '{section_name}' generation failed after {generation_result.attempt_count} attempts, details={details}")
                 
                 # Continue processing other sections instead of failing the entire job
 
         production_jobs[job_id]['status'] = 'COMPLETED'
-        medical_logger.log("Encounter processing pipeline completed successfully.", "INFO")
+        logger.info("Encounter processing pipeline completed successfully.")
         
     except Exception as e:
         production_jobs[job_id]['status'] = 'FAILED'
         error_message = f"Encounter processing pipeline failed: {str(e)}"
-        medical_logger.log(f"{error_message}", "ERROR", details={"error_type": type(e).__name__})
-        logger.error(error_message, exc_info=True)
+        logger.error(error_message)
         
     finally:
         # Ensure the handler is flushed to send all buffered data.
@@ -309,6 +281,7 @@ async def generate_notes(
         _run_encounter_processing_pipeline,
         request=request,
         job_id=job_id,
+        logger=logger
     )
     
     return JobAcknowledgementResponse(

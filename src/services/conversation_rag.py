@@ -20,13 +20,12 @@ from langchain.prompts import PromptTemplate, ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
 from src.core.config import settings
-from src.core.logging import get_logger, MedicalProcessingLogger
+from src.core.logging import logger
 from src.templates.prompts import (
     RECORDING_CONSENT_SYSTEM_PROMPT,
     RECORDING_CONSENT_USER_PROMPT_TEMPLATE
 )
 
-logger = get_logger(__name__)
 
 
 class ConversationRAGService:
@@ -195,7 +194,7 @@ class ConversationRAGService:
         self, 
         turns: List[Dict[str, Any]],
         max_chunk_size: int,
-        medical_logger: Optional[MedicalProcessingLogger] = None
+        logger: Optional[Any] = None
     ) -> List[Dict[str, Any]]:
         """
         Creates semantic chunks from conversation turns, ensuring no speaker's
@@ -222,17 +221,12 @@ class ConversationRAGService:
             }
             chunks.append(chunk_data)
         
-            if medical_logger:
-                    medical_logger.log(
-                f"Created {len(chunks)} speaker-aware chunks (1 per turn) to preserve complete speaker context.",
-                "INFO",
-                details={
+            details={
                     "total_turns": len(turns),
                     "chunks_created": len(chunks),
                     "strategy": "one_chunk_per_turn"
                 }
-            )
-        
+            logger.info(f"Created {len(chunks)} speaker-aware chunks (1 per turn) to preserve complete speaker context. details={details}")
         return chunks
     
     async def store_and_chunk_conversation(
@@ -242,7 +236,7 @@ class ConversationRAGService:
         doctor_id: str,
         language: str,
         metadata: Optional[Dict[str, Any]] = None,
-        medical_logger: Optional[MedicalProcessingLogger] = None
+        logger: Optional[Any] = None
     ) -> List[str]:
         """
         Stores and chunks a medical conversation using a speaker-aware strategy.
@@ -251,18 +245,14 @@ class ConversationRAGService:
         if not self._initialized:
             await self.initialize()
         
-        if medical_logger:
-            medical_logger.log(
-                message=f"Storing conversation {conversation_id} for doctor {doctor_id} in {language}.",
-                level="INFO",
-                details={"turn_count": len(encounterTranscript)}
-            )
+        details={"turn_count": len(encounterTranscript)}
+        logger.info(f"Storing conversation {conversation_id} for doctor {doctor_id} in {language}. details={details}")
         
         # 1. Prepare structured turns from the raw transcript
         turns = self._prepare_transcript_turns(encounterTranscript)
         
         # 2. Create chunks without splitting speaker turns
-        chunks = self._create_speaker_aware_chunks(turns, settings.chunk_size, medical_logger=medical_logger)
+        chunks = self._create_speaker_aware_chunks(turns, settings.chunk_size, logger=logger)
         
         # 3. Store each chunk in OpenSearch
         document_ids = []
@@ -289,13 +279,10 @@ class ConversationRAGService:
             try:
                 doc_id = await self._store_single_document(chunk_data['content'], chunk_metadata)
                 document_ids.append(doc_id)
-                if medical_logger:
-                    medical_logger.log(f"Stored chunk {i+1}/{len(chunks)} with doc_id {doc_id}", "DEBUG")
+                logger.info(f"Stored chunk {i+1}/{len(chunks)} with doc_id {doc_id}")
             except Exception as e:
                 error_message = f"Failed to store chunk {i} for conversation {conversation_id}: {str(e)}"
                 logger.error(error_message)
-                if medical_logger:
-                    medical_logger.log(error_message, "ERROR")
 
         # 4. Optionally store the full conversation as a single document
         if settings.store_full_conversation:
@@ -314,8 +301,7 @@ class ConversationRAGService:
             # or ensure the vector store can handle this efficiently.
             # For now, we proceed with storing it as a standard document.
             await self._store_single_document(full_text, full_text_metadata)
-            if medical_logger:
-                medical_logger.log("Stored full conversation document.", "INFO")
+            logger.info("Stored full conversation document.")
 
         return document_ids
 

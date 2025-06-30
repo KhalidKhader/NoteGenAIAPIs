@@ -9,7 +9,7 @@ from typing import List
 
 from fastapi import APIRouter, HTTPException, status
 
-from src.core.logging import get_logger
+from src.core.logging import logger 
 from src.models.api_models import (
     HealthCheckResponse,
     ServiceStatus,
@@ -21,7 +21,6 @@ from src.services.section_generator import get_soap_generator_service
 from src.services.pattern_learning import get_pattern_learning_service
 
 router = APIRouter()
-logger = get_logger(__name__)
 
 
 

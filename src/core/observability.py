@@ -14,9 +14,7 @@ from typing import Optional, Dict, Any
 from langfuse.callback import CallbackHandler
 from langfuse import Langfuse
 from src.core.config import settings
-from src.core.logging import get_logger
-
-logger = get_logger(__name__)
+from src.core.logging import logger
 
 # Global Langfuse client instance
 _langfuse_client: Optional[Langfuse] = None

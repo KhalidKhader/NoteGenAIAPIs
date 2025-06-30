@@ -9,10 +9,7 @@ import json
 from typing import Dict, Optional, Any
 from pathlib import Path
 
-from src.core.logging import get_logger
-
-logger = get_logger(__name__)
-
+from src.core.logging import logger
 class PatternLearningService:
     """
     Service for learning and applying doctor-specific preferences.

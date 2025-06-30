@@ -10,10 +10,7 @@ from typing import Dict, Any, Optional
 
 import httpx
 from src.core.config import settings
-from src.core.logging import get_logger, MedicalProcessingLogger
-
-logger = get_logger(__name__)
-
+from src.core.logging import logger
 
 class NotegenAPIService:
     """
@@ -55,7 +52,7 @@ class NotegenAPIService:
         payload: Dict[str, Any],
         clinic_id: str,
         job_id: str,
-        medical_logger: Optional[MedicalProcessingLogger] = None
+        medical_logger: Optional[Any] = None
     ) -> Dict[str, Any]:
         """
         Send a generated section to NoteGen API backend.
@@ -82,10 +79,7 @@ class NotegenAPIService:
         }
         
         if medical_logger:
-            medical_logger.log(
-                f"Sending section {section_id} to NoteGen API backend",
-                "INFO",
-                details={
+            details={
                     "encounter_id": encounter_id,
                     "section_id": section_id,
                     "clinic_id": clinic_id,
@@ -94,17 +88,14 @@ class NotegenAPIService:
                     "status": payload.get("status"),
                     "is_last_section": payload.get("lastSection", False)
                 }
-            )
+            medical_logger.info(f"Sending section {section_id} to NoteGen API backend details={details}")
         
         # Retry logic for robust delivery
         last_error = None
         for attempt in range(self.max_retries):
             try:
                 if medical_logger:
-                    medical_logger.log(
-                        f"Attempt {attempt + 1}/{self.max_retries} to send section {section_id}",
-                        "DEBUG"
-                    )
+                    medical_logger.warning(f"Attempt {attempt + 1}/{self.max_retries} to send section {section_id}")
                 
                 response = await self._client.post(
                     url,
@@ -114,29 +105,23 @@ class NotegenAPIService:
                 
                 # Log the response
                 if medical_logger:
-                    medical_logger.log(
-                        f"NoteGen API Response Status: {response.status_code}",
-                        "DEBUG",
-                        details={
+                    details={
                             "status_code": response.status_code,
                             "response_headers": dict(response.headers),
                             "attempt": attempt + 1
                         }
-                    )
+                    medical_logger.info(f"NoteGen API Response Status: {response.status_code} details={details}")
                 
                 if response.status_code == 200 or response.status_code == 201:
                     response_data = response.json() if response.content else {}
                     
                     if medical_logger:
-                        medical_logger.log(
-                            f"Successfully sent section {section_id} to NoteGen API backend",
-                            "INFO",
-                            details={
+                        details={
                                 "response_data": response_data,
                                 "attempt": attempt + 1,
                                 "final_status": "SUCCESS"
                             }
-                        )
+                        medical_logger.info(f"Successfully sent section {section_id} to NoteGen API backend")
                     
                     return {
                         "success": True,
@@ -153,15 +138,12 @@ class NotegenAPIService:
                         error_msg += f": {response.text}"
                     
                     if medical_logger:
-                        medical_logger.log(
-                            f"NoteGen API error on attempt {attempt + 1}: {error_msg}",
-                            "WARNING",
-                            details={
+                        details={
                                 "status_code": response.status_code,
                                 "response_text": response.text,
                                 "attempt": attempt + 1
                             }
-                        )
+                        medical_logger.warning(f"NoteGen API error on attempt {attempt + 1}: {error_msg} details={details}")
                     
                     last_error = error_msg
                     
@@ -178,11 +160,8 @@ class NotegenAPIService:
                 last_error = error_msg
                 
                 if medical_logger:
-                    medical_logger.log(
-                        f"Timeout on attempt {attempt + 1}: {error_msg}",
-                        "WARNING",
-                        details={"attempt": attempt + 1, "error": str(e)}
-                    )
+                    details={"attempt": attempt + 1, "error": str(e)}
+                    medical_logger.warning(f"Timeout on attempt {attempt + 1}: {error_msg}")
                 
                 if attempt < self.max_retries - 1:
                     await asyncio.sleep(2 ** attempt)
@@ -192,31 +171,26 @@ class NotegenAPIService:
                 last_error = error_msg
                 
                 if medical_logger:
-                    medical_logger.log(
-                        f"Unexpected error on attempt {attempt + 1}: {error_msg}",
-                        "ERROR",
-                        details={
+                    details={
                             "attempt": attempt + 1,
                             "error": str(e),
                             "error_type": type(e).__name__
                         }
-                    )
+                    medical_logger.error(f"Unexpected error on attempt {attempt + 1}: {error_msg}, details={details}")
                 
                 if attempt < self.max_retries - 1:
                     await asyncio.sleep(2 ** attempt)
         
         # All attempts failed
         if medical_logger:
-            medical_logger.log(
-                f"Failed to send section {section_id} to NoteGen API backend after {self.max_retries} attempts",
-                "ERROR",
-                details={
+            details={
                     "final_error": last_error,
                     "total_attempts": self.max_retries,
                     "encounter_id": encounter_id,
                     "section_id": section_id
                 }
-            )
+            medical_logger.error(
+                f"Failed to send section {section_id} to NoteGen API backend after {self.max_retries} attempts, details={details}")
         
         return {
             "success": False,
@@ -228,11 +202,12 @@ class NotegenAPIService:
         self,
         encounter_id: str,
         section_id: int,
-        section_result: 'SectionGenerationResult',
+        section_result: str,
         clinic_id: str,
         job_id: str,
         is_last_section: bool = False,
-        medical_logger: Optional[MedicalProcessingLogger] = None
+        medical_logger: Optional[Any] = None,
+        logger: Optional[Any] = None
     ) -> Dict[str, Any]:
         """
         Send a section generation result (success or failure) to NoteGen API backend.
@@ -293,10 +268,7 @@ class NotegenAPIService:
         }
         
         if medical_logger:
-            medical_logger.log(
-                f"Sending section result {section_id} ({section_result.status}) to NoteGen API backend",
-                "INFO",
-                details={
+            details={
                     "encounter_id": encounter_id,
                     "section_id": section_id,
                     "section_name": section_result.section_name,
@@ -306,7 +278,7 @@ class NotegenAPIService:
                     "job_id": job_id,
                     "url": url
                 }
-            )
+            medical_logger.info(f"Sending section result {section_id} ({section_result.status}) to NoteGen API backend, details={details}")
         
         # Use the existing retry logic
         return await self.send_generated_section(

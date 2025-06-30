@@ -10,15 +10,12 @@ from typing import Dict, Any, Optional
 
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from src.core.logging import get_logger, MedicalProcessingLogger
+from src.core.logging import logger
 from src.core.config import settings
 from src.services.conversation_rag import ConversationRAGService
 from src.services.section_generator import MedicalSectionGenerator
 from src.services.notegen_api_service import NotegenAPIService
 from src.templates.prompts import PATIENT_INFO_EXTRACTION_PROMPT, PATIENT_INFO_SYSTEM_PROMPT
-
-logger = get_logger(__name__)
-
 
 class PatientInfoService:
     """
@@ -48,8 +45,9 @@ class PatientInfoService:
         encounter_transcript: list,
         language: str,
         clinic_id: str,
-        medical_logger: Optional[MedicalProcessingLogger] = None,
-        langfuse_handler: Optional[Any] = None
+        medical_logger: Optional[Any] = None,
+        langfuse_handler: Optional[Any] = None,
+        logger: Optional[Any] = None
     ) -> Dict[str, Any]:
         """
         Extract patient information and send to NoteGen API backend.
@@ -66,7 +64,7 @@ class PatientInfoService:
         """
         try:
             if medical_logger:
-                medical_logger.log("Starting patient information extraction", "INFO")
+                medical_logger.info("Starting patient information extraction")
             
             # Convert transcript to text for LLM processing
             transcript_text = self._format_transcript_for_extraction(encounter_transcript)
@@ -87,11 +85,8 @@ class PatientInfoService:
             patient_info["recordingConsentChunkId"] = consent_chunk_id
             
             if medical_logger:
-                medical_logger.log(
-                    "Patient information extracted successfully",
-                    "INFO",
-                    details={"extracted_fields": list(patient_info.keys())}
-                )
+                details={"extracted_fields": list(patient_info.keys())}
+                medical_logger.info(f"Patient information extracted successfully, details={details}")
             
             # Send to NoteGen API backend
             api_response = await self._send_patient_info_to_api(
@@ -107,7 +102,7 @@ class PatientInfoService:
         except Exception as e:
             error_msg = f"Failed to extract patient information: {str(e)}"
             if medical_logger:
-                medical_logger.log(error_msg, "ERROR")
+                medical_logger.error(error_msg)
             
             return {
                 "success": False,
@@ -126,7 +121,7 @@ class PatientInfoService:
         self,
         transcript_text: str,
         language: str,
-        medical_logger: Optional[MedicalProcessingLogger] = None,
+        medical_logger: Optional[Any] = None,
         langfuse_handler: Optional[Any] = None,
         encounter_id: Optional[str] = None
     ) -> Dict[str, Any]:
@@ -144,15 +139,12 @@ class PatientInfoService:
         # Use the section generator's LLM with Langfuse tracing
         try:
             if medical_logger:
-                medical_logger.log(
-                    "Starting LLM call for patient info extraction",
-                    "DEBUG",
-                    details={
+                details={
                         "language": language,
                         "transcript_length": len(transcript_text),
                         "encounter_id": encounter_id
                     }
-                )
+                medical_logger.info(f"Starting LLM call for patient info extraction, details={details}")
             
             messages = [
                 SystemMessage(content=system_prompt),
@@ -184,27 +176,24 @@ class PatientInfoService:
             patient_info.pop("recordingConsent", None)
             
             if medical_logger:
-                medical_logger.log(
-                    "LLM extraction completed successfully",
-                    "INFO",
-                    details={
+                details={
                         "response_length": len(response_text),
                         "extracted_fields": list(patient_info.keys()),
                         "encounter_id": encounter_id,
                         "language": language
                     }
-                )
+                medical_logger.info(f"LLM extraction completed successfully, details={details}")
             
             return patient_info
             
         except json.JSONDecodeError as e:
             if medical_logger:
-                medical_logger.log(f"JSON parsing error: {str(e)}", "ERROR")
+                medical_logger.error(f"JSON parsing error: {str(e)}")
             raise ValueError(f"Invalid JSON response from LLM: {str(e)}")
         
         except Exception as e:
             if medical_logger:
-                medical_logger.log(f"LLM extraction error: {str(e)}", "ERROR")
+                medical_logger.error(f"LLM extraction error: {str(e)}")
             raise
     
     async def _send_patient_info_to_api(
@@ -212,7 +201,7 @@ class PatientInfoService:
         encounter_id: str,
         patient_info: Dict[str, Any],
         clinic_id: str,
-        medical_logger: Optional[MedicalProcessingLogger] = None
+        medical_logger: Optional[Any] = None
     ) -> Dict[str, Any]:
         """Send patient information to NoteGen API backend."""
         
@@ -227,10 +216,7 @@ class PatientInfoService:
         }
         
         if medical_logger:
-            medical_logger.log(
-                "Sending patient info to NestJS backend endpoint",
-                "INFO",
-                details={
+            details={
                     "encounter_id": encounter_id,
                     "clinic_id": clinic_id,
                     "endpoint": "internal/encounters/patient",
@@ -239,7 +225,7 @@ class PatientInfoService:
                     "headers": headers,
                     "payload_fields": list(patient_info.keys())
                 }
-            )
+            medical_logger.info(f"Sending patient info to NestJS backend endpoint, details={details}")
         
         try:
             response = await self.notegen_api._client.post(
@@ -252,17 +238,14 @@ class PatientInfoService:
                 response_data = response.json() if response.content else {}
                 
                 if medical_logger:
-                    medical_logger.log(
-                        "Successfully sent patient info to NestJS backend",
-                        "INFO",
-                        details={
+                    details={
                             "status_code": response.status_code,
                             "endpoint": "internal/encounters/patient-extracted",
                             "encounter_id": encounter_id,
                             "response_size": len(str(response_data)) if response_data else 0,
                             "clinic_id": clinic_id
                         }
-                    )
+                    medical_logger.info(f"Successfully sent patient info to NestJS backend details={details}")
                 
                 return {
                     "success": True,
@@ -272,17 +255,14 @@ class PatientInfoService:
             else:
                 error_msg = f"NestJS API returned status {response.status_code}: {response.text}"
                 if medical_logger:
-                    medical_logger.log(
-                        f"NestJS API error: {error_msg}",
-                        "ERROR",
-                        details={
+                    details={
                             "status_code": response.status_code,
                             "endpoint": "internal/encounters/patient-extracted",
                             "encounter_id": encounter_id,
                             "clinic_id": clinic_id,
                             "response_text": response.text[:500]  # Limit response text length
                         }
-                    )
+                    medical_logger.error(f"NestJS API error: {error_msg}, details={details}")
                 
                 return {
                     "success": False,
@@ -292,7 +272,7 @@ class PatientInfoService:
         except Exception as e:
             error_msg = f"Failed to send patient info: {str(e)}"
             if medical_logger:
-                medical_logger.log(error_msg, "ERROR")
+                medical_logger.error(error_msg)
             
             return {
                 "success": False,
