@@ -20,12 +20,11 @@ try:
 except ImportError:
     pass  # dotenv not available, use system environment
 
-from src.core.config import settings
-# from src.core.logging import setup_logging, get_logger
-from src.core.logging import logger 
-from src.api.health import router as health_router
-from src.api.production_api import router as production_router
-from src.api.tenant import router as tenant_router
+from src.core.settings.config import settings
+from src.core.settings.logging import logger 
+from src.modules.system_health_management.router import router as health_router
+from src.modules.notes_management.router import router as production_router
+from src.modules.tenant_management.router import router as tenant_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

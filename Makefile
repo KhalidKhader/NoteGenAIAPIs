@@ -23,6 +23,11 @@ run-example2:
 	curl -X POST http://127.0.0.1:8000/generate-notes -H "Content-Type: application/json" -d @generated_notes/examples/example2.json
 run-example3:
 	curl -X POST http://127.0.0.1:8000/generate-notes -H "Content-Type: application/json" -d @generated_notes/examples/example3.json
+run-example4:
+	curl -X POST http://127.0.0.1:8000/generate-notes -H "Content-Type: application/json" -d @generated_notes/examples/example4.json
+
+run-example5:
+	curl -X POST http://127.0.0.1:8000/generate-notes -H "Content-Type: application/json" -d @generated_notes/examples/example5.json
 
 run-example-prod:
 	curl -X POST http://notegen-ai-api-staging-alb-2046352778.ca-central-1.elb.amazonaws.com/generate-notes -H "Content-Type: application/json" -d @generated_notes/examples/example.json
